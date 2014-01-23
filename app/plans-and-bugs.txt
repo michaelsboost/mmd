@@ -1,0 +1,8 @@
+PLANS:
+- Make designing easier and more user friendly. (Add/Remove divs, images, tables, textbox's, etc:)
+ - Clean code (all mirroring) that has synaptic meaning.
+  - When textbox is checked/input disabled remove mirroring css from code.
+  - Show elements & element groups within library. (This can be accomplished using the Codemirror JS Library)
+  
+BUGS:
+ - All textboxes within select should be disabled when onload.

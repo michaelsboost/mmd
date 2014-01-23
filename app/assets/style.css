@@ -1,0 +1,362 @@
+html, body {
+  padding: 0; margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  position: absolute;
+  top:0; left:0; right:0; bottom:0;
+  overflow: hidden;
+}
+
+/* Toolbox */
+.toolbox {
+  position: absolute;
+  top:0; right:0; bottom:0;
+  width: 300px;
+  background: #333;
+  font: 300 16px/1.5 'museo-sans', 'Open Sans', sans-serif;
+  color: #ccc;
+  z-index:1;
+}
+
+.toggle-options {
+  cursor: pointer;
+  margin:0 0 10px 0;
+  padding: 10px;
+  border:0; outline:none;
+  width: 100%; height: 36px;
+  color: #ddd; background: #444;
+  font: 14px Arial;
+}
+.toggle-options:hover {
+  color: #ddd;
+  background: #555;
+}
+.toggle-options:active {
+  color: #ddd;
+  background: #222;
+}
+.show-options {
+  position: absolute;
+  top:0; left:0; right:0;
+  z-index:1; display:none;
+}
+
+.toolbox label {
+  position:relative;
+  top: -2px;
+}
+
+/* WYSIWYG Content Editor */
+#idive-container, #inactive-menubtns {
+	position: absolute;
+	top:0; left:0; right:300px; height:25px;
+	background:#272625; z-index:1;
+	overflow: hidden;
+}
+
+#inactive-menubtns {
+	position: absolute;
+	left:0; width:100%; height:100%;
+  z-index:2!important; opacity: .9;
+}
+
+#idive { height:50px; overflow-y: hidden; overflow-x: auto; white-space: nowrap; }
+#idive a { margin: 0 5px; color:#ddd; font:15px Arial; text-decoration:none; }
+#idive a:hover { color:#fff; }
+#idive a:active { color:#111; }
+#idive select { outline:none; }
+
+/* Tool Icons */
+.tools {
+  color: #ddd;
+  font: 15px Arial;
+  padding: 10px 0;
+  background: #111;
+}
+.tools a, .large {
+  cursor: pointer;
+  margin: 0 5px;
+  color: #ddd;
+  font: 25px Arial;
+  text-decoration:none;
+  outline:none;
+}
+.tools a:hover, .large:hover { color: #fff; }
+.tools a:active { color: #333; }
+.large:active { color: #111; }
+
+.tabs {
+  position:absolute;
+  top:51px; right:0;
+  width: 100%;
+}
+
+.tabs *, .tabs *:active, .tabs *:focus {
+  border-style: solid;
+  outline: 0;
+}
+
+.tabs *::-moz-focus-inner {
+  outline: 0;
+  border:0;
+}
+
+.tab {
+  display:inline-block;
+  width: 50%;
+  font: 13px Arial;
+  color: #ddd;
+  text-align: center;
+  padding: 10px 0;
+  text-decoration:none;
+  text-transform: uppercase;
+}
+
+.tab-normal {
+  cursor: pointer;
+  background: #333333; /* Old browsers */
+  background: -moz-linear-gradient(top,  #333333 0%, #111111 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#333333), color-stop(100%,#111111)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  #333333 0%,#111111 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  #333333 0%,#111111 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  #333333 0%,#111111 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  #333333 0%,#111111 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#333333', endColorstr='#111111',GradientType=0 ); /* IE6-9 */
+}
+
+.tab-active {
+  cursor: default;
+  background: transparent;
+}
+
+.left, .right {
+  position: absolute;
+  top:0;
+}
+.left { left:0; }
+.right { right:0; }
+.fill { width: 100%; }
+.half { width: 50%; }
+.third { width: 33%; }
+.quarter { width: 25%; }
+.spacer { padding: 5px; }
+
+.select-active, .div-active, .remove-active, .table-active, .edit-active, .menu-active, .drop-active {
+  color: #35a0a0!important;
+}
+
+/* Styles Inside Initatted Inspector & Library Tabs */
+.inspection, .library-sec, .filemenu {
+  position: absolute;
+  top:90px; left:0; right:0; bottom:0;
+  overflow: auto;
+}
+
+.filemenu {
+  background: #333;
+}
+
+.inspector {
+  border-width: 0px 1px 0 0;
+  border-color: transparent #333 transparent transparent;
+}
+
+.library {
+  border-width: 0px 0 0 1px;
+  border-color: transparent transparent transparent #333;
+}
+
+/* Property Containers */
+.drop {
+  cursor: pointer;
+  padding: 0 5px;
+  border-top: 1px solid #151515;
+  border-bottom: 1px solid #151515;
+  background: #252525;
+  color: #999;
+  font: 14px times;
+  text-transform: uppercase;
+}
+
+.drop-section, .section-display {
+  padding: 5px;
+  font: 14px arial;
+}
+
+.toolbox input[type=text], .toolbox input[type=text]:active, .drop-section input[type=text], .drop-section input[type=text]:active {
+  outline: 0;
+  background: #444;
+  border-radius:0;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #1a1a1a #272729 #272729 #272729;
+  font: 15px arial;
+  -webkit-font-smoothing: antialiased;
+  color: #ced;
+}
+
+.toolbox input[type=text]:focus, .drop-section input[type=text]:focus {
+  color: #ccc;
+  background: #222;
+  -webkit-font-smoothing: antialiased;
+}
+
+.toolbox ::-webkit-input-placeholder { /* WebKit browsers */
+    color: #888;
+}
+.toolbox :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #888;
+}
+.toolbox ::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #888;
+}
+.toolbox :-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: #888;
+}
+
+.search {
+  width: 90%;
+  margin: 4px 5px 5px 5px;
+  text-align: center;
+}
+
+.starter-properties a, .select-properties a, .div-properties a, .table-properties a {
+  padding: 5px 10px; outline:none;
+  color: #a9a9a9;
+  background: #444;
+  text-decoration: none;
+}
+
+.solid, .dotted, .dashed, .double, .ridge, .groove, .inset, .outset {
+  border-color: #a9a9a9;
+  border-width: 3px;
+  text-decoration:none;
+}
+
+.none { border-color: #444; border-width: 2px; text-decoration:none; border-style: solid; background: #1c1c1c; }
+.solid { border-style: solid; }
+.dotted { border-style: dotted; }
+.dashed { border-style: dashed; }
+.double { border-style: double; }
+.ridge { border-style: ridge; }
+.groove { border-style: groove; }
+.inset { border-style: inset; }
+.outset { border-style: outset; }
+.border-active { background-color: #1c1c1c!important; }
+.hide { position:absolute!important; top:0!important; left:0!important; width:0!important; height:0!important; opacity:0!important; }
+.scroll { overflow:auto; }
+
+.active-btn {
+  color: #666;
+  background-color: #1f1f21;
+}
+
+.horizontal-bar {
+	display: inline-block;
+  position: relative;
+  padding: 5px 0 10px 0;
+  top: -5px;
+  width: 100%;
+	overflow-x: auto;
+	overflow-y: hidden;
+	white-space: nowrap;
+}
+
+.table-in input[type=text] {
+  width: 100%;
+}
+
+/* Design Area */
+.canves {
+  position: absolute;
+  top:25px; left:0; right: 300px; bottom:0;
+  background: #fff url(img/il-grid-trans.png) top left repeat;
+  /*background: url(img/ps-grid-trans.png) top left repeat;*/
+  
+}
+
+.noselect {
+  -webkit-user-select: none;
+   -khtml-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+       -o-user-select: none;
+          user-select: none;
+}
+
+/* Crosshair */
+#crosshair-h {
+  width: 100%;
+}
+
+#crosshair-v {
+  height: 100%;
+}
+
+.hair {
+  position: fixed;
+  top:0; left:0;
+  margin-top: -1px;
+  margin-left: -1px;
+  background: transparent;
+  border-top: 1px dotted #000;
+  border-left: 1px dotted #000;
+  pointer-events: none;
+  z-index: 1;
+}
+
+#mousepos {
+  position: absolute;
+  top:0; left:0;
+  padding: 10px;
+  margin: 5px;
+  font: 14px arial;
+  color: #000;
+  border-radius: 24px;
+  z-index: 1;
+}
+
+/* Active Crosshair & Mousepos */
+.d1-normal {
+  color: #707070;
+}
+
+.d1-active {
+  color: #ccc;
+}
+
+/* Resize Constructs */
+-moz-focusring[contentEditable='true'] {
+  color: blue;
+  background: blue;
+  border: 1px solid black;
+}
+
+.drag {
+	position: absolute;
+	border: 1px solid #89B;
+	background: #BCE;
+	height: 58px; width: 58px;
+	top: 120px;
+	cursor: move;
+}
+
+.handle {
+	position: absolute;
+	height: 10px; width: 10px;
+	border: 1px solid #89B;
+	background: #9AC; 
+}
+
+.NW, .NN, .NE { top: -4px; }
+.NE, .EE, .SE { right: -4px; }
+.SW, .SS, .SE { bottom: -4px; }
+.NW, .WW, .SW { left: -4px; }
+.SE, .NW { cursor: nw-resize; }
+.SW, .NE { cursor: ne-resize; }
+.NN, .SS { cursor: n-resize; left: 50%; margin-left: -4px; }
+.EE, .WW { cursor: e-resize; top: 50%; margin-top: -4px; }
+.selected { background-color: #ECB; border-color: #B98; }
+.selected .handle { background-color: #CA9; border-color: #B98; }
