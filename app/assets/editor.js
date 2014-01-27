@@ -142,6 +142,12 @@ $(document).ready(function() {
             $('.setmy-typography a').css('backgroundColor', '#444');
             $('.grab-' + fontFamily).css('backgroundColor', '#1c1c1c');
             
+            // Detect Text Align
+            var txtAlign = $(this).css('text-align').toLowerCase().replace(/ /g, '-');
+            $('.grab-align-' + txtAlign).trigger('click');
+            $('.grab-txt-align a').css('backgroundColor', '#444');
+            $('.grab-align-' + txtAlign).css('backgroundColor', '#1c1c1c');
+            
             // Detect BorderStyle
             var borderStyle = $(this).css('border-style').toLowerCase().replace(/ /g, '-');
             $('.set-' + borderStyle).trigger('click');
@@ -197,6 +203,16 @@ $(document).ready(function() {
           $('.grabmy-typography a').css('backgroundColor', '#444');
           $(this).css('backgroundColor', '#1c1c1c');
           $('.grab-font-family').val($(this).text());
+        });
+        
+        // Detect/Set selected elements text align
+        $('.grab-txt-align a').click(function() {
+          $(".editable").css({
+            'text-align': $(this).attr('title')
+          });
+          $('.grab-txt-align a').css('backgroundColor', '#444');
+          $(this).css('backgroundColor', '#1c1c1c');
+          $('.grab-text-align').val($(this).attr('title'));
         });
         
         // Detect/Set selected elements position

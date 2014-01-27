@@ -252,6 +252,13 @@
           
           <div class="drop-section grab-elm-typography">
             <center>
+              
+              <div class="horizontal-bar grab-txt-align"><br>
+                <a class="grab-align-left" href="javascript:void(0)" title="left"><span class='fa fa-align-left'></span></a>
+                <a class="grab-align-center" href="javascript:void(0)" title="center"><span class='fa fa-align-center'></span></a>
+                <a class="grab-align-right" href="javascript:void(0)" title="right"><span class='fa fa-align-right'></span></a>
+              </div>
+              
               <table class="fill">
                 <tr>
                   <td>
@@ -328,7 +335,7 @@
                     <option value="full-width"></option>
                   </datalist></td>
                 </tr>
-                <tr>
+                <tr style="display:none;">
                   <td><input class="enable-text-align" type="checkbox"></td>
                   <td>textAlign:</td>
                   <td><input class="grab-text-align" type="text" list="list-my-text-align-properties">
@@ -617,7 +624,42 @@
 
   <!-- This is the designing area -->
   <div class="container">
-    <div class="canves"></div>
+    <div class="canves"><style type='text/css'>
+.canves { background: #fff; }
+
+.head {
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+	font-family: arial;
+	color: #fff;
+	text-shadow: 0 0 8px rgba(0,0,0,0.2);
+	background: #1e5799; /* Old browsers */
+	background: -moz-linear-gradient(top,  #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(50%,#2989d8), color-stop(51%,#207cca), color-stop(100%,#7db9e8)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=0 ); /* IE6-9 */
+}
+
+.content {
+	font-family: arial;
+	padding: 1em;
+	height: 100%;
+	background: #eee;
+	text-shadow: -1px 1px 2px #fff, 1px 1px 4px #fff;
+}
+</style>
+
+<div class='head'>
+	<h1>Website Name</h1>
+</div>
+
+<div class='content'>
+	Hello world!
+</div></div>
   </div>
   
 <script src="assets/editor.js"></script>
