@@ -67,6 +67,13 @@ $(document).ready(function() {
           $( this ).css( props );
         }, { relative:true });
         
+        // Prevent page scroll
+        $('.canves').on('mousedown touchstart', function(e) {
+          $('.canves').on('mousedown touchstart', function(e) {
+            e.preventDefault();
+          });
+        });
+        
         // Mouse & Touch Event Handlers
         $('.canves *').on('mousedown touchstart', function() {
           if(movediv) {
@@ -527,6 +534,7 @@ $(document).ready(function() {
       mS.y = e.pageY;
       dBox = $("<div class='box' />");
       $(this).append(dBox);
+      e.preventDefault();
     }
     
     if(editable) {
@@ -645,6 +653,7 @@ $(document).ready(function() {
     } else {
       editable = false;
       $('.canves *').attr('contenteditable', false);
+      $('#inactive-menubtns').show();
       return false;
     }
   });
