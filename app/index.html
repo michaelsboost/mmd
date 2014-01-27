@@ -9,7 +9,6 @@
 <link href="assets/import.css" rel="stylesheet" type="text/css">
 <script src="assets/jquery.min.js"></script>
 <script src="assets/jquery-ui.min.js"></script>
-<script src="assets/modernizr-2.6.2.min.js"></script>
 <script src="assets/jquery.event.drag-2.2.js"></script>
 <script src="assets/jquery.event.drag.live-2.2.js"></script>
 <script src="assets/jquery.event.drop-2.2.js"></script>
@@ -43,6 +42,7 @@
           <option value="filemenu">filemenu</option>
         </select>
       </center>
+
     </div>
     
     <div class="tabs">
@@ -117,7 +117,7 @@
                   <span class="find-elm-name"></span>
                 </td>
                 <td>
-                  <input type="text" class="fill findclassname" placeholder="className" />
+                  <input type="text" class="fill findclassname" placeholder="className" disabled />
                 </td>
               </tr>
             </table>
@@ -459,22 +459,11 @@
         </span>
         
         <span class="section-dropper">
-          <header class="drop set-classname classname" title="Class Name">
-            &nbsp; Class Name<br>
-          </header>
-          
           <div class="drop-section">
             <center>
-              <input type="text" class="fill setclassname" value="box" enabled="true" />
+              <textarea id="code" style="width:0; height:0; overflow:hidden; display:none;">Layout save is coming soon... Stay tuned to My Mobile Design's development on Facebook - https://www.facebook.com/pages/My-Mobile-Design/1428613460707260</textarea>
             </center>
           </div>
-          
-          <textarea class="fill" id="my-css" style="height:105px; resize:vertical;"></textarea>
-          
-          <textarea class="hide" id="my-html" style="height:105px; resize:vertical;"></textarea>
-          
-          <textarea class="fill" id="code" style="height:400px; resize:vertical;"></textarea><br><br><br><br><bR>
-          
         </span>
     </div>
       
@@ -627,7 +616,9 @@
 &lt;/html&gt;</div>
 
   <!-- This is the designing area -->
-  <div class="canves"></div>
+  <div class="container">
+    <div class="canves"></div>
+  </div>
   
 <script src="assets/editor.js"></script>
 <script src="assets/ui.js"></script>

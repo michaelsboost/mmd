@@ -268,13 +268,23 @@ body {
   width: 100%;
 }
 
+.drop-section textarea {
+  padding:5px; border:0;
+  width: 95%;
+}
+
 /* Design Area */
-.canves {
+.container {
   position: absolute;
   top:25px; left:0; right: 300px; bottom:0;
   background: #fff url(img/il-grid-trans.png) top left repeat;
-  /*background: url(img/ps-grid-trans.png) top left repeat;*/
-  
+}
+
+.canves {
+  position: absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  overflow: auto;
 }
 
 .noselect {
