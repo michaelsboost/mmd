@@ -216,17 +216,6 @@
           </header>
           
           <div class="drop-section grab-elm-border">
-            <table class="fill table-in">
-              <tr>
-                <td>
-                  <input class="third grab-border-color" type="text" placeholder="color">
-                </td>
-                <td>
-                  <input class="third grab-border-size" type="text" placeholder="size">
-                </td>
-              </tr>
-            </table>
-            
             <center>
               <input class="hide half grab-border-style" type="text">
               <div class="horizontal-bar grab-borders borders"><br>
@@ -240,6 +229,36 @@
                 <a href="javascript:void(0)" class="inset grab-inset" title="inset">&nbsp;</a>
                 <a href="javascript:void(0)" class="outset grab-outset" title="outset">&nbsp;</a>
               </div>
+            </center>
+            
+            <center>
+              <input class="border-size-all" style="width:90%;" type="range"> border-size: <span class="show-border-size-int">100px</span>
+            </center>
+            
+            <b style="float:left;">
+              <div class="apply-border" style="width:100px; height:100px; border:1px solid #666;">
+                <input class="border-top" type="checkbox" style="position:relative; top:0px; left:18px;">
+                <input class="border-bottom" type="checkbox" style="position:relative; top:80px; right:7px;">
+                
+                <input class="border-left" type="checkbox" style="position:relative; top:40px; float:left;">
+                <input class="border-right" type="checkbox" style="position:relative; top:40px;  float:right;">
+              </div>
+            </b>
+            
+            <b style="float:right;">
+              <div class="apply-border-radius" style="width:100px; height:100px; border:1px solid #666; border-radius:10px;">
+                <input class="border-radius-top-left" type="checkbox" style="float:left;">
+                <input class="border-radius-top-right" type="checkbox" style="float:right;">
+                
+                <div style="margin:80px 0 0 0;">
+                  <input class="border-radius-bottom-left" type="checkbox" style="float:left;">
+                  <input class="border-radius-bottom-right" type="checkbox" style="float:right;">
+                </div>
+              </div>
+            </b>
+            
+            <center>
+              <input class="border-radius-all" style="width:90%;" type="range"> border-radius: <span class="show-border-radius">100px</span>
             </center>
           </div>
         </span>

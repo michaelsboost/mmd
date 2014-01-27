@@ -97,7 +97,8 @@ $(document).ready(function() {
             $('.grab-posright').val($(this).css('right'));
             $('.grab-width').val($(this).css('width'));
             $('.grab-height').val($(this).css('height'));
-            $('.grab-bg').val($(this).css('background-color'));
+            $('.grab-bg-url').val($(this).css('background-image'));
+            $('.grab-bg-color').val($(this).css('background-color'));
             $('.grab-border-size').val($(this).css('border-width'));
             $('.grab-border-style').val($(this).css('border-style'));
             $('.grab-border-color').val($(this).css('border-color'));
