@@ -17,11 +17,6 @@ $(document).ready(function() {
   // Hide onload
   $(".hair, #mousepos, .filemenu, .library-sec").hide();
   
-  // Code Mirroring
-  $(function() {
-    
-  });
-  
   // Select Tool
   $('.select-tool').click(function() {
     $(".inspector").trigger('click');
@@ -60,12 +55,12 @@ $(document).ready(function() {
             props.height = Math.max( 32, dd.height - dd.deltaY );
             props.top = dd.originalY + dd.height - props.height;
           }
-          if ( dd.attr.indexOf("drag") > -1 ){
+          if ( dd.attr.indexOf("editable") > -1 ){
             props.top = dd.offsetY;
             props.left = dd.offsetX;
           }
           $( this ).css( props );
-        }, { relative:true });
+        }, {relative:true});
         
         // Prevent page scroll
         $('.canves').on('mousedown touchstart', function(e) {
@@ -75,18 +70,20 @@ $(document).ready(function() {
         });
         
         // Mouse & Touch Event Handlers
+        $('.canves').on('mousedown touchstart', function() {
+          if(movediv) {
+            $('.handle, .NN, .NE, .EE, .SE, .SS, .SW, .WW, .NW').remove();
+          }
+        });
         $('.canves *').on('mousedown touchstart', function() {
           if(movediv) {
-            // Make this draggable & resizable
-            $('.handle, .NN, .NE, .EE, .SE, .SS, .SW, .WW, .NW').remove();
-            $(this).draggable({ snap: ".canves", cancel: ".NN, .NE, .EE, .SE, .SS, .SW, .WW, .NW" });
-            
-            $(this).css('overflow', 'visible');
-            $(this).append('<div class="handle NE"></div> <div class="handle NN"></div> <div class="handle NW"></div> <div class="handle WW"></div> <div class="handle EE"></div> <div class="handle SW"></div> <div class="handle SS"></div> <div class="handle SE"></div>');
-            
             // Add editable class
             $('.canves, .canves *').removeClass('editable')
             $(this).addClass('editable');
+            
+            // Make this draggable & resizable
+            $('.handle, .NN, .NE, .EE, .SE, .SS, .SW, .WW, .NW').remove();
+            $(this).append('<div class="handle NE"></div> <div class="handle NN"></div> <div class="handle NW"></div> <div class="handle WW"></div> <div class="handle EE"></div> <div class="handle SW"></div> <div class="handle SS"></div> <div class="handle SE"></div>');
             
             // First we must detect our selection
             $('.find-elm-name').text(this.nodeName.toLowerCase());
@@ -98,10 +95,14 @@ $(document).ready(function() {
             $('.grab-width').val($(this).css('width'));
             $('.grab-height').val($(this).css('height'));
             $('.grab-bg-url').val($(this).css('background-image'));
+            $('.grab-bg-position').val($(this).css('background-position'));
+            $('.grab-bg-repeat').val($(this).css('background-repeat'));
+            $('.grab-bg-size').val($(this).css('background-size'));
             $('.grab-bg-color').val($(this).css('background-color'));
-            $('.grab-border-size').val($(this).css('border-width'));
-            $('.grab-border-style').val($(this).css('border-style'));
-            $('.grab-border-color').val($(this).css('border-color'));
+            $('.border-size-all').val($(this).css('border-width'));
+            $('.show-border-size-int').text($(this).css('border-width'));
+            $('.border-radius-all').val($(this).css('border-radius'));
+            $('.show-border-radius').text($(this).css('border-radius'));
             $('.grab-font-size').val($(this).css('font-size'));
             $('.grab-font-family').val($(this).css('font-family').toLowerCase());
             $('.grab-font-color').val($(this).css('color'));
@@ -292,8 +293,32 @@ $(document).ready(function() {
           });
         });
         
-        // Set Background Color
-        $('.set-bg').on('keyup change', function() {
+        // Set Background
+        $('.grab-bg-url').on('keyup change', function() {
+          $(".editable").css({
+            'background-image': 'url(' + $(this).val() + ')'
+          });
+        });
+        
+        $('.grab-bg-position').on('keyup change', function() {
+          $(".editable").css({
+            'background-position': $(this).val()
+          });
+        });
+        
+        $('.grab-bg-repeat').on('keyup change', function() {
+          $(".editable").css({
+            'background-repeat': $(this).val()
+          });
+        });
+        
+        $('.grab-bg-size').on('keyup change', function() {
+          $(".editable").css({
+            'background-size': $(this).val()
+          });
+        });
+        
+        $('.grab-bg-color').on('keyup change', function() {
           $(".editable").css({
             'background-color': $(this).val()
           });
@@ -307,18 +332,67 @@ $(document).ready(function() {
           });
         });
         
-        $('.grab-border-size').on('keyup change', function() {
-          $(".editable").css({
-            'border-width': $(this).val()
+        $('.grab-border-color').on('mousedown touchstart', function() {
+          $('.border-color-picker').toggle();
+        }); $('.border-color-picker').hide();
+        
+        $('.grab-border-color').css({ 'background-color': $('#borderc').val(), 'border-color': $('#borderc').val() });
+        
+        $('#bordercpicker .farbtastic, #borderc').on('keyup change mousedown touchstart', function() {
+          $('.editable').css({ 'border-color': $('#borderc').val() });
+          $('.grab-border-color').css({ 'background-color': $('#borderc').val(), 'border-color': $('#borderc').val() });
+          $('#bordercpicker').on('mousemove touchmove', function() {
+            $('.editable').css({ 'border-color': $('#borderc').val() });
+            $('.grab-border-color').css({ 'background-color': $('#borderc').val(), 'border-color': $('#borderc').val() });
           });
         });
         
-        $('.grab-border-color').on('keyup change', function() {
-          $(".editable").css({
-            'border-color': $(this).val()
-          });
+        $('.border-opacity, .grab-border-color').on('change mousedown touchstart', function() {
+          $('.grab-border-color').css('background-color', $('.border-c').val());
+          $('.grab-border-color').css('border-color', $('.border-c').val());
+          $(".editable").css('border-color', $('.border-c').val());
         });
         
+        $('.border-size-all').on('change', function() {
+          $('.show-border-size-int').text($(this).val() + 'px');
+          
+          if($('.border-top').is(':checked')) {
+            $(".editable").css({'border-top-width': $('.show-border-size-int').text()});
+          }
+          
+          if($('.border-right').is(':checked')) {
+            $(".editable").css({'border-right-width': $('.show-border-size-int').text()});
+          }
+          
+          if($('.border-bottom').is(':checked')) {
+            $(".editable").css({'border-bottom-width': $('.show-border-size-int').text()});
+          }
+          
+          if($('.border-left').is(':checked')) {
+            $(".editable").css({'border-left-width': $('.show-border-size-int').text()});
+          }
+        });
+        
+        $('.border-radius-all').on('change', function() {
+          $('.show-border-radius').text($(this).val() + 'px');
+          
+          if($('.border-radius-top-left').is(':checked')) {
+            $(".editable").css({'border-top-left-radius': $('.show-border-radius').text()});
+          }
+          
+          if($('.border-radius-top-right').is(':checked')) {
+            $(".editable").css({'border-top-right-radius': $('.show-border-radius').text()});
+          }
+          
+          if($('.border-radius-bottom-left').is(':checked')) {
+            $(".editable").css({'border-bottom-left-radius': $('.show-border-radius').text()});
+          }
+          
+          if($('.border-radius-bottom-right').is(':checked')) {
+            $(".editable").css({'border-bottom-right-radius': $('.show-border-radius').text()});
+          }
+        });
+            
         // Set font family
         $('.grab-typography a').each(function(){
           $(this).css('font-family', $(this).text());
@@ -561,7 +635,7 @@ $(document).ready(function() {
 
   $('.canves').on('mousemove touchmove', function(e) {
     if(drawing && drawable){
-      var mPos = {x:e.pageX, y:e.pageY - 19};
+      var mPos = {x:e.pageX - 2, y:e.pageY - 28};
       var css = {};
       css.position = 'absolute';
       css.top    = (mPos.y > mS.y) ? mS.y : mPos.y;
@@ -686,14 +760,6 @@ $(document).ready(function() {
       
       $('.dialogs').val('filemenu').trigger('change');
       $('.starter-properties, .canves-properties, .filemenu').show();
-    
-      $('.drop').click(function() {
-        $('.drop-section').hide();
-        $('.drop').css('color', '#666');
-        $(this).next().hide();
-        $(this).css('color', '#999');
-        $(this).next().show();
-      });
       
       // Toggle Crosshair & Mouse Position Display
       $('.crosshair').click(function() {
@@ -803,12 +869,16 @@ $(document).ready(function() {
     
     // Border Styles
     $(function() {
+      // Color Picker
+      $('#bordercpicker').farbtastic('#borderc');
+      
       $('.none').click(function() {
         $('.borders a').removeClass('border-active');
         $('.borders a').css({
           'border-color': '#a9a9a9',
           'background-color': '#444'
         });
+        $('.none').css('border-color', '#444');
         $(this).addClass('border-active');
         $(this).css('border-color', '#1c1c1c');
       });

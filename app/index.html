@@ -7,12 +7,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9" />
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600&subset=latin" rel="stylesheet" type="text/css">
 <link href="assets/import.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="farbtastic.css" type="text/css" />
 <script src="assets/jquery.min.js"></script>
-<script src="assets/jquery-ui.min.js"></script>
 <script src="assets/jquery.event.drag-2.2.js"></script>
 <script src="assets/jquery.event.drag.live-2.2.js"></script>
-<script src="assets/jquery.event.drop-2.2.js"></script>
-<script src="assets/jquery.event.drop.live-2.2.js"></script>
+<script src="farbtastic.js"></script>
 <script src='assets/bootstrap.min.js'></script>
 <script src="assets/jquery.ui.touch-punch.min.js"></script>
 </head>
@@ -197,14 +196,46 @@
           
           <div class="drop-section grab-elm-bg">
             <table class="fill table-in">
-              <tr>
-                <td>
-                  <input class="fill grab-bg-url" type="text" placeholder="image" />
-                </td>
-                <td>
-                  <input class="fill grab-bg-color" type="text" placeholder="color" />
-                </td>
-              </tr>
+                <tr>
+                  <td><input class="enable-bg-img" type="checkbox"></td>
+                  <td>image:</td>
+                  <td><input class="grab-bg-url" type="text"></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>position:</td>
+                  <td><select class="grab-bg-position">
+                    <option value="top left">top left</option>
+                    <option value="top center">top center</option>
+                    <option value="top right">top right</option>
+                    <option value="center left">center left</option>
+                    <option value="center center">center center</option>
+                    <option value="center right">center right</option>
+                    <option value="bottom left">bottom left</option>
+                    <option value="bottom center">bottom center</option>
+                    <option value="bottom right">bottom right</option>
+                  </select></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>repeat:</td>
+                  <td><select class="grab-bg-repeat">
+                    <option value="repeat">repeat</option>
+                    <option value="repeat-x">repeat-x</option>
+                    <option value="repeat-y">repeat-y</option>
+                    <option value="no-repeat">no-repeat</option>
+                  </select></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>size:</td>
+                  <td><input class="grab-bg-size" type="text" value="100%" /></td>
+                </tr>
+                <tr>
+                  <td><input class="enable-bg-color" type="checkbox"></td>
+                  <td>color:</td>
+                  <td><input class="grab-bg-color" type="text"></td>
+                </tr>
             </table>
           </div>
         </span>
@@ -217,8 +248,16 @@
           
           <div class="drop-section grab-elm-border">
             <center>
+              <div class="border-color-picker">
+              <form>
+                <input id="borderc" style="width: 90%; border: 0px none; text-align: center;" value="#000000" type="text" name="hex">
+                <div id="bordercpicker"></div>
+                </form>
+              </div>
+              
               <input class="hide half grab-border-style" type="text">
               <div class="horizontal-bar grab-borders borders"><br>
+                <span class="grab-border-color">&nbsp;</span>
                 <a href="javascript:void(0)" class="none grab-none" title="none"><span style="font: 14px verdana;">X</span></a>
                 <a href="javascript:void(0)" class="solid grab-solid" title="solid">&nbsp;</a>
                 <a href="javascript:void(0)" class="dotted grab-dotted" title="dotted">&nbsp;</a>
@@ -229,9 +268,7 @@
                 <a href="javascript:void(0)" class="inset grab-inset" title="inset">&nbsp;</a>
                 <a href="javascript:void(0)" class="outset grab-outset" title="outset">&nbsp;</a>
               </div>
-            </center>
-            
-            <center>
+              
               <input class="border-size-all" style="width:90%;" type="range"> border-size: <span class="show-border-size-int">100px</span>
             </center>
             
@@ -626,7 +663,7 @@
   </div>
   
   <!-- Mirror the code -->
-  <div class="mirror-code">&lt;!DOCTYPE html&gt;
+  <div class="hide mirror-code">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
 &lt;title&gt;<span class="mirror-title"></span>&lt;/title&gt;
@@ -643,41 +680,19 @@
 
   <!-- This is the designing area -->
   <div class="container">
-    <div class="canves"><style type='text/css'>
-.canves { background: #fff; }
-
-.head {
-	display: inline-block;
-	width: 100%;
-	text-align: center;
-	font-family: arial;
-	color: #fff;
-	text-shadow: 0 0 8px rgba(0,0,0,0.2);
-	background: #1e5799; /* Old browsers */
-	background: -moz-linear-gradient(top,  #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(50%,#2989d8), color-stop(51%,#207cca), color-stop(100%,#7db9e8)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* IE10+ */
-	background: linear-gradient(to bottom,  #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=0 ); /* IE6-9 */
-}
-
-.content {
-	font-family: arial;
-	padding: 1em;
-	height: 100%;
-	background: #eee;
-	text-shadow: -1px 1px 2px #fff, 1px 1px 4px #fff;
-}
-</style>
-
-<div class='head'>
-	<h1>Website Name</h1>
+    <div class="canves">
+<div class='head' style="position: absolute; top:0; left:0; height:78px; right:0; background: #eee; text-align: center; font: 32px arial; color: #fff; line-height: 2.3em; text-shadow: 0 0 8px rgba(0,0,0,0.2); background: #1e5799; /* Old browsers */ background: -moz-linear-gradient(top,  #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%); /* FF3.6+ */ background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(50%,#2989d8), color-stop(51%,#207cca), color-stop(100%,#7db9e8)); /* Chrome,Safari4+ */ background: -webkit-linear-gradient(top,  #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* Chrome10+,Safari5.1+ */ background: -o-linear-gradient(top,  #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* Opera 11.10+ */ background: -ms-linear-gradient(top,  #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* IE10+ */ background: linear-gradient(to bottom,  #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* W3C */ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=0 ); /* IE6-9 */">
+  <strong>Website Name</strong>
 </div>
 
-<div class='content'>
-	Hello world!
+<div class='content' style='position: absolute; top: 76px; left:0; bottom:0; right:0; padding: 1em; overflow: auto; background: #eee; font: 14px arial; text-shadow: -1px 1px 2px #fff, 1px 1px 4px #fff;'>
+	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor. Praesent et diam eget libero egestas mattis sit amet vitae augue. Nam tincidunt congue enim, ut porta lorem lacinia consectetur. Donec ut libero sed arcu vehicula ultricies a non tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut gravida lorem. Ut turpis felis, pulvinar a semper sed, adipiscing id dolor. Pellentesque auctor nisi id magna consequat sagittis. Curabitur dapibus enim sit amet elit pharetra tincidunt feugiat nisl imperdiet. Ut convallis libero in urna ultrices accumsan. Donec sed odio eros. Donec viverra mi quis quam pulvinar at malesuada arcu rhoncus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In rutrum accumsan ultricies. Mauris vitae nisi at sem facilisis semper ac in est.<br><br>
+
+Vivamus fermentum semper porta. Nunc diam velit, adipiscing ut tristique vitae, sagittis vel odio. Maecenas convallis ullamcorper ultricies. Curabitur ornare, ligula semper consectetur sagittis, nisi diam iaculis velit, id fringilla sem nunc vel mi. Nam dictum, odio nec pretium volutpat, arcu ante placerat erat, non tristique elit urna et turpis. Quisque mi metus, ornare sit amet fermentum et, tincidunt et orci. Fusce eget orci a orci congue vestibulum. Ut dolor diam, elementum et vestibulum eu, porttitor vel elit. Curabitur venenatis pulvinar tellus gravida ornare. Sed et erat faucibus nunc euismod ultricies ut id justo. Nullam cursus suscipit nisi, et ultrices justo sodales nec. Fusce venenatis facilisis lectus ac semper. Aliquam at massa ipsum. Quisque bibendum purus convallis nulla ultrices ultricies. Nullam aliquam, mi eu aliquam tincidunt, purus velit laoreet tortor, viverra pretium nisi quam vitae mi. Fusce vel volutpat elit. Nam sagittis nisi dui.<br><br>
+
+Suspendisse lectus leo, consectetur in tempor sit amet, placerat quis neque. Etiam luctus porttitor lorem, sed suscipit est rutrum non. Curabitur lobortis nisl a enim congue semper. Aenean commodo ultrices imperdiet. Vestibulum ut justo vel sapien venenatis tincidunt. Phasellus eget dolor sit amet ipsum dapibus condimentum vitae quis lectus. Aliquam ut massa in turpis dapibus convallis. Praesent elit lacus, vestibulum at malesuada et, ornare et est. Ut augue nunc, sodales ut euismod non, adipiscing vitae orci. Mauris ut placerat justo. Mauris in ultricies enim. Quisque nec est eleifend nulla ultrices egestas quis ut quam. Donec sollicitudin lectus a mauris pulvinar id aliquam urna cursus. Cras quis ligula sem, vel elementum mi. Phasellus non ullamcorper urna.<br><br>
+
+Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In euismod ultrices facilisis. Vestibulum porta sapien adipiscing augue congue id pretium lectus molestie. Proin quis dictum nisl. Morbi id quam sapien, sed vestibulum sem. Duis elementum rutrum mauris sed convallis. Proin vestibulum magna mi. Aenean tristique hendrerit magna, ac facilisis nulla hendrerit ut. Sed non tortor sodales quam auctor elementum. Donec hendrerit nunc eget elit pharetra pulvinar. Suspendisse id tempus tortor. Aenean luctus, elit commodo laoreet commodo, justo nisi consequat massa, sed vulputate quam urna quis eros. Donec vel.
 </div></div>
   </div>
   

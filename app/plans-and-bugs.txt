@@ -5,5 +5,4 @@ PLANS:
   - show elements element groups within library (act like photoshop layers. name will be class names and/or elements | This can be accomplished using Codemirror)
 
 BUGS:
-- edit tool currently doesn't add text.
-
+- edit tool becomes inactive once select tool is active. THIS HAS TO BE FIXED!

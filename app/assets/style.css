@@ -235,6 +235,7 @@ body {
   text-decoration:none;
 }
 
+.grab-border-color { cursor: pointer; border-color: #000; border-width: 2px; padding: 5px 10px; border-style: solid; background: #000; margin:0; }
 .none { border-color: #444; border-width: 2px; text-decoration:none; border-style: solid; background: #1c1c1c; }
 .solid { border-style: solid; }
 .dotted { border-style: dotted; }
