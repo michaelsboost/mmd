@@ -7,18 +7,17 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9" />
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600&subset=latin" rel="stylesheet" type="text/css">
 <link href="assets/import.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="farbtastic.css" type="text/css" />
 <script src="assets/jquery.min.js"></script>
+<script src="assets/jquery-ui.min.js"></script>
 <script src="assets/jquery.event.drag-2.2.js"></script>
 <script src="assets/jquery.event.drag.live-2.2.js"></script>
+<script src="assets/jquery.event.drop-2.2.js"></script>
+<script src="assets/jquery.event.drop.live-2.2.js"></script>
 <script src="farbtastic.js"></script>
 <script src='assets/bootstrap.min.js'></script>
 <script src="assets/jquery.ui.touch-punch.min.js"></script>
 </head>
 <body>
-  <div id="crosshair-h" class="hair"></div>
-  <div id="crosshair-v" class="hair"></div>
-  <span id="mousepos">X: 0px, Y: 0px</span>
   <button class="toggle-options show-options">Show Options</button>
   
   <div class="toolbox">
@@ -141,13 +140,13 @@
               <table class="fill table-in">
                 <tr>
                   <td>
-                    Top:
+                    <input class="int-postop" type="checkbox" />
                   </td>
                   <td>
                     <input type="text" class="grab-postop postop quarter" placeholder="Top" />
                   </td>
                   <td>
-                    Left:
+                    <input class="int-posleft" type="checkbox" />
                   </td>
                   <td>
                     <input type="text" class="grab-posleft posleft quarter" placeholder="Left" />
@@ -155,13 +154,13 @@
                 </tr>
                 <tr>
                   <td>
-                    Bottom:
+                    <input class="int-posbottom" type="checkbox" />
                   </td>
                   <td>
                     <input type="text" class="grab-posbottom posbottom quarter" placeholder="Bottom" />
                   </td>
                   <td>
-                    Right:
+                    <input class="int-posright" type="checkbox" />
                   </td>
                   <td>
                     <input type="text" class="grab-posright posright quarter" placeholder="Right" />
@@ -567,17 +566,6 @@
           <center>
             <span class="save large" title="Save to disk" onclick="saveTextAsFile()"><span class='fa fa-download'></span></span>
           </center>
-        </div>
-      </div>
-      
-      <div class="section-dropper">
-        <header class="drop canves-title" title="Custom">
-          &nbsp; Custom<br>
-        </header>
-        
-        <div class="drop-section" style="cursor:default;">
-          <span class='fa fa-circle-o d1-normal crosshair'> Crosshair</span><br>
-          <span class='fa fa-circle-o d1-normal showmousepos'> Show mouse position</span>
         </div>
       </div>
     </div>

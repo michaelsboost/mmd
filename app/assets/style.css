@@ -66,7 +66,7 @@ body {
 #idive a { margin: 0 5px; color:#ddd; font:15px Arial; text-decoration:none; }
 #idive a:hover { color:#fff; }
 #idive a:active { color:#111; }
-#idive select { outline:none; }
+#idive *:active, #idive *:focus { outline:none; }
 
 /* Tool Icons */
 .tools {
@@ -295,47 +295,6 @@ body {
       -ms-user-select: none;
        -o-user-select: none;
           user-select: none;
-}
-
-/* Crosshair */
-#crosshair-h {
-  width: 100%;
-}
-
-#crosshair-v {
-  height: 100%;
-}
-
-.hair {
-  position: fixed;
-  top:0; left:0;
-  margin-top: -1px;
-  margin-left: -1px;
-  background: transparent;
-  border-top: 1px dotted #000;
-  border-left: 1px dotted #000;
-  pointer-events: none;
-  z-index: 1;
-}
-
-#mousepos {
-  position: absolute;
-  top:0; left:0;
-  padding: 10px;
-  margin: 5px;
-  font: 14px arial;
-  color: #000;
-  border-radius: 24px;
-  z-index: 1;
-}
-
-/* Active Crosshair & Mousepos */
-.d1-normal {
-  color: #707070;
-}
-
-.d1-active {
-  color: #ccc;
 }
 
 /* Resize Constructs */
