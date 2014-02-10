@@ -34,34 +34,6 @@ $(document).ready(function() {
       }
       
       if(movediv) {
-        $('.canves *').drag("start",function( ev, dd ){
-          dd.attr = $( ev.target ).prop("className");
-          dd.width = $( this ).width();
-          dd.height = $( this ).height();
-        })
-        .drag(function( ev, dd ){
-          var props = {};
-          if ( dd.attr.indexOf("E") > -1 ){
-            props.width = Math.max( 32, dd.width + dd.deltaX );
-          }
-          if ( dd.attr.indexOf("S") > -1 ){
-            props.height = Math.max( 32, dd.height + dd.deltaY );
-          }
-          if ( dd.attr.indexOf("W") > -1 ){
-            props.width = Math.max( 32, dd.width - dd.deltaX );
-            props.left = dd.originalX + dd.width - props.width;
-          }
-          if ( dd.attr.indexOf("N") > -1 ){
-            props.height = Math.max( 32, dd.height - dd.deltaY );
-            props.top = dd.originalY + dd.height - props.height;
-          }
-          if ( dd.attr.indexOf("moveable") > -1 ){
-            props.top = dd.offsetY;
-            props.left = dd.offsetX;
-          }
-          $('.moveable').css( props );
-        }, {relative:true});
-        
         // Mouse & Touch Event Handlers
         $('.canves').on('mousedown touchstart', function(e) {
           $('.handle, .NN, .NE, .EE, .SE, .SS, .SW, .WW, .NW').remove();
@@ -73,9 +45,8 @@ $(document).ready(function() {
         $('.canves *').on('mousedown touchstart', function() {
           if(movediv) {
             // Add moveable class
-            $('.handle, .NN, .NE, .EE, .SE, .SS, .SW, .WW, .NW').remove();
             $('.canves, .canves *').removeClass('moveable')
-            $(this).addClass('moveable').append('<div class="handle NE"></div> <div class="handle NN"></div> <div class="handle NW"></div> <div class="handle WW"></div> <div class="handle EE"></div> <div class="handle SW"></div> <div class="handle SS"></div> <div class="handle SE"></div>');
+            $(this).addClass('moveable');
             
             // First we must detect our selection
             $('.find-elm-name').text(this.nodeName.toLowerCase());
@@ -579,7 +550,6 @@ $(document).ready(function() {
       
     } else {
       movediv = false;
-      $('.handle, .NN, .NE, .EE, .SE, .SS, .SW, .WW, .NW').remove();
       $('.canves, .canves *').removeClass('moveable');
       return false;
     }
@@ -707,11 +677,11 @@ $(document).ready(function() {
       });
       
       $('#idive a#txtcolor').click(function(e) {
-        document.execCommand('ForeColor',false,$('#elm-color').val());
+        document.execCommand('ForeColor',false,prompt('Define a basic color or apply a hexadecimal color code for advanced colors:', ''));
       });
       
       $('#idive a#backcolor').click(function(e) {
-        document.execCommand('BackColor',false,$('#elm-bgcolor').val());
+        document.execCommand('BackColor',false,prompt('Define a basic color or apply a hexadecimal color code for advanced colors:', ''));
       });
       
       $('#idive select#elm-txt-align').on('click change', function(e) {
@@ -723,9 +693,9 @@ $(document).ready(function() {
       });
       
       if(editable) {
-        $('.canves *').addClass('editable').on('mousedown touchstart', function() {
+        $('.canves *').on('mousedown touchstart', function() {
           if(editable) {
-            $('.editable').attr('contenteditable', true);
+            $(this).attr('contenteditable', true);
           }
         });
       }
