@@ -44,9 +44,9 @@ $(document).ready(function() {
         
         $('.canves *').on('mousedown touchstart', function() {
           if(movediv) {
-            // Add moveable class
-            $('.canves, .canves *').removeClass('moveable')
-            $(this).addClass('moveable');
+            // Add editable class
+            $('.canves, .canves *').removeClass('editable')
+            $(this).addClass('editable');
             
             // First we must detect our selection
             $('.find-elm-name').text(this.nodeName.toLowerCase());
@@ -164,7 +164,7 @@ $(document).ready(function() {
         
         // Detect/Set selected elements font family
         $('.grabmy-typography a').click(function() {
-          $(".moveable").css({
+          $(".editable").css({
             'font-family': $(this).text()
           });
           $('.grabmy-typography a').css('backgroundColor', '#444');
@@ -174,7 +174,7 @@ $(document).ready(function() {
         
         // Detect/Set selected elements text align
         $('.grab-txt-align a').click(function() {
-          $(".moveable").css({
+          $(".editable").css({
             'text-align': $(this).attr('title')
           });
           $('.grab-txt-align a').css('backgroundColor', '#444');
@@ -213,7 +213,7 @@ $(document).ready(function() {
         
         // Set position
         $('.grab-elm-pos a').click(function() {
-          $(".moveable").css({
+          $(".editable").css({
             'position': $(this).attr('title')
           });
           $('.grab-elm-pos a').css('backgroundColor', '#444');
@@ -222,69 +222,69 @@ $(document).ready(function() {
         });
         
         $('.grab-postop').on('keyup change', function() {
-          $(".moveable").css({
+          $(".editable").css({
             'top': $(this).val()
           });
         });
         
         $('.grab-posleft').on('keyup change', function() {
-          $(".moveable").css({
+          $(".editable").css({
             'left': $(this).val()
           });
         });
         
         $('.grab-posbottom').on('keyup change', function() {
-          $(".moveable").css({
+          $(".editable").css({
             'bottom': $(this).val()
           });
         });
         
         $('.grab-posright').on('keyup change', function() {
-          $(".moveable").css({
+          $(".editable").css({
             'right': $(this).val()
           });
         });
         
         // Set width & height
         $('.grab-width').on('keyup change', function() {
-          $(".moveable").css({
+          $(".editable").css({
             'width': $(this).val()
           });
         });
         
         $('.grab-height').on('keyup change', function() {
-          $(".moveable").css({
+          $(".editable").css({
             'height': $(this).val()
           });
         });
         
         // Set Background
         $('.grab-bg-url').on('keyup change', function() {
-          $(".moveable").css({
+          $(".editable").css({
             'background-image': 'url(' + $(this).val() + ')'
           });
         });
         
         $('.grab-bg-position').on('keyup change', function() {
-          $(".moveable").css({
+          $(".editable").css({
             'background-position': $(this).val()
           });
         });
         
         $('.grab-bg-repeat').on('keyup change', function() {
-          $(".moveable").css({
+          $(".editable").css({
             'background-repeat': $(this).val()
           });
         });
         
         $('.grab-bg-size').on('keyup change', function() {
-          $(".moveable").css({
+          $(".editable").css({
             'background-size': $(this).val()
           });
         });
         
         $('.grab-bg-color').on('keyup change', function() {
-          $(".moveable").css({
+          $(".editable").css({
             'background-color': $(this).val()
           });
         });
@@ -292,7 +292,7 @@ $(document).ready(function() {
         // Set border
         $('.grab-none, .grab-solid, .grab-dotted, .grab-dashed, .grab-double, .grab-ridge, .grab-groove, .grab-inset, .grab-outset').on('click', function() {
           $('.grab-border-style').val($(this).attr('title'))
-          $(".moveable").css({
+          $(".editable").css({
             'border-style': $('.grab-border-style').val()
           });
         });
@@ -303,38 +303,34 @@ $(document).ready(function() {
         
         $('.grab-border-color').css({ 'background-color': $('#borderc').val(), 'border-color': $('#borderc').val() });
         
-        $('#bordercpicker .farbtastic, #borderc').on('keyup change mousedown touchstart', function() {
-          $('.moveable').css({ 'border-color': $('#borderc').val() });
-          $('.grab-border-color').css({ 'background-color': $('#borderc').val(), 'border-color': $('#borderc').val() });
-          $('#bordercpicker').on('mousemove touchmove', function() {
-            $('.moveable').css({ 'border-color': $('#borderc').val() });
-            $('.grab-border-color').css({ 'background-color': $('#borderc').val(), 'border-color': $('#borderc').val() });
-          });
-        });
-        
-        $('.border-opacity, .grab-border-color').on('change mousedown touchstart', function() {
+        $('#bordercpicker .farbtastic, #borderc, .border-opacity, .grab-border-color').on('keyup change mousedown touchstart', function() {
+          $('.editable').css({ 'border-color': $('#borderc').val() });
           $('.grab-border-color').css('background-color', $('.border-c').val());
           $('.grab-border-color').css('border-color', $('.border-c').val());
-          $(".moveable").css('border-color', $('.border-c').val());
+          $('#bordercpicker .farbtastic, #borderc, .border-opacity, .grab-border-color').on('change mousemove touchmove', function() {
+            $('.editable').css({ 'border-color': $('#borderc').val() });
+            $('.grab-border-color').css('background-color', $('.border-c').val());
+            $('.grab-border-color').css('border-color', $('.border-c').val());
+          });
         });
-        
+                
         $('.border-size-all').on('change', function() {
           $('.show-border-size-int').text($(this).val() + 'px');
           
           if($('.border-top').is(':checked')) {
-            $(".moveable").css({'border-top-width': $('.show-border-size-int').text()});
+            $(".editable").css({'border-top-width': $('.show-border-size-int').text()});
           }
           
           if($('.border-right').is(':checked')) {
-            $(".moveable").css({'border-right-width': $('.show-border-size-int').text()});
+            $(".editable").css({'border-right-width': $('.show-border-size-int').text()});
           }
           
           if($('.border-bottom').is(':checked')) {
-            $(".moveable").css({'border-bottom-width': $('.show-border-size-int').text()});
+            $(".editable").css({'border-bottom-width': $('.show-border-size-int').text()});
           }
           
           if($('.border-left').is(':checked')) {
-            $(".moveable").css({'border-left-width': $('.show-border-size-int').text()});
+            $(".editable").css({'border-left-width': $('.show-border-size-int').text()});
           }
         });
         
@@ -342,19 +338,19 @@ $(document).ready(function() {
           $('.show-border-radius').text($(this).val() + 'px');
           
           if($('.border-radius-top-left').is(':checked')) {
-            $(".moveable").css({'border-top-left-radius': $('.show-border-radius').text()});
+            $(".editable").css({'border-top-left-radius': $('.show-border-radius').text()});
           }
           
           if($('.border-radius-top-right').is(':checked')) {
-            $(".moveable").css({'border-top-right-radius': $('.show-border-radius').text()});
+            $(".editable").css({'border-top-right-radius': $('.show-border-radius').text()});
           }
           
           if($('.border-radius-bottom-left').is(':checked')) {
-            $(".moveable").css({'border-bottom-left-radius': $('.show-border-radius').text()});
+            $(".editable").css({'border-bottom-left-radius': $('.show-border-radius').text()});
           }
           
           if($('.border-radius-bottom-right').is(':checked')) {
-            $(".moveable").css({'border-bottom-right-radius': $('.show-border-radius').text()});
+            $(".editable").css({'border-bottom-right-radius': $('.show-border-radius').text()});
           }
         });
             
@@ -364,19 +360,19 @@ $(document).ready(function() {
         });
         
         $('.grab-font-size').on('keyup change', function() {
-          $(".moveable").css({
+          $(".editable").css({
             'font-size': $(this).val()
           });
         });
         
         $('.grab-font-family').on('keyup change', function() {
-          $(".moveable").css({
+          $(".editable").css({
             'font-family': $(this).val()
           });
         });
         
         $('.grab-font-color').on('keyup change', function() {
-          $(".moveable").css({
+          $(".editable").css({
             'color': $(this).val()
           });
         });
@@ -387,7 +383,7 @@ $(document).ready(function() {
         });
         
         $('.grab-line-height').on('keyup change', function() {
-          $(".moveable").css({
+          $(".editable").css({
             'line-height': $(this).val()
           });
         });
@@ -398,7 +394,7 @@ $(document).ready(function() {
         });
         
         $('.grab-letter-spacing').on('keyup change', function() {
-          $(".moveable").css({
+          $(".editable").css({
             'letter-spacing': $(this).val()
           });
         });
@@ -409,7 +405,7 @@ $(document).ready(function() {
         });
         
         $('.grab-word-spacing').on('keyup change', function() {
-          $(".moveable").css({
+          $(".editable").css({
             'word-spacing': $(this).val()
           });
         });
@@ -420,7 +416,7 @@ $(document).ready(function() {
         });
         
         $('.grab-text-transform').on('keyup change', function() {
-          $(".moveable").css({
+          $(".editable").css({
             'text-transform': $(this).val()
           });
         });
@@ -431,7 +427,7 @@ $(document).ready(function() {
         });
         
         $('.grab-text-align').on('keyup change', function() {
-          $(".moveable").css({
+          $(".editable").css({
             'text-align': $(this).val()
           });
         });
@@ -442,7 +438,7 @@ $(document).ready(function() {
         });
         
         $('.grab-word-wrap').on('keyup change', function() {
-          $(".moveable").css({
+          $(".editable").css({
             'word-wrap': $(this).val()
           });
         });
@@ -453,7 +449,7 @@ $(document).ready(function() {
         });
         
         $('.grab-white-space').on('keyup change', function() {
-          $(".moveable").css({
+          $(".editable").css({
             'white-space': $(this).val()
           });
         });
@@ -465,7 +461,7 @@ $(document).ready(function() {
         });
 
         $('.grab-display').on('keyup change', function() {
-          $(".moveable").css({
+          $(".editable").css({
             'display': $(this).val()
           });
         });
@@ -476,7 +472,7 @@ $(document).ready(function() {
         });
 
         $('.grab-padding').on('keyup change', function() {
-          $(".moveable").css({
+          $(".editable").css({
             'padding': $(this).val()
           });
         });
@@ -487,7 +483,7 @@ $(document).ready(function() {
         });
         
         $('.grab-margin').on('keyup change', function() {
-          $(".moveable").css({
+          $(".editable").css({
             'margin': $(this).val()
           });
         });
@@ -498,7 +494,7 @@ $(document).ready(function() {
         });
         
         $('.grab-opacity').on('keyup change', function() {
-          $(".moveable").css({
+          $(".editable").css({
             'opacity': $(this).val()
           });
         });
@@ -509,7 +505,7 @@ $(document).ready(function() {
         });
         
         $('.grab-overflow').on('keyup change', function() {
-          $(".moveable").css({
+          $(".editable").css({
             'overflow': $(this).val()
           });
         });
@@ -520,7 +516,7 @@ $(document).ready(function() {
         });
         
         $('.grab-transition').on('keyup change', function() {
-          $(".moveable").css({
+          $(".editable").css({
             'transition': $(this).val()
           });
         });
@@ -531,7 +527,7 @@ $(document).ready(function() {
         });
         
         $('.grab-transform').on('keyup change', function() {
-          $(".moveable").css({
+          $(".editable").css({
             'transform': $(this).val()
           });
         });
@@ -542,7 +538,7 @@ $(document).ready(function() {
         });
         
         $('.grab-filter').on('keyup change', function() {
-          $(".moveable").css({
+          $(".editable").css({
             'filter': $(this).val()
           });
         });
@@ -550,7 +546,7 @@ $(document).ready(function() {
       
     } else {
       movediv = false;
-      $('.canves, .canves *').removeClass('moveable');
+      $('.canves, .canves *').removeClass('editable');
       return false;
     }
   });
