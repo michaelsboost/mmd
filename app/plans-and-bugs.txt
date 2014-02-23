@@ -2,7 +2,7 @@ PLANS:
 - make designing easier and more user friendly. (add/remove divs, images, tables, textbox's, etc:)
  - clean code (all mirroring) that has synaptic meaning.
   - when textbox is checked/input disabled remove mirroring css from code.
-  - show elements element groups within library (act like photoshop layers. name will be class names and/or elements | This can be accomplished using Codemirror)
+  - show elements element groups within groups (act like photoshop layers. name will be class names and/or elements | This can be accomplished using Codemirror)
 
 BUGS:
 - edit tool becomes inactive once select tool is active. THIS HAS TO BE FIXED!

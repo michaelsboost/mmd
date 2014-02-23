@@ -8,6 +8,11 @@
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600&subset=latin" rel="stylesheet" type="text/css">
 <link href="assets/import.css" rel="stylesheet" type="text/css">
 <script src="assets/jquery.min.js"></script>
+<script src="assets/jquery-ui.min.js"></script>
+<script src="assets/jquery.event.drag-2.2.js"></script>
+<script src="assets/jquery.event.drag.live-2.2.js"></script>
+<script src="assets/jquery.event.drop-2.2.js"></script>
+<script src="assets/jquery.event.drop.live-2.2.js"></script>
 <script src="farbtastic.js"></script>
 <script src='assets/bootstrap.min.js'></script>
 <script src="assets/jquery.ui.touch-punch.min.js"></script>
@@ -19,20 +24,15 @@
     <div class="tools">
       <center>
         <a class="select-tool" title="Select/Move/Resize" href='javascript:void(0);'><span class='fa fa-location-arrow' style="transform: rotate(0deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(180deg) translateX(0px) translateY(0px); -webkit-transform: rotate(0deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(180deg) translateX(0px) translateY(0px); -moz-transform: rotate(0deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(180deg) translateX(0px) translateY(0px); -ms-transform: rotate(0deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(180deg) translateX(0px) translateY(0px); -o-transform: rotate(0deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(180deg) translateX(0px) translateY(0px);"></span></a>
-        <a class="div-tool" title="Add DIV" href='javascript:void(0);'><span class='fa fa-square'></span></a>
+        <a class="draw-tool" title="Add DIV" href='javascript:void(0);'><span class='fa fa-plus'></span></a>
         <a class="table-tool" title="Add Table" href='javascript:void(0);' style="display:none;"><span class='fa fa-table'></span></a>
         <a class="edit-tool" title="Edit Content" href='javascript:void(0);'><span class='fa fa-edit'></span></a>
         <a class="remove-tool" title="Remove Element" href='javascript:void(0);'><span class='fa fa-times'></span></a>
-        <a class="menu" title="Menu" href='javascript:void(0);'><span class='fa fa-bars'></span></a>
+        <a class="save large" title="Save to disk" href="javascript:void(0)" onclick="saveTextAsFile()"><span class='fa fa-download'></span></a>
         <a class="hide-options" title="Hide Options" href='javascript:void(0);'><span class='fa fa-chevron-right'></span></a>
         <select class="dialogs hide">
           <option value="select-properties">select-properties</option>
-          <option value="div-properties">div-properties</option>
-          <option value="table-properties">table-properties</option>
-          <option value="image-properties">image-properties</option>
-          <option value="input-text-properties">input-text-properties</option>
-          <option value="textarea-properties">textarea-properties</option>
-          <option value="filemenu">filemenu</option>
+          <option value="draw-properties">draw-properties</option>
         </select>
       </center>
 
@@ -40,7 +40,7 @@
     
     <div class="tabs">
       <button class="tab tab-active half left inspector">Inspector</button>
-      <button class="tab tab-normal half right library">Library</button>
+      <button class="tab tab-normal half right groups">Groups</button>
     </div>
     
     <div class="inspection">
@@ -70,6 +70,16 @@
                 <td><input type="text" class="cheight fill" value="100%" placeholder="height" /></td>
               </tr>
             </table>
+          </div>
+        </span>
+        
+        <span class="section-dropper">
+          <header class="drop canves-title" title="Import Resources">
+            &nbsp; <span title="canves">Import Resources</span><br />
+          </header>
+          
+          <div class="drop-section">
+            <em>Coming soon...</em>
           </div>
         </span>
       </div>
@@ -446,12 +456,12 @@
                     <option value="run-in"></option>
                     <option value="table"></option>
                     <option value="inline-table"></option>
-                    <option value="table-row-group"></option>
-                    <option value="table-header-group"></option>
-                    <option value="table-footer-group"></option>
-                    <option value="table-footer-group"></option>
+                    <option value="table-row-groups"></option>
+                    <option value="table-header-groups"></option>
+                    <option value="table-footer-groups"></option>
+                    <option value="table-footer-groups"></option>
                     <option value="table-row"></option>
-                    <option value="table-column-group"></option>
+                    <option value="table-column-groups"></option>
                     <option value="table-column"></option>
                     <option value="table-cell"></option>
                     <option value="table-caption"></option>
@@ -505,14 +515,39 @@
         </span>
       </div>
       
-      <div class="div-properties show">
+      <div class="draw-properties show">
         <span class="section-dropper">
-          <center>
-            <input type="text" class="search" list="search-props" placeholder="type save to save" />
-            <datalist id="search-props">
-              <option value="Save"></option>
-            </datalist>
-          </center>
+          <header class="drop grab-tagname" title="Elements">
+            &nbsp; Elements<br>
+          </header>
+          
+          <div class="drop-section">
+            <form class="draw-elements" name='draw-elements'>
+              <input type="radio" value="div" name="elms" checked="true"> Div<br />
+              <input type="radio" value="span" name="elms"> Span<br />
+              <input type="radio" value="form" name="elms"> Form<br />
+              <input type="radio" value="table" name="elms"> Table<br />
+              <input type="radio" value="flash" name="elms"> Flash<br />
+              <input type="radio" value="button" name="elms"> Button<br />
+              <input type="radio" value="img" name="elms"> Image<br />
+              <input type="radio" value="iframe" name="elms"> IFrame<br />
+              <input type="radio" value="textarea" name="elms"> Textarea<br />
+              <input type="radio" value="textbox" name="elms"> Textbox = input[type=text]<br />
+              <input type="radio" value="html5-video" name="elms"> HTML5 Video<br />
+              <input type="radio" value="html5-audio" name="elms"> HTML5 Audio<br />
+              <input type="radio" value="youtube-video" name="elms"> YouTube Video<br />
+            </form>
+          </div>
+        </span>
+        
+        <span class="section-dropper">
+          <header class="drop set-elm-options" title="Options">
+            &nbsp; Options<br>
+          </header>
+          
+          <div class="drop-section">
+            <em>Coming soon...</em>
+          </div>
         </span>
         
         <span class="section-dropper">
@@ -522,46 +557,12 @@
             </center>
           </div>
         </span>
-    </div>
-      
-      <div class="image-properties show">
-        <span class="section-dropper">
-          <center>
-            <input type="text" class="search" list="search-properties" placeholder="Search" />
-          </center>
-        </span>
-        
-        <span class="section-dropper">
-          <header class="drop canves-title" title="Image">
-            <i class='fa fa-circle-o'></i> Image<br>
-          </header>
-          
-          <div class="drop-section">
-            <center>
-                Source <input type="text" class="img-src" />
-            </center>
-          </div>
-        </span>
       </div>
     </div>
     
-    <div class="library-sec">
+    <div class="groups-sec">
       <div class="section-display show">
-        Library/Layers coming soon...
-      </div>
-    </div>
-
-    <div class="filemenu show">
-      <div class="section-dropper">
-        <header class="drop canves-title" title="File">
-          &nbsp; File<br>
-        </header>
-        
-        <div class="drop-section">
-          <center>
-            <span class="save large" title="Save to disk" onclick="saveTextAsFile()"><span class='fa fa-download'></span></span>
-          </center>
-        </div>
+        Groups/Layers coming soon...
       </div>
     </div>
   </div>
@@ -683,3 +684,4 @@ Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
 <script src="assets/ui.js"></script>
 </body>
 </html>
+

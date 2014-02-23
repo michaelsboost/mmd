@@ -143,19 +143,15 @@ body {
 .quarter { width: 25%; }
 .spacer { padding: 5px; }
 
-.select-active, .div-active, .remove-active, .table-active, .edit-active, .menu-active, .drop-active {
+.select-active, .draw-active, .remove-active, .table-active, .edit-active, .drop-active {
   color: #35a0a0!important;
 }
 
-/* Styles Inside Initatted Inspector & Library Tabs */
-.inspection, .library-sec, .filemenu {
+/* Styles Inside Initatted Inspector & Groups Tabs */
+.inspection, .groups-sec {
   position: absolute;
   top:90px; left:0; right:0; bottom:0;
   overflow: auto;
-}
-
-.filemenu {
-  background: #333;
 }
 
 .inspector {
@@ -163,7 +159,7 @@ body {
   border-color: transparent #333 transparent transparent;
 }
 
-.library {
+.groups {
   border-width: 0px 0 0 1px;
   border-color: transparent transparent transparent #333;
 }
@@ -222,7 +218,7 @@ body {
   text-align: center;
 }
 
-.starter-properties a, .select-properties a, .div-properties a, .table-properties a {
+.starter-properties a, .select-properties a, .draw-properties a, .table-properties a {
   padding: 5px 10px; outline:none;
   color: #a9a9a9;
   background: #444;
