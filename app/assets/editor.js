@@ -63,20 +63,24 @@ $(document).ready(function() {
           $('#moveable').css( props );
         }, {relative:true});
         
-        // Mouse & Touch Event Handlers
-        $('.canves').on('mousedown touchstart', function(e) {
-          $('.handle, .NN, .NE, .EE, .SE, .SS, .SW, .WW, .NW').remove();
-          $('.canves').on('mousemove touchmove', function(e) {
-            e.preventDefault();
-          });
-        });
-        
-        $('.canves *').on('mousedown touchstart', function() {
+        $('.canves *').on('mousedown touchstart', function(e) {
           if(movediv) {
+            // Shows selected element's position
+            $('.elmpos').show().css({
+              top: e.pageY + 'px',
+              left: e.pageX + 'px'
+            }, 800).html("T: " + $(this).css('top') + ", L: " + $(this).css('left') + ", B: " + $(this).css('bottom') + ", R: " + $(this).css('right'));
+            
             // Add moveable class
             $('.handle, .NN, .NE, .EE, .SE, .SS, .SW, .WW, .NW').remove();
             $('.canves, .canves *').removeAttr('id')
             $(this).attr('id', 'moveable').append('<div class="handle NE"></div> <div class="handle NN"></div> <div class="handle NW"></div> <div class="handle WW"></div> <div class="handle EE"></div> <div class="handle SW"></div> <div class="handle SS"></div> <div class="handle SE"></div>');
+            $('.canves *').on('mousemove touchmove', function(e) {
+              $('.elmpos').css({
+                top: e.pageY + 'px',
+                left: e.pageX + 'px'
+              }, 800).html("T: " + $(this).css('top') + ", L: " + $(this).css('left') + ", B: " + $(this).css('bottom') + ", R: " + $(this).css('right'));
+            });
             
             // First we must detect our selection
             $('.find-elm-name').text(this.nodeName.toLowerCase());
@@ -157,6 +161,10 @@ $(document).ready(function() {
             $('.set-borders a').css('backgroundColor', '#444');
             $('.set-' + borderStyle).css('backgroundColor', '#1c1c1c');
           }
+        });
+        
+        $('.canves *').on('mouseup touchend', function() {
+          $('.elmpos').hide();
         });
         
         $('.grab-pos-static').css('backgroundColor', '#444');
@@ -620,12 +628,18 @@ $(document).ready(function() {
   });
 
   $('.canves').on('mousedown touchstart', function(e) {
-    if(drawable){
+    if(drawable) {
       drawing = true;
       mS.x = e.pageX;
       mS.y = e.pageY;
       dBox = $("<div class='box' />");
       $(this).append(dBox);
+      
+      // Shows drawn element's size
+      $('.elmsize').show().css({
+        top: e.pageY + 'px',
+        left: e.pageX + 'px'
+      }, 800);
       e.preventDefault();
     }
     
@@ -646,15 +660,14 @@ $(document).ready(function() {
       css.backgroundColor = 'rgba(0, 34, 102, 0.5)';
       css.border = '1px solid #fff';
       dBox.css(css);
-      if ($('.draw-active').is(':visible')) {
-        
-      }
+      $('.elmsize').css({
+        top: e.pageY + 'px',
+        left: e.pageX + 'px'
+      }, 800).html(Math.abs(mPos.x - mS.x) + "px, " + Math.abs(mPos.y - mS.y) + "px");
     }
   }).on('mouseup touchend', function(e) {
     drawing  = false;
-      if ($('.draw-active').is(':visible')) {
-        
-      }
+    $('.elmsize').hide();
   });
 
   // Remove Tool

@@ -326,3 +326,16 @@ body {
 .EE, .WW { cursor: e-resize; top: 50%; margin-top: -4px; }
 .selected { background-color: #ECB; border-color: #B98; }
 .selected .handle { background-color: #CA9; border-color: #B98; }
+
+.elmpos, .elmsize {
+  display:none;
+  position: absolute;
+  top:0; left:0;
+  margin: 15px;
+  padding: 5px 15px;
+  font: 14px arial;
+  border-radius:100em;
+  color: #fff;
+  z-index: 1;
+  background: #278ab4;
+}
