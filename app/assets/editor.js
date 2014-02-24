@@ -35,31 +35,32 @@ $(document).ready(function() {
       
       if(movediv) {
         $('.canves *').drag("start",function( ev, dd ){
-          dd.attr = $( ev.target ).prop("className");
+          dd.attrc = $( ev.target ).prop("className");
+          dd.attrd = $( ev.target ).prop("id");
           dd.width = $( this ).width();
           dd.height = $( this ).height();
         })
         .drag(function( ev, dd ){
           var props = {};
-          if ( dd.attr.indexOf("E") > -1 ){
+          if ( dd.attrc.indexOf("E") > -1 ){
             props.width = Math.max( 32, dd.width + dd.deltaX );
           }
-          if ( dd.attr.indexOf("S") > -1 ){
+          if ( dd.attrc.indexOf("S") > -1 ){
             props.height = Math.max( 32, dd.height + dd.deltaY );
           }
-          if ( dd.attr.indexOf("W") > -1 ){
+          if ( dd.attrc.indexOf("W") > -1 ){
             props.width = Math.max( 32, dd.width - dd.deltaX );
             props.left = dd.originalX + dd.width - props.width;
           }
-          if ( dd.attr.indexOf("N") > -1 ){
+          if ( dd.attrc.indexOf("N") > -1 ){
             props.height = Math.max( 32, dd.height - dd.deltaY );
             props.top = dd.originalY + dd.height - props.height;
           }
-          if ( dd.attr.indexOf("moveable") > -1 ){
+          if ( dd.attrd.indexOf("moveable") > -1 ){
             props.top = dd.offsetY;
             props.left = dd.offsetX;
           }
-          $('.moveable').css( props );
+          $('#moveable').css( props );
         }, {relative:true});
         
         // Mouse & Touch Event Handlers
@@ -74,8 +75,8 @@ $(document).ready(function() {
           if(movediv) {
             // Add moveable class
             $('.handle, .NN, .NE, .EE, .SE, .SS, .SW, .WW, .NW').remove();
-            $('.canves, .canves *').removeClass('moveable')
-            $(this).addClass('moveable').append('<div class="handle NE"></div> <div class="handle NN"></div> <div class="handle NW"></div> <div class="handle WW"></div> <div class="handle EE"></div> <div class="handle SW"></div> <div class="handle SS"></div> <div class="handle SE"></div>');
+            $('.canves, .canves *').removeAttr('id')
+            $(this).attr('id', 'moveable').append('<div class="handle NE"></div> <div class="handle NN"></div> <div class="handle NW"></div> <div class="handle WW"></div> <div class="handle EE"></div> <div class="handle SW"></div> <div class="handle SS"></div> <div class="handle SE"></div>');
             
             // First we must detect our selection
             $('.find-elm-name').text(this.nodeName.toLowerCase());
@@ -115,6 +116,12 @@ $(document).ready(function() {
             $('.select-properties input[type=checkbox]').prop('checked', 'checked');
             $('.check-inputs').find('input[type=text]').prop('enabled', true);
             $('.check-inputs').find('input[type=text]').prop('disabled', false);
+            
+            // Changes Class Name
+            $('.findclassname').on('keyup change', function() {
+              $('#moveable').attr('class', '');
+              $('#moveable').attr('class', $(this).val());
+            });
             
             // Show position & size changes onmove
             if(movediv) {
@@ -193,7 +200,7 @@ $(document).ready(function() {
         
         // Detect/Set selected elements font family
         $('.grabmy-typography a').click(function() {
-          $(".moveable").css({
+          $("#moveable").css({
             'font-family': $(this).text()
           });
           $('.grabmy-typography a').css('backgroundColor', '#444');
@@ -203,7 +210,7 @@ $(document).ready(function() {
         
         // Detect/Set selected elements text align
         $('.grab-txt-align a').click(function() {
-          $(".moveable").css({
+          $("#moveable").css({
             'text-align': $(this).attr('title')
           });
           $('.grab-txt-align a').css('backgroundColor', '#444');
@@ -242,7 +249,7 @@ $(document).ready(function() {
         
         // Set position
         $('.grab-elm-pos a').click(function() {
-          $(".moveable").css({
+          $("#moveable").css({
             'position': $(this).attr('title')
           });
           $('.grab-elm-pos a').css('backgroundColor', '#444');
@@ -251,69 +258,69 @@ $(document).ready(function() {
         });
         
         $('.grab-postop').on('keyup change', function() {
-          $(".moveable").css({
+          $("#moveable").css({
             'top': $(this).val()
           });
         });
         
         $('.grab-posleft').on('keyup change', function() {
-          $(".moveable").css({
+          $("#moveable").css({
             'left': $(this).val()
           });
         });
         
         $('.grab-posbottom').on('keyup change', function() {
-          $(".moveable").css({
+          $("#moveable").css({
             'bottom': $(this).val()
           });
         });
         
         $('.grab-posright').on('keyup change', function() {
-          $(".moveable").css({
+          $("#moveable").css({
             'right': $(this).val()
           });
         });
         
         // Set width & height
         $('.grab-width').on('keyup change', function() {
-          $(".moveable").css({
+          $("#moveable").css({
             'width': $(this).val()
           });
         });
         
         $('.grab-height').on('keyup change', function() {
-          $(".moveable").css({
+          $("#moveable").css({
             'height': $(this).val()
           });
         });
         
         // Set Background
         $('.grab-bg-url').on('keyup change', function() {
-          $(".moveable").css({
+          $("#moveable").css({
             'background-image': 'url(' + $(this).val() + ')'
           });
         });
         
         $('.grab-bg-position').on('keyup change', function() {
-          $(".moveable").css({
+          $("#moveable").css({
             'background-position': $(this).val()
           });
         });
         
         $('.grab-bg-repeat').on('keyup change', function() {
-          $(".moveable").css({
+          $("#moveable").css({
             'background-repeat': $(this).val()
           });
         });
         
         $('.grab-bg-size').on('keyup change', function() {
-          $(".moveable").css({
+          $("#moveable").css({
             'background-size': $(this).val()
           });
         });
         
         $('.grab-bg-color').on('keyup change', function() {
-          $(".moveable").css({
+          $("#moveable").css({
             'background-color': $(this).val()
           });
         });
@@ -321,7 +328,7 @@ $(document).ready(function() {
         // Set border
         $('.grab-none, .grab-solid, .grab-dotted, .grab-dashed, .grab-double, .grab-ridge, .grab-groove, .grab-inset, .grab-outset').on('click', function() {
           $('.grab-border-style').val($(this).attr('title'))
-          $(".moveable").css({
+          $("#moveable").css({
             'border-style': $('.grab-border-style').val()
           });
         });
@@ -333,10 +340,10 @@ $(document).ready(function() {
         $('.grab-border-color').css({ 'background-color': $('#borderc').val(), 'border-color': $('#borderc').val() });
         
         $('#bordercpicker .farbtastic, #borderc').on('keyup change mousedown touchstart', function() {
-          $('.moveable').css({ 'border-color': $('#borderc').val() });
+          $('#moveable').css({ 'border-color': $('#borderc').val() });
           $('.grab-border-color').css({ 'background-color': $('#borderc').val(), 'border-color': $('#borderc').val() });
           $('#bordercpicker').on('mousemove touchmove', function() {
-            $('.moveable').css({ 'border-color': $('#borderc').val() });
+            $('#moveable').css({ 'border-color': $('#borderc').val() });
             $('.grab-border-color').css({ 'background-color': $('#borderc').val(), 'border-color': $('#borderc').val() });
           });
         });
@@ -344,26 +351,26 @@ $(document).ready(function() {
         $('.border-opacity, .grab-border-color').on('change mousedown touchstart', function() {
           $('.grab-border-color').css('background-color', $('.border-c').val());
           $('.grab-border-color').css('border-color', $('.border-c').val());
-          $(".moveable").css('border-color', $('.border-c').val());
+          $("#moveable").css('border-color', $('.border-c').val());
         });
         
         $('.border-size-all').on('change', function() {
           $('.show-border-size-int').text($(this).val() + 'px');
           
           if($('.border-top').is(':checked')) {
-            $(".moveable").css({'border-top-width': $('.show-border-size-int').text()});
+            $("#moveable").css({'border-top-width': $('.show-border-size-int').text()});
           }
           
           if($('.border-right').is(':checked')) {
-            $(".moveable").css({'border-right-width': $('.show-border-size-int').text()});
+            $("#moveable").css({'border-right-width': $('.show-border-size-int').text()});
           }
           
           if($('.border-bottom').is(':checked')) {
-            $(".moveable").css({'border-bottom-width': $('.show-border-size-int').text()});
+            $("#moveable").css({'border-bottom-width': $('.show-border-size-int').text()});
           }
           
           if($('.border-left').is(':checked')) {
-            $(".moveable").css({'border-left-width': $('.show-border-size-int').text()});
+            $("#moveable").css({'border-left-width': $('.show-border-size-int').text()});
           }
         });
         
@@ -371,19 +378,19 @@ $(document).ready(function() {
           $('.show-border-radius').text($(this).val() + 'px');
           
           if($('.border-radius-top-left').is(':checked')) {
-            $(".moveable").css({'border-top-left-radius': $('.show-border-radius').text()});
+            $("#moveable").css({'border-top-left-radius': $('.show-border-radius').text()});
           }
           
           if($('.border-radius-top-right').is(':checked')) {
-            $(".moveable").css({'border-top-right-radius': $('.show-border-radius').text()});
+            $("#moveable").css({'border-top-right-radius': $('.show-border-radius').text()});
           }
           
           if($('.border-radius-bottom-left').is(':checked')) {
-            $(".moveable").css({'border-bottom-left-radius': $('.show-border-radius').text()});
+            $("#moveable").css({'border-bottom-left-radius': $('.show-border-radius').text()});
           }
           
           if($('.border-radius-bottom-right').is(':checked')) {
-            $(".moveable").css({'border-bottom-right-radius': $('.show-border-radius').text()});
+            $("#moveable").css({'border-bottom-right-radius': $('.show-border-radius').text()});
           }
         });
             
@@ -393,19 +400,19 @@ $(document).ready(function() {
         });
         
         $('.grab-font-size').on('keyup change', function() {
-          $(".moveable").css({
+          $("#moveable").css({
             'font-size': $(this).val()
           });
         });
         
         $('.grab-font-family').on('keyup change', function() {
-          $(".moveable").css({
+          $("#moveable").css({
             'font-family': $(this).val()
           });
         });
         
         $('.grab-font-color').on('keyup change', function() {
-          $(".moveable").css({
+          $("#moveable").css({
             'color': $(this).val()
           });
         });
@@ -416,7 +423,7 @@ $(document).ready(function() {
         });
         
         $('.grab-line-height').on('keyup change', function() {
-          $(".moveable").css({
+          $("#moveable").css({
             'line-height': $(this).val()
           });
         });
@@ -427,7 +434,7 @@ $(document).ready(function() {
         });
         
         $('.grab-letter-spacing').on('keyup change', function() {
-          $(".moveable").css({
+          $("#moveable").css({
             'letter-spacing': $(this).val()
           });
         });
@@ -438,7 +445,7 @@ $(document).ready(function() {
         });
         
         $('.grab-word-spacing').on('keyup change', function() {
-          $(".moveable").css({
+          $("#moveable").css({
             'word-spacing': $(this).val()
           });
         });
@@ -449,7 +456,7 @@ $(document).ready(function() {
         });
         
         $('.grab-text-transform').on('keyup change', function() {
-          $(".moveable").css({
+          $("#moveable").css({
             'text-transform': $(this).val()
           });
         });
@@ -460,7 +467,7 @@ $(document).ready(function() {
         });
         
         $('.grab-text-align').on('keyup change', function() {
-          $(".moveable").css({
+          $("#moveable").css({
             'text-align': $(this).val()
           });
         });
@@ -471,7 +478,7 @@ $(document).ready(function() {
         });
         
         $('.grab-word-wrap').on('keyup change', function() {
-          $(".moveable").css({
+          $("#moveable").css({
             'word-wrap': $(this).val()
           });
         });
@@ -482,7 +489,7 @@ $(document).ready(function() {
         });
         
         $('.grab-white-space').on('keyup change', function() {
-          $(".moveable").css({
+          $("#moveable").css({
             'white-space': $(this).val()
           });
         });
@@ -494,7 +501,7 @@ $(document).ready(function() {
         });
 
         $('.grab-display').on('keyup change', function() {
-          $(".moveable").css({
+          $("#moveable").css({
             'display': $(this).val()
           });
         });
@@ -505,7 +512,7 @@ $(document).ready(function() {
         });
 
         $('.grab-padding').on('keyup change', function() {
-          $(".moveable").css({
+          $("#moveable").css({
             'padding': $(this).val()
           });
         });
@@ -516,7 +523,7 @@ $(document).ready(function() {
         });
         
         $('.grab-margin').on('keyup change', function() {
-          $(".moveable").css({
+          $("#moveable").css({
             'margin': $(this).val()
           });
         });
@@ -527,7 +534,7 @@ $(document).ready(function() {
         });
         
         $('.grab-opacity').on('keyup change', function() {
-          $(".moveable").css({
+          $("#moveable").css({
             'opacity': $(this).val()
           });
         });
@@ -538,7 +545,7 @@ $(document).ready(function() {
         });
         
         $('.grab-overflow').on('keyup change', function() {
-          $(".moveable").css({
+          $("#moveable").css({
             'overflow': $(this).val()
           });
         });
@@ -549,7 +556,7 @@ $(document).ready(function() {
         });
         
         $('.grab-transition').on('keyup change', function() {
-          $(".moveable").css({
+          $("#moveable").css({
             'transition': $(this).val()
           });
         });
@@ -560,7 +567,7 @@ $(document).ready(function() {
         });
         
         $('.grab-transform').on('keyup change', function() {
-          $(".moveable").css({
+          $("#moveable").css({
             'transform': $(this).val()
           });
         });
@@ -571,7 +578,7 @@ $(document).ready(function() {
         });
         
         $('.grab-filter').on('keyup change', function() {
-          $(".moveable").css({
+          $("#moveable").css({
             'filter': $(this).val()
           });
         });
@@ -580,7 +587,8 @@ $(document).ready(function() {
     } else {
       movediv = false;
       $('.handle, .NN, .NE, .EE, .SE, .SS, .SW, .WW, .NW').remove();
-      $('.canves, .canves *').removeClass('moveable');
+      $('.canves').children().removeAttr('id');
+      $('.canves').find('*').removeAttr('id');
       return false;
     }
   });
