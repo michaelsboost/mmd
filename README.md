@@ -1,6 +1,6 @@
 MMD: My Mobile Design
-A WYSIWYG Website Designer that's so easy to use and intutive that even grandma can make her very own website design for both mobile devices & desktops.
 =======================
+A WYSIWYG Website Designer that's so easy to use and intutive that even grandma can make her very own website design for both mobile devices & desktops.
 
 MMD is also a collaborative community project that uses <a href="http://jquery.com/" target="_blank">JQuery</a> & <a href="http://threedubmedia.com/code/event/drag" target="_blank">ThreeDubMedia's Drag Plugin</a>. Simplicity, efficency and producivity is what our community thrives for while developing My Mobile Design.
 
