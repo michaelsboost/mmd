@@ -13,6 +13,13 @@ $(document).ready(function() {
     mymenu = false,
     mS = {}, // mouse start 
     dBox;
+    
+  // Mirror code
+  $(window).on('load mousedown touchstart mouseup touchend change keyup', function() {
+    $('.mirror-title').text($('.website-title').val());
+    $('.mirror-html').text($('.canves').html());
+    $('#code').val($('.mirror-code').text());
+  });
   
   // Hide onload
   $(".hair, #mousepos, .groups-sec").hide();
@@ -69,7 +76,7 @@ $(document).ready(function() {
             $('.elmpos').show().css({
               top: e.pageY + 'px',
               left: e.pageX + 'px'
-            }, 800).html("T: " + $(this).css('top') + ", L: " + $(this).css('left') + ", B: " + $(this).css('bottom') + ", R: " + $(this).css('right'));
+            }, 800).html("T: " + $(this).css('top') + ", L: " + $(this).css('left') + ", B: " + $(this).css('bottom') + ", R: " + $(this).css('right') + "<br /> W: " + $(this).css('width') + " H: " + $(this).css('height'));
             
             // Add moveable class
             $('.handle, .NN, .NE, .EE, .SE, .SS, .SW, .WW, .NW').remove();
@@ -79,7 +86,7 @@ $(document).ready(function() {
               $('.elmpos').css({
                 top: e.pageY + 'px',
                 left: e.pageX + 'px'
-              }, 800).html("T: " + $(this).css('top') + ", L: " + $(this).css('left') + ", B: " + $(this).css('bottom') + ", R: " + $(this).css('right'));
+              }, 800).html("T: " + $(this).css('top') + ", L: " + $(this).css('left') + ", B: " + $(this).css('bottom') + ", R: " + $(this).css('right') + "<br /> W: " + $(this).css('width') + " H: " + $(this).css('height'));
             });
             
             // First we must detect our selection
@@ -96,13 +103,27 @@ $(document).ready(function() {
             $('.grab-bg-repeat').val($(this).css('background-repeat'));
             $('.grab-bg-size').val($(this).css('background-size'));
             $('.grab-bg-color').val($(this).css('background-color'));
-            $('.border-size-all').val($(this).css('border-width'));
-            $('.show-border-size-int').text($(this).css('border-width'));
-            $('.border-radius-all').val($(this).css('border-radius'));
-            $('.show-border-radius').text($(this).css('border-radius'));
+            
+            $('.cpick-code-rgb').val($(this).css('borderColor'));
+            $('.grab-border-color').css({
+              'background': $(this).css('backgroundColor'),
+              'border-color': $(this).css('borderColor')
+            });
+            
+            $('.border-size-all').val($(this).css('borderWidth').replace(/px/g,""));
+            $('.show-border-size').val($(this).css('borderWidth'));
+            $('.border-radius-all').val($(this).css('borderRadius').replace(/px/g,""));
+            $('.show-border-radius').val($(this).css('borderRadius'));
+            
+            $('.txt-cpick-code-rgb').val($(this).css('color'));
+            $('.grab-txt-color').css({
+              'background': $(this).css('color'),
+              'border-color': $(this).css('color')
+            });
+            
+            $('.grab-font-size-int').val($(this).css('font-size').replace(/px/g,""));
             $('.grab-font-size').val($(this).css('font-size'));
             $('.grab-font-family').val($(this).css('font-family').toLowerCase());
-            $('.grab-font-color').val($(this).css('color'));
             $('.grab-line-height').val($(this).css('line-height'));
             $('.grab-letter-spacing').val($(this).css('letter-spacing'));
             $('.grab-word-spacing').val($(this).css('word-spacing'));
@@ -341,87 +362,197 @@ $(document).ready(function() {
           });
         });
         
+        // Border Color Picker - Setup Hue Saturation Value & Alpha
+        $(".cpick-hue, .cpick-s, .cpick-l, .cpick-a").on('change', function() {
+          $(".cpick-code-hsl").trigger('change');
+        });
+        
+        // Alpha Saturation
+        $(".cpick-s").css({
+          "background": "linear-gradient(to right, #7f7f80 0%," + "hsl(" + $(".cpick-hue").val() + "," + $(".cpick-s").val() + "%," + $(".cpick-l").val() + "%)" + " 100%)"
+        });
+        
+        // Alpha Lightness
+        $(".cpick-l").css({
+          "background": "linear-gradient(to right, #000000 0%," + "hsl(" + $(".cpick-hue").val() + "," + $(".cpick-s").val() + "%," + $(".cpick-l").val() + "%) 50%,#ffffff 100%)"
+        });
+        
+        // Alpha Preview
+        $(".cpick-a").css({
+          "background": "linear-gradient(to right, rgba(51,51,51,0) 0%," + "hsl(" + $(".cpick-hue").val() + "," + $(".cpick-s").val() + "%," + $(".cpick-l").val() + "%)" + " 100%)"
+        });
+        
+        // Setup Color Picker Code
+        $(".cpick-code-hsl").on('change keyup', function() {
+          $(this).val( "hsla(" + $(".cpick-hue").val() + ", " + $(".cpick-s").val() + "%, " + $(".cpick-l").val() + "%, " + $(".cpick-a").val() + ")");
+          
+          // Initiate hsl preview
+          $(".grab-border-color").css({
+            "background": $(".cpick-code-hsl").val(),
+            "border-color": $(".cpick-code-hsl").val(),
+            "border-size": "2px"
+          });
+          
+          $(".cpick-code-rgb").val( $(".grab-border-color").css("backgroundColor") );
+          $("#moveable").css('border-color', $(".cpick-code-rgb").val());
+          
+          // Alpha Saturation
+          $(".cpick-s").css({
+            "background": "linear-gradient(to right, #7f7f80 0%," + "hsl(" + $(".cpick-hue").val() + "," + $(".cpick-s").val() + "%," + $(".cpick-l").val() + "%)" + " 100%)"
+          });
+          
+          // Alpha Lightness
+          $(".cpick-l").css({
+            "background": "linear-gradient(to right, #000000 0%," + "hsl(" + $(".cpick-hue").val() + "," + $(".cpick-s").val() + "%," + $(".cpick-l").val() + "%) 50%,#ffffff 100%)"
+          });
+          
+          // Alpha Preview
+          $(".cpick-a").css({
+            "background": "linear-gradient(to right, rgba(51,51,51,0) 0%," + "hsl(" + $(".cpick-hue").val() + "," + $(".cpick-s").val() + "%," + $(".cpick-l").val() + "%)" + " 100%)"
+          });
+        });
+
+        // Initiate rgb preview
+        $(".cpick-code-rgb").on('change keyup focus', function() {
+          $(".grab-border-color").css({
+            "background": $(this).val(),
+            "border-color": $(this).val(),
+            "border-size": "2px"
+          });
+          
+          $("#moveable").css('border-color', $(this).val());
+        });
+        
         $('.grab-border-color').on('mousedown touchstart', function() {
           $('.border-color-picker').toggle();
         }); $('.border-color-picker').hide();
         
-        $('.grab-border-color').css({ 'background-color': $('#borderc').val(), 'border-color': $('#borderc').val() });
-        
-        $('#bordercpicker .farbtastic, #borderc').on('keyup change mousedown touchstart', function() {
-          $('#moveable').css({ 'border-color': $('#borderc').val() });
-          $('.grab-border-color').css({ 'background-color': $('#borderc').val(), 'border-color': $('#borderc').val() });
-          $('#bordercpicker').on('mousemove touchmove', function() {
-            $('#moveable').css({ 'border-color': $('#borderc').val() });
-            $('.grab-border-color').css({ 'background-color': $('#borderc').val(), 'border-color': $('#borderc').val() });
-          });
-        });
-        
-        $('.border-opacity, .grab-border-color').on('change mousedown touchstart', function() {
-          $('.grab-border-color').css('background-color', $('.border-c').val());
-          $('.grab-border-color').css('border-color', $('.border-c').val());
-          $("#moveable").css('border-color', $('.border-c').val());
-        });
-        
         $('.border-size-all').on('change', function() {
-          $('.show-border-size-int').text($(this).val() + 'px');
+          $('.show-border-size').val($(this).val() + 'px');
           
           if($('.border-top').is(':checked')) {
-            $("#moveable").css({'border-top-width': $('.show-border-size-int').text()});
+            $("#moveable").css({'border-top-width': $('.show-border-size').val()});
           }
           
           if($('.border-right').is(':checked')) {
-            $("#moveable").css({'border-right-width': $('.show-border-size-int').text()});
+            $("#moveable").css({'border-right-width': $('.show-border-size').val()});
           }
           
           if($('.border-bottom').is(':checked')) {
-            $("#moveable").css({'border-bottom-width': $('.show-border-size-int').text()});
+            $("#moveable").css({'border-bottom-width': $('.show-border-size').val()});
           }
           
           if($('.border-left').is(':checked')) {
-            $("#moveable").css({'border-left-width': $('.show-border-size-int').text()});
+            $("#moveable").css({'border-left-width': $('.show-border-size').val()});
           }
-        });
+        }).trigger('change');
         
         $('.border-radius-all').on('change', function() {
-          $('.show-border-radius').text($(this).val() + 'px');
+          $('.show-border-radius').val($(this).val() + 'px');
           
           if($('.border-radius-top-left').is(':checked')) {
-            $("#moveable").css({'border-top-left-radius': $('.show-border-radius').text()});
+            $("#moveable").css({'border-top-left-radius': $('.show-border-radius').val()});
           }
           
           if($('.border-radius-top-right').is(':checked')) {
-            $("#moveable").css({'border-top-right-radius': $('.show-border-radius').text()});
+            $("#moveable").css({'border-top-right-radius': $('.show-border-radius').val()});
           }
           
           if($('.border-radius-bottom-left').is(':checked')) {
-            $("#moveable").css({'border-bottom-left-radius': $('.show-border-radius').text()});
+            $("#moveable").css({'border-bottom-left-radius': $('.show-border-radius').val()});
           }
           
           if($('.border-radius-bottom-right').is(':checked')) {
-            $("#moveable").css({'border-bottom-right-radius': $('.show-border-radius').text()});
+            $("#moveable").css({'border-bottom-right-radius': $('.show-border-radius').val()});
           }
+        }).trigger('change');
+        
+        // Text Color Picker - Setup Hue Saturation Value & Alpha
+        $(".txt-cpick-hue, .txt-cpick-s, .txt-cpick-l, .txt-cpick-a").on('change', function() {
+          $(".txt-cpick-code-hsl").trigger('change');
         });
-            
+        
+        // Alpha Saturation
+        $(".txt-cpick-s").css({
+          "background": "linear-gradient(to right, #7f7f80 0%," + "hsl(" + $(".txt-cpick-hue").val() + "," + $(".txt-cpick-s").val() + "%," + $(".txt-cpick-l").val() + "%)" + " 100%)"
+        });
+        
+        // Alpha Lightness
+        $(".txt-cpick-l").css({
+          "background": "linear-gradient(to right, #000000 0%," + "hsl(" + $(".txt-cpick-hue").val() + "," + $(".txt-cpick-s").val() + "%," + $(".txt-cpick-l").val() + "%) 50%,#ffffff 100%)"
+        });
+        
+        // Alpha Preview
+        $(".txt-cpick-a").css({
+          "background": "linear-gradient(to right, rgba(51,51,51,0) 0%," + "hsl(" + $(".txt-cpick-hue").val() + "," + $(".txt-cpick-s").val() + "%," + $(".txt-cpick-l").val() + "%)" + " 100%)"
+        });
+        
+        // Setup Color Picker Code
+        $(".txt-cpick-code-hsl").on('change keyup', function() {
+          $(this).val( "hsla(" + $(".txt-cpick-hue").val() + ", " + $(".txt-cpick-s").val() + "%, " + $(".txt-cpick-l").val() + "%, " + $(".txt-cpick-a").val() + ")");
+          
+          // Initiate hsl preview
+          $(".grab-txt-color").css({
+            "background": $(".txt-cpick-code-hsl").val(),
+            "border-color": $(".txt-cpick-code-hsl").val()
+          });
+          
+          $(".txt-cpick-code-rgb").val( $(".grab-txt-color").css("backgroundColor") );
+          $("#moveable").css('color', $(".txt-cpick-code-rgb").val());
+          
+          // Alpha Saturation
+          $(".txt-cpick-s").css({
+            "background": "linear-gradient(to right, #7f7f80 0%," + "hsl(" + $(".txt-cpick-hue").val() + "," + $(".txt-cpick-s").val() + "%," + $(".txt-cpick-l").val() + "%)" + " 100%)"
+          });
+          
+          // Alpha Lightness
+          $(".txt-cpick-l").css({
+            "background": "linear-gradient(to right, #000000 0%," + "hsl(" + $(".txt-cpick-hue").val() + "," + $(".txt-cpick-s").val() + "%," + $(".txt-cpick-l").val() + "%) 50%,#ffffff 100%)"
+          });
+          
+          // Alpha Preview
+          $(".txt-cpick-a").css({
+            "background": "linear-gradient(to right, rgba(51,51,51,0) 0%," + "hsl(" + $(".txt-cpick-hue").val() + "," + $(".txt-cpick-s").val() + "%," + $(".txt-cpick-l").val() + "%)" + " 100%)"
+          });
+        });
+
+        // Initiate rgb preview
+        $(".txt-cpick-code-rgb").on('change keyup focus', function() {
+          $(".grab-txt-color").css({
+            "background": $(this).val(),
+            "border-color": $(this).val()
+          });
+          
+          $("#moveable").css('color', $(this).val());
+        });
+        
+        $('.grab-txt-color').on('mousedown touchstart', function() {
+          $('.text-color-picker').toggle();
+        }); $('.text-color-picker').hide();
+        
         // Set font family
         $('.grab-typography a').each(function(){
           $(this).css('font-family', $(this).text());
         });
         
-        $('.grab-font-size').on('keyup change', function() {
+        $('.grab-font-size-int').on('keyup change', function () {
+          $("#moveable").css({
+            'font-size': $(this).val() + "px"
+          });
+          $('.grab-font-size').val( $(this).val() + "px" );
+        });
+        
+        $('.grab-font-size').on('keyup change', function () {
+          $(this).attr('size', this.value.length);
           $("#moveable").css({
             'font-size': $(this).val()
           });
-        });
+          $('.grab-font-size-int').val( $(this).val().replace(/px/g,"") );
+        }).trigger('keyup');
         
         $('.grab-font-family').on('keyup change', function() {
           $("#moveable").css({
             'font-family': $(this).val()
-          });
-        });
-        
-        $('.grab-font-color').on('keyup change', function() {
-          $("#moveable").css({
-            'color': $(this).val()
           });
         });
         
@@ -831,9 +962,6 @@ $(document).ready(function() {
     
     // Border Styles
     $(function() {
-      // Color Picker
-      $('#bordercpicker').farbtastic('#borderc');
-      
       $('.none').click(function() {
         $('.borders a').removeClass('border-active');
         $('.borders a').css({

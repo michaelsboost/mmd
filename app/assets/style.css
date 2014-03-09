@@ -1,3 +1,6 @@
+.canves *, .canves *:active, .canves *:focus { outline:none; }
+.canves input[type=range] { padding:0; margin:0; }
+  
 html, body {
   padding: 0; margin: 0;
   -webkit-font-smoothing: antialiased;
@@ -232,6 +235,7 @@ body {
 }
 
 .grab-border-color { cursor: pointer; border-color: #000; border-width: 2px; padding: 5px 10px; border-style: solid; background: #000; margin:0; }
+.grab-txt-color { cursor: pointer; border-color: #000; border-width: 2px; padding: 3px 13px; border-style: solid; background: #000; margin:0; }
 .none { border-color: #444; border-width: 2px; text-decoration:none; border-style: solid; background: #1c1c1c; }
 .solid { border-style: solid; }
 .dotted { border-style: dotted; }
@@ -244,6 +248,20 @@ body {
 .border-active { background-color: #1c1c1c!important; }
 .hide { position:absolute!important; top:0!important; left:0!important; width:0!important; height:0!important; opacity:0!important; }
 .scroll { overflow:auto; }
+
+.colorwheel {
+  background: -moz-linear-gradient(left,  #ff0000 0%, #ffff00 18%, #00ff00 35%, #00ffff 50%, #0000ff 65%, #ff00ff 82%, #ff0004 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ff0000), color-stop(18%,#ffff00), color-stop(35%,#00ff00), color-stop(50%,#00ffff), color-stop(65%,#0000ff), color-stop(82%,#ff00ff), color-stop(100%,#ff0004)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(left,  #ff0000 0%,#ffff00 18%,#00ff00 35%,#00ffff 50%,#0000ff 65%,#ff00ff 82%,#ff0004 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(left,  #ff0000 0%,#ffff00 18%,#00ff00 35%,#00ffff 50%,#0000ff 65%,#ff00ff 82%,#ff0004 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(left,  #ff0000 0%,#ffff00 18%,#00ff00 35%,#00ffff 50%,#0000ff 65%,#ff00ff 82%,#ff0004 100%); /* IE10+ */
+  background: linear-gradient(to right,  #ff0000 0%,#ffff00 18%,#00ff00 35%,#00ffff 50%,#0000ff 65%,#ff00ff 82%,#ff0004 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff0000', endColorstr='#ff0004',GradientType=1 ); /* IE6-9 */
+}
+
+.cpick-s, .cpick-l, .cpick-a, .txt-cpick-s, .txt-cpick-l, .txt-cpick-a {
+  background:transparent;
+}
 
 .active-btn {
   color: #666;
@@ -338,4 +356,6 @@ body {
   color: #fff;
   z-index: 1;
   background: #278ab4;
+  text-align:center;
+  line-height: 25px;
 }

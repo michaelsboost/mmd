@@ -6,6 +6,8 @@ PLANS:
 - fix for touch support
 - add global class styles support for additional design customization
 - add snap to grid option
+- add box-shadow & text-shadow options (add the ability to add multiple shadows)
+- add background gradient option with hsl(a) color picker
 
 BUGS:
 - edit tool becomes inactive once select tool is active. THIS HAS TO BE FIXED!

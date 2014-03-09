@@ -13,7 +13,6 @@
 <script src="assets/jquery.event.drag.live-2.2.js"></script>
 <script src="assets/jquery.event.drop-2.2.js"></script>
 <script src="assets/jquery.event.drop.live-2.2.js"></script>
-<script src="farbtastic.js"></script>
 <script src='assets/bootstrap.min.js'></script>
 <script src="assets/jquery.ui.touch-punch.min.js"></script>
 </head>
@@ -255,10 +254,24 @@
           <div class="drop-section grab-elm-border">
             <center>
               <div class="border-color-picker">
-              <form>
-                <input id="borderc" style="width: 90%; border: 0px none; text-align: center;" value="#000000" type="text" name="hex">
-                <div id="bordercpicker"></div>
-                </form>
+                <table class="fill table-in">
+                  <tr>
+                    <input class="colorwheel cpick-hue" type="range" value="328" min="0" max="360" value="328">
+                  </tr>
+                  <tr>
+                    <input class="cpick-s" type="range" min="0" max="100" value="100">
+                  </tr>
+                  <tr>
+                    <input class="cpick-l" type="range" min="0" max="100" value="44">
+                  </tr>
+                  <tr>
+                    <input class="cpick-a" type="range" step=".01" min="0" max="1" value="1">
+                  </tr>
+                  <tr>
+                    <input class="cpick-code-hsl hide" type="text">
+                    <input class="cpick-code-rgb" type="text" value="rgb(0, 0, 0)">
+                  </tr>
+                </table>
               </div>
               
               <input class="hide half grab-border-style" type="text">
@@ -275,7 +288,19 @@
                 <a href="javascript:void(0)" class="outset grab-outset" title="outset">&nbsp;</a>
               </div>
               
-              <input class="border-size-all" style="width:90%;" type="range"> border-size: <span class="show-border-size-int">100px</span>
+              <table class="fill table-in">
+                <tr>
+                  <input class="border-size-all" style="width:90%;" type="range">
+                </tr>
+                <tr>
+                  <td>
+                    border-width:
+                  </td>
+                  <td>
+                    <input type="text" class="show-border-size">
+                  </td>
+                </tr>
+              </table>
             </center>
             
             <b style="float:left;">
@@ -301,7 +326,19 @@
             </b>
             
             <center>
-              <input class="border-radius-all" style="width:90%;" type="range"> border-radius: <span class="show-border-radius">100px</span>
+              <table class="fill table-in">
+                <tr>
+                  <input class="border-radius-all" style="width:90%;" type="range">
+                </tr>
+                <tr>
+                  <td>
+                    border-radius:
+                  </td>
+                  <td>
+                    <input type="text" class="show-border-radius">
+                  </td>
+                </tr>
+              </table>
             </center>
           </div>
         </span>
@@ -315,7 +352,30 @@
           <div class="drop-section grab-elm-typography">
             <center>
               
+              
+              <div class="text-color-picker">
+                <table class="fill table-in">
+                  <tr>
+                    <input class="colorwheel txt-cpick-hue" type="range" value="328" min="0" max="360" value="328">
+                  </tr>
+                  <tr>
+                    <input class="txt-cpick-s" type="range" min="0" max="100" value="100">
+                  </tr>
+                  <tr>
+                    <input class="txt-cpick-l" type="range" min="0" max="100" value="44">
+                  </tr>
+                  <tr>
+                    <input class="txt-cpick-a" type="range" step=".01" min="0" max="1" value="1">
+                  </tr>
+                  <tr>
+                    <input class="txt-cpick-code-hsl hide" type="text">
+                    <input class="txt-cpick-code-rgb" type="text" value="rgb(0, 0, 0)">
+                  </tr>
+                </table>
+              </div>
+              
               <div class="horizontal-bar grab-txt-align"><br>
+                <span class="grab-txt-color">&nbsp;</span>
                 <a class="grab-align-left" href="javascript:void(0)" title="left"><span class='fa fa-align-left'></span></a>
                 <a class="grab-align-center" href="javascript:void(0)" title="center"><span class='fa fa-align-center'></span></a>
                 <a class="grab-align-right" href="javascript:void(0)" title="right"><span class='fa fa-align-right'></span></a>
@@ -324,13 +384,17 @@
               <table class="fill">
                 <tr>
                   <td>
-                    <input class="fill grab-font-size" type="text" placeholder="size">
+                    <input class="grab-font-size-int" type="range" placeholder="size">
                   </td>
+                  <td>
+                    <input class="grab-font-size" style="width:auto;" type="text" placeholder="size">
+                  </td>
+                </tr>
+              </table>
+              <table class="fill">
+                <tr>
                   <td>
                     <input class="fill grab-font-family" type="text" placeholder="family" list="search-font-family">
-                  </td>
-                  <td>
-                    <input class="fill grab-font-color" type="text" placeholder="color">
                   </td>
                 </tr>
               </table>
@@ -656,7 +720,7 @@
 &lt;meta charset='utf-8'&gt;
 &lt;meta name='viewport' content='initial-scale=1.0'&gt;
 &lt;style type='text/css'&gt;
-<span class="mirror-css"></span>
+<span class="mirror-css">No synaptics incorporated yet...</span>
 &lt;/style&gt;
 &lt;/head&gt;
 &lt;body&gt;
@@ -666,8 +730,7 @@
 
   <!-- This is the designing area -->
   <div class="container">
-    <div class="canves">
-<div class='head' style="position: absolute; top:0; left:0; height:78px; right:0; background: #eee; text-align: center; font: 32px arial; color: #fff; line-height: 2.3em; text-shadow: 0 0 8px rgba(0,0,0,0.2); background: #1e5799; /* Old browsers */ background: -moz-linear-gradient(top,  #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%); /* FF3.6+ */ background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(50%,#2989d8), color-stop(51%,#207cca), color-stop(100%,#7db9e8)); /* Chrome,Safari4+ */ background: -webkit-linear-gradient(top,  #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* Chrome10+,Safari5.1+ */ background: -o-linear-gradient(top,  #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* Opera 11.10+ */ background: -ms-linear-gradient(top,  #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* IE10+ */ background: linear-gradient(to bottom,  #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* W3C */ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=0 ); /* IE6-9 */">
+<div class="canves"><div class='head' style="position: absolute; top:0; left:0; height:78px; right:0; background: #eee; text-align: center; font: 32px arial; color: #fff; line-height: 2.3em; text-shadow: 0 0 8px rgba(0,0,0,0.2); background: #1e5799; /* Old browsers */ background: -moz-linear-gradient(top,  #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%); /* FF3.6+ */ background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(50%,#2989d8), color-stop(51%,#207cca), color-stop(100%,#7db9e8)); /* Chrome,Safari4+ */ background: -webkit-linear-gradient(top,  #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* Chrome10+,Safari5.1+ */ background: -o-linear-gradient(top,  #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* Opera 11.10+ */ background: -ms-linear-gradient(top,  #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* IE10+ */ background: linear-gradient(to bottom,  #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* W3C */ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=0 ); /* IE6-9 */">
   <strong>Website Name</strong>
 </div>
 
