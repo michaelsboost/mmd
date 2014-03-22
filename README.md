@@ -1,9 +1,10 @@
 MMD: My Mobile Design
 =======================
-A WYSIWYG Website Designer that's so easy to use and intutive that even grandma can make her very own website design for both mobile devices & desktops.
+MMD separates your html and css keeping all your elements in html and css in the css tab. This is done to keep your html and css neat and easy to manipulate at a later time. 
 
-MMD is also a collaborative community project that uses <a href="http://jquery.com/" target="_blank">JQuery</a> & <a href="http://threedubmedia.com/code/event/drag" target="_blank">ThreeDubMedia's Drag Plugin</a>. Simplicity, efficency and producivity is what our community thrives for while developing My Mobile Design.
+MMD is licensed under the <a href="http://opensource.org/licenses/LGPL-3.0">LGPL v3</a>
 
 If you have any questions you can contact us on our Facebook - https://www.facebook.com/pages/My-Mobile-Design/
 
-<p>Give it a try at <a href="http://mydelivery.net23.net/dev/MMD/">http://michaelsdelivery.tk/dev/MMD/</a></p>
+<p>Give it a try at <a href="http://mmd.sourceforge.net/">http://mmd.sourceforge.net/</a></p>
+
