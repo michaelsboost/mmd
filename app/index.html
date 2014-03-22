@@ -9,94 +9,78 @@
 <link href="assets/import.css" rel="stylesheet" type="text/css">
 <script src="assets/jquery.min.js"></script>
 <script src="assets/jquery-ui.min.js"></script>
-<script src="assets/jquery.event.drag-2.2.js"></script>
-<script src="assets/jquery.event.drag.live-2.2.js"></script>
-<script src="assets/jquery.event.drop-2.2.js"></script>
-<script src="assets/jquery.event.drop.live-2.2.js"></script>
+<script src="assets/editor.js"></script>
 <script src='assets/bootstrap.min.js'></script>
 <script src="assets/jquery.ui.touch-punch.min.js"></script>
 </head>
 <body>
   <button class="toggle-options show-options">Show Options</button>
-  <span class="elmpos"></span>
-  <span class="elmsize"></span>
+  <div class="cwidth-containment">
+    <input class="cwidth" type="range" min="0" />
+  </div>
+  <span class="media-query-slider"></span>
+  <div class="ruler-container">
+    <div class="ruler"></div>
+  </div>
   
-  <div class="toolbox">
+  <div class="disismyfukentoolbuxhhehahooo">
     <div class="tools">
       <center>
-        <a class="select-tool" title="Select/Move/Resize" href='javascript:void(0);'><span class='fa fa-location-arrow' style="transform: rotate(0deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(180deg) translateX(0px) translateY(0px); -webkit-transform: rotate(0deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(180deg) translateX(0px) translateY(0px); -moz-transform: rotate(0deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(180deg) translateX(0px) translateY(0px); -ms-transform: rotate(0deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(180deg) translateX(0px) translateY(0px); -o-transform: rotate(0deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(180deg) translateX(0px) translateY(0px);"></span></a>
-        <a class="draw-tool" title="Add DIV" href='javascript:void(0);'><span class='fa fa-plus'></span></a>
-        <a class="table-tool" title="Add Table" href='javascript:void(0);' style="display:none;"><span class='fa fa-table'></span></a>
-        <a class="edit-tool" title="Edit Content" href='javascript:void(0);'><span class='fa fa-edit'></span></a>
+        <a class="select-tool" title="Select Tool" href='javascript:void(0);'><span class='fa fa-location-arrow' style="transform: rotate(0deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(180deg) translateX(0px) translateY(0px); -webkit-transform: rotate(0deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(180deg) translateX(0px) translateY(0px); -moz-transform: rotate(0deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(180deg) translateX(0px) translateY(0px); -ms-transform: rotate(0deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(180deg) translateX(0px) translateY(0px); -o-transform: rotate(0deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(180deg) translateX(0px) translateY(0px);"></span></a>
         <a class="remove-tool" title="Remove Element" href='javascript:void(0);'><span class='fa fa-times'></span></a>
-        <a class="save large" title="Save to disk" href="javascript:void(0)" onclick="saveTextAsFile()"><span class='fa fa-download'></span></a>
+        <a class="new-doc" title="New Document" href="javascript:void(0)"><span class='fa fa-file-text'></span></a>
+        <a class="open-save-dialog" title="Save to disk" href="javascript:void(0)"><span class='fa fa-download'></span></a>
+        <a title="Dropbox" onclick="window.open('https://www.dropbox.com/chooser', 'Dropbox', 'width=660, height=440'); return false;"><span class='fa fa-dropbox'></span></a>
         <a class="hide-options" title="Hide Options" href='javascript:void(0);'><span class='fa fa-chevron-right'></span></a>
         <select class="dialogs hide">
+          <option value="starter-properties">starter-properties</option>
           <option value="select-properties">select-properties</option>
-          <option value="draw-properties">draw-properties</option>
         </select>
       </center>
-
-    </div>
-    
-    <div class="tabs">
-      <button class="tab tab-active half left inspector">Inspector</button>
-      <button class="tab tab-normal half right groups">Groups</button>
     </div>
     
     <div class="inspection">
       <div class="starter-properties show">
         <span class="section-dropper">
-          <header class="drop head-prop" title="Head">
-            &nbsp; Head<br>
+          <header class="drop head-prop" title="head">
+            &nbsp; head<br>
           </header>
           
           <div class="drop-section">
             <center>
-              <input type="text" class="fill website-title" value="Website Title" placeholder="Website title" style="text-align:center;" />
+              <input type="text" class="fill website-title" value="New Document" placeholder="Website title" style="text-align:center;" />
+              <textarea id="projsavecode" style="position:absolute; top:-99999999px; left:-99999999px; width:0; height:0; display:none; opacity:0; padding:0; margin:0; resize:none;" disabled="true"></textarea>
+              <textarea id="code" style="position:absolute; top:-99999999px; left:-99999999px; width:0; height:0; display:none; opacity:0; padding:0; margin:0; resize:none;" disabled="true">MMD is loading your layout...</textarea>
             </center>
           </div>
         </span>
-        
         <span class="section-dropper">
-          <header class="drop canves-title" title="Canvas Size">
-            &nbsp; <span title="canves">Canvas Size</span><br />
+          <header class="drop head-prop" title="Elements">
+            &nbsp; Elements<br>
           </header>
           
-          <div class="drop-section">
-            <table class="fill">
-              <tr>
-                <td><input type="text" class="cwidth fill" value="100%" placeholder="width" /></td>
-                <td>,</td>
-                <td><input type="text" class="cheight fill" value="100%" placeholder="height" /></td>
-              </tr>
-            </table>
-          </div>
-        </span>
-        
-        <span class="section-dropper">
-          <header class="drop canves-title" title="Import Resources">
-            &nbsp; <span title="canves">Import Resources</span><br />
-          </header>
-          
-          <div class="drop-section">
-            <em>Coming soon...</em>
+          <div class="drop-section elms-4-stage">
+            <center>
+              <a href="javascript:void(0)" class="header">Header</a>
+              <a href="javascript:void(0)" class="div">Div</a>
+              <a href="javascript:void(0)" class="footer">Footer</a>
+              <textarea class="css-sheet" style="cursor:text!important; width:100%; resize:vertical; border:0; border-radius:0; min-height:200px;"></textarea>
+              <div class="yourhtml hide"></div>
+              <textarea class="html-sheet hide" style="cursor:text!important; width:100%; resize:vertical; border:0; border-radius:0; min-height:200px;"></textarea>
+            </center>
           </div>
         </span>
       </div>
-      
       <div class="select-properties show">
         <span class="section-dropper">
           <center>
-            <input type="text" class="search" list="search-properties" placeholder="Search" />
+            <input type="text" class="search4urdamelms" list="search-properties" placeholder="Search" />
             
             <datalist id="search-properties">
               <option value="Save"></option>
               <option value="All"></option>
               <option value="None"></option>
-              <option value="Uncheck All"></option>
-              <option value="Class Name"></option>
-              <option value="Position"></option>
+              <option value="Tool Options"></option>
               <option value="Size"></option>
               <option value="Background"></option>
               <option value="Border"></option>
@@ -105,109 +89,59 @@
             </datalist>
           </center>
         </span>
-        
-        <span class="section-dropper check-inputs">
-          <header class="drop grab-classname" title="Class Name">
-            &nbsp; Class Name<br>
+        <span class="section-dropper">
+          <header class="drop grab-tool-options" title=" tool options">
+            <label>&nbsp; tool options</label><br>
           </header>
           
           <div class="drop-section">
+            <center>
+              <input class="enable-inline-editing" type="checkbox"> Editor<br>
+              <span class="known-class"></span>
+            </center>
             <table class="fill table-in">
               <tr>
                 <td>
-                  <a class="css-styles" title="CSS Styles" href='javascript:void(0);'><strong>C</strong></a>
+                  <button class="add-class"><span class='fa fa-plus'></span></button>
                 </td>
                 <td>
-                  <span class="find-elm-name"></span>
-                </td>
-                <td>
-                  <input type="text" class="fill findclassname" placeholder="className" disabled />
+                  <input class="sel-css" style="font-size:16px;" type="text" placeholder="CSS Class" />
                 </td>
               </tr>
             </table>
           </div>
         </span>
-        
-        <span class="section-dropper check-inputs">
-          <header class="drop grab-pos" title="Position">
-            <input type="checkbox" id="lpos" name="lpos" />
-            <label for="lpos">Position</label><br>
-          </header>
-          
-          <div class="drop-section grab-elm-pos">
-            <center>
-              <div class="horizontal-bar" style="padding-top:15px;">
-                <a title="static" class="grab-pos-static" href='javascript:void(0);'><i class='fa fa-barcode'></i></a>
-                <a title="relative" class="grab-pos-relative" href='javascript:void(0);'><i class='fa fa-square-o'></i></a>
-                <a title="absolute" class="grab-pos-absolute" href='javascript:void(0);'><i class='fa fa-crosshairs'></i></a>
-                <a title="fixed" class="grab-pos-fixed" href='javascript:void(0);'><i class='fa fa-thumb-tack'></i></a>
-              </div>
-              
-              <table class="fill table-in">
-                <tr>
-                  <td>
-                    <input class="int-postop" type="checkbox" />
-                  </td>
-                  <td>
-                    <input type="text" class="grab-postop postop quarter" placeholder="Top" />
-                  </td>
-                  <td>
-                    <input class="int-posleft" type="checkbox" />
-                  </td>
-                  <td>
-                    <input type="text" class="grab-posleft posleft quarter" placeholder="Left" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <input class="int-posbottom" type="checkbox" />
-                  </td>
-                  <td>
-                    <input type="text" class="grab-posbottom posbottom quarter" placeholder="Bottom" />
-                  </td>
-                  <td>
-                    <input class="int-posright" type="checkbox" />
-                  </td>
-                  <td>
-                    <input type="text" class="grab-posright posright quarter" placeholder="Right" />
-                  </td>
-                </tr>
-              </table>
-            </center>
-          </div>
-          
-        </span>
-        
-        <span class="section-dropper check-inputs">
-          <header class="drop grab-size" title="Size">
+        <span class="section-dropper">
+          <header class="drop grab-size" title="size">
             <input type="checkbox" id="lsize" name="lsize" />
-            <label for="lsize">Size</label><br>
+            <label for="lsize">size</label><br>
           </header>
           
           <table class="fill drop-section grab-elm-size">
             <tr>
-              <td><input type="text" class="width grab-width fill" placeholder="width" /></td>
+              <td>
+                <input type="text" class="width grab-width fill" placeholder="width" />
+              </td>
               <td>,</td>
-              <td><input type="text" class="height grab-height fill" placeholder="height" /></td>
+              <td>
+                <input type="text" class="height grab-height fill" placeholder="height" />
+              </td>
             </tr>
           </table>
         </span>
-        
-        <span class="section-dropper check-inputs">
-          <header class="drop grab-bg" title="Background">
+        <span class="section-dropper">
+          <header class="drop grab-background" title="background">
             <input type="checkbox" id="lbg" name="lbg" />
-            <label for="lbg">Background</label><br>
+            <label for="lbg">background</label><br>
           </header>
           
           <div class="drop-section grab-elm-bg">
             <table class="fill table-in">
                 <tr>
-                  <td><input class="enable-bg-img" type="checkbox"></td>
                   <td>image:</td>
                   <td><input class="grab-bg-url" type="text"></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
                   <td>position:</td>
                   <td><select class="grab-bg-position">
                     <option value="top left">top left</option>
@@ -222,7 +156,6 @@
                   </select></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
                   <td>repeat:</td>
                   <td><select class="grab-bg-repeat">
                     <option value="repeat">repeat</option>
@@ -232,144 +165,173 @@
                   </select></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
-                  <td>size:</td>
-                  <td><input class="grab-bg-size" type="text" value="100%" /></td>
+                  <td>attach:</td>
+                  <td><input class="grab-bg-attachment" type="checkbox" /> fixed</td>
                 </tr>
                 <tr>
-                  <td><input class="enable-bg-color" type="checkbox"></td>
+                  <td>size:</td>
+                  <td><input class="grab-bg-size" type="text" value="" /></td>
+                </tr>
+                <tr>
                   <td>color:</td>
                   <td><input class="grab-bg-color" type="text"></td>
                 </tr>
             </table>
           </div>
         </span>
-        
-        <span class="section-dropper check-inputs">
-          <header class="drop grab-border" title="Border">
+        <span class="section-dropper">
+          <header class="drop grab-border" title="border">
             <input type="checkbox" id="lborder" name="lborder" />
-            <label for="lborder">Border</label><br>
+            <label for="lborder">border</label><br>
           </header>
           
           <div class="drop-section grab-elm-border">
-            <center>
-              <div class="border-color-picker">
-                <table class="fill table-in">
-                  <tr>
-                    <input class="colorwheel cpick-hue" type="range" value="328" min="0" max="360" value="328">
-                  </tr>
-                  <tr>
-                    <input class="cpick-s" type="range" min="0" max="100" value="100">
-                  </tr>
-                  <tr>
-                    <input class="cpick-l" type="range" min="0" max="100" value="44">
-                  </tr>
-                  <tr>
-                    <input class="cpick-a" type="range" step=".01" min="0" max="1" value="1">
-                  </tr>
-                  <tr>
-                    <input class="cpick-code-hsl hide" type="text">
-                    <input class="cpick-code-rgb" type="text" value="rgb(0, 0, 0)">
-                  </tr>
-                </table>
-              </div>
-              
-              <input class="hide half grab-border-style" type="text">
-              <div class="horizontal-bar grab-borders borders"><br>
-                <span class="grab-border-color">&nbsp;</span>
-                <a href="javascript:void(0)" class="none grab-none" title="none"><span style="font: 14px verdana;">X</span></a>
-                <a href="javascript:void(0)" class="solid grab-solid" title="solid">&nbsp;</a>
-                <a href="javascript:void(0)" class="dotted grab-dotted" title="dotted">&nbsp;</a>
-                <a href="javascript:void(0)" class="dashed grab-dashed" title="dashed">&nbsp;</a>
-                <a href="javascript:void(0)" class="double grab-double" title="double">&nbsp;</a>
-                <a href="javascript:void(0)" class="ridge grab-ridge" title="ridge">&nbsp;</a>
-                <a href="javascript:void(0)" class="groove grab-groove" title="groove">&nbsp;</a>
-                <a href="javascript:void(0)" class="inset grab-inset" title="inset">&nbsp;</a>
-                <a href="javascript:void(0)" class="outset grab-outset" title="outset">&nbsp;</a>
-              </div>
-              
+            <div class="border-color-picker">
               <table class="fill table-in">
                 <tr>
-                  <input class="border-size-all" style="width:90%;" type="range">
+                  <td><input class="fill colorwheel cpick-hue" style="margin:0;" type="range" value="328" min="0" max="360" value="328"></td>
                 </tr>
                 <tr>
-                  <td>
-                    border-width:
-                  </td>
-                  <td>
-                    <input type="text" class="show-border-size">
-                  </td>
+                  <td><input class="fill cpick-s" type="range" min="0" max="100" value="100"></td>
+                </tr>
+                <tr>
+                  <td><input class="fill cpick-l" type="range" min="0" max="100" value="44"></td>
+                </tr>
+                <tr>
+                  <td class="fill"><input class="fill cpick-a" type="range" step=".01" min="0" max="1" value="1"></td>
+                </tr>
+                <tr>
+                  <td><input class="cpick-code-hsl hide" type="text">
+                  <input class="cpick-code-rgb" type="text" value="rgb(0, 0, 0)"></td>
                 </tr>
               </table>
-            </center>
+            </div>
             
-            <b style="float:left;">
-              <div class="apply-border" style="width:100px; height:100px; border:1px solid #666;">
-                <input class="border-top" type="checkbox" style="position:relative; top:0px; left:18px;">
-                <input class="border-bottom" type="checkbox" style="position:relative; top:80px; right:7px;">
-                
-                <input class="border-left" type="checkbox" style="position:relative; top:40px; float:left;">
-                <input class="border-right" type="checkbox" style="position:relative; top:40px;  float:right;">
-              </div>
-            </b>
+            <input class="hide half grab-border-style" type="text">
+            <div class="horizontal-bar grab-borders borders"><br>
+              <span class="grab-border-color">&nbsp;</span>
+              <a href="javascript:void(0)" class="none grab-none" title="none"><span style="font: 14px verdana;">X</span></a>
+              <a href="javascript:void(0)" class="solid grab-solid" title="solid">&nbsp;</a>
+              <a href="javascript:void(0)" class="dotted grab-dotted" title="dotted">&nbsp;</a>
+              <a href="javascript:void(0)" class="dashed grab-dashed" title="dashed">&nbsp;</a>
+              <a href="javascript:void(0)" class="double grab-double" title="double">&nbsp;</a>
+              <a href="javascript:void(0)" class="ridge grab-ridge" title="ridge">&nbsp;</a>
+              <a href="javascript:void(0)" class="groove grab-groove" title="groove">&nbsp;</a>
+              <a href="javascript:void(0)" class="inset grab-inset" title="inset">&nbsp;</a>
+              <a href="javascript:void(0)" class="outset grab-outset" title="outset">&nbsp;</a>
+            </div>
             
-            <b style="float:right;">
-              <div class="apply-border-radius" style="width:100px; height:100px; border:1px solid #666; border-radius:10px;">
-                <input class="border-radius-top-left" type="checkbox" style="float:left;">
-                <input class="border-radius-top-right" type="checkbox" style="float:right;">
-                
-                <div style="margin:80px 0 0 0;">
-                  <input class="border-radius-bottom-left" type="checkbox" style="float:left;">
-                  <input class="border-radius-bottom-right" type="checkbox" style="float:right;">
-                </div>
-              </div>
-            </b>
+            <table class="fill table-in">
+              <tr>
+                <td>
+                  <input class="border-size-all" id="borderinput-input" min="0" max="50" value="0" type="range" onchange='borderinput.value=value'>
+                </td>
+                <td>
+                  width:<output id='borderinput'>0</output>px;
+                </td>
+              </tr>
+            </table>
+          
+            <table class="table-in apply-border half" style="float:left;">
+              <tr>
+                <td>
+                  &nbsp;
+                </td>
+                <td>
+                  <center><input class="border-top" type="checkbox"></center>
+                </td>
+                <td>
+                  &nbsp;
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <center><input class="border-left" type="checkbox"></center>
+                </td>
+                <td>
+                  &nbsp;
+                </td>
+                <td>
+                  <center><input class="border-right" type="checkbox"></center>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  &nbsp;
+                </td>
+                <td>
+                  <center><input class="border-bottom" type="checkbox"></center>
+                </td>
+                <td>
+                  &nbsp;
+                </td>
+              </tr>
+            </table>
             
-            <center>
-              <table class="fill table-in">
-                <tr>
-                  <input class="border-radius-all" style="width:90%;" type="range">
-                </tr>
-                <tr>
-                  <td>
-                    border-radius:
-                  </td>
-                  <td>
-                    <input type="text" class="show-border-radius">
-                  </td>
-                </tr>
-              </table>
-            </center>
+            <table class="table-in apply-border-radius half" style="float:right;">
+              <tr>
+                <td>
+                  <center><input class="border-radius-top-left" type="checkbox"></center>
+                </td>
+                <td>
+                  <center><input class="border-radius-top-right" type="checkbox"></center>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  &nbsp;
+                </td>
+                <td>
+                  &nbsp;
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <center><input class="border-radius-bottom-left" type="checkbox"></center>
+                </td>
+                <td>
+                  <center><input class="border-radius-bottom-right" type="checkbox"></center>
+                </td>
+              </tr>
+            </table>
+            
+            <table class="fill table-in">
+              <tr>
+                <td>
+                  <input class="border-radius-all" id="borderradinput-input" min="0" max="50" value="0" type="range" onchange='borderradinput.value=value'>
+                </td>
+                <td>
+                  radius:<output id='borderradinput'>0</output>px;
+                </td>
+              </tr>
+            </table>
           </div>
         </span>
-        
-        <span class="section-dropper grabmy-typography check-inputs">
-          <header class="drop grab-txt-style txt-style-call" title="Typography">
+        <span class="section-dropper grabmy-typography">
+          <header class="drop grab-typography" title="typography">
             <input type="checkbox" id="ltypography" name="ltypography" />
-            <label for="ltypography">Typography</label><br>
+            <label for="ltypography">typography</label><br>
           </header>
           
           <div class="drop-section grab-elm-typography">
             <center>
-              
-              
               <div class="text-color-picker">
                 <table class="fill table-in">
                   <tr>
-                    <input class="colorwheel txt-cpick-hue" type="range" value="328" min="0" max="360" value="328">
+                    <td><input class="fill colorwheel txt-cpick-hue" style="margin:0;" type="range" value="328" min="0" max="360" value="328"></td>
                   </tr>
                   <tr>
-                    <input class="txt-cpick-s" type="range" min="0" max="100" value="100">
+                    <td><input class="fill txt-cpick-s" type="range" min="0" max="100" value="100"></td>
                   </tr>
                   <tr>
-                    <input class="txt-cpick-l" type="range" min="0" max="100" value="44">
+                    <td><input class="fill txt-cpick-l" type="range" min="0" max="100" value="44"></td>
                   </tr>
                   <tr>
-                    <input class="txt-cpick-a" type="range" step=".01" min="0" max="1" value="1">
+                    <td><input class="fill txt-cpick-a" type="range" step=".01" min="0" max="1" value="1"></td>
                   </tr>
                   <tr>
-                    <input class="txt-cpick-code-hsl hide" type="text">
-                    <input class="txt-cpick-code-rgb" type="text" value="rgb(0, 0, 0)">
+                    <td><input class="txt-cpick-code-hsl hide" type="text">
+                    <input class="txt-cpick-code-rgb" type="text" value="rgb(0, 0, 0)"></td>
                   </tr>
                 </table>
               </div>
@@ -384,38 +346,19 @@
               <table class="fill">
                 <tr>
                   <td>
-                    <input class="grab-font-size-int" type="range" placeholder="size">
+                    <input class="grab-font-size" id="points-input" value="14" type="range" onchange='points.value=value'>
                   </td>
                   <td>
-                    <input class="grab-font-size" style="width:auto;" type="text" placeholder="size">
-                  </td>
-                </tr>
-              </table>
-              <table class="fill">
-                <tr>
-                  <td>
-                    <input class="fill grab-font-family" type="text" placeholder="family" list="search-font-family">
+                    <output id='points'>14</output>px
                   </td>
                 </tr>
               </table>
               
-              <datalist id="search-font-family">
-                <option value="serif"></option>
-                <option value="sans"></option>
-                <option value="arial"></option>
-                <option value="arial black"></option>
-                <option value="courier"></option>
-                <option value="comic sans ms"></option>
-                <option value="helvetica"></option>
-                <option value="impact"></option>
-                <option value="lucida sans"></option>
-                <option value="tahoma"></option>
-                <option value="times new roman"></option>
-                <option value="verdana"></option>
-              </datalist>
+              <input class="grab-font-family hide" type="text" value="" placeholder="font-family" />
               
               <div class="horizontal-bar grab-typography typography"><br>
-                <a class="grab-andale-mono" href="javascript:void(0)">andale mono</a>                
+                <a class="grab-none" href="javascript:void(0)"><span class="fa fa-times"></span></a>
+                <a class="grab-andale-mono" href="javascript:void(0)">andale mono</a>
                 <a class="grab-arial" href="javascript:void(0)">arial</a>
                 <a class="grab-arial-black" href="javascript:void(0)">arial black</a>
                 <a class="grab-courier" href="javascript:void(0)">courier</a>
@@ -435,22 +378,38 @@
               
               <table class="fill table-in">
                 <tr>
-                  <td><input class="enable-line-height" type="checkbox"></td>
+                  <td>fontWeight:</td>
+                  <td><input class="grab-font-weight" type="text" list="list-my-font-weight-properties">
+                  <datalist id="list-my-font-weight-properties">
+                    <option value="normal"></option>
+                    <option value="bold"></option>
+                    <option value="bolder"></option>
+                    <option value="lighter"></option>
+                    <option value="100"></option>
+                    <option value="200"></option>
+                    <option value="300"></option>
+                    <option value="400"></option>
+                    <option value="500"></option>
+                    <option value="600"></option>
+                    <option value="700"></option>
+                    <option value="800"></option>
+                    <option value="900"></option>
+                    <option value="inherit"></option>
+                  </datalist></td>
+                </tr>
+                <tr>
                   <td>lineHeight:</td>
                   <td><input class="grab-line-height" type="text"></td>
                 </tr>
                 <tr>
-                  <td><input class="enable-letter-spacing" type="checkbox"></td>
                   <td>letterSpacing:</td>
                   <td><input class="grab-letter-spacing" type="text"></td>
                 </tr>
                 <tr>
-                  <td><input class="enable-word-spacing" type="checkbox"></td>
                   <td>wordSpacing:</td>
                   <td><input class="grab-word-spacing" type="text"></td>
                 </tr>
                 <tr>
-                  <td><input class="enable-text-transform" type="checkbox"></td>
                   <td>textTransform:</td>
                   <td><input class="grab-text-transform" type="text" list="list-my-text-transform-properties">
                   <datalist id="list-my-text-transform-properties">
@@ -461,8 +420,7 @@
                     <option value="full-width"></option>
                   </datalist></td>
                 </tr>
-                <tr style="display:none;">
-                  <td><input class="enable-text-align" type="checkbox"></td>
+                <tr>
                   <td>textAlign:</td>
                   <td><input class="grab-text-align" type="text" list="list-my-text-align-properties">
                   <datalist id="list-my-text-align-properties">
@@ -474,7 +432,6 @@
                   </datalist></td>
                 </tr>
                 <tr>
-                  <td><input class="enable-word-wrap" type="checkbox"></td>
                   <td>wordWrap:</td>
                   <td><input class="grab-word-wrap" type="text" list="list-my-word-wrap-properties">
                   <datalist id="list-my-word-wrap-properties">
@@ -483,7 +440,6 @@
                   </datalist></td>
                 </tr>
                 <tr>
-                  <td><input class="enable-white-space" type="checkbox"></td>
                   <td>white-space:</td>
                   <td><input class="grab-white-space" type="text" list="list-my-white-space-properties">
                   <datalist id="list-my-white-space-properties">
@@ -498,18 +454,16 @@
             </center>
           </div>
         </span>
-        
-        <span class="section-dropper check-inputs">
-          <header class="drop grab-advanced" title="Advanced">
+        <span class="section-dropper">
+          <header class="drop grab-advanced" title="advanced">
             <input type="checkbox" id="ladvanced" name="ladvanced" />
-            <label for="ladvanced">Advanced</label><br>
+            <label for="ladvanced">advanced</label><br>
           </header>
           
           <div class="drop-section grab-elm-advanced-opt">
             <center>
               <table class="fill table-in">
                 <tr>
-                  <td><input class="enable-display" type="checkbox"></td>
                   <td>display:</td>
                   <td><input class="grab-display" type="text" list="list-my-display-properties">
                   <datalist id="list-my-display-properties">
@@ -534,22 +488,18 @@
                   </datalist></td>
                 </tr>
                 <tr>
-                  <td><input class="enable-padding" type="checkbox"></td>
                   <td>padding:</td>
                   <td><input class="grab-padding" type="text"></td>
                 </tr>
                 <tr>
-                  <td><input class="enable-margin" type="checkbox"></td>
                   <td>margin:</td>
                   <td><input class="grab-margin" type="text"></td>
                 </tr>
                 <tr>
-                  <td><input class="enable-opacity" type="checkbox"></td>
                   <td>opacity:</td>
                   <td><input class="grab-opacity" type="text"></td>
                 </tr>
                 <tr>
-                  <td><input class="enable-overflow" type="checkbox"></td>
                   <td>overflow:</td>
                   <td><input class="grab-overflow" type="text" list="list-my-overflow-properties">
                   <datalist id="list-my-overflow-properties">
@@ -561,74 +511,24 @@
                   </datalist></td>
                 </tr>
                 <tr>
-                  <td><input class="enable-transition" type="checkbox"></td>
                   <td>transition:</td>
                   <td><input class="grab-transition" type="text"></td>
                 </tr>
                 <tr>
-                  <td><input class="enable-transform" type="checkbox"></td>
-                  <td>transform:</td>
-                  <td><input class="grab-transform" type="text"></td>
-                </tr>
-                <tr>
-                  <td><input class="enable-filter" type="checkbox"></td>
-                  <td>filter:</td>
-                  <td><input class="grab-filter" type="text"></td>
+                  <td>resize:</td>
+                  <td><input class="grab-resize" type="text" list="list-my-resize-properties">
+                  <datalist id="list-my-resize-properties">
+                    <option value="none"></option>
+                    <option value="both"></option>
+                    <option value="vertical"></option>
+                    <option value="horizontal"></option>
+                    <option value="inherit"></option>
+                  </datalist></td>
                 </tr>
               </table>
             </center>
           </div>
         </span>
-      </div>
-      
-      <div class="draw-properties show">
-        <span class="section-dropper">
-          <header class="drop grab-tagname" title="Elements">
-            &nbsp; Elements<br>
-          </header>
-          
-          <div class="drop-section">
-            <form class="draw-elements" name='draw-elements'>
-              <input type="radio" value="div" name="elms" checked="true"> Div<br />
-              <input type="radio" value="span" name="elms"> Span<br />
-              <input type="radio" value="form" name="elms"> Form<br />
-              <input type="radio" value="table" name="elms"> Table<br />
-              <input type="radio" value="flash" name="elms"> Flash<br />
-              <input type="radio" value="button" name="elms"> Button<br />
-              <input type="radio" value="img" name="elms"> Image<br />
-              <input type="radio" value="iframe" name="elms"> IFrame<br />
-              <input type="radio" value="textarea" name="elms"> Textarea<br />
-              <input type="radio" value="textbox" name="elms"> Textbox = input[type=text]<br />
-              <input type="radio" value="html5-video" name="elms"> HTML5 Video<br />
-              <input type="radio" value="html5-audio" name="elms"> HTML5 Audio<br />
-              <input type="radio" value="youtube-video" name="elms"> YouTube Video<br />
-            </form>
-          </div>
-        </span>
-        
-        <span class="section-dropper">
-          <header class="drop set-elm-options" title="Options">
-            &nbsp; Options<br>
-          </header>
-          
-          <div class="drop-section">
-            <em>Coming soon...</em>
-          </div>
-        </span>
-        
-        <span class="section-dropper">
-          <div class="drop-section">
-            <center>
-              <textarea id="code" style="width:0; height:0; overflow:hidden; display:none;">Layout save is coming soon... Stay tuned to My Mobile Design's development on Facebook - https://www.facebook.com/pages/My-Mobile-Design/1428613460707260</textarea>
-            </center>
-          </div>
-        </span>
-      </div>
-    </div>
-    
-    <div class="groups-sec">
-      <div class="section-display show">
-        Groups/Layers coming soon...
       </div>
     </div>
   </div>
@@ -668,8 +568,8 @@
           <option value="10">10</option>
         </select>
         
-        <a title="Text Color" id="txtcolor" href='javascript:void(0)'><i class='fa fa-font' style="color:red;"></i></a>
-        <a title="Text BGColor" id="backcolor" href="javascript:void(0)"><i class='fa fa-font' style="background:black; color:red;"></i></a>
+        <a title="Text Color" href='javascript:void(0)' onclick="var TxtColor = prompt('Enter hex/rgb/hsl color code', ''); if(TxtColor != null) {document.execCommand('ForeColor', false, TxtColor);}"><i class='fa fa-font' style="color:red;"></i></a>
+        <a title="Text BGColor" href="javascript:void(0)" onclick="var TxtBGColor = prompt('Enter hex/rgb/hsl color code', ''); if(TxtBGColor != null) {document.execCommand('BackColor', false, TxtBGColor);}"><i class='fa fa-font' style="background:black; color:red;"></i></a>
         <a title="Bold" href='javascript:void(0)' onclick='document.execCommand("bold", false, null);'><i class='fa fa-bold'></i></a>
         <a title="Italic" href='javascript:void(0)' onclick='document.execCommand("italic", false, null);'><i class='fa fa-italic'></i></a>
         <a title="Underline" href='javascript:void(0)' onclick='document.execCommand("underline", false, null);'><i class='fa fa-underline'></i></a>
@@ -704,9 +604,8 @@
         <a title="SuperScript" href='javascript:void(0)' onclick='document.execCommand("superscript", false, null);'><i class='fa fa-superscript'></i></a>
         <a title="Link" href='javascript:void(0)' onclick='var linkURL = prompt("Enter the URL for this link:", "http://"); document.execCommand("CreateLink", false, linkURL);'><i class='fa fa-link'></i></a>
         <a title="Unlink" href='javascript:void(0)' onclick='document.execCommand("Unlink", false, null);'><i class='fa fa-unlink'></i></a>
-        <a title="Image" href="javascript:void(0)' onclick='var imgSrc = prompt('Enter image location', ''); if(imgSrc != null) {document.execCommand('insertimage', false, imgSrc);}"><i class='fa fa-picture-o'></i></a>
-        <a title="Table" style="display:none;" href="javascript:void(0)' onclick='var imgSrc = prompt('Enter video url', ''); if(imgSrc != null) {document.execCommand('insertflash', false, imgSrc);}"><i class='fa fa-table'></i></a>
-        <a title="Video" style="display:none;" href="javascript:void(0)' onclick='var imgSrc = prompt('Enter video url', ''); if(imgSrc != null) {document.execCommand('insertflash', false, imgSrc);}"><i class='fa fa-video-camera'></i></a>
+        <a title="Image" href="javascript:void(0)" onclick="var imgSrc = prompt('Enter image location', ''); if(imgSrc != null) {document.execCommand('insertimage', false, imgSrc);}"><i class='fa fa-picture-o'></i></a>
+        <a class="insert-html" title="Custom HTML" href="javascript:void(0)"><i class='fa fa-html5'></i></a>
       </div>
       <div id="inactive-menubtns"></div>
     </div>
@@ -720,6 +619,10 @@
 &lt;meta charset='utf-8'&gt;
 &lt;meta name='viewport' content='initial-scale=1.0'&gt;
 &lt;style type='text/css'&gt;
+body {
+  padding: 0; margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
 <span class="mirror-css">No synaptics incorporated yet...</span>
 &lt;/style&gt;
 &lt;/head&gt;
@@ -730,22 +633,9 @@
 
   <!-- This is the designing area -->
   <div class="container">
-<div class="canves"><div class='head' style="position: absolute; top:0; left:0; height:78px; right:0; background: #eee; text-align: center; font: 32px arial; color: #fff; line-height: 2.3em; text-shadow: 0 0 8px rgba(0,0,0,0.2); background: #1e5799; /* Old browsers */ background: -moz-linear-gradient(top,  #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%); /* FF3.6+ */ background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(50%,#2989d8), color-stop(51%,#207cca), color-stop(100%,#7db9e8)); /* Chrome,Safari4+ */ background: -webkit-linear-gradient(top,  #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* Chrome10+,Safari5.1+ */ background: -o-linear-gradient(top,  #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* Opera 11.10+ */ background: -ms-linear-gradient(top,  #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* IE10+ */ background: linear-gradient(to bottom,  #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* W3C */ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=0 ); /* IE6-9 */">
-  <strong>Website Name</strong>
+<div class="canves" style="background-color:#fff;"></div>
 </div>
-
-<div class='content' style='position: absolute; top: 76px; left:0; bottom:0; right:0; padding: 1em; overflow: auto; background: #eee; font: 14px arial; text-shadow: -1px 1px 2px #fff, 1px 1px 4px #fff;'>
-	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor. Praesent et diam eget libero egestas mattis sit amet vitae augue. Nam tincidunt congue enim, ut porta lorem lacinia consectetur. Donec ut libero sed arcu vehicula ultricies a non tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut gravida lorem. Ut turpis felis, pulvinar a semper sed, adipiscing id dolor. Pellentesque auctor nisi id magna consequat sagittis. Curabitur dapibus enim sit amet elit pharetra tincidunt feugiat nisl imperdiet. Ut convallis libero in urna ultrices accumsan. Donec sed odio eros. Donec viverra mi quis quam pulvinar at malesuada arcu rhoncus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In rutrum accumsan ultricies. Mauris vitae nisi at sem facilisis semper ac in est.<br><br>
-
-Vivamus fermentum semper porta. Nunc diam velit, adipiscing ut tristique vitae, sagittis vel odio. Maecenas convallis ullamcorper ultricies. Curabitur ornare, ligula semper consectetur sagittis, nisi diam iaculis velit, id fringilla sem nunc vel mi. Nam dictum, odio nec pretium volutpat, arcu ante placerat erat, non tristique elit urna et turpis. Quisque mi metus, ornare sit amet fermentum et, tincidunt et orci. Fusce eget orci a orci congue vestibulum. Ut dolor diam, elementum et vestibulum eu, porttitor vel elit. Curabitur venenatis pulvinar tellus gravida ornare. Sed et erat faucibus nunc euismod ultricies ut id justo. Nullam cursus suscipit nisi, et ultrices justo sodales nec. Fusce venenatis facilisis lectus ac semper. Aliquam at massa ipsum. Quisque bibendum purus convallis nulla ultrices ultricies. Nullam aliquam, mi eu aliquam tincidunt, purus velit laoreet tortor, viverra pretium nisi quam vitae mi. Fusce vel volutpat elit. Nam sagittis nisi dui.<br><br>
-
-Suspendisse lectus leo, consectetur in tempor sit amet, placerat quis neque. Etiam luctus porttitor lorem, sed suscipit est rutrum non. Curabitur lobortis nisl a enim congue semper. Aenean commodo ultrices imperdiet. Vestibulum ut justo vel sapien venenatis tincidunt. Phasellus eget dolor sit amet ipsum dapibus condimentum vitae quis lectus. Aliquam ut massa in turpis dapibus convallis. Praesent elit lacus, vestibulum at malesuada et, ornare et est. Ut augue nunc, sodales ut euismod non, adipiscing vitae orci. Mauris ut placerat justo. Mauris in ultricies enim. Quisque nec est eleifend nulla ultrices egestas quis ut quam. Donec sollicitudin lectus a mauris pulvinar id aliquam urna cursus. Cras quis ligula sem, vel elementum mi. Phasellus non ullamcorper urna.<br><br>
-
-Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In euismod ultrices facilisis. Vestibulum porta sapien adipiscing augue congue id pretium lectus molestie. Proin quis dictum nisl. Morbi id quam sapien, sed vestibulum sem. Duis elementum rutrum mauris sed convallis. Proin vestibulum magna mi. Aenean tristique hendrerit magna, ac facilisis nulla hendrerit ut. Sed non tortor sodales quam auctor elementum. Donec hendrerit nunc eget elit pharetra pulvinar. Suspendisse id tempus tortor. Aenean luctus, elit commodo laoreet commodo, justo nisi consequat massa, sed vulputate quam urna quis eros. Donec vel.
-</div></div>
-  </div>
   
-<script src="assets/editor.js"></script>
 <script src="assets/ui.js"></script>
 </body>
 </html>
