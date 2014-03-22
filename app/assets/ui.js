@@ -4,7 +4,7 @@ $(window).load(function() {
 	$('#openload').click(function() {
 		$('#loadfile').trigger('click');
 	});
-	
+
 	// Load File into Editor
 	if (window.File && window.FileReader && window.FileList && window.Blob) {
 		var LoadFile = function(input) {
@@ -28,10 +28,46 @@ $(window).load(function() {
 	} else {
 		alert('The File APIs are not fully supported in this browser.');
 	}
+  
 });
 
+// Insert Button in ExecCommand
+function pasteHtmlAtCaret(html) {
+	var sel, range;
+	if (window.getSelection) {
+		// IE9 and non-IE
+		sel = window.getSelection();
+		if (sel.getRangeAt && sel.rangeCount) {
+			range = sel.getRangeAt(0);
+			range.deleteContents();
+
+			// Range.createContextualFragment() would be useful here but is
+			// non-standard and not supported in all browsers (IE9, for one)
+			var el = document.createElement("span");
+			el.innerHTML = html;
+			var frag = document.createDocumentFragment(), node, lastNode;
+			while ( (node = el.firstChild) ) {
+				lastNode = frag.appendChild(node);
+			}
+			range.insertNode(frag);
+			
+			// Preserve the selection
+			if (lastNode) {
+				range = range.cloneRange();
+				range.setStartAfter(lastNode);
+				range.collapse(true);
+				sel.removeAllRanges();
+				sel.addRange(range);
+			}
+		}
+	} else if (document.selection && document.selection.type != "Control") {
+		// IE < 9
+		document.selection.createRange().pasteHTML(html);
+	}
+}
+
 // Save Coded Document
-function saveTextAsFile() {
+function saveTextAsHTML() {
 	var textToWrite = document.getElementById("code").value;
 	var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
 	var fileNameToSaveAs = "gen-layout.html";
@@ -57,7 +93,32 @@ function saveTextAsFile() {
 
 	downloadLink.click();
 }
+function saveTextAsProject() {
+	var textToWrite = document.getElementById("projsavecode").value;
+	var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
+	var fileNameToSaveAs = "mmd-layout.mmd";
 
+	var downloadLink = document.createElement("a");
+	downloadLink.download = fileNameToSaveAs;
+	downloadLink.innerHTML = "Download File";
+	if (window.webkitURL != null)
+	{
+		// Chrome allows the link to be clicked
+		// without actually adding it to the DOM.
+		downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+	}
+	else
+	{
+		// Firefox requires the link to be added to the DOM
+		// before it can be clicked.
+		downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+		downloadLink.onclick = destroyClickedElement;
+		downloadLink.style.display = "none";
+		document.body.appendChild(downloadLink);
+	}
+
+	downloadLink.click();
+}
 function destroyClickedElement(event) {
 	document.body.removeChild(event.target);
 }
