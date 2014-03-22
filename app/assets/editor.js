@@ -727,6 +727,8 @@ $(document).ready(function() {
     $(".open-save-dialog").on('click', function() {
       $(".yourhtml").html($(".canves").html());
       $(".yourhtml *").removeAttr('style');
+      $(".yourhtml *").removeAttr('id');
+      $(".yourhtml *").removeAttr('contenteditable');
       $(".html-sheet").val($(".yourhtml").html().replace(/>/g,'>\n    ').replace(/</g,'\n  <'));
       $('.mirror-title').text( $('.website-title').val() );
       $(".mirror-css").text( $('.css-sheet').val() );
