@@ -6,5 +6,5 @@ MMD is licensed under the <a href="http://opensource.org/licenses/LGPL-3.0">LGPL
 
 If you have any questions you can contact us on our Facebook - https://www.facebook.com/pages/My-Mobile-Design/
 
-<p>Give it a try at <a href="http://mmd.sourceforge.net/">http://mmd.sourceforge.net/</a></p>
+<p>Give it a try at <a href="http://mmd.sourceforge.net/app/">http://mmd.sourceforge.net/app/</a></p>
 
