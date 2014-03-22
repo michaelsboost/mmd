@@ -173,10 +173,30 @@
                   <td><input class="grab-bg-size" type="text" value="" /></td>
                 </tr>
                 <tr>
-                  <td>color:</td>
-                  <td><input class="grab-bg-color" type="text"></td>
+                  <td><span class="grab-bg-color" style="cursor:pointer; padding: 5px 10px; background:#fff;">&nbsp;</span></td>
+                  <td><input class="bg-cpick-code-rgb" type="text" value="rgb(0, 0, 0)"></td>
                 </tr>
             </table>
+            
+            <div class="bg-color-picker">
+              <table class="fill table-in">
+                <tr>
+                  <td><input class="fill colorwheel bg-cpick-hue" style="margin:0;" type="range" value="328" min="0" max="360" value="328"></td>
+                </tr>
+                <tr>
+                  <td><input class="fill bg-cpick-s" type="range" min="0" max="100" value="100"></td>
+                </tr>
+                <tr>
+                  <td><input class="fill bg-cpick-l" type="range" min="0" max="100" value="44"></td>
+                </tr>
+                <tr>
+                  <td><input class="fill bg-cpick-a" type="range" step=".01" min="0" max="1" value="1"></td>
+                </tr>
+                <tr>
+                  <td><input class="bg-cpick-code-hsl hide" type="text"></td>
+                </tr>
+              </table>
+            </div>
           </div>
         </span>
         <span class="section-dropper">

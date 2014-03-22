@@ -246,11 +246,63 @@ $(document).ready(function() {
               });
             }
           });
-          $('.grab-bg-color').on('keyup change', function() {
-            $("#stylethis").css({
-              'background-color': $(this).val()
+          
+          // BG Color Picker - Setup Hue Saturation Value & Alpha
+          $(".bg-cpick-hue, .bg-cpick-s, .bg-cpick-l, .bg-cpick-a").on('change', function() {
+            $(".bg-cpick-code-hsl").trigger('change');
+          });
+          $(".bg-cpick-s").css({
+            "background": "linear-gradient(to right, #7f7f80 0%," + "hsl(" + $(".bg-cpick-hue").val() + "," + $(".bg-cpick-s").val() + "%," + $(".bg-cpick-l").val() + "%)" + " 100%)"
+          });
+          $(".bg-cpick-l").css({
+            "background": "linear-gradient(to right, #000000 0%," + "hsl(" + $(".bg-cpick-hue").val() + "," + $(".bg-cpick-s").val() + "%," + $(".bg-cpick-l").val() + "%) 50%,#ffffff 100%)"
+          });
+          $(".bg-cpick-a").css({
+            "background": "linear-gradient(to right, rgba(51,51,51,0) 0%," + "hsl(" + $(".bg-cpick-hue").val() + "," + $(".bg-cpick-s").val() + "%," + $(".bg-cpick-l").val() + "%)" + " 100%)"
+          });
+          
+          // Setup Color Picker Code
+          $(".bg-cpick-code-hsl").on('change keyup', function() {
+            $(this).val( "hsla(" + $(".bg-cpick-hue").val() + ", " + $(".bg-cpick-s").val() + "%, " + $(".bg-cpick-l").val() + "%, " + $(".bg-cpick-a").val() + ")");
+            
+            // Initiate hsl preview
+            $(".grab-bg-color").css({
+              "background": $(".bg-cpick-code-hsl").val(),
+              "border-color": $(".bg-cpick-code-hsl").val()
+            });
+            
+            $(".bg-cpick-code-rgb").val( $(".grab-bg-color").css("backgroundColor") );
+            $("#stylethis").css('backgroundColor', $(".bg-cpick-code-rgb").val());
+            
+            // Alpha Saturation
+            $(".bg-cpick-s").css({
+              "background": "linear-gradient(to right, #7f7f80 0%," + "hsl(" + $(".bg-cpick-hue").val() + "," + $(".bg-cpick-s").val() + "%," + $(".bg-cpick-l").val() + "%)" + " 100%)"
+            });
+            
+            // Alpha Lightness
+            $(".bg-cpick-l").css({
+              "background": "linear-gradient(to right, #000000 0%," + "hsl(" + $(".bg-cpick-hue").val() + "," + $(".bg-cpick-s").val() + "%," + $(".bg-cpick-l").val() + "%) 50%,#ffffff 100%)"
+            });
+            
+            // Alpha Preview
+            $(".bg-cpick-a").css({
+              "background": "linear-gradient(to right, rgba(51,51,51,0) 0%," + "hsl(" + $(".bg-cpick-hue").val() + "," + $(".bg-cpick-s").val() + "%," + $(".bg-cpick-l").val() + "%)" + " 100%)"
             });
           });
+
+          // Initiate rgb preview
+          $(".bg-cpick-code-rgb").on('change keyup focus', function() {
+            $(".grab-bg-color").css({
+              "background": $(this).val(),
+              "border-color": $(this).val()
+            });
+            
+            $("#stylethis").css('backgroundColor', $(this).val());
+          });
+          $('.grab-bg-color').on('mouseup touchend', function() {
+            $('.bg-color-picker').toggle();
+          }); $('.bg-color-picker').hide();
+          
         });
           
         // Sets Border

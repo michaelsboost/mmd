@@ -212,7 +212,7 @@ body {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff0000', endColorstr='#ff0004',GradientType=1 ); /* IE6-9 */
 }
 
-.disismyfukentoolbuxhhehahooo .cpick-s, .disismyfukentoolbuxhhehahooo .cpick-l, .disismyfukentoolbuxhhehahooo .cpick-a, .disismyfukentoolbuxhhehahooo .txt-cpick-s, .disismyfukentoolbuxhhehahooo .txt-cpick-l, .disismyfukentoolbuxhhehahooo .txt-cpick-a {
+.disismyfukentoolbuxhhehahooo .cpick-s, .disismyfukentoolbuxhhehahooo .cpick-l, .disismyfukentoolbuxhhehahooo .cpick-a, .disismyfukentoolbuxhhehahooo .txt-cpick-s, .disismyfukentoolbuxhhehahooo .txt-cpick-l, .disismyfukentoolbuxhhehahooo .txt-cpick-a , .disismyfukentoolbuxhhehahooo .bg-cpick-s, .disismyfukentoolbuxhhehahooo .bg-cpick-l, .disismyfukentoolbuxhhehahooo .bg-cpick-a {
   background:transparent;
   margin:0;
 }
