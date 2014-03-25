@@ -10,7 +10,7 @@
 <script src="assets/jquery.min.js"></script>
 <script src="assets/jquery-ui.min.js"></script>
 <script src="assets/editor.js"></script>
-<script src='assets/bootstrap.min.js'></script>
+<script src="assets/bootstrap.min.js"></script>
 <script src="assets/jquery.ui.touch-punch.min.js"></script>
 </head>
 <body>
@@ -49,8 +49,6 @@
           <div class="drop-section">
             <center>
               <input type="text" class="fill website-title" value="New Document" placeholder="Website title" style="text-align:center;" />
-              <textarea id="projsavecode" style="position:absolute; top:-99999999px; left:-99999999px; width:0; height:0; display:none; opacity:0; padding:0; margin:0; resize:none;" disabled="true"></textarea>
-              <textarea id="code" style="position:absolute; top:-99999999px; left:-99999999px; width:0; height:0; display:none; opacity:0; padding:0; margin:0; resize:none;" disabled="true">MMD is loading your layout...</textarea>
             </center>
           </div>
         </span>
@@ -64,9 +62,22 @@
               <a href="javascript:void(0)" class="header">Header</a>
               <a href="javascript:void(0)" class="div">Div</a>
               <a href="javascript:void(0)" class="footer">Footer</a>
-              <textarea class="css-sheet" style="cursor:text!important; width:100%; resize:vertical; border:0; border-radius:0; min-height:200px;"></textarea>
+            </center>
+          </div>
+        </span>
+        <span class="section-dropper hide">
+          <header class="drop head-prop" title="Codes">
+            &nbsp; Codes<br>
+          </header>
+          
+          <div class="drop-section the-codez-stage">
+            <center>
+              <div class="yourcss hide"></div>
+              <textarea class="css-sheet" style="cursor:text!important; width:100%; resize:vertical; border:0; border-radius:0; min-height:200px;" placeholder="Your CSS is added here"></textarea>
               <div class="yourhtml hide"></div>
-              <textarea class="html-sheet hide" style="cursor:text!important; width:100%; resize:vertical; border:0; border-radius:0; min-height:200px;"></textarea>
+              <textarea class="html-sheet hide" placeholder="Your HTML is generated here"></textarea>
+              <textarea id="projsavecode hide" style="position:absolute; top:-99999999px; left:-99999999px; width:0; height:0; display:none; opacity:0; padding:0; margin:0; resize:none;" disabled="true"></textarea>
+              <textarea id="code" class="hide" placeholder="Your full code is generated here"></textarea>
             </center>
           </div>
         </span>
@@ -95,14 +106,19 @@
           </header>
           
           <div class="drop-section">
-            <center>
-              <input class="enable-inline-editing" type="checkbox"> Editor<br>
-              <span class="known-class"></span>
-            </center>
+            <table class="fill table-in">
+              <tr>
+                <td>&nbsp;</td>
+                <td>
+                  <center><input class="enable-inline-editing" type="checkbox"> Editor</center>
+                </td>
+                <td>&nbsp;</td>
+              </tr>
+            </table>
             <table class="fill table-in">
               <tr>
                 <td>
-                  <button class="add-class"><span class='fa fa-plus'></span></button>
+                  <span class="known-class"></span>
                 </td>
                 <td>
                   <input class="sel-css" style="font-size:16px;" type="text" placeholder="CSS Class" />
@@ -110,6 +126,59 @@
               </tr>
             </table>
           </div>
+        </span>
+        <span class="section-dropper grabmy-position">
+          <header class="drop grab-position" title="position">
+            <input type="checkbox" id="lpos" name="lpos" />
+            <label for="lpos">position</label><br>
+          </header>
+          
+          <div class="drop-section grab-elm-pos">
+            <center>
+              <div class="horizontal-bar" style="padding-top:15px;">
+                <a title="static" class="grab-pos-static" href='javascript:void(0);'><i class='fa fa-barcode'></i></a>
+                <a title="relative" class="grab-pos-relative" href='javascript:void(0);'><i class='fa fa-square-o'></i></a>
+                <a title="absolute" class="grab-pos-absolute" href='javascript:void(0);'><i class='fa fa-crosshairs'></i></a>
+                <a title="fixed" class="grab-pos-fixed" href='javascript:void(0);'><i class='fa fa-thumb-tack'></i></a>
+              </div>
+              
+              <table class="fill table-in">
+                <tr>
+                  <td>
+                    &nbsp;
+                  </td>
+                  <td>
+                    <input type="text" class="grab-postop postop quarter" placeholder="Top" />
+                  </td>
+                  <td>
+                    &nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="text" class="grab-posleft posleft quarter" placeholder="Left" />
+                  </td>
+                  <td>
+                    &nbsp;
+                  </td>
+                  <td>
+                    <input type="text" class="grab-posright posright quarter" placeholder="Right" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    &nbsp;
+                  </td>
+                  <td>
+                    <input type="text" class="grab-posbottom posbottom quarter" placeholder="Bottom" />
+                  </td>
+                  <td>
+                    &nbsp;
+                  </td>
+                </tr>
+              </table>
+            </center>
+          </div>          
         </span>
         <span class="section-dropper">
           <header class="drop grab-size" title="size">
@@ -516,10 +585,6 @@
                   <td><input class="grab-margin" type="text"></td>
                 </tr>
                 <tr>
-                  <td>opacity:</td>
-                  <td><input class="grab-opacity" type="text"></td>
-                </tr>
-                <tr>
                   <td>overflow:</td>
                   <td><input class="grab-overflow" type="text" list="list-my-overflow-properties">
                   <datalist id="list-my-overflow-properties">
@@ -529,6 +594,14 @@
                     <option value="auto"></option>
                     <option value="inherit"></option>
                   </datalist></td>
+                </tr>
+                <tr>
+                  <td>opacity:</td>
+                  <td><input class="grab-opacity" type="text"></td>
+                </tr>
+                <tr>
+                  <td>outline:</td>
+                  <td><input class="grab-outline" type="text"></td>
                 </tr>
                 <tr>
                   <td>transition:</td>
@@ -544,6 +617,14 @@
                     <option value="horizontal"></option>
                     <option value="inherit"></option>
                   </datalist></td>
+                </tr>
+                <tr>
+                  <td>float:</td>
+                  <td><input class="grab-float" type="text"></td>
+                </tr>
+                <tr>
+                  <td>z-index:</td>
+                  <td><input class="grab-z-index" type="text"></td>
                 </tr>
               </table>
             </center>
@@ -643,6 +724,7 @@ body {
   padding: 0; margin: 0;
   -webkit-font-smoothing: antialiased;
 }
+
 <span class="mirror-css">No synaptics incorporated yet...</span>
 &lt;/style&gt;
 &lt;/head&gt;
@@ -652,11 +734,10 @@ body {
 &lt;/html&gt;</div>
 
   <!-- This is the designing area -->
-  <div class="container">
+  <div class="itsthecavnescontainerbro">
 <div class="canves" style="background-color:#fff;"></div>
 </div>
   
 <script src="assets/ui.js"></script>
 </body>
 </html>
-

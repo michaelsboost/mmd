@@ -294,17 +294,17 @@ body {
 }
 
 .cwidth-containment {
-	position: absolute;
-	top:0; left:0; right:300px;
-	z-index:2;
+  position: absolute;
+  top:0; left:0; right:300px;
+  z-index:2;
 }
 
 .cwidth {
-	position: absolute;
-	top: -10px; left:0;
+  position: absolute;
+  top: -10px; left:0;
   padding:0; margin:0;
   width: 100%;
-	background: transparent;
+  background: transparent;
 }
 
 /* WYSIWYG Content Editor */
@@ -340,20 +340,20 @@ body {
 }
 
 /* Design Area */
-.container {
+.itsthecavnescontainerbro {
   position: absolute;
   top:25px; left:0; right: 300px; bottom:25px;
   background: #aaa url(img/il-grid-trans.png) top left repeat;
 }
 
-.canves {
+.itsthecavnescontainerbro .canves {
   position: absolute;
   top:0; left:0;
   width:100%; height:100%;
   overflow: auto;
 }
 
-.noselect {
+.itsthecavnescontainerbro .canves .noselect {
   -webkit-user-select: none;
    -khtml-user-select: none;
      -moz-user-select: none;
