@@ -57,6 +57,7 @@ $(document).ready(function() {
         $('#inactive-menubtns').show();
         
         $(".canves *").on('mousedown touchstart', function() {
+          $(".sel-css").val("");
           $(".known-class").text($(this).prop('class'));
           $('.canves, .canves *').removeClass('editable');
           $('.canves, .canves *').removeAttr('id');
@@ -65,6 +66,7 @@ $(document).ready(function() {
         
         $(".sel-css").on('keyup', function() {
           $('#stylethis').prop('class', $(this).val());
+          $(".known-class").text( $(this).val() );
         });
         
         $('.search4urdamelms, .sel-css').prop('disabled', false);
@@ -222,6 +224,7 @@ $(document).ready(function() {
           $(this).css('backgroundColor', '#1c1c1c');
           $('.grab-font-family').val($(this).text());
           $("#ltypography").prop('checked', true);
+          $('.grab-elm-typography input[type=text]').prop('disabled', false);
         });
         
         // Set selected elements text align
@@ -233,6 +236,7 @@ $(document).ready(function() {
           $(this).css('backgroundColor', '#1c1c1c');
           $('.grab-text-align').val($(this).attr('title'));
           $("#ltypography").prop('checked', true);
+          $('.grab-elm-typography input[type=text]').prop('disabled', false);
         });
         
         // Sets Position
@@ -355,6 +359,8 @@ $(document).ready(function() {
           // Setup Color Picker Code
           $(".bg-cpick-code-hsl").on('change keyup', function() {
             $(this).val( "hsla(" + $(".bg-cpick-hue").val() + ", " + $(".bg-cpick-s").val() + "%, " + $(".bg-cpick-l").val() + "%, " + $(".bg-cpick-a").val() + ")");
+            $('#lbg').prop('checked', true);
+            $('.grab-elm-bg input[type=text]').prop('disabled', false);
             
             // Initiate hsl preview
             $(".grab-bg-color").css({
@@ -707,6 +713,7 @@ $(document).ready(function() {
       $('.canves').find('*').removeAttr('id');
       $('.canves *').attr('contenteditable', false);
       $('#inactive-menubtns').show();
+      $('.grabmy-typography a').css('backgroundColor', '#444');
       return false;
     }
   });
@@ -748,13 +755,13 @@ $(document).ready(function() {
   
   // Add Elements
   $(".header").on('click', function() {
-    $(".canves").append("<header>Header</header>");
+    $(".canves").append('<header class="box" style="">Header</header>');
   });
   $(".div").on('click', function() {
-    $(".canves").append("<div>Div</div>");
+    $(".canves").append('<div class="box" style="">Div</div>');
   });
   $(".footer").on('click', function() {
-    $(".canves").append("<footer>Footer</header>");
+    $(".canves").append('<footer class="box" style="">Footer</header>');
   });
   
   // Set & Adjust Canvas Size

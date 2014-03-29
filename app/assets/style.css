@@ -89,6 +89,15 @@ body {
 .disismyfukentoolbuxhhehahooo .tools a:hover { color: #fff; }
 .disismyfukentoolbuxhhehahooo .tools a:active { color: #333; }
 
+.disismyfukentoolbuxhhehahooo .link-to-svgedit {
+  width:25px; height:25px;
+  opacity: 0.75;
+}
+
+.disismyfukentoolbuxhhehahooo .link-to-svgedit:hover {
+  opacity: 1;
+}
+
 .disismyfukentoolbuxhhehahooo .left, .disismyfukentoolbuxhhehahooo .right {
   position: absolute;
   top:0;
