@@ -9,9 +9,29 @@
 <link href="assets/import.css" rel="stylesheet" type="text/css">
 <script src="assets/jquery.min.js"></script>
 <script src="assets/jquery-ui.min.js"></script>
+<script src="assets/jquery.event.drag-2.2.js"></script>
+<script src="assets/jquery.event.drag.live-2.2.js"></script>
 <script src="assets/editor.js"></script>
 <script src="assets/bootstrap.min.js"></script>
 <script src="assets/jquery.ui.touch-punch.min.js"></script>
+
+<script src='assets/codemirror/lib/codemirror.js'></script>
+<script src='assets/codemirror/mode/xml/xml.js'></script>
+<script src='assets/codemirror/mode/javascript/javascript.js'></script>
+<script src='assets/codemirror/mode/css/css.js'></script>
+<script src='assets/codemirror/mode/htmlmixed/htmlmixed.js'></script>
+<link rel='stylesheet' href='assets/codemirror/lib/codemirror.css'>
+<script src="assets/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+<script src="assets/codemirror/addon/edit/closetag.js"></script>
+<script src="assets/codemirror/addon/edit/matchbrackets.js"></script>
+<script src="assets/codemirror/addon/selection/active-line.js"></script>
+<script src="assets/codemirror/keymap/extra.js"></script>
+<link rel="stylesheet" href="assets/codemirror/addon/fold/foldgutter.css" />
+<script src="assets/codemirror/addon/fold/foldcode.js"></script>
+<script src="assets/codemirror/addon/fold/foldgutter.js"></script>
+<script src="assets/codemirror/addon/fold/brace-fold.js"></script>
+<script src="assets/codemirror/addon/fold/xml-fold.js"></script>
+<script src="assets/codemirror/addon/fold/comment-fold.js"></script>
 </head>
 <body>
   <button class="toggle-options show-options">Show Options</button>
@@ -26,7 +46,10 @@
   <div class="disismyfukentoolbuxhhehahooo">
     <div class="tools">
       <center>
+        <a class="add-media-query" title="Add Media Query" href="javascript:void(0)" style="position:absolute; top:5px; left:0; font-size:15px;"><span class='fa fa-plus'></span></a>
+        <input type="checkbox" class="toggle-workflow-visibility" title="Toggle Design/Preview" style="position:absolute; top:25px; left:2.5px;" />
         <a class="select-tool" title="Select Tool" href='javascript:void(0);'><span class='fa fa-location-arrow' style="transform: rotate(0deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(180deg) translateX(0px) translateY(0px); -webkit-transform: rotate(0deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(180deg) translateX(0px) translateY(0px); -moz-transform: rotate(0deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(180deg) translateX(0px) translateY(0px); -ms-transform: rotate(0deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(180deg) translateX(0px) translateY(0px); -o-transform: rotate(0deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(180deg) translateX(0px) translateY(0px);"></span></a>
+        <a class="edit-tool" title="Edit Content" href='javascript:void(0);'><span class='fa fa-edit'></span></a>
         <a class="remove-tool" title="Remove Element" href='javascript:void(0);'><span class='fa fa-times'></span></a>
         <a class="new-doc" title="New Document" href="javascript:void(0)"><span class='fa fa-file-text'></span></a>
         <a class="open-save-dialog" title="Save to disk" href="javascript:void(0)"><span class='fa fa-download'></span></a>
@@ -54,29 +77,57 @@
           </div>
         </span>
         <span class="section-dropper">
-          <header class="drop head-prop" title="Elements">
-            &nbsp; Elements<br>
+          <header class="drop head-prop" title="elements">
+            &nbsp; elements<br>
           </header>
           
           <div class="drop-section elms-4-stage">
             <center>
-              <a href="javascript:void(0)" class="header">Header</a>
-              <a href="javascript:void(0)" class="div">Div</a>
-              <a href="javascript:void(0)" class="footer">Footer</a>
+              <button class="add-elm">header</button>
+              <button class="add-elm">div</button>
+              <button class="add-elm">span</button>
+              <button class="add-elm">footer</button>
             </center>
           </div>
         </span>
-        <span class="section-dropper hide">
-          <header class="drop head-prop" title="Codes">
-            &nbsp; Codes<br>
+        <span class="section-dropper">
+          <header class="drop head-prop" title="css link references">
+            &nbsp; css link references<br>
+          </header>
+          
+          <center class="drop-section add-the-css-references">
+            <table class="fill table-in">
+              <tr>
+                <td><button class="add-css-refer"><span class='fa fa-plus'></span></button></td>
+                <td><input class="add-css-refer-val" style="font: 14px arial; color: #6dd;" type="text" placeholder="url here" value="" /></td>
+              </tr>
+            </table>
+            <hr style="opacity:.25;">
+              <div class="drop-section list-of-css-references"><textarea class="dadamcssreflist hide" style="min-width:100%; height:200px; padding:0; margin:0; border-radius:0; border:0; resize:vertical;"></textarea><div class="dadamcssrefhtml hide"></div></div>
+          </center>
+        </span>
+        <span class="section-dropper">
+          <header class="drop head-prop" title="media queries">
+            &nbsp; media queries<br>
+          </header>
+          
+          <center class="drop-section list-of-media-queries"><textarea class="dadammediaquery hide" style="min-width:100%; height:200px; padding:0; margin:0; border-radius:0; border:0; resize:vertical;"></textarea><textarea class="dadammediaquerylist hide" style="min-width:100%; height:200px; padding:0; margin:0; border-radius:0; border:0; resize:vertical;"></textarea><div class="dadammediaqueryshtml hide"></div></center>
+        </span>
+        <span class="section-dropper">
+          <header class="drop head-prop" title="code editor">
+            &nbsp; code editor<br>
           </header>
           
           <div class="drop-section the-codez-stage">
+            <textarea id="codemirror-css" class="hide" style="cursor:text!important; width:100%; resize:vertical; border:0; border-radius:0; min-height:200px;" placeholder="Your css goes here"></textarea>
+            <textarea id="codemirror-html" class="hide" style="cursor:text!important; width:100%; resize:vertical; border:0; border-radius:0; min-height:200px;" placeholder="Your html goes here"></textarea>
+            <textarea id="full-site-code" placeholder="Finalize code here."></textarea>
             <center>
               <div class="yourcss hide"></div>
               <textarea class="css-sheet hide" style="cursor:text!important; width:100%; resize:vertical; border:0; border-radius:0; min-height:200px;" placeholder="Your CSS is added here"></textarea>
               <div class="yourhtml hide"></div>
-              <textarea class="html-sheet hide" placeholder="Your HTML is generated here"></textarea>
+              <textarea class="html-sheet hide" style="cursor:text!important; width:100%; resize:vertical; border:0; border-radius:0; min-height:200px;" placeholder="Your html is generated here"></textarea>
+              <textarea id="canves-code" class="hide" style="cursor:text!important; width:100%; resize:vertical; border:0; border-radius:0; min-height:200px;" placeholder="The Canves Code"></textarea>
               <textarea id="projsavecode hide" style="position:absolute; top:-99999999px; left:-99999999px; width:0; height:0; display:none; opacity:0; padding:0; margin:0; resize:none;" disabled="true"></textarea>
               <textarea id="code" class="hide" placeholder="Your full code is generated here"></textarea>
             </center>
@@ -107,13 +158,14 @@
           </header>
           
           <div class="drop-section">
-            <table class="fill table-in">
+            <table class="fill table-in hide">
               <tr>
-                <td>&nbsp;</td>
                 <td>
-                  <center><input class="enable-inline-editing" type="checkbox"> Editor</center>
+                  <a class="add-css-selector" title="Add CSS Selector" href="javascript:void(0)" style="background:transparent; padding:0; margin:0;"><span class='fa fa-plus'></span></a>
                 </td>
-                <td>&nbsp;</td>
+                <td>
+                  <input class="add-css-selector-val" style="font-size:16px;" type="text" placeholder="CSS Selector" />
+                </td>
               </tr>
             </table>
             <table class="fill table-in">
@@ -122,10 +174,17 @@
                   <span class="known-class"></span>
                 </td>
                 <td>
-                  <input class="sel-css" style="font-size:16px;" type="text" placeholder="CSS Class" />
+                  <input class="sel-css" style="font-size:16px;" type="text" placeholder="Element's CSS Class" />
                 </td>
               </tr>
             </table>
+          </div>
+          <div class="section-dropper hide" style="width:90%; margin:0 auto 5px auto;">
+            <header class="drop grab-tool-options" title=" global styles">
+              <label>&nbsp; global styles</label><br>
+            </header>
+            
+            <center class="drop-section list-of-css-selectors" style="border:1px solid #222;"><textarea class="custom-css-sheet" style="cursor:text!important; width:100%; resize:vertical; border:0; border-radius:0; min-height:200px;" placeholder="Your Custom CSS is added here"></textarea><div class="c-css-sheet hide"></div></center>
           </div>
         </span>
         <span class="section-dropper grabmy-position">
@@ -137,10 +196,10 @@
           <div class="drop-section grab-elm-pos">
             <center>
               <div class="horizontal-bar" style="padding-top:15px;">
-                <a title="static" class="grab-pos-static" href='javascript:void(0);'><i class='fa fa-barcode'></i></a>
-                <a title="relative" class="grab-pos-relative" href='javascript:void(0);'><i class='fa fa-square-o'></i></a>
-                <a title="absolute" class="grab-pos-absolute" href='javascript:void(0);'><i class='fa fa-crosshairs'></i></a>
-                <a title="fixed" class="grab-pos-fixed" href='javascript:void(0);'><i class='fa fa-thumb-tack'></i></a>
+                <a title="static" class="grab-pos-static" href='javascript:void(0);'><span class='fa fa-barcode'></span></a>
+                <a title="relative" class="grab-pos-relative" href='javascript:void(0);'><span class='fa fa-square-o'></span></a>
+                <a title="absolute" class="grab-pos-absolute" href='javascript:void(0);'><span class='fa fa-crosshairs'></span></a>
+                <a title="fixed" class="grab-pos-fixed" href='javascript:void(0);'><span class='fa fa-thumb-tack'></span></a>
               </div>
               
               <table class="fill table-in">
@@ -251,16 +310,16 @@
             <div class="bg-color-picker">
               <table class="fill table-in">
                 <tr>
-                  <td><input class="fill colorwheel bg-cpick-hue" style="margin:0;" type="range" value="328" min="0" max="360" value="328"></td>
+                  <td><span class="colorwheel"><input class="fill bg-cpick-hue" type="range" value="328" min="0" max="360" value="328"></span></td>
                 </tr>
                 <tr>
-                  <td><input class="fill bg-cpick-s" type="range" min="0" max="100" value="100"></td>
+                  <td><span class="bg-cpick-s-bg"><input class="fill bg-cpick-s" type="range" min="0" max="100" value="100"></span></td>
                 </tr>
                 <tr>
-                  <td><input class="fill bg-cpick-l" type="range" min="0" max="100" value="44"></td>
+                  <td><span class="bg-cpick-l-bg"><input class="fill bg-cpick-l" type="range" min="0" max="100" value="44"></span></td>
                 </tr>
                 <tr>
-                  <td><input class="fill bg-cpick-a" type="range" step=".01" min="0" max="1" value="1"></td>
+                  <td><span class="bg-cpick-a-bg"><input class="fill bg-cpick-a" type="range" step=".01" min="0" max="1" value="1"></span></td>
                 </tr>
                 <tr>
                   <td><input class="bg-cpick-code-hsl hide" type="text"></td>
@@ -279,16 +338,16 @@
             <div class="border-color-picker">
               <table class="fill table-in">
                 <tr>
-                  <td><input class="fill colorwheel cpick-hue" style="margin:0;" type="range" value="328" min="0" max="360" value="328"></td>
+                  <td><span class="colorwheel"><input class="fill cpick-hue" type="range" value="328" min="0" max="360" value="328"></span></td>
                 </tr>
                 <tr>
-                  <td><input class="fill cpick-s" type="range" min="0" max="100" value="100"></td>
+                  <td><span class="cpick-s-bg"><input class="fill cpick-s" type="range" min="0" max="100" value="100"></span></td>
                 </tr>
                 <tr>
-                  <td><input class="fill cpick-l" type="range" min="0" max="100" value="44"></td>
+                  <td><span class="cpick-l-bg"><input class="fill cpick-l" type="range" min="0" max="100" value="44"></span></td>
                 </tr>
                 <tr>
-                  <td class="fill"><input class="fill cpick-a" type="range" step=".01" min="0" max="1" value="1"></td>
+                  <td class="fill"><span class="cpick-a-bg"><input class="fill cpick-a" type="range" step=".01" min="0" max="1" value="1"></span></td>
                 </tr>
                 <tr>
                   <td><input class="cpick-code-hsl hide" type="text">
@@ -408,16 +467,16 @@
               <div class="text-color-picker">
                 <table class="fill table-in">
                   <tr>
-                    <td><input class="fill colorwheel txt-cpick-hue" style="margin:0;" type="range" value="328" min="0" max="360" value="328"></td>
+                    <td><span class="colorwheel"><input class="fill colorwheel txt-cpick-hue" style="margin:0;" type="range" value="328" min="0" max="360" value="328"></span></td>
                   </tr>
                   <tr>
-                    <td><input class="fill txt-cpick-s" type="range" min="0" max="100" value="100"></td>
+                    <td><span class="txt-cpick-s-bg"><input class="fill txt-cpick-s" type="range" min="0" max="100" value="100"></span></td>
                   </tr>
                   <tr>
-                    <td><input class="fill txt-cpick-l" type="range" min="0" max="100" value="44"></td>
+                    <td><span class="txt-cpick-l-bg"><input class="fill txt-cpick-l" type="range" min="0" max="100" value="44"></span></td>
                   </tr>
                   <tr>
-                    <td><input class="fill txt-cpick-a" type="range" step=".01" min="0" max="1" value="1"></td>
+                    <td><span class="txt-cpick-a-bg"><input class="fill txt-cpick-a" type="range" step=".01" min="0" max="1" value="1"></span></td>
                   </tr>
                   <tr>
                     <td><input class="txt-cpick-code-hsl hide" type="text">
@@ -444,8 +503,6 @@
                 </tr>
               </table>
               
-              <input class="grab-font-family hide" type="text" value="" placeholder="font-family" />
-              
               <div class="horizontal-bar grab-typography typography"><br>
                 <a class="grab-none" href="javascript:void(0)"><span class="fa fa-times"></span></a>
                 <a class="grab-andale-mono" href="javascript:void(0)">andale mono</a>
@@ -466,7 +523,47 @@
                 <a class="grab-verdana" href="javascript:void(0)">verdana</a>
               </div>
               
+              
+              <input class="grab-font-family hide" type="text" value="" placeholder="font-family" />
               <table class="fill table-in">
+                <tr>
+                  <td>fontFamily:</td>
+                  <td><input class="grab-font-family" type="text" value="" list="list-my-font-family-properties" />
+                  <datalist id="list-my-font-family-properties">
+                    <option value="andale mono"></option>
+                    <option value="arial"></option>
+                    <option value="arial black"></option>
+                    <option value="courier"></option>
+                    <option value="comic sans ms"></option>
+                    <option value="garamond"></option>
+                    <option value="helvetica"></option>
+                    <option value="impact"></option>
+                    <option value="palatino"></option>
+                    <option value="papyrus"></option>
+                    <option value="serif"></option>
+                    <option value="sans"></option>
+                    <option value="tahoma"></option>
+                    <option value="times new roman"></option>
+                    <option value="verdana"></option>
+                  </datalist></td>
+                </tr>
+                <tr>
+                  <td>fontVarient:</td>
+                  <td><input class="grab-font-varient" type="text" list="list-my-font-varient-properties">
+                  <datalist id="list-my-font-varient-properties">
+                    <option value="normal"></option>
+                    <option value="small-caps"></option>
+                  </datalist></td>
+                </tr>
+                <tr>
+                  <td>fontStyle:</td>
+                  <td><input class="grab-font-style" type="text" list="list-my-font-style-properties">
+                  <datalist id="list-my-font-style-properties">
+                    <option value="normal"></option>
+                    <option value="italic"></option>
+                    <option value="oblique"></option>
+                  </datalist></td>
+                </tr>
                 <tr>
                   <td>fontWeight:</td>
                   <td><input class="grab-font-weight" type="text" list="list-my-font-weight-properties">
@@ -639,8 +736,8 @@
   <div id="idive-container">
     <div id="idive">
       <div id="menubtns">
-        <a title="Undo" href='javascript:void(0)' onclick='document.execCommand("undo", false, null);'><i class='fa fa-undo'></i></a>
-        <a title="Redo" href='javascript:void(0)' onclick='document.execCommand("redo", false, null);'><i class='fa fa-repeat'></i></a>
+        <a title="Undo" href='javascript:void(0)' onclick='document.execCommand("undo", false, null);'><span class='fa fa-undo'></span></a>
+        <a title="Redo" href='javascript:void(0)' onclick='document.execCommand("redo", false, null);'><span class='fa fa-repeat'></span></a>
         
         <select id="elm-font-family">
           <option value="Serif">Serif</option>
@@ -670,12 +767,12 @@
           <option value="10">10</option>
         </select>
         
-        <a title="Text Color" href='javascript:void(0)' onclick="var TxtColor = prompt('Enter hex/rgb/hsl color code', ''); if(TxtColor != null) {document.execCommand('ForeColor', false, TxtColor);}"><i class='fa fa-font' style="color:red;"></i></a>
-        <a title="Text BGColor" href="javascript:void(0)" onclick="var TxtBGColor = prompt('Enter hex/rgb/hsl color code', ''); if(TxtBGColor != null) {document.execCommand('BackColor', false, TxtBGColor);}"><i class='fa fa-font' style="background:black; color:red;"></i></a>
-        <a title="Bold" href='javascript:void(0)' onclick='document.execCommand("bold", false, null);'><i class='fa fa-bold'></i></a>
-        <a title="Italic" href='javascript:void(0)' onclick='document.execCommand("italic", false, null);'><i class='fa fa-italic'></i></a>
-        <a title="Underline" href='javascript:void(0)' onclick='document.execCommand("underline", false, null);'><i class='fa fa-underline'></i></a>
-        <a title="Strikethrough" href='javascript:void(0)' onclick='document.execCommand("strikeThrough", false, null);'><i class='fa fa-strikethrough'></i></a>
+        <a title="Text Color" href='javascript:void(0)' onclick="var TxtColor = prompt('Enter hex/rgb/hsl color code', ''); if(TxtColor != null) {document.execCommand('ForeColor', false, TxtColor);}"><span class='fa fa-font' style="color:red;"></span></a>
+        <a title="Text BGColor" href="javascript:void(0)" onclick="var TxtBGColor = prompt('Enter hex/rgb/hsl color code', ''); if(TxtBGColor != null) {document.execCommand('BackColor', false, TxtBGColor);}"><span class='fa fa-font' style="background:black; color:red;"></span></a>
+        <a title="Bold" href='javascript:void(0)' onclick='document.execCommand("bold", false, null);'><span class='fa fa-bold'></span></a>
+        <a title="Italic" href='javascript:void(0)' onclick='document.execCommand("italic", false, null);'><span class='fa fa-italic'></span></a>
+        <a title="Underline" href='javascript:void(0)' onclick='document.execCommand("underline", false, null);'><span class='fa fa-underline'></span></a>
+        <a title="Strikethrough" href='javascript:void(0)' onclick='document.execCommand("strikeThrough", false, null);'><span class='fa fa-strikethrough'></span></a>
         
         <select id="elm-txt-align">
           <option value="justifyLeft" selected="selected">Align Left</option>
@@ -684,11 +781,11 @@
           <option value="justifyFull">Align Full</option>
         </select>
         
-        <a title="Indent" href='javascript:void(0)' onclick='document.execCommand("indent", false, null);'><i class='fa fa-indent'></i></a>
-        <a title="Outdent" href='javascript:void(0)' onclick='document.execCommand("outdent", false, null);'><i class='fa fa-outdent'></i></a>
-        <a title="Unordered List" href='javascript:void(0)' onclick='document.execCommand("insertUnorderedList", false, null);'><i class='fa fa-list-ul'></i></a>
-        <a title="Ordered List" href='javascript:void(0)' onclick='document.execCommand("insertOrderedList", false, null);'><i class='fa fa-list-ol'></i></a>
-        <a title="Horizontal Rule" href="javascript:void(0)' onclick='document.execCommand('inserthorizontalrule',false,null);"><i class='fa fa-minus-square-o'></i></a>
+        <a title="Indent" href='javascript:void(0)' onclick='document.execCommand("indent", false, null);'><span class='fa fa-indent'></span></a>
+        <a title="Outdent" href='javascript:void(0)' onclick='document.execCommand("outdent", false, null);'><span class='fa fa-outdent'></span></a>
+        <a title="Unordered List" href='javascript:void(0)' onclick='document.execCommand("insertUnorderedList", false, null);'><span class='fa fa-list-ul'></span></a>
+        <a title="Ordered List" href='javascript:void(0)' onclick='document.execCommand("insertOrderedList", false, null);'><span class='fa fa-list-ol'></span></a>
+        <a title="Horizontal Rule" href="javascript:void(0)' onclick='document.execCommand('inserthorizontalrule',false,null);"><span class='fa fa-minus-square-o'></span></a>
         
         <select id="elm-heading">
           <option value="p" selected="selected">P</option>
@@ -702,31 +799,36 @@
           <option value="blockquote">blockquote</option>
         </select>
         
-        <a title="SubScript" href='javascript:void(0)' onclick='document.execCommand("subscript", false, null);'><i class='fa fa-subscript'></i></a>
-        <a title="SuperScript" href='javascript:void(0)' onclick='document.execCommand("superscript", false, null);'><i class='fa fa-superscript'></i></a>
-        <a title="Link" href='javascript:void(0)' onclick='var linkURL = prompt("Enter the URL for this link:", "http://"); document.execCommand("CreateLink", false, linkURL);'><i class='fa fa-link'></i></a>
-        <a title="Unlink" href='javascript:void(0)' onclick='document.execCommand("Unlink", false, null);'><i class='fa fa-unlink'></i></a>
-        <a title="Image" href="javascript:void(0)" onclick="var imgSrc = prompt('Enter image location', ''); if(imgSrc != null) {document.execCommand('insertimage', false, imgSrc);}"><i class='fa fa-picture-o'></i></a>
-        <a class="insert-html" title="Custom HTML" href="javascript:void(0)"><i class='fa fa-html5'></i></a>
+        <a title="SubScript" href='javascript:void(0)' onclick='document.execCommand("subscript", false, null);'><span class='fa fa-subscript'></span></a>
+        <a title="SuperScript" href='javascript:void(0)' onclick='document.execCommand("superscript", false, null);'><span class='fa fa-superscript'></span></a>
+        <a title="Link" href='javascript:void(0)' onclick='var linkURL = prompt("Enter the URL for this link:", "http://"); document.execCommand("CreateLink", false, linkURL);'><span class='fa fa-link'></span></a>
+        <a title="Unlink" href='javascript:void(0)' onclick='document.execCommand("Unlink", false, null);'><span class='fa fa-unlink'></span></a>
+        <a title="Image" href="javascript:void(0)" onclick="var imgSrc = prompt('Enter image location', ''); if(imgSrc != null) {document.execCommand('insertimage', false, imgSrc);}"><span class='fa fa-picture-o'></span></a>
+        <a class="insert-html" title="Custom HTML" href="javascript:void(0)"><span class='fa fa-html5'></span></a>
       </div>
       <div id="inactive-menubtns"></div>
     </div>
   </div>
   
   <!-- Mirror the code -->
-  <div class="hide mirror-code">&lt;!DOCTYPE html&gt;
+  <div class="hide mirror-code" style="display:none;">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
 &lt;title&gt;<span class="mirror-title"></span>&lt;/title&gt;
 &lt;meta charset='utf-8'&gt;
 &lt;meta name='viewport' content='initial-scale=1.0'&gt;
-&lt;style type='text/css'&gt;
+&lt;meta http-equiv="X-UA-Compatible" content="IE=9" /&gt;
+<span class="mirror-css-link-refs"></span>&lt;style type='text/css'&gt;
 body {
   position: absolute;
   padding:0; margin:0;
   width: auto; height: auto;
   top: 0; left: 0; bottom: 0; right: 0;
   -webkit-font-smoothing: antialiased;
+}
+
+button, input[type=button] {
+  padding:0; margin:0;
 }
 
 <span class="mirror-css">No synaptics incorporated yet...</span>
@@ -739,7 +841,9 @@ body {
 
   <!-- This is the designing area -->
   <div class="itsthecavnescontainerbro">
-<div class="canves" style="background-color:#fff;"></div>
+<div id="preview-pane"><iframe id="workflow" style="background-color:#fff;"></iframe></div>
+<div class="canves" style="background-color:#fff;"><div class='head' style="position: absolute; top:0; left:0; height:78px; right:0; background: #eee; text-align: center; font: 32px arial; color: #fff; line-height: 2.3em; text-shadow: 0 0 8px rgba(0,0,0,0.2); background: #1e5799; background: -moz-linear-gradient(top, #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(50%,#2989d8), color-stop(51%,#207cca), color-stop(100%,#7db9e8)); background: -webkit-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); background: -o-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); background: -ms-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); background: linear-gradient(to bottom, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=0 );"><strong>Website Name</strong></div><div class='content' style='position: absolute; top: 76px; left:0; bottom:0; right:0; padding: 1em; overflow: auto; background: #eee; font: 14px arial; text-shadow: -1px 1px 2px #fff, 1px 1px 4px #fff;'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor. Praesent et diam eget libero egestas mattis sit amet vitae augue. Nam tincidunt congue enim, ut porta lorem lacinia consectetur. Donec ut libero sed arcu vehicula ultricies a non tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut gravida lorem. Ut turpis felis, pulvinar a semper sed, adipiscing id dolor. Pellentesque auctor nisi id magna consequat sagittis. Curabitur dapibus enim sit amet elit pharetra tincidunt feugiat nisl imperdiet. Ut convallis libero in urna ultrices accumsan. Donec sed odio eros. Donec viverra mi quis quam pulvinar at malesuada arcu rhoncus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In rutrum accumsan ultricies. Mauris vitae nisi at sem facilisis semper ac in est.<br><br>Vivamus fermentum semper porta. Nunc diam velit, adipiscing ut tristique vitae, sagittis vel odio. Maecenas convallis ullamcorper ultricies. Curabitur ornare, ligula semper consectetur sagittis, nisi diam iaculis velit, id fringilla sem nunc vel mi. Nam dictum, odio nec pretium volutpat, arcu ante placerat erat, non tristique elit urna et turpis. Quisque mi metus, ornare sit amet fermentum et, tincidunt et orci. Fusce eget orci a orci congue vestibulum. Ut dolor diam, elementum et vestibulum eu, porttitor vel elit. Curabitur venenatis pulvinar tellus gravida ornare. Sed et erat faucibus nunc euismod ultricies ut id justo. Nullam cursus suscipit nisi, et ultrices justo sodales nec. Fusce venenatis facilisis lectus ac semper. Aliquam at massa ipsum. Quisque bibendum purus convallis nulla ultrices ultricies. Nullam aliquam, mi eu aliquam tincidunt, purus velit laoreet tortor, viverra pretium nisi quam vitae mi. Fusce vel volutpat elit. Nam sagittis nisi dui.<br><br>Suspendisse lectus leo, consectetur in tempor sit amet, placerat quis neque. Etiam luctus porttitor lorem, sed suscipit est rutrum non. Curabitur lobortis nisl a enim congue semper. Aenean commodo ultrices imperdiet. Vestibulum ut justo vel sapien venenatis tincidunt. Phasellus eget dolor sit amet ipsum dapibus condimentum vitae quis lectus. Aliquam ut massa in turpis dapibus convallis. Praesent elit lacus, vestibulum at malesuada et, ornare et est. Ut augue nunc, sodales ut euismod non, adipiscing vitae orci. Mauris ut placerat justo. Mauris in ultricies enim. Quisque nec est eleifend nulla ultrices egestas quis ut quam. Donec sollicitudin lectus a mauris pulvinar id aliquam urna cursus. Cras quis ligula sem, vel elementum mi. Phasellus non ullamcorper urna.<br><br>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In euismod ultrices facilisis. Vestibulum porta sapien adipiscing augue congue id pretium lectus molestie. Proin quis dictum nisl. Morbi id quam sapien, sed vestibulum sem. Duis elementum rutrum mauris sed convallis. Proin vestibulum magna mi. Aenean tristique hendrerit magna, ac facilisis nulla hendrerit ut. Sed non tortor sodales quam auctor elementum. Donec hendrerit nunc eget elit pharetra pulvinar. Suspendisse id tempus tortor. Aenean luctus, elit commodo laoreet commodo, justo nisi consequat massa, sed vulputate quam urna quis eros. Donec vel.
+</div></div>
 </div>
   
 <script src="assets/ui.js"></script>

@@ -1,3 +1,28 @@
+// Initialize CodeMirror editor
+var delay;
+var editor = CodeMirror.fromTextArea(document.getElementById('full-site-code'), {
+    mode: 'text/html',
+    tabMode: 'indent',
+    styleActiveLine: true,
+    lineNumbers: true,
+    lineWrapping: true,
+    autoCloseTags: true,
+    foldGutter: true,
+    gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
+});
+editor.on("change", function() {
+    clearTimeout(delay);
+    delay = setTimeout(updatePreview, 300);
+});
+function updatePreview() {
+    var previewFrame = document.getElementById('workflow');
+    var preview =  previewFrame.contentDocument ||  previewFrame.contentWindow.document;
+    preview.open();
+    preview.write(editor.getValue());
+    preview.close();
+}
+setTimeout(updatePreview, 300);
+
 // Load html file to document
 $(window).load(function() {
 	// Trigger LoadFile DIV TO Load File

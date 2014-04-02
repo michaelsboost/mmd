@@ -9,26 +9,26 @@ body {
   overflow: hidden;
 }
 
-::-webkit-scrollbar {
+.disismyfukentoolbuxhhehahooo ::-webkit-scrollbar {
   width: 2px;
   height: 2px;
 }
-::-webkit-scrollbar-button {
+.disismyfukentoolbuxhhehahooo ::-webkit-scrollbar-button {
   width:0; height:0;
 }
-::-webkit-scrollbar-thumb {
+.disismyfukentoolbuxhhehahooo ::-webkit-scrollbar-thumb {
   background: rgba(221, 221, 221, 0.75);
   border:0; border-radius: 50px;
 }
-::-webkit-scrollbar-thumb:hover {
+.disismyfukentoolbuxhhehahooo ::-webkit-scrollbar-thumb:hover {
   background: rgb(221, 221, 221);
   border:0; border-radius: 50px;
 }
-::-webkit-scrollbar-track {
+.disismyfukentoolbuxhhehahooo ::-webkit-scrollbar-track {
   background: transparent;
   border:0; border-radius: 50px;
 }
-::-webkit-scrollbar-corner {
+.disismyfukentoolbuxhhehahooo ::-webkit-scrollbar-corner {
   background: transparent;
 }
 
@@ -108,7 +108,7 @@ body {
 .disismyfukentoolbuxhhehahooo .fill { width: 100%; }
 .disismyfukentoolbuxhhehahooo .half { width: 50%; }
 
-.disismyfukentoolbuxhhehahooo .select-active, .disismyfukentoolbuxhhehahooo .remove-active, .disismyfukentoolbuxhhehahooo .drop-active { color: #35a0a0!important; }
+.disismyfukentoolbuxhhehahooo .select-active, .disismyfukentoolbuxhhehahooo .edit-active, .disismyfukentoolbuxhhehahooo .remove-active, .disismyfukentoolbuxhhehahooo .drop-active { color: #35a0a0!important; }
 
 /* Styles Inside Initatted Inspector & Groups Tabs */
 .disismyfukentoolbuxhhehahooo .inspection {
@@ -122,13 +122,13 @@ body {
   border-color: transparent #333 transparent transparent;
 }
 
-.disismyfukentoolbuxhhehahooo .add-class {
+.disismyfukentoolbuxhhehahooo .add-media-query, .disismyfukentoolbuxhhehahooo .add-css-selector {
   cursor:pointer;
   border:0; padding:2px; outline:none;
   background:transparent; color:#ccc;
 }
-.disismyfukentoolbuxhhehahooo .add-class:hover { color:#fff; outline:none; }
-.disismyfukentoolbuxhhehahooo .add-class:active { color:#35a0a0; outline:none; }
+.disismyfukentoolbuxhhehahooo .add-media-query:hover, .disismyfukentoolbuxhhehahooo .add-css-selector:hover { color:#fff; outline:none; }
+.disismyfukentoolbuxhhehahooo .add-media-query:active, .disismyfukentoolbuxhhehahooo .add-css-selector:active { color:#35a0a0; outline:none; }
 
 .disismyfukentoolbuxhhehahooo .drop {
   cursor: pointer;
@@ -221,9 +221,12 @@ body {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff0000', endColorstr='#ff0004',GradientType=1 ); /* IE6-9 */
 }
 
-.disismyfukentoolbuxhhehahooo .cpick-s, .disismyfukentoolbuxhhehahooo .cpick-l, .disismyfukentoolbuxhhehahooo .cpick-a, .disismyfukentoolbuxhhehahooo .txt-cpick-s, .disismyfukentoolbuxhhehahooo .txt-cpick-l, .disismyfukentoolbuxhhehahooo .txt-cpick-a , .disismyfukentoolbuxhhehahooo .bg-cpick-s, .disismyfukentoolbuxhhehahooo .bg-cpick-l, .disismyfukentoolbuxhhehahooo .bg-cpick-a {
-  background:transparent;
-  margin:0;
+.disismyfukentoolbuxhhehahooo .bg-color-picker span, .disismyfukentoolbuxhhehahooo .border-color-picker span, .disismyfukentoolbuxhhehahooo .text-color-picker span {
+  padding:5px 0;
+}
+
+.disismyfukentoolbuxhhehahooo .bg-color-picker input[type=range], .disismyfukentoolbuxhhehahooo .border-color-picker input[type=range], .disismyfukentoolbuxhhehahooo .text-color-picker input[type=range] {
+  position:relative; top:5px; margin:0;
 }
 
 .disismyfukentoolbuxhhehahooo .active-btn {
@@ -316,6 +319,10 @@ body {
   background: transparent;
 }
 
+.disismyfukentoolbuxhhehahooo select, .#idive select {
+  padding:0;
+}
+
 /* WYSIWYG Content Editor */
 #idive-container, #inactive-menubtns {
   position: absolute;
@@ -337,16 +344,161 @@ body {
 #idive *:active, #idive *:focus { outline:none; }
 
 /* Draggable Elements For Stage */
-.disismyfukentoolbuxhhehahooo .elms-4-stage { text-align:center; }
-.disismyfukentoolbuxhhehahooo .elms-4-stage * { cursor:pointer; }
-.disismyfukentoolbuxhhehahooo .elms-4-stage a { display:block; background:transparent; }
-.disismyfukentoolbuxhhehahooo .elms-4-stage .div { padding:5px; }
-.disismyfukentoolbuxhhehahooo .elms-4-stage .header { background:#66d; }
-.disismyfukentoolbuxhhehahooo .elms-4-stage .footer { background:#d66; }
-.disismyfukentoolbuxhhehahooo .elms-4-stage .header, .disismyfukentoolbuxhhehahooo .elms-4-stage .footer {
-  padding:5px;
+.disismyfukentoolbuxhhehahooo .elms-4-stage button, .disismyfukentoolbuxhhehahooo .elms-4-stage input[type=button] {
+  padding:0; margin:0;
+}
+
+.disismyfukentoolbuxhhehahooo .elms-4-stage center * {
+  display:block;
+  width: 95%;
+  cursor:pointer;
+  padding:5px; margin:0;
+  border:0; outline:0;
+  font: 300 16px/1.5 'museo-sans', 'Open Sans', sans-serif;
+  color:#fff;
+  text-align:center;
+  text-transform:capitalize;
+  background:#555;
+}
+.disismyfukentoolbuxhhehahooo .elms-4-stage center *:nth-child(1) { background:#66d; }
+.disismyfukentoolbuxhhehahooo .elms-4-stage center *:nth-child(2) { background:#6dd; }
+.disismyfukentoolbuxhhehahooo .elms-4-stage center *:nth-child(3) { background:#6d6; }
+.disismyfukentoolbuxhhehahooo .elms-4-stage center *:nth-child(5) { background:#cc6; }
+.disismyfukentoolbuxhhehahooo .elms-4-stage center *:nth-child(4) { background:#d66; }
+
+/* Global CSS Styles List */
+.disismyfukentoolbuxhhehahooo .list-of-css-selectors button {
+  cursor:pointer;
+  padding:5px 0; margin:0; width:85%;
+  font: 14px arial;
+  color: #66d;
+  background-color:#222;
+  border:0; outline:0;
+}
+.disismyfukentoolbuxhhehahooo .list-of-css-selectors pre {
+  cursor:pointer;
+  padding:5px 0; margin:0; width:95%; height:150px;
+  font: 12px arial;
+}
+.disismyfukentoolbuxhhehahooo .list-of-css-selectors .del-global-css-style {
+  cursor:pointer;
+  position:relative;
+  top:2.5px; left:-5px;
+  font-size: 24px; padding:0;
+  background: transparent;
+  color: #ccc;
+}
+.disismyfukentoolbuxhhehahooo .list-of-css-selectors .del-global-css-style:hover {
   color:#fff;
 }
+.disismyfukentoolbuxhhehahooo .list-of-css-selectors .del-global-css-style:active {
+  color:#d66;
+}
+
+/* CSS Link References List */
+.disismyfukentoolbuxhhehahooo .add-the-css-references .add-css-refer {
+  cursor:pointer;
+  padding:4px 0; margin:0; width:85%;
+  font: 20px arial;
+  color: #ccc;
+  background-color:transparent;
+  border:0; outline:0;
+}
+.disismyfukentoolbuxhhehahooo .add-the-css-references .add-css-refer:hover {
+  color:#6df;
+}
+.disismyfukentoolbuxhhehahooo .add-the-css-references .add-css-refer:active {
+  color: #111;
+}
+.disismyfukentoolbuxhhehahooo .add-the-css-references input[type=text]:focus {
+  color:#6dd;
+}
+.disismyfukentoolbuxhhehahooo .list-of-css-references input[type=text], .disismyfukentoolbuxhhehahooo .list-of-css-references button {
+  cursor:default;
+  padding:5px 0; margin:0; width:85%;
+  font: 12px arial;
+  color: #6dd;
+  text-align:left;
+  white-space: nowrap;
+  background-color:#222;
+  border:0; outline:0;
+}
+.disismyfukentoolbuxhhehahooo .list-of-css-references pre {
+  cursor:pointer;
+  padding:5px 0; margin:0; width:95%;
+  font: 12px arial;
+}
+.disismyfukentoolbuxhhehahooo .list-of-css-references .del-css-refer {
+  cursor:pointer;
+  position:relative;
+  top:2.5px; left:-5px;
+  font-size: 24px; padding:0;
+  background: transparent;
+  color: #ccc;
+}
+.disismyfukentoolbuxhhehahooo .list-of-css-references .del-css-refer:hover {
+  color:#fff;
+}
+.disismyfukentoolbuxhhehahooo .list-of-css-references .del-css-refer:active {
+  color:#d66;
+}
+
+/* Media Queries List */
+.disismyfukentoolbuxhhehahooo .list-of-media-queries button {
+  cursor:pointer;
+  padding:5px 0; margin:0; width:85%;
+  font: 14px arial;
+  color: #66d;
+  background-color:#222;
+  border:0; outline:0;
+}
+.disismyfukentoolbuxhhehahooo .list-of-media-queries pre {
+  cursor:pointer; display:none;
+  padding:5px 0; margin:0; width:95%; height:150px;
+  font: 12px arial;
+}
+.disismyfukentoolbuxhhehahooo .list-of-media-queries .del-media-query {
+  cursor:pointer;
+  position:relative;
+  top:2.5px; left:-5px;
+  font-size: 24px; padding:0;
+  background: transparent;
+  color: #ccc;
+}
+.disismyfukentoolbuxhhehahooo .list-of-media-queries .del-media-query:hover {
+  color:#fff;
+}
+.disismyfukentoolbuxhhehahooo .list-of-media-queries .del-media-query:active {
+  color:#d66;
+}
+
+/* Resize Handlers */
+.drag {
+  position: absolute;
+  border: 1px solid #89B;
+  background: #BCE;
+  height: 58px; width: 58px;
+  top: 120px;
+  cursor: move;
+}
+
+.handle {
+  position: absolute;
+  height: 10px; width: 10px;
+  border: 1px solid #89B;
+  background: #9AC; 
+}
+
+.NW, .NN, .NE { top: -4px; }
+.NE, .EE, .SE { right: -4px; }
+.SW, .SS, .SE { bottom: -4px; }
+.NW, .WW, .SW { left: -4px; }
+.SE, .NW { cursor: nw-resize; }
+.SW, .NE { cursor: ne-resize; }
+.NN, .SS { cursor: n-resize; left: 50%; margin-left: -4px; }
+.EE, .WW { cursor: e-resize; top: 50%; margin-top: -4px; }
+.selected { background-color: #ECB; border-color: #B98; }
+.selected .handle { background-color: #CA9; border-color: #B98; }
 
 /* Design Area */
 .itsthecavnescontainerbro {
@@ -362,6 +514,10 @@ body {
   overflow: auto;
 }
 
+.itsthecavnescontainerbro .canves button, .itsthecavnescontainerbro .canves input[type=button] {
+  padding:0; margin:0;
+}
+
 .itsthecavnescontainerbro .canves .noselect {
   -webkit-user-select: none;
    -khtml-user-select: none;
@@ -369,4 +525,16 @@ body {
       -ms-user-select: none;
        -o-user-select: none;
           user-select: none;
+}
+
+.itsthecavnescontainerbro .canves .sort-placer {
+  border:2px solid orange;
+}
+
+.itsthecavnescontainerbro #preview-pane iframe {
+  position: absolute;
+  top:0; left:0;
+  width: 100%; height: 100%;
+  float: left;
+  border:0;
 }
