@@ -27,13 +27,12 @@ $(document).ready(function() {
       $('.dadamcssrefhtml').html("");
       $('.dadamcssreflist').val("");
     }
+    $(".c-css-sheet").html("<style type='text/css'>" + $('.custom-css-sheet').val() + "</style>");
     $('.mirror-css-link-refs').text( $('.dadamcssreflist').val() );
-    $(".mirror-css").text( $(".css-sheet").val() + "\n" + $('.dadammediaquerylist').val() );
+    $(".mirror-css").text( $(".custom-css-sheet").val() + "\n" + $(".css-sheet").val() + "\n" + $('.dadammediaquerylist').val() );
     $(".mirror-html").text( $(".html-sheet").val() );
     $('#code').val( $('.mirror-code').text() );
     editor.setValue( $("#code").val() );
-    
-    
   };
     
   // Creates Ruler
@@ -164,8 +163,8 @@ $(document).ready(function() {
         });
         
         $('.search4urdamelms, .sel-css').prop('disabled', false);
-        $('.select-properties input[type=text]').val("");
         $('.select-properties input[type=checkbox]').prop('checked', false);
+        $('.select-properties input[type=text], .your-border-code, .your-border-radius-code').val("");
         
         $('.borders a').removeClass('border-active').css({
           'border-color': '#a9a9a9',
@@ -220,49 +219,16 @@ $(document).ready(function() {
           });
           $('#lborder').on('change', function() {
             if ( $('#lborder').prop('checked') === true ) {
-              $('.grab-elm-border input[type=text]').prop('disabled', false);
+              $('.grab-elm-border input[type=text]').val("").prop('disabled', false);
             }
             if ( $('#lborder').prop('checked') === false ) {
-              $('.grab-elm-border input[type=text]').prop('disabled', true).val("");
-              $("#stylethis").css({
-                'border': "",
-                'border-radius': ""
+              $('.grab-elm-border input[type=text]').prop('disabled', true);
+              $('.borders a').removeClass('border-active').css({
+                'border-color': '#a9a9a9',
+                'background-color': '#444'
               });
+              $('.none').css('border-color', '#444');
             }
-            $(function() {
-              if ( $('.border-top').prop('checked') === true ) {
-                $('#lborder').prop('checked', true);
-                $('.apply-border input[type=text]').prop('disabled', false).prop('enabled', true);
-              }
-              if ( $('.border-left').prop('checked') === true ) {
-                $('#lborder').prop('checked', true);
-                $('.apply-border input[type=text]').prop('disabled', false).prop('enabled', true);
-              }
-              if ( $('.border-bottom').prop('checked') === true ) {
-                $('#lborder').prop('checked', true);
-                $('.apply-border input[type=text]').prop('disabled', false).prop('enabled', true);
-              }
-              if ( $('.border-right').prop('checked') === true ) {
-                $('#lborder').prop('checked', true);
-                $('.apply-border input[type=text]').prop('disabled', false).prop('enabled', true);
-              }
-              if ( $('.border-radius-top-left').prop('checked') === true ) {
-                $('#lborder').prop('checked', true);
-                $('.apply-border input[type=text]').prop('disabled', false).prop('enabled', true);
-              }
-              if ( $('.border-radius-top-right').prop('checked') === true ) {
-                $('#lborder').prop('checked', true);
-                $('.apply-border input[type=text]').prop('disabled', false).prop('enabled', true);
-              }
-              if ( $('.border-radius-bottom-left').prop('checked') === true ) {
-                $('#lborder').prop('checked', true);
-                $('.apply-border input[type=text]').prop('disabled', false).prop('enabled', true);
-              }
-              if ( $('.border-radius-bottom-right').prop('checked') === true ) {
-                $('#lborder').prop('checked', true);
-                $('.apply-border input[type=text]').prop('disabled', false).prop('enabled', true);
-              }
-            });
           });
           $('#ltypography').on('change', function() {
             if ( $('#ltypography').prop('checked') === true ) {
@@ -307,30 +273,6 @@ $(document).ready(function() {
               });
             }
           });
-        });
-        
-        // Set selected elements font family
-        $('.grab-typography a').click(function() {
-          $("#stylethis").css({
-            'font-family': $(this).text()
-          });
-          $('.grab-typography a').css('backgroundColor', '#444');
-          $(this).css('backgroundColor', '#1c1c1c');
-          $('.grab-font-family').val($(this).text());
-          $("#ltypography").prop('checked', true);
-          $('.grab-elm-typography input[type=text]').prop('disabled', false);
-        });
-        
-        // Set selected elements text align
-        $('.grab-txt-align a').click(function() {
-          $("#stylethis").css({
-            'text-align': $(this).attr('title')
-          });
-          $('.grab-txt-align a').css('backgroundColor', '#444');
-          $(this).css('backgroundColor', '#1c1c1c');
-          $('.grab-text-align').val($(this).attr('title'));
-          $("#ltypography").prop('checked', true);
-          $('.grab-elm-typography input[type=text]').prop('disabled', false);
         });
         
         // Sets Position
@@ -427,12 +369,14 @@ $(document).ready(function() {
               $("#stylethis").css({
                 'background-attachment': "fixed"
               });
+              $(".grab-bg-attach-val").val("fixed");
             }
             
             if ($(this).prop('checked') === false) {
               $("#stylethis").css({
-                'background-attachment': "scroll"
+                'background-attachment': ""
               });
+              $(".grab-bg-attach-val").val("");
             }
           });
           
@@ -509,6 +453,10 @@ $(document).ready(function() {
             });
             $('.none').css('border-color', '#444');
           }
+          $('.grab-borders a').click(function() {
+            $('.grab-users-border-style').val($(this).attr('title'));
+          });
+
           // Handles Border Styles
           $(function() {
             $('.none').click(function() {
@@ -553,8 +501,6 @@ $(document).ready(function() {
           $(".cpick-a-bg").css({
             "background": "linear-gradient(to right, rgba(51,51,51,0) 0%," + "hsl(" + $(".cpick-hue").val() + "," + $(".cpick-s").val() + "%," + $(".cpick-l").val() + "%)" + " 100%)"
           });
-          
-          // Setup Color Picker Code
           $(".cpick-code-hsl").on('change keyup', function() {
             $(this).val( "hsla(" + $(".cpick-hue").val() + ", " + $(".cpick-s").val() + "%, " + $(".cpick-l").val() + "%, " + $(".cpick-a").val() + ")");
             
@@ -583,8 +529,6 @@ $(document).ready(function() {
               "background": "linear-gradient(to right, rgba(51,51,51,0) 0%," + "hsl(" + $(".cpick-hue").val() + "," + $(".cpick-s").val() + "%," + $(".cpick-l").val() + "%)" + " 100%)"
             });
           });
-
-          // Initiate rgb preview
           $(".cpick-code-rgb").on('change keyup focus', function() {
             $(".grab-border-color").css({
               "background": $(this).val(),
@@ -597,39 +541,90 @@ $(document).ready(function() {
           $('.grab-border-color').on('mouseup touchend', function() {
             $('.border-color-picker').toggle();
           }); $('.border-color-picker').hide();
+          
           $('.border-size-all').on('change', function() {
             if($('.border-top').is(':checked')) {
+              $("#lborder").prop("checked", true);
               $("#stylethis").css({'border-top-width': $('.border-size-all').val() + "px"});
+              $(".your-border-top").val($('.border-size-all').val() + "px");
             }
-            
             if($('.border-right').is(':checked')) {
+              $("#lborder").prop("checked", true);
               $("#stylethis").css({'border-right-width': $('.border-size-all').val() + "px"});
+              $(".your-border-right").val($('.border-size-all').val() + "px");
             }
-            
             if($('.border-bottom').is(':checked')) {
+              $("#lborder").prop("checked", true);
               $("#stylethis").css({'border-bottom-width': $('.border-size-all').val() + "px"});
+              $(".your-border-bottom").val($('.border-size-all').val() + "px");
             }
-            
             if($('.border-left').is(':checked')) {
+              $("#lborder").prop("checked", true);
               $("#stylethis").css({'border-left-width': $('.border-size-all').val() + "px"});
+              $(".your-border-left").val($('.border-size-all').val() + "px");
             }
+            $(".your-border-code").val(( $(".your-border-top").val() === "" ? "" : "\n  border-top-width: " + $(".your-border-top").val() + ";" ) + ( $(".your-border-left").val() === "" ? "" : "\n  border-left-width: " + $(".your-border-left").val() + ";" ) + ( $(".your-border-bottom").val() === "" ? "" : "\n  border-bottom-width: " + $(".your-border-bottom").val() + ";" ) + ( $(".your-border-right").val() === "" ? "" : "\n  border-right-width: " + $(".your-border-right").val() + ";" ));
+          });
+          $('.border-top, .border-right, .border-bottom, .border-left').on('change', function() {
+            if($('.border-top').is(':checked')) {
+              $("#lborder").prop("checked", true);
+              $("#stylethis").css({'border-top-width': $('.border-size-all').val() + "px"});
+              $(".your-border-top").val($('.border-size-all').val() + "px");
+            }
+            if($('.border-right').is(':checked')) {
+              $("#lborder").prop("checked", true);
+              $("#stylethis").css({'border-right-width': $('.border-size-all').val() + "px"});
+              $(".your-border-right").val($('.border-size-all').val() + "px");
+            }
+            if($('.border-bottom').is(':checked')) {
+              $("#lborder").prop("checked", true);
+              $("#stylethis").css({'border-bottom-width': $('.border-size-all').val() + "px"});
+              $(".your-border-bottom").val($('.border-size-all').val() + "px");
+            }
+            if($('.border-left').is(':checked')) {
+              $("#lborder").prop("checked", true);
+              $("#stylethis").css({'border-left-width': $('.border-size-all').val() + "px"});
+              $(".your-border-left").val($('.border-size-all').val() + "px");
+            }
+            $(".your-border-code").val(( $(".your-border-top").val() === "" ? "" : "\n  border-top-width: " + $(".your-border-top").val() + ";" ) + ( $(".your-border-left").val() === "" ? "" : "\n  border-left-width: " + $(".your-border-left").val() + ";" ) + ( $(".your-border-bottom").val() === "" ? "" : "\n  border-bottom-width: " + $(".your-border-bottom").val() + ";" ) + ( $(".your-border-right").val() === "" ? "" : "\n  border-right-width: " + $(".your-border-right").val() + ";" ));
           });
           $('.border-radius-all').on('change', function() {
             if($('.border-radius-top-left').is(':checked')) {
               $("#stylethis").css({'border-top-left-radius': $('.border-radius-all').val() + "px"});
+              $(".your-border-radius-topleft").val($('.border-radius-all').val() + "px");
             }
-            
             if($('.border-radius-top-right').is(':checked')) {
               $("#stylethis").css({'border-top-right-radius': $('.border-radius-all').val() + "px"});
+              $(".your-border-radius-topright").val($('.border-radius-all').val() + "px");
             }
-            
             if($('.border-radius-bottom-left').is(':checked')) {
               $("#stylethis").css({'border-bottom-left-radius': $('.border-radius-all').val() + "px"});
+              $(".your-border-radius-bottomleft").val($('.border-radius-all').val() + "px");
             }
-            
             if($('.border-radius-bottom-right').is(':checked')) {
               $("#stylethis").css({'border-bottom-right-radius': $('.border-radius-all').val() + "px"});
+              $(".your-border-radius-bottomright").val($('.border-radius-all').val() + "px");
             }
+            $(".your-border-radius-code").val(( $(".your-border-radius-topleft").val() === "" ? "" : "\n  border-top-left-radius: " + $(".your-border-radius-topleft").val() + ";" ) + ( $(".your-border-radius-topright").val() === "" ? "" : "\n  border-top-right-radius: " + $(".your-border-radius-topright").val() + ";" ) + ( $(".your-border-radius-bottomleft").val() === "" ? "" : "\n  border-bottom-left-radius: " + $(".your-border-radius-bottomleft").val() + ";" ) + ( $(".your-border-radius-bottomright").val() === "" ? "" : "\n  border-bottom-right-radius: " + $(".your-border-radius-bottomright").val() + ";" ));
+          });
+          $('.border-radius-top-left, .border-radius-top-right, .border-radius-bottom-left, .border-radius-bottom-right').on('change', function() {
+            if($('.border-radius-top-left').is(':checked')) {
+              $("#stylethis").css({'border-top-left-radius': $('.border-radius-all').val() + "px"});
+              $(".your-border-radius-topleft").val($('.border-radius-all').val() + "px");
+            }
+            if($('.border-radius-top-right').is(':checked')) {
+              $("#stylethis").css({'border-top-right-radius': $('.border-radius-all').val() + "px"});
+              $(".your-border-radius-topright").val($('.border-radius-all').val() + "px");
+            }
+            if($('.border-radius-bottom-left').is(':checked')) {
+              $("#stylethis").css({'border-bottom-left-radius': $('.border-radius-all').val() + "px"});
+              $(".your-border-radius-bottomleft").val($('.border-radius-all').val() + "px");
+            }
+            if($('.border-radius-bottom-right').is(':checked')) {
+              $("#stylethis").css({'border-bottom-right-radius': $('.border-radius-all').val() + "px"});
+              $(".your-border-radius-bottomright").val($('.border-radius-all').val() + "px");
+            }
+            $(".your-border-radius-code").val(( $(".your-border-radius-topleft").val() === "" ? "" : "\n  border-top-left-radius: " + $(".your-border-radius-topleft").val() + ";" ) + ( $(".your-border-radius-topright").val() === "" ? "" : "\n  border-top-right-radius: " + $(".your-border-radius-topright").val() + ";" ) + ( $(".your-border-radius-bottomleft").val() === "" ? "" : "\n  border-bottom-left-radius: " + $(".your-border-radius-bottomleft").val() + ";" ) + ( $(".your-border-radius-bottomright").val() === "" ? "" : "\n  border-bottom-right-radius: " + $(".your-border-radius-bottomright").val() + ";" ));
           });
         });
         
@@ -641,6 +636,26 @@ $(document).ready(function() {
           if ( $('#ltypography').prop('checked') === false ) {
             $('.grab-elm-typography input[type=text]').prop('disabled', true);
           }
+          $('.grab-txt-align a').click(function() {
+            $("#stylethis").css({
+              'text-align': $(this).attr('title')
+            });
+            $('.grab-txt-align a').css('backgroundColor', '#444');
+            $(this).css('backgroundColor', '#1c1c1c');
+            $('.grab-text-align').val($(this).attr('title'));
+            $("#ltypography").prop('checked', true);
+            $('.grab-elm-typography input[type=text]').prop('disabled', false);
+          });
+          $('.grab-typography a').click(function() {
+            $("#stylethis").css({
+              'font-family': $(this).text()
+            });
+            $('.grab-typography a').css('backgroundColor', '#444');
+            $(this).css('backgroundColor', '#1c1c1c');
+            $('.grab-font-family').val($(this).text());
+            $("#ltypography").prop('checked', true);
+            $('.grab-elm-typography input[type=text]').prop('disabled', false);
+          });
           // Text Color Picker - Setup Hue Saturation Value & Alpha
           $(".txt-cpick-hue, .txt-cpick-s, .txt-cpick-l, .txt-cpick-a").on('change', function() {
             $(".txt-cpick-code-hsl").trigger('change');
@@ -747,7 +762,6 @@ $(document).ready(function() {
           });
         });
       }
-      
     } else {
       elmstyle = false;
       $('.select-properties').hide();
@@ -765,21 +779,7 @@ $(document).ready(function() {
       
       code.val(preview.html());
       preview.html(code.val());
-    
-      // Updates preview
-      $('.yourcss').html($('.canves').html());
-      $('.yourcss').children("*").html("");
-      $(".yourcss *").removeAttr('id').removeAttr('contenteditable');
-      $(".css-sheet").val($(".yourcss").html().replace(/<\/?/g,'').replace(/h1 /g,'').replace(/div /g,'').replace(/header /g,'').replace(/footer /g,'').replace(/class="/g,'.').replace(/div/g,'').replace(/header/g,'').replace(/style="/g,'{\n  ').replace(/;/g,';\n ').replace(/"/g,'').replace(/ >>/g,'}').replace(/>>/g,' {}'));
-      
-      $(".yourhtml").html($(".canves").html());
-      $(".yourhtml *").removeAttr('style').removeAttr('contenteditable');
-      $(".html-sheet").val($(".yourhtml").html().replace(/>/g,'>\n    ').replace(/</g,'\n  <'));
-      $('.mirror-title').text( $('.website-title').val() );
-      $(".mirror-css").text( $(".css-sheet").val() + "\n" + $('.dadammediaquerylist').val() );
-      $(".mirror-html").text( $(".html-sheet").val() );
-      $('#code').val( $('.mirror-code').text() );
-      editor.setValue( $("#code").val() );
+      FinalizePrev();
       return false;
     }
   });
@@ -871,8 +871,8 @@ $(document).ready(function() {
       if ($('.select-active, .remove-active').is(':visible')) {
         $('.select-active, .remove-active').trigger('click');
       }
-	
-      e.preventDefault();
+      
+      return false;
     } else {
       editable = false;
       $('.canves *').attr('contenteditable', false);
@@ -880,20 +880,24 @@ $(document).ready(function() {
       return false;
     }
   });
-  
-    // Custom CSS Sheet
-    $('.custom-css-sheet').on('keyup change', function() {
-      $(".c-css-sheet").html("<style type='text/css'>" + $(this).val() + "</style>");
-    });
+
+  // Custom CSS Sheet
+  $('.custom-css-sheet').on('keyup change', function() {
+    $(".c-css-sheet").html("<style type='text/css'>" + $(this).val() + "</style>");
+  });
   $(".add-css-selector").on('click', function() {
-    $(".list-of-css-selectors").append("<div class='list-of-css-selectors-container'><a href='javascript:void(0)' class='del-global-css-style'><span class='fa fa-times'></span></a> <button>"+ $(".add-css-selector-val").val() +"</button>"+ "<pre style='text-align:left; padding-top:5px; overflow:auto;'>Custom CSS Here</pre>" +"</div>");
-    
-    $(".custom-css-sheet").val("");
-    $(".c-css-sheet").html("").html( $(".list-of-css-selectors").html() );
-    $(".c-css-sheet textarea, .c-css-sheet a, .c-css-sheet button").remove();
-    $(".custom-css-sheet").val( $('.c-css-sheet').html().replace(/<\/?/g,'').replace(/div class="c-css-sheet hide">/g,'').replace(/div>div class="list-of-css-selectors-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/pre>div>/g,'').replace(/ }div>div class="list-of-css-selectors-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/ }/g,'').replace(/pre>/g,'').replace(/div>/g,'').replace(/link href="/g,'<link href="').replace(/css">/g,'css">\n') );
-    $(".add-css-refer-val").val("");
-    FinalizePrev();
+    if ( $(".add-css-selector-val").val() === "" ) {
+      alert("Add class denied because value is blank.");
+    } else {
+      $(".list-of-css-selectors").append("<div class='list-of-css-selectors-container'><a href='javascript:void(0)' class='del-global-css-style'><span class='fa fa-times'></span></a> <button>"+ $(".add-css-selector-val").val() +"</button>"+ "<pre style='text-align:left; padding-top:5px; overflow:auto;'>"+ $(".add-css-selector-val").val() +" {"+ ( $(".grab-pos-val").val() === "" ? "" : "\n  position: " + $(".grab-pos-val").val() + ";" ) + ( $(".grab-postop").val() === "" ? "" : "\n  top: " + $(".grab-postop").val() + ";" ) + ( $(".grab-posleft").val() === "" ? "" : "\n  left: " + $(".grab-posleft").val() + ";" ) + ( $(".grab-posright").val() === "" ? "" : "\n  right: " + $(".grab-posright").val() + ";" ) + ( $(".grab-posbottom").val() === "" ? "" : "\n  bottom: " + $(".grab-posbottom").val() + ";" ) + ( $(".grab-width").val() === "" ? "" : "\n  width: " + $(".grab-width").val() + ";" ) + ( $(".grab-height").val() === "" ? "" : "\n  height: " + $(".grab-height").val() + ";" ) + ( $(".grab-bg-url").val() === "" ? "" : "\n  background-image: url('" + $(".grab-bg-url").val() + "');" ) + ( $(".grab-bg-position").val() === "" ? "" : "\n  background-position: " + $(".grab-bg-position").val() + ";" ) + ( $(".grab-bg-repeat").val() === "" ? "" : "\n  background-repeat: " + $(".grab-bg-repeat").val() + ";" ) + ( $(".grab-bg-attach-val").val() === "" ? "" : "\n  background-attachment: "+ $(".grab-bg-attach-val").val() +";" ) + ( $(".grab-bg-size").val() === "" ? "" : "\n  background-size: "+ $(".grab-bg-size").val() +";" ) + ( $(".bg-cpick-code-rgb").val() === "" ? "" : "\n  background-color: "+ $(".bg-cpick-code-rgb").val() +";" ) + ( $(".grab-users-border-style").val() === "" ? "" : "\n  border-style: "+ $(".grab-users-border-style").val() +";" ) + ( $(".cpick-code-rgb").val() === "" ? "" : "\n  border-color: "+ $(".cpick-code-rgb").val() +";" ) + ( $(".your-border-code").val() === "" ? "" : ""+ $(".your-border-code").val() +"" ) + ( $(".your-border-radius-code").val() === "" ? "" : ""+ $(".your-border-radius-code").val() +"" ) + ( $(".grab-font-family").val() === "" ? "" : "\n  font-family: "+ $(".grab-font-family").val() +";" ) + ( $(".txt-cpick-code-rgb").val() === "" ? "" : "\n  color: "+ $(".txt-cpick-code-rgb").val() +";" ) + ( $(".grab-font-size").val() === "" ? "" : "\n  font-size: "+ $(".grab-font-size").val() +"px;" ) + ( $(".grab-font-varient").val() === "" ? "" : "\n  font-varient: "+ $(".grab-font-varient").val() +";" ) + ( $(".grab-font-style").val() === "" ? "" : "\n  font-style: "+ $(".grab-font-style").val() +";" ) + ( $(".grab-font-weight").val() === "" ? "" : "\n  font-weight: "+ $(".grab-font-weight").val() +";" ) + ( $(".grab-line-height").val() === "" ? "" : "\n  line-height: "+ $(".grab-line-height").val() +";" ) + ( $(".grab-letter-spacing").val() === "" ? "" : "\n  letter-spacing: "+ $(".grab-letter-spacing").val() +";" ) + ( $(".grab-word-spacing").val() === "" ? "" : "\n  word-spacing: "+ $(".grab-word-spacing").val() +";" ) + ( $(".grab-text-transform").val() === "" ? "" : "\n  text-transform: "+ $(".grab-text-transform").val() +";" ) + ( $(".grab-text-align").val() === "" ? "" : "\n  text-align: "+ $(".grab-text-align").val() +";" ) + ( $(".grab-word-wrap").val() === "" ? "" : "\n  word-wrap: "+ $(".grab-word-wrap").val() +";" ) + ( $(".grab-white-space").val() === "" ? "" : "\n  white-space: "+ $(".grab-white-space").val() +";" ) + ( $(".grab-display").val() === "" ? "" : "\n  display: "+ $(".grab-display").val() +";" ) + ( $(".grab-padding").val() === "" ? "" : "\n  padding: "+ $(".grab-padding").val() +";" ) + ( $(".grab-margin").val() === "" ? "" : "\n  margin: "+ $(".grab-margin").val() +";" ) + ( $(".grab-overflow").val() === "" ? "" : "\n  overflow: "+ $(".grab-overflow").val() +";" ) + ( $(".grab-opacity").val() === "" ? "" : "\n  opacity: "+ $(".grab-opacity").val() +";" ) + ( $(".grab-outline").val() === "" ? "" : "\n  outline: "+ $(".grab-outline").val() +";" ) + ( $(".grab-transition").val() === "" ? "" : "\n  transition: "+ $(".grab-transition").val() +";" ) + ( $(".grab-resize").val() === "" ? "" : "\n  resize: "+ $(".grab-resize").val() +";" ) + ( $(".grab-float").val() === "" ? "" : "\n  float: "+ $(".grab-float").val() +";" ) + ( $(".grab-z-index").val() === "" ? "" : "\n  z-index: "+ $(".grab-z-index").val() +";" ) + "}</pre>\n</div>");
+      
+      $(".add-css-selector-val, .custom-css-sheet").val("");
+      $(".c-css-sheet").html("").html( $(".list-of-css-selectors").html() );
+      $(".c-css-sheet textarea, .c-css-sheet a, .c-css-sheet button").remove();
+      $(".custom-css-sheet").val( $('.c-css-sheet').html().replace(/<\/?/g,'').replace(/div class="c-css-sheet hide">/g,'').replace(/div>div class="list-of-css-selectors-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/pre>div>/g,'').replace(/ }div>div class="list-of-css-selectors-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/pre>/g,'').replace(/div>/g,'').replace(/}/g,'\n}') );
+      $(".add-css-refer-val").val("");
+      FinalizePrev();
+    }
     
     $(".del-global-css-style").on('click', function() {
       $(this).parent().remove();
@@ -904,17 +908,27 @@ $(document).ready(function() {
       FinalizePrev();
     });
   });
+  $(".add-css-selector-val").on('keyup change', function() {
+    if ( $(this).val() === "body" ) {
+      $(this).val("");
+      alert("Access denied!");
+    }
+  });
   
   // Adds CSS Link References
   $(".add-css-refer").on('click', function() {
-    $(".list-of-css-references").append("<div class='list-of-css-references-container'><a href='javascript:void(0)' class='del-css-refer'><span class='fa fa-times'></span></a> <button>"+ $(".add-css-refer-val").val() +"</button>"+ "<pre style='text-align:left; padding-top:5px; overflow:auto;'>"+ "<link href='"+ $(".add-css-refer-val").val() +"' rel='stylesheet' type='text/css'></pre>" +"</div>");
+    if ( $(".add-css-refer-val").val() === "" ) {
+      alert("Add reference denied because value is blank.");
+    } else {
+      $(".list-of-css-references").append("<div class='list-of-css-references-container'><a href='javascript:void(0)' class='del-css-refer'><span class='fa fa-times'></span></a> <button>"+ $(".add-css-refer-val").val() +"</button>"+ "<pre style='text-align:left; padding-top:5px; overflow:auto;'>"+ "<link href='"+ $(".add-css-refer-val").val() +"' rel='stylesheet' type='text/css'></pre>" +"</div>");
     
-    $(".dadamcssreflist").val("");
-    $(".dadamcssrefhtml").html("").html( $(".list-of-css-references").html() );
-    $(".dadamcssrefhtml textarea, .dadamcssrefhtml a, .dadamcssrefhtml button").remove();
-    $(".dadamcssreflist").val( $('.dadamcssrefhtml').html().replace(/<\/?/g,'').replace(/div class="dadamcssrefhtml hide">/g,'').replace(/div>div class="list-of-css-references-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/pre>div>/g,'').replace(/ }div>div class="list-of-css-references-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/ }/g,'').replace(/pre>/g,'').replace(/div>/g,'').replace(/link href="/g,'<link href="').replace(/css">/g,'css">\n') );
-    $(".add-css-refer-val").val("");
-    FinalizePrev();
+      $(".dadamcssreflist").val("");
+      $(".dadamcssrefhtml").html("").html( $(".list-of-css-references").html() );
+      $(".dadamcssrefhtml textarea, .dadamcssrefhtml a, .dadamcssrefhtml button").remove();
+      $(".dadamcssreflist").val( $('.dadamcssrefhtml').html().replace(/<\/?/g,'').replace(/div class="dadamcssrefhtml hide">/g,'').replace(/div>div class="list-of-css-references-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/pre>div>/g,'').replace(/ }div>div class="list-of-css-references-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/ }/g,'').replace(/pre>/g,'').replace(/div>/g,'').replace(/link href="/g,'<link href="').replace(/css">/g,'css">\n') );
+      $(".add-css-refer-val").val("");
+      FinalizePrev();
+    }
     
     $(".del-css-refer").on('click', function() {
       $(this).parent().remove();
@@ -1007,6 +1021,12 @@ $(document).ready(function() {
       $(".grab-"+ $val.toLowerCase().replace(/ /g, "-")).css( "color", "#999" ).next().show();
     }
     
+    if($.inArray($val.toLowerCase(), ["global styles"]) > -1) {
+      $("." + $(".dialogs option:selected").val() + " .drop").css('color', '#666').next().hide();
+      $(".grab-tool-options").css( "color", "#999" ).next().show();
+      $(".list-of-css-selectors").css( "color", "#999" ).next().show();
+    }
+    
     if($.inArray($val.toLowerCase(), ["size", "background", "border", "typography", "advanced"]) > -1) {
       $("." + $(".dialogs option:selected").val() + " .drop").css('color', '#666').next().hide();
       $(".grab-"+ $val.toLowerCase()).css( "color", "#999" ).next().show();
@@ -1057,26 +1077,12 @@ $(document).ready(function() {
     
     // New and Save Document
     $('.new-doc').on('click', function() {
-      $(".canves").html("");
-      $('.mirror-title').text( $('.website-title').val("New Document") );
-        
-        $(".list-of-media-queries textarea").val("");
-        $(".list-of-media-queries div").html("");
-        
-        // Updates preview
-        $('.yourcss').html($('.canves').html());
-        $('.yourcss').children("*").html("");
-        $(".yourcss *").removeAttr('id').removeAttr('contenteditable');
-        $(".css-sheet").val($(".yourcss").html().replace(/<\/?/g,'').replace(/h1 /g,'').replace(/div /g,'').replace(/header /g,'').replace(/footer /g,'').replace(/class="/g,'.').replace(/div/g,'').replace(/header/g,'').replace(/style="/g,'{\n  ').replace(/;/g,';\n ').replace(/"/g,'').replace(/ >>/g,'}').replace(/>>/g,' {}'));
-        
-        $(".yourhtml").html($(".canves").html());
-        $(".yourhtml *").removeAttr('style').removeAttr('contenteditable');
-        $(".html-sheet").val($(".yourhtml").html().replace(/>/g,'>\n    ').replace(/</g,'\n  <'));
-        $('.mirror-title').text( $('.website-title').val() );
-        $(".mirror-css").text( $(".css-sheet").val() + "\n" + $('.dadammediaquerylist').val() );
-        $(".mirror-html").text( $(".html-sheet").val() );
-        $('#code').val( $('.mirror-code').text() );
-        editor.setValue( $("#code").val() );
+      var x = window.confirm("Are you sure you wish to start a new project?\nAll your changes will be removed once MMD restarts. ")
+      if (x)
+        location.reload(true);
+      else
+        return false;
+      
     });
     $(".open-save-dialog").on('click', function() {
       FinalizePrev();
@@ -1134,7 +1140,7 @@ $(document).ready(function() {
     });
     
     // Toggles Property Containment Area
-    $(".drop").click(function() {
+    $(".drop, .dropp").click(function() {
       $(this).toggleClass('title-active');
       if ($(this).hasClass('title-active')) {
         $(this).css('color', '#666');
@@ -1144,7 +1150,7 @@ $(document).ready(function() {
         $(this).next().show();
        }
     });
-    $('.drop-section a').click(function() {
+    $('.drop-section a, .dropp-section a').click(function() {
       $(this).toggleClass('active-btn');
     });
   });

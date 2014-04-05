@@ -119,8 +119,6 @@
           </header>
           
           <div class="drop-section the-codez-stage">
-            <textarea id="codemirror-css" class="hide" style="cursor:text!important; width:100%; resize:vertical; border:0; border-radius:0; min-height:200px;" placeholder="Your css goes here"></textarea>
-            <textarea id="codemirror-html" class="hide" style="cursor:text!important; width:100%; resize:vertical; border:0; border-radius:0; min-height:200px;" placeholder="Your html goes here"></textarea>
             <textarea id="full-site-code" placeholder="Finalize code here."></textarea>
             <center>
               <div class="yourcss hide"></div>
@@ -131,6 +129,7 @@
               <textarea id="projsavecode hide" style="position:absolute; top:-99999999px; left:-99999999px; width:0; height:0; display:none; opacity:0; padding:0; margin:0; resize:none;" disabled="true"></textarea>
               <textarea id="code" class="hide" placeholder="Your full code is generated here"></textarea>
             </center>
+            <textarea class="hide" style="cursor:text!important; width:98.7%; resize:vertical; border:0; border-radius:0; min-height:200px;"></textarea>
           </div>
         </span>
       </div>
@@ -143,6 +142,7 @@
               <option value="Save"></option>
               <option value="All"></option>
               <option value="None"></option>
+              <option value="Global Styles"></option>
               <option value="Tool Options"></option>
               <option value="Size"></option>
               <option value="Background"></option>
@@ -158,7 +158,7 @@
           </header>
           
           <div class="drop-section">
-            <table class="fill table-in hide">
+            <table class="fill table-in">
               <tr>
                 <td>
                   <a class="add-css-selector" title="Add CSS Selector" href="javascript:void(0)" style="background:transparent; padding:0; margin:0;"><span class='fa fa-plus'></span></a>
@@ -178,13 +178,13 @@
                 </td>
               </tr>
             </table>
-          </div>
-          <div class="section-dropper hide" style="width:90%; margin:0 auto 5px auto;">
-            <header class="drop grab-tool-options" title=" global styles">
-              <label>&nbsp; global styles</label><br>
-            </header>
-            
-            <center class="drop-section list-of-css-selectors" style="border:1px solid #222;"><textarea class="custom-css-sheet" style="cursor:text!important; width:100%; resize:vertical; border:0; border-radius:0; min-height:200px;" placeholder="Your Custom CSS is added here"></textarea><div class="c-css-sheet hide"></div></center>
+            <div style="width:90%; margin:0 auto 5px auto;">
+              <header class="dropp grab-tool-options" title=" global styles">
+                <label style="cursor:pointer;">&nbsp; global styles</label><br>
+              </header>
+              
+              <center class="dropp-section list-of-css-selectors" style="border:1px solid #222; padding: 5px;"><textarea class="custom-css-sheet" style="cursor:text!important; width:100%; resize:vertical; border:0; border-radius:0; min-height:200px;" placeholder="Your Custom CSS is added here"></textarea><div class="c-css-sheet hide"></div></center>
+            </div>
           </div>
         </span>
         <span class="section-dropper grabmy-position">
@@ -196,11 +196,14 @@
           <div class="drop-section grab-elm-pos">
             <center>
               <div class="horizontal-bar" style="padding-top:15px;">
+                <a title="" class="grab-pos-none" href='javascript:void(0);'><span class='fa fa-times'></span></a>
                 <a title="static" class="grab-pos-static" href='javascript:void(0);'><span class='fa fa-barcode'></span></a>
                 <a title="relative" class="grab-pos-relative" href='javascript:void(0);'><span class='fa fa-square-o'></span></a>
                 <a title="absolute" class="grab-pos-absolute" href='javascript:void(0);'><span class='fa fa-crosshairs'></span></a>
                 <a title="fixed" class="grab-pos-fixed" href='javascript:void(0);'><span class='fa fa-thumb-tack'></span></a>
               </div>
+              
+              <input type="text" class="grab-pos-val hide" />
               
               <table class="fill table-in">
                 <tr>
@@ -295,7 +298,9 @@
                 </tr>
                 <tr>
                   <td>attach:</td>
-                  <td><input class="grab-bg-attachment" type="checkbox" /> fixed</td>
+                  <td><input class="grab-bg-attachment" type="checkbox" /> fixed
+                      <input type="text" class="grab-bg-attach-val hide" />
+                  </td>
                 </tr>
                 <tr>
                   <td>size:</td>
@@ -370,6 +375,8 @@
               <a href="javascript:void(0)" class="outset grab-outset" title="outset">&nbsp;</a>
             </div>
             
+            <input type="text" class="grab-users-border-style hide" />
+            
             <table class="fill table-in">
               <tr>
                 <td>
@@ -416,7 +423,6 @@
                 </td>
               </tr>
             </table>
-            
             <table class="table-in apply-border-radius half" style="float:right;">
               <tr>
                 <td>
@@ -454,6 +460,17 @@
                 </td>
               </tr>
             </table>
+            
+            <input type="text" class="your-border-top hide" placeholder="top" />
+            <input type="text" class="your-border-left hide" placeholder="left" />
+            <input type="text" class="your-border-bottom hide" placeholder="bottom" />
+            <input type="text" class="your-border-right hide" placeholder="right" />
+            <textarea class="your-border-code hide" style="cursor:text!important; width:100%; resize:vertical; border:0; border-radius:0; min-height:100px;"></textarea>
+            <input type="text" class="your-border-radius-topleft hide" placeholder="top left" />
+            <input type="text" class="your-border-radius-topright hide" placeholder="top right" />
+            <input type="text" class="your-border-radius-bottomleft hide" placeholder="bottom left" />
+            <input type="text" class="your-border-radius-bottomright hide" placeholder="bottom right" />
+            <textarea class="your-border-radius-code hide" style="cursor:text!important; width:100%; resize:vertical; border:0; border-radius:0; min-height:100px;"></textarea>
           </div>
         </span>
         <span class="section-dropper grabmy-typography">
@@ -487,6 +504,7 @@
               
               <div class="horizontal-bar grab-txt-align"><br>
                 <span class="grab-txt-color">&nbsp;</span>
+                <a class="grab-align-none" href="javascript:void(0)" title=""><span class='fa fa-times'></span></a>
                 <a class="grab-align-left" href="javascript:void(0)" title="left"><span class='fa fa-align-left'></span></a>
                 <a class="grab-align-center" href="javascript:void(0)" title="center"><span class='fa fa-align-center'></span></a>
                 <a class="grab-align-right" href="javascript:void(0)" title="right"><span class='fa fa-align-right'></span></a>
@@ -522,7 +540,6 @@
                 </a>
                 <a class="grab-verdana" href="javascript:void(0)">verdana</a>
               </div>
-              
               
               <input class="grab-font-family hide" type="text" value="" placeholder="font-family" />
               <table class="fill table-in">
@@ -819,18 +836,7 @@
 &lt;meta name='viewport' content='initial-scale=1.0'&gt;
 &lt;meta http-equiv="X-UA-Compatible" content="IE=9" /&gt;
 <span class="mirror-css-link-refs"></span>&lt;style type='text/css'&gt;
-body {
-  position: absolute;
-  padding:0; margin:0;
-  width: auto; height: auto;
-  top: 0; left: 0; bottom: 0; right: 0;
-  -webkit-font-smoothing: antialiased;
-}
-
-button, input[type=button] {
-  padding:0; margin:0;
-}
-
+body { margin:0; padding:0; }
 <span class="mirror-css">No synaptics incorporated yet...</span>
 &lt;/style&gt;
 &lt;/head&gt;
@@ -842,8 +848,7 @@ button, input[type=button] {
   <!-- This is the designing area -->
   <div class="itsthecavnescontainerbro">
 <div id="preview-pane"><iframe id="workflow" style="background-color:#fff;"></iframe></div>
-<div class="canves" style="background-color:#fff;"><div class='head' style="position: absolute; top:0; left:0; height:78px; right:0; background: #eee; text-align: center; font: 32px arial; color: #fff; line-height: 2.3em; text-shadow: 0 0 8px rgba(0,0,0,0.2); background: #1e5799; background: -moz-linear-gradient(top, #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(50%,#2989d8), color-stop(51%,#207cca), color-stop(100%,#7db9e8)); background: -webkit-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); background: -o-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); background: -ms-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); background: linear-gradient(to bottom, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=0 );"><strong>Website Name</strong></div><div class='content' style='position: absolute; top: 76px; left:0; bottom:0; right:0; padding: 1em; overflow: auto; background: #eee; font: 14px arial; text-shadow: -1px 1px 2px #fff, 1px 1px 4px #fff;'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor. Praesent et diam eget libero egestas mattis sit amet vitae augue. Nam tincidunt congue enim, ut porta lorem lacinia consectetur. Donec ut libero sed arcu vehicula ultricies a non tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut gravida lorem. Ut turpis felis, pulvinar a semper sed, adipiscing id dolor. Pellentesque auctor nisi id magna consequat sagittis. Curabitur dapibus enim sit amet elit pharetra tincidunt feugiat nisl imperdiet. Ut convallis libero in urna ultrices accumsan. Donec sed odio eros. Donec viverra mi quis quam pulvinar at malesuada arcu rhoncus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In rutrum accumsan ultricies. Mauris vitae nisi at sem facilisis semper ac in est.<br><br>Vivamus fermentum semper porta. Nunc diam velit, adipiscing ut tristique vitae, sagittis vel odio. Maecenas convallis ullamcorper ultricies. Curabitur ornare, ligula semper consectetur sagittis, nisi diam iaculis velit, id fringilla sem nunc vel mi. Nam dictum, odio nec pretium volutpat, arcu ante placerat erat, non tristique elit urna et turpis. Quisque mi metus, ornare sit amet fermentum et, tincidunt et orci. Fusce eget orci a orci congue vestibulum. Ut dolor diam, elementum et vestibulum eu, porttitor vel elit. Curabitur venenatis pulvinar tellus gravida ornare. Sed et erat faucibus nunc euismod ultricies ut id justo. Nullam cursus suscipit nisi, et ultrices justo sodales nec. Fusce venenatis facilisis lectus ac semper. Aliquam at massa ipsum. Quisque bibendum purus convallis nulla ultrices ultricies. Nullam aliquam, mi eu aliquam tincidunt, purus velit laoreet tortor, viverra pretium nisi quam vitae mi. Fusce vel volutpat elit. Nam sagittis nisi dui.<br><br>Suspendisse lectus leo, consectetur in tempor sit amet, placerat quis neque. Etiam luctus porttitor lorem, sed suscipit est rutrum non. Curabitur lobortis nisl a enim congue semper. Aenean commodo ultrices imperdiet. Vestibulum ut justo vel sapien venenatis tincidunt. Phasellus eget dolor sit amet ipsum dapibus condimentum vitae quis lectus. Aliquam ut massa in turpis dapibus convallis. Praesent elit lacus, vestibulum at malesuada et, ornare et est. Ut augue nunc, sodales ut euismod non, adipiscing vitae orci. Mauris ut placerat justo. Mauris in ultricies enim. Quisque nec est eleifend nulla ultrices egestas quis ut quam. Donec sollicitudin lectus a mauris pulvinar id aliquam urna cursus. Cras quis ligula sem, vel elementum mi. Phasellus non ullamcorper urna.<br><br>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In euismod ultrices facilisis. Vestibulum porta sapien adipiscing augue congue id pretium lectus molestie. Proin quis dictum nisl. Morbi id quam sapien, sed vestibulum sem. Duis elementum rutrum mauris sed convallis. Proin vestibulum magna mi. Aenean tristique hendrerit magna, ac facilisis nulla hendrerit ut. Sed non tortor sodales quam auctor elementum. Donec hendrerit nunc eget elit pharetra pulvinar. Suspendisse id tempus tortor. Aenean luctus, elit commodo laoreet commodo, justo nisi consequat massa, sed vulputate quam urna quis eros. Donec vel.
-</div></div>
+<div class="canves" style="background-color:#fff;"></div>
 </div>
   
 <script src="assets/ui.js"></script>

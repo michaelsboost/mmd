@@ -130,7 +130,7 @@ body {
 .disismyfukentoolbuxhhehahooo .add-media-query:hover, .disismyfukentoolbuxhhehahooo .add-css-selector:hover { color:#fff; outline:none; }
 .disismyfukentoolbuxhhehahooo .add-media-query:active, .disismyfukentoolbuxhhehahooo .add-css-selector:active { color:#35a0a0; outline:none; }
 
-.disismyfukentoolbuxhhehahooo .drop {
+.disismyfukentoolbuxhhehahooo .drop, .disismyfukentoolbuxhhehahooo .dropp {
   cursor: pointer;
   padding: 0 5px;
   border-top: 1px solid #151515;
@@ -368,16 +368,18 @@ body {
 
 /* Global CSS Styles List */
 .disismyfukentoolbuxhhehahooo .list-of-css-selectors button {
-  cursor:pointer;
+  cursor:default;
   padding:5px 0; margin:0; width:85%;
-  font: 14px arial;
-  color: #66d;
+  font: 12px arial;
+  color: #6dd;
+  text-align:left;
+  white-space: nowrap;
   background-color:#222;
   border:0; outline:0;
 }
 .disismyfukentoolbuxhhehahooo .list-of-css-selectors pre {
-  cursor:pointer;
-  padding:5px 0; margin:0; width:95%; height:150px;
+  cursor:default; display:none;
+  padding:5px 0; margin:0; width:95%; height:auto;
   font: 12px arial;
 }
 .disismyfukentoolbuxhhehahooo .list-of-css-selectors .del-global-css-style {
