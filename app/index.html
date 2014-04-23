@@ -178,12 +178,12 @@
                 </td>
               </tr>
             </table>
-            <div style="width:90%; margin:0 auto 5px auto;">
+            <div style="width:90%; margin:5px auto 5px auto;">
               <header class="dropp grab-tool-options" title=" global styles">
                 <label style="cursor:pointer;">&nbsp; global styles</label><br>
               </header>
               
-              <center class="dropp-section list-of-css-selectors" style="border:1px solid #222; padding: 5px;"><textarea class="custom-css-sheet" style="cursor:text!important; width:100%; resize:vertical; border:0; border-radius:0; min-height:200px;" placeholder="Your Custom CSS is added here"></textarea><div class="c-css-sheet hide"></div></center>
+              <center class="dropp-section list-of-css-selectors" style="border:1px solid #222; padding: 5px;"><textarea class="custom-css-sheet hide" style="cursor:text!important; width:100%; resize:vertical; border:0; border-radius:0; min-height:200px;" placeholder="Your Custom CSS is added here"></textarea><div class="c-css-sheet hide"></div></center>
             </div>
           </div>
         </span>
@@ -276,6 +276,7 @@
                 <tr>
                   <td>position:</td>
                   <td><select class="grab-bg-position">
+                    <option value=""></option>
                     <option value="top left">top left</option>
                     <option value="top center">top center</option>
                     <option value="top right">top right</option>
@@ -290,6 +291,7 @@
                 <tr>
                   <td>repeat:</td>
                   <td><select class="grab-bg-repeat">
+                    <option value=""></option>
                     <option value="repeat">repeat</option>
                     <option value="repeat-x">repeat-x</option>
                     <option value="repeat-y">repeat-y</option>
@@ -516,7 +518,7 @@
                     <input class="grab-font-size" id="points-input" value="14" type="range" onchange='points.value=value'>
                   </td>
                   <td>
-                    <output id='points'>14</output>px
+                    <input type="text" id="points" value="14" style="border:0!important; width:30px;" />px
                   </td>
                 </tr>
               </table>
@@ -836,7 +838,10 @@
 &lt;meta name='viewport' content='initial-scale=1.0'&gt;
 &lt;meta http-equiv="X-UA-Compatible" content="IE=9" /&gt;
 <span class="mirror-css-link-refs"></span>&lt;style type='text/css'&gt;
-body { margin:0; padding:0; }
+body {
+  margin: 0;
+  padding: 0;
+}
 <span class="mirror-css">No synaptics incorporated yet...</span>
 &lt;/style&gt;
 &lt;/head&gt;
@@ -848,7 +853,7 @@ body { margin:0; padding:0; }
   <!-- This is the designing area -->
   <div class="itsthecavnescontainerbro">
 <div id="preview-pane"><iframe id="workflow" style="background-color:#fff;"></iframe></div>
-<div class="canves" style="background-color:#fff;"></div>
+<div class="canves"></div>
 </div>
   
 <script src="assets/ui.js"></script>
