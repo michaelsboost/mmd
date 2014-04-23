@@ -516,6 +516,8 @@ body {
   overflow: auto;
 }
 
+.canves { background-color:#fff; }
+
 .itsthecavnescontainerbro .canves button, .itsthecavnescontainerbro .canves input[type=button] {
   padding:0; margin:0;
 }
