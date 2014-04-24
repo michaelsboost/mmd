@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My Mobile Design</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=9" />
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600&subset=latin" rel="stylesheet" type="text/css">
+<link href="assets/import.css" rel="stylesheet" type="text/css">
+<script src="assets/jquery.min.js"></script>
+<script src="assets/jquery-ui.min.js"></script>
+<script src="assets/jquery.event.drag-2.2.js"></script>
+<script src="assets/jquery.event.drag.live-2.2.js"></script>
+<script src="assets/editor.js"></script>
+<script src="assets/bootstrap.min.js"></script>
+<script src="assets/jquery.ui.touch-punch.min.js"></script>
+
+<script src='assets/codemirror/lib/codemirror.js'></script>
+<script src='assets/codemirror/mode/xml/xml.js'></script>
+<script src='assets/codemirror/mode/javascript/javascript.js'></script>
+<script src='assets/codemirror/mode/css/css.js'></script>
+<script src='assets/codemirror/mode/htmlmixed/htmlmixed.js'></script>
+<link rel='stylesheet' href='assets/codemirror/lib/codemirror.css'>
+<script src="assets/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+<script src="assets/codemirror/addon/edit/closetag.js"></script>
+<script src="assets/codemirror/addon/edit/matchbrackets.js"></script>
+<script src="assets/codemirror/addon/selection/active-line.js"></script>
+<script src="assets/codemirror/keymap/extra.js"></script>
+<link rel="stylesheet" href="assets/codemirror/addon/fold/foldgutter.css" />
+<script src="assets/codemirror/addon/fold/foldcode.js"></script>
+<script src="assets/codemirror/addon/fold/foldgutter.js"></script>
+<script src="assets/codemirror/addon/fold/brace-fold.js"></script>
+<script src="assets/codemirror/addon/fold/xml-fold.js"></script>
+<script src="assets/codemirror/addon/fold/comment-fold.js"></script>
+</head>
+<body>
+  <button class="toggle-options show-options">Show Options</button>
+  <div class="cwidth-containment">
+    <input class="cwidth" type="range" min="0" />
+  </div>
+  <span class="media-query-slider"></span>
+  <div class="ruler-container">
+    <div class="ruler"></div>
+  </div>
+  
+  <div class="disismyfukentoolbuxhhehahooo">
+    <div class="tools">
+      <center>
+        <a class="add-media-query" title="Add Media Query" href="javascript:void(0)" style="position:absolute; top:5px; left:0; font-size:15px;"><span class='fa fa-plus'></span></a>
+        <input type="checkbox" class="toggle-workflow-visibility" title="Toggle Design/Preview" style="position:absolute; top:25px; left:2.5px;" />
+        <a class="select-tool" title="Select Tool" href='javascript:void(0);'><span class='fa fa-location-arrow' style="transform: rotate(0deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(180deg) translateX(0px) translateY(0px); -webkit-transform: rotate(0deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(180deg) translateX(0px) translateY(0px); -moz-transform: rotate(0deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(180deg) translateX(0px) translateY(0px); -ms-transform: rotate(0deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(180deg) translateX(0px) translateY(0px); -o-transform: rotate(0deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(180deg) translateX(0px) translateY(0px);"></span></a>
+        <a class="edit-tool" title="Edit Content" href='javascript:void(0);'><span class='fa fa-edit'></span></a>
+        <a class="remove-tool" title="Remove Element" href='javascript:void(0);'><span class='fa fa-times'></span></a>
+        <a class="new-doc" title="New Document" href="javascript:void(0)"><span class='fa fa-file-text'></span></a>
+        <a class="open-save-dialog" title="Save to disk" href="javascript:void(0)"><span class='fa fa-download'></span></a>
+        <a style="display:none;" title="svg-edit" onclick="window.open('http://svg-edit.googlecode.com/svn/branches/2.6/editor/svg-editor.html', 'svg-edit', 'width=660, height=460'); return false;"><img class="link-to-svgedit" src="assets/svgedit.svg"></a>
+        <a style="display:none;" title="Dropbox" onclick="window.open('https://www.dropbox.com/chooser', 'Dropbox', 'width=660, height=440'); return false;"><span class='fa fa-dropbox'></span></a>
+        <a class="hide-options" title="Hide Options" href='javascript:void(0);'><span class='fa fa-chevron-right'></span></a>
+        <select class="dialogs hide">
+          <option value="starter-properties">starter-properties</option>
+          <option value="select-properties">select-properties</option>
+        </select>
+      </center>
+    </div>
+    
+    <div class="inspection">
+      <div class="starter-properties show">
+        <span class="section-dropper">
+          <header class="drop head-prop" title="head">
+            &nbsp; head<br>
+          </header>
+          
+          <div class="drop-section">
+            <center>
+              <input type="text" class="fill website-title" value="New Document" placeholder="Website title" style="text-align:center;" />
+            </center>
+          </div>
+        </span>
+        <span class="section-dropper">
+          <header class="drop head-prop" title="elements">
+            &nbsp; elements<br>
+          </header>
+          
+          <div class="drop-section elms-4-stage">
+            <center>
+              <button class="add-elm">header</button>
+              <button class="add-elm">div</button>
+              <button class="add-elm">span</button>
+              <button class="add-elm">footer</button>
+            </center>
+          </div>
+        </span>
+        <span class="section-dropper">
+          <header class="drop head-prop" title="css link references">
+            &nbsp; css link references<br>
+          </header>
+          
+          <center class="drop-section add-the-css-references">
+            <table class="fill table-in">
+              <tr>
+                <td><button class="add-css-refer"><span class='fa fa-plus'></span></button></td>
+                <td><input class="add-css-refer-val" style="font: 14px arial; color: #6dd;" type="text" placeholder="url here" value="" /></td>
+              </tr>
+            </table>
+            <hr style="opacity:.25;">
+              <div class="drop-section list-of-css-references"><textarea class="dadamcssreflist hide" style="min-width:100%; height:200px; padding:0; margin:0; border-radius:0; border:0; resize:vertical;"></textarea><div class="dadamcssrefhtml hide"></div></div>
+          </center>
+        </span>
+        <span class="section-dropper">
+          <header class="drop head-prop" title="media queries">
+            &nbsp; media queries<br>
+          </header>
+          
+          <center class="drop-section list-of-media-queries"><textarea class="dadammediaquery hide" style="min-width:100%; height:200px; padding:0; margin:0; border-radius:0; border:0; resize:vertical;"></textarea><textarea class="dadammediaquerylist hide" style="min-width:100%; height:200px; padding:0; margin:0; border-radius:0; border:0; resize:vertical;"></textarea><div class="dadammediaqueryshtml hide"></div></center>
+        </span>
+        <span class="section-dropper">
+          <header class="drop head-prop" title="code editor">
+            &nbsp; code editor<br>
+          </header>
+          
+          <div class="drop-section the-codez-stage">
+            <textarea id="full-site-code" placeholder="Finalize code here."></textarea>
+            <center>
+              <div class="yourcss hide"></div>
+              <textarea class="css-sheet hide" style="cursor:text!important; width:100%; resize:vertical; border:0; border-radius:0; min-height:200px;" placeholder="Your CSS is added here"></textarea>
+              <div class="yourhtml hide"></div>
+              <textarea class="html-sheet hide" style="cursor:text!important; width:100%; resize:vertical; border:0; border-radius:0; min-height:200px;" placeholder="Your html is generated here"></textarea>
+              <textarea id="canves-code" class="hide" style="cursor:text!important; width:100%; resize:vertical; border:0; border-radius:0; min-height:200px;" placeholder="The Canves Code"></textarea>
+              <textarea id="projsavecode hide" style="position:absolute; top:-99999999px; left:-99999999px; width:0; height:0; display:none; opacity:0; padding:0; margin:0; resize:none;" disabled="true"></textarea>
+              <textarea id="code" class="hide" placeholder="Your full code is generated here"></textarea>
+            </center>
+            <textarea class="hide" style="cursor:text!important; width:98.7%; resize:vertical; border:0; border-radius:0; min-height:200px;"></textarea>
+          </div>
+        </span>
+      </div>
+      <div class="select-properties show">
+        <span class="section-dropper">
+          <center>
+            <input type="text" class="search4urdamelms" list="search-properties" placeholder="Search" />
+            
+            <datalist id="search-properties">
+              <option value="Save"></option>
+              <option value="All"></option>
+              <option value="None"></option>
+              <option value="Global Styles"></option>
+              <option value="Tool Options"></option>
+              <option value="Size"></option>
+              <option value="Background"></option>
+              <option value="Border"></option>
+              <option value="Typography"></option>
+              <option value="Advanced">Advanced</option>
+            </datalist>
+          </center>
+        </span>
+        <span class="section-dropper">
+          <header class="drop grab-tool-options" title=" tool options">
+            <label>&nbsp; tool options</label><br>
+          </header>
+          
+          <div class="drop-section">
+            <table class="fill table-in">
+              <tr>
+                <td>
+                  <a class="add-css-selector" title="Add CSS Selector" href="javascript:void(0)" style="background:transparent; padding:0; margin:0;"><span class='fa fa-plus'></span></a>
+                </td>
+                <td>
+                  <input class="add-css-selector-val" style="font-size:16px;" type="text" placeholder="CSS Selector" />
+                </td>
+              </tr>
+            </table>
+            <table class="fill table-in">
+              <tr>
+                <td>
+                  <span class="known-class"></span>
+                </td>
+                <td>
+                  <input class="sel-css" style="font-size:16px;" type="text" placeholder="Element's CSS Class" />
+                </td>
+              </tr>
+            </table>
+            <div style="width:90%; margin:5px auto 5px auto;">
+              <header class="dropp grab-tool-options" title=" global styles">
+                <label style="cursor:pointer;">&nbsp; global styles</label><br>
+              </header>
+              
+              <center class="dropp-section list-of-css-selectors" style="border:1px solid #222; padding: 5px;"><textarea class="custom-css-sheet hide" style="cursor:text!important; width:100%; resize:vertical; border:0; border-radius:0; min-height:200px;" placeholder="Your Custom CSS is added here"></textarea><div class="c-css-sheet hide"></div></center>
+            </div>
+          </div>
+        </span>
+        <span class="section-dropper grabmy-position">
+          <header class="drop grab-position" title="position">
+            <input type="checkbox" id="lpos" name="lpos" />
+            <label for="lpos">position</label><br>
+          </header>
+          
+          <div class="drop-section grab-elm-pos">
+            <center>
+              <div class="horizontal-bar" style="padding-top:15px;">
+                <a title="" class="grab-pos-none" href='javascript:void(0);'><span class='fa fa-times'></span></a>
+                <a title="static" class="grab-pos-static" href='javascript:void(0);'><span class='fa fa-barcode'></span></a>
+                <a title="relative" class="grab-pos-relative" href='javascript:void(0);'><span class='fa fa-square-o'></span></a>
+                <a title="absolute" class="grab-pos-absolute" href='javascript:void(0);'><span class='fa fa-crosshairs'></span></a>
+                <a title="fixed" class="grab-pos-fixed" href='javascript:void(0);'><span class='fa fa-thumb-tack'></span></a>
+              </div>
+              
+              <input type="text" class="grab-pos-val hide" />
+              
+              <table class="fill table-in">
+                <tr>
+                  <td>
+                    &nbsp;
+                  </td>
+                  <td>
+                    <input type="text" class="grab-postop postop quarter" placeholder="Top" />
+                  </td>
+                  <td>
+                    &nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="text" class="grab-posleft posleft quarter" placeholder="Left" />
+                  </td>
+                  <td>
+                    &nbsp;
+                  </td>
+                  <td>
+                    <input type="text" class="grab-posright posright quarter" placeholder="Right" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    &nbsp;
+                  </td>
+                  <td>
+                    <input type="text" class="grab-posbottom posbottom quarter" placeholder="Bottom" />
+                  </td>
+                  <td>
+                    &nbsp;
+                  </td>
+                </tr>
+              </table>
+            </center>
+          </div>          
+        </span>
+        <span class="section-dropper">
+          <header class="drop grab-size" title="size">
+            <input type="checkbox" id="lsize" name="lsize" />
+            <label for="lsize">size</label><br>
+          </header>
+          
+          <table class="fill drop-section grab-elm-size">
+            <tr>
+              <td>
+                <input type="text" class="width grab-width fill" placeholder="width" />
+              </td>
+              <td>,</td>
+              <td>
+                <input type="text" class="height grab-height fill" placeholder="height" />
+              </td>
+            </tr>
+          </table>
+        </span>
+        <span class="section-dropper">
+          <header class="drop grab-background" title="background">
+            <input type="checkbox" id="lbg" name="lbg" />
+            <label for="lbg">background</label><br>
+          </header>
+          
+          <div class="drop-section grab-elm-bg">
+            <table class="fill table-in">
+                <tr>
+                  <td>image:</td>
+                  <td><input class="grab-bg-url" type="text"></td>
+                </tr>
+                <tr>
+                  <td>position:</td>
+                  <td><select class="grab-bg-position">
+                    <option value="top left">top left</option>
+                    <option value="top center">top center</option>
+                    <option value="top right">top right</option>
+                    <option value="center left">center left</option>
+                    <option value="center center">center center</option>
+                    <option value="center right">center right</option>
+                    <option value="bottom left">bottom left</option>
+                    <option value="bottom center">bottom center</option>
+                    <option value="bottom right">bottom right</option>
+                  </select></td>
+                </tr>
+                <tr>
+                  <td>repeat:</td>
+                  <td><select class="grab-bg-repeat">
+                    <option value="repeat">repeat</option>
+                    <option value="repeat-x">repeat-x</option>
+                    <option value="repeat-y">repeat-y</option>
+                    <option value="no-repeat">no-repeat</option>
+                  </select></td>
+                </tr>
+                <tr>
+                  <td>attach:</td>
+                  <td><input class="grab-bg-attachment" type="checkbox" /> fixed
+                      <input type="text" class="grab-bg-attach-val hide" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>size:</td>
+                  <td><input class="grab-bg-size" type="text" value="" /></td>
+                </tr>
+                <tr>
+                  <td><span class="grab-bg-color" style="cursor:pointer; padding: 5px 10px; background:#fff;">&nbsp;</span></td>
+                  <td><input class="bg-cpick-code-rgb" type="text" value="rgb(0, 0, 0)"></td>
+                </tr>
+            </table>
+            
+            <div class="bg-color-picker">
+              <table class="fill table-in">
+                <tr>
+                  <td><span class="colorwheel"><input class="fill bg-cpick-hue" type="range" value="328" min="0" max="360" value="328"></span></td>
+                </tr>
+                <tr>
+                  <td><span class="bg-cpick-s-bg"><input class="fill bg-cpick-s" type="range" min="0" max="100" value="100"></span></td>
+                </tr>
+                <tr>
+                  <td><span class="bg-cpick-l-bg"><input class="fill bg-cpick-l" type="range" min="0" max="100" value="44"></span></td>
+                </tr>
+                <tr>
+                  <td><span class="bg-cpick-a-bg"><input class="fill bg-cpick-a" type="range" step=".01" min="0" max="1" value="1"></span></td>
+                </tr>
+                <tr>
+                  <td><input class="bg-cpick-code-hsl hide" type="text"></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </span>
+        <span class="section-dropper">
+          <header class="drop grab-border" title="border">
+            <input type="checkbox" id="lborder" name="lborder" />
+            <label for="lborder">border</label><br>
+          </header>
+          
+          <div class="drop-section grab-elm-border">
+            <div class="border-color-picker">
+              <table class="fill table-in">
+                <tr>
+                  <td><span class="colorwheel"><input class="fill cpick-hue" type="range" value="328" min="0" max="360" value="328"></span></td>
+                </tr>
+                <tr>
+                  <td><span class="cpick-s-bg"><input class="fill cpick-s" type="range" min="0" max="100" value="100"></span></td>
+                </tr>
+                <tr>
+                  <td><span class="cpick-l-bg"><input class="fill cpick-l" type="range" min="0" max="100" value="44"></span></td>
+                </tr>
+                <tr>
+                  <td class="fill"><span class="cpick-a-bg"><input class="fill cpick-a" type="range" step=".01" min="0" max="1" value="1"></span></td>
+                </tr>
+                <tr>
+                  <td><input class="cpick-code-hsl hide" type="text">
+                  <input class="cpick-code-rgb" type="text" value="rgb(0, 0, 0)"></td>
+                </tr>
+              </table>
+            </div>
+            
+            <input class="hide half grab-border-style" type="text">
+            <div class="horizontal-bar grab-borders borders"><br>
+              <span class="grab-border-color">&nbsp;</span>
+              <a href="javascript:void(0)" class="none grab-none" title="none"><span style="font: 14px verdana;">X</span></a>
+              <a href="javascript:void(0)" class="solid grab-solid" title="solid">&nbsp;</a>
+              <a href="javascript:void(0)" class="dotted grab-dotted" title="dotted">&nbsp;</a>
+              <a href="javascript:void(0)" class="dashed grab-dashed" title="dashed">&nbsp;</a>
+              <a href="javascript:void(0)" class="double grab-double" title="double">&nbsp;</a>
+              <a href="javascript:void(0)" class="ridge grab-ridge" title="ridge">&nbsp;</a>
+              <a href="javascript:void(0)" class="groove grab-groove" title="groove">&nbsp;</a>
+              <a href="javascript:void(0)" class="inset grab-inset" title="inset">&nbsp;</a>
+              <a href="javascript:void(0)" class="outset grab-outset" title="outset">&nbsp;</a>
+            </div>
+            
+            <input type="text" class="grab-users-border-style hide" />
+            
+            <table class="fill table-in">
+              <tr>
+                <td>
+                  <input class="border-size-all" id="borderinput-input" min="0" max="50" value="0" type="range" onchange='borderinput.value=value'>
+                </td>
+                <td>
+                  width:<output id='borderinput'>0</output>px;
+                </td>
+              </tr>
+            </table>
+          
+            <table class="table-in apply-border half" style="float:left;">
+              <tr>
+                <td>
+                  &nbsp;
+                </td>
+                <td>
+                  <center><input class="border-top" type="checkbox"></center>
+                </td>
+                <td>
+                  &nbsp;
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <center><input class="border-left" type="checkbox"></center>
+                </td>
+                <td>
+                  &nbsp;
+                </td>
+                <td>
+                  <center><input class="border-right" type="checkbox"></center>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  &nbsp;
+                </td>
+                <td>
+                  <center><input class="border-bottom" type="checkbox"></center>
+                </td>
+                <td>
+                  &nbsp;
+                </td>
+              </tr>
+            </table>
+            <table class="table-in apply-border-radius half" style="float:right;">
+              <tr>
+                <td>
+                  <center><input class="border-radius-top-left" type="checkbox"></center>
+                </td>
+                <td>
+                  <center><input class="border-radius-top-right" type="checkbox"></center>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  &nbsp;
+                </td>
+                <td>
+                  &nbsp;
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <center><input class="border-radius-bottom-left" type="checkbox"></center>
+                </td>
+                <td>
+                  <center><input class="border-radius-bottom-right" type="checkbox"></center>
+                </td>
+              </tr>
+            </table>
+            
+            <table class="fill table-in">
+              <tr>
+                <td>
+                  <input class="border-radius-all" id="borderradinput-input" min="0" max="50" value="0" type="range" onchange='borderradinput.value=value'>
+                </td>
+                <td>
+                  radius:<output id='borderradinput'>0</output>px;
+                </td>
+              </tr>
+            </table>
+            
+            <input type="text" class="your-border-top hide" placeholder="top" />
+            <input type="text" class="your-border-left hide" placeholder="left" />
+            <input type="text" class="your-border-bottom hide" placeholder="bottom" />
+            <input type="text" class="your-border-right hide" placeholder="right" />
+            <textarea class="your-border-code hide" style="cursor:text!important; width:100%; resize:vertical; border:0; border-radius:0; min-height:100px;"></textarea>
+            <input type="text" class="your-border-radius-topleft hide" placeholder="top left" />
+            <input type="text" class="your-border-radius-topright hide" placeholder="top right" />
+            <input type="text" class="your-border-radius-bottomleft hide" placeholder="bottom left" />
+            <input type="text" class="your-border-radius-bottomright hide" placeholder="bottom right" />
+            <textarea class="your-border-radius-code hide" style="cursor:text!important; width:100%; resize:vertical; border:0; border-radius:0; min-height:100px;"></textarea>
+          </div>
+        </span>
+        <span class="section-dropper grabmy-typography">
+          <header class="drop grab-typography" title="typography">
+            <input type="checkbox" id="ltypography" name="ltypography" />
+            <label for="ltypography">typography</label><br>
+          </header>
+          
+          <div class="drop-section grab-elm-typography">
+            <center>
+              <div class="text-color-picker">
+                <table class="fill table-in">
+                  <tr>
+                    <td><span class="colorwheel"><input class="fill colorwheel txt-cpick-hue" style="margin:0;" type="range" value="328" min="0" max="360" value="328"></span></td>
+                  </tr>
+                  <tr>
+                    <td><span class="txt-cpick-s-bg"><input class="fill txt-cpick-s" type="range" min="0" max="100" value="100"></span></td>
+                  </tr>
+                  <tr>
+                    <td><span class="txt-cpick-l-bg"><input class="fill txt-cpick-l" type="range" min="0" max="100" value="44"></span></td>
+                  </tr>
+                  <tr>
+                    <td><span class="txt-cpick-a-bg"><input class="fill txt-cpick-a" type="range" step=".01" min="0" max="1" value="1"></span></td>
+                  </tr>
+                  <tr>
+                    <td><input class="txt-cpick-code-hsl hide" type="text">
+                    <input class="txt-cpick-code-rgb" type="text" value="rgb(0, 0, 0)"></td>
+                  </tr>
+                </table>
+              </div>
+              
+              <div class="horizontal-bar grab-txt-align"><br>
+                <span class="grab-txt-color">&nbsp;</span>
+                <a class="grab-align-none" href="javascript:void(0)" title=""><span class='fa fa-times'></span></a>
+                <a class="grab-align-left" href="javascript:void(0)" title="left"><span class='fa fa-align-left'></span></a>
+                <a class="grab-align-center" href="javascript:void(0)" title="center"><span class='fa fa-align-center'></span></a>
+                <a class="grab-align-right" href="javascript:void(0)" title="right"><span class='fa fa-align-right'></span></a>
+              </div>
+              
+              <table class="fill">
+                <tr>
+                  <td>
+                    <input class="grab-font-size" id="points-input" value="14" type="range" onchange='points.value=value'>
+                  </td>
+                  <td>
+                    <output id='points'>14</output>px
+                  </td>
+                </tr>
+              </table>
+              
+              <div class="horizontal-bar grab-typography typography"><br>
+                <a class="grab-none" href="javascript:void(0)"><span class="fa fa-times"></span></a>
+                <a class="grab-andale-mono" href="javascript:void(0)">andale mono</a>
+                <a class="grab-arial" href="javascript:void(0)">arial</a>
+                <a class="grab-arial-black" href="javascript:void(0)">arial black</a>
+                <a class="grab-courier" href="javascript:void(0)">courier</a>
+                <a class="grab-comic-sans-ms" href="javascript:void(0)">comic sans ms</a>
+                <a class="grab-garamond" href="javascript:void(0)">garamond</a>
+                <a class="grab-helvetica" href="javascript:void(0)">helvetica</a>
+                <a class="grab-impact" href="javascript:void(0)">impact</a>
+                <a class="grab-palatino" href="javascript:void(0)">palatino</a>
+                <a class="grab-papyrus" href="javascript:void(0)">papyrus</a>
+                <a class="grab-serif" href="javascript:void(0)">serif</a>
+                <a class="grab-sans" href="javascript:void(0)">sans</a>
+                <a class="grab-tahoma" href="javascript:void(0)">tahoma</a>
+                <a class="grab-times-new-roman" href="javascript:void(0)">times new roman
+                </a>
+                <a class="grab-verdana" href="javascript:void(0)">verdana</a>
+              </div>
+              
+              <input class="grab-font-family hide" type="text" value="" placeholder="font-family" />
+              <table class="fill table-in">
+                <tr>
+                  <td>fontFamily:</td>
+                  <td><input class="grab-font-family" type="text" value="" list="list-my-font-family-properties" />
+                  <datalist id="list-my-font-family-properties">
+                    <option value="andale mono"></option>
+                    <option value="arial"></option>
+                    <option value="arial black"></option>
+                    <option value="courier"></option>
+                    <option value="comic sans ms"></option>
+                    <option value="garamond"></option>
+                    <option value="helvetica"></option>
+                    <option value="impact"></option>
+                    <option value="palatino"></option>
+                    <option value="papyrus"></option>
+                    <option value="serif"></option>
+                    <option value="sans"></option>
+                    <option value="tahoma"></option>
+                    <option value="times new roman"></option>
+                    <option value="verdana"></option>
+                  </datalist></td>
+                </tr>
+                <tr>
+                  <td>fontVarient:</td>
+                  <td><input class="grab-font-varient" type="text" list="list-my-font-varient-properties">
+                  <datalist id="list-my-font-varient-properties">
+                    <option value="normal"></option>
+                    <option value="small-caps"></option>
+                  </datalist></td>
+                </tr>
+                <tr>
+                  <td>fontStyle:</td>
+                  <td><input class="grab-font-style" type="text" list="list-my-font-style-properties">
+                  <datalist id="list-my-font-style-properties">
+                    <option value="normal"></option>
+                    <option value="italic"></option>
+                    <option value="oblique"></option>
+                  </datalist></td>
+                </tr>
+                <tr>
+                  <td>fontWeight:</td>
+                  <td><input class="grab-font-weight" type="text" list="list-my-font-weight-properties">
+                  <datalist id="list-my-font-weight-properties">
+                    <option value="normal"></option>
+                    <option value="bold"></option>
+                    <option value="bolder"></option>
+                    <option value="lighter"></option>
+                    <option value="100"></option>
+                    <option value="200"></option>
+                    <option value="300"></option>
+                    <option value="400"></option>
+                    <option value="500"></option>
+                    <option value="600"></option>
+                    <option value="700"></option>
+                    <option value="800"></option>
+                    <option value="900"></option>
+                    <option value="inherit"></option>
+                  </datalist></td>
+                </tr>
+                <tr>
+                  <td>lineHeight:</td>
+                  <td><input class="grab-line-height" type="text"></td>
+                </tr>
+                <tr>
+                  <td>letterSpacing:</td>
+                  <td><input class="grab-letter-spacing" type="text"></td>
+                </tr>
+                <tr>
+                  <td>wordSpacing:</td>
+                  <td><input class="grab-word-spacing" type="text"></td>
+                </tr>
+                <tr>
+                  <td>textTransform:</td>
+                  <td><input class="grab-text-transform" type="text" list="list-my-text-transform-properties">
+                  <datalist id="list-my-text-transform-properties">
+                    <option value="none"></option>
+                    <option value="capitalize"></option>
+                    <option value="uppercase"></option>
+                    <option value="lowercase"></option>
+                    <option value="full-width"></option>
+                  </datalist></td>
+                </tr>
+                <tr>
+                  <td>textAlign:</td>
+                  <td><input class="grab-text-align" type="text" list="list-my-text-align-properties">
+                  <datalist id="list-my-text-align-properties">
+                    <option value="start"></option>
+                    <option value="left"></option>
+                    <option value="center"></option>
+                    <option value="right"></option>
+                    <option value="justify"></option>
+                  </datalist></td>
+                </tr>
+                <tr>
+                  <td>wordWrap:</td>
+                  <td><input class="grab-word-wrap" type="text" list="list-my-word-wrap-properties">
+                  <datalist id="list-my-word-wrap-properties">
+                    <option value="normal"></option>
+                    <option value="break-word"></option>
+                  </datalist></td>
+                </tr>
+                <tr>
+                  <td>white-space:</td>
+                  <td><input class="grab-white-space" type="text" list="list-my-white-space-properties">
+                  <datalist id="list-my-white-space-properties">
+                    <option value="normal"></option>
+                    <option value="pre"></option>
+                    <option value="nowrap"></option>
+                    <option value="pre-wrap"></option>
+                    <option value="pre-line"></option>
+                  </datalist></td>
+                </tr>
+              </table>
+            </center>
+          </div>
+        </span>
+        <span class="section-dropper">
+          <header class="drop grab-advanced" title="advanced">
+            <input type="checkbox" id="ladvanced" name="ladvanced" />
+            <label for="ladvanced">advanced</label><br>
+          </header>
+          
+          <div class="drop-section grab-elm-advanced-opt">
+            <center>
+              <table class="fill table-in">
+                <tr>
+                  <td>display:</td>
+                  <td><input class="grab-display" type="text" list="list-my-display-properties">
+                  <datalist id="list-my-display-properties">
+                    <option value="inherit"></option>
+                    <option value="inline"></option>
+                    <option value="block"></option>
+                    <option value="inline-block"></option>
+                    <option value="none"></option>
+                    <option value="list-item"></option>
+                    <option value="run-in"></option>
+                    <option value="table"></option>
+                    <option value="inline-table"></option>
+                    <option value="table-row-groups"></option>
+                    <option value="table-header-groups"></option>
+                    <option value="table-footer-groups"></option>
+                    <option value="table-footer-groups"></option>
+                    <option value="table-row"></option>
+                    <option value="table-column-groups"></option>
+                    <option value="table-column"></option>
+                    <option value="table-cell"></option>
+                    <option value="table-caption"></option>
+                  </datalist></td>
+                </tr>
+                <tr>
+                  <td>padding:</td>
+                  <td><input class="grab-padding" type="text"></td>
+                </tr>
+                <tr>
+                  <td>margin:</td>
+                  <td><input class="grab-margin" type="text"></td>
+                </tr>
+                <tr>
+                  <td>overflow:</td>
+                  <td><input class="grab-overflow" type="text" list="list-my-overflow-properties">
+                  <datalist id="list-my-overflow-properties">
+                    <option value="visible"></option>
+                    <option value="hidden"></option>
+                    <option value="scroll"></option>
+                    <option value="auto"></option>
+                    <option value="inherit"></option>
+                  </datalist></td>
+                </tr>
+                <tr>
+                  <td>opacity:</td>
+                  <td><input class="grab-opacity" type="text"></td>
+                </tr>
+                <tr>
+                  <td>outline:</td>
+                  <td><input class="grab-outline" type="text"></td>
+                </tr>
+                <tr>
+                  <td>transition:</td>
+                  <td><input class="grab-transition" type="text"></td>
+                </tr>
+                <tr>
+                  <td>resize:</td>
+                  <td><input class="grab-resize" type="text" list="list-my-resize-properties">
+                  <datalist id="list-my-resize-properties">
+                    <option value="none"></option>
+                    <option value="both"></option>
+                    <option value="vertical"></option>
+                    <option value="horizontal"></option>
+                    <option value="inherit"></option>
+                  </datalist></td>
+                </tr>
+                <tr>
+                  <td>float:</td>
+                  <td><input class="grab-float" type="text"></td>
+                </tr>
+                <tr>
+                  <td>z-index:</td>
+                  <td><input class="grab-z-index" type="text"></td>
+                </tr>
+              </table>
+            </center>
+          </div>
+        </span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Inline DIV Editor -->
+  <div id="idive-container">
+    <div id="idive">
+      <div id="menubtns">
+        <a title="Undo" href='javascript:void(0)' onclick='document.execCommand("undo", false, null);'><span class='fa fa-undo'></span></a>
+        <a title="Redo" href='javascript:void(0)' onclick='document.execCommand("redo", false, null);'><span class='fa fa-repeat'></span></a>
+        
+        <select id="elm-font-family">
+          <option value="Serif">Serif</option>
+          <option value="Sans">Sans</option>
+          <option value="Arial" selected="selected">Arial</option>
+          <option value="Arial Black">Arial Black</option>
+          <option value="Courier">Courier</option>
+          <option value="Comic Sans MS">Comic Sans MS</option>
+          <option value="Helvetica">Helvetica</option>
+          <option value="Impact">Impact</option>
+          <option value="Lucida Sans">Lucida Sans</option>
+          <option value="Tahoma">Tahoma</option>
+          <option value="Times New Roman">Times New Roman</option>
+          <option value="Verdana">Verdana</option>
+        </select>
+        
+        <select id="elm-font-size">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3" selected="selected">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+        
+        <a title="Text Color" href='javascript:void(0)' onclick="var TxtColor = prompt('Enter hex/rgb/hsl color code', ''); if(TxtColor != null) {document.execCommand('ForeColor', false, TxtColor);}"><span class='fa fa-font' style="color:red;"></span></a>
+        <a title="Text BGColor" href="javascript:void(0)" onclick="var TxtBGColor = prompt('Enter hex/rgb/hsl color code', ''); if(TxtBGColor != null) {document.execCommand('BackColor', false, TxtBGColor);}"><span class='fa fa-font' style="background:black; color:red;"></span></a>
+        <a title="Bold" href='javascript:void(0)' onclick='document.execCommand("bold", false, null);'><span class='fa fa-bold'></span></a>
+        <a title="Italic" href='javascript:void(0)' onclick='document.execCommand("italic", false, null);'><span class='fa fa-italic'></span></a>
+        <a title="Underline" href='javascript:void(0)' onclick='document.execCommand("underline", false, null);'><span class='fa fa-underline'></span></a>
+        <a title="Strikethrough" href='javascript:void(0)' onclick='document.execCommand("strikeThrough", false, null);'><span class='fa fa-strikethrough'></span></a>
+        
+        <select id="elm-txt-align">
+          <option value="justifyLeft" selected="selected">Align Left</option>
+          <option value="justifyCenter">Align Center</option>
+          <option value="justifyRight">Align Right</option>
+          <option value="justifyFull">Align Full</option>
+        </select>
+        
+        <a title="Indent" href='javascript:void(0)' onclick='document.execCommand("indent", false, null);'><span class='fa fa-indent'></span></a>
+        <a title="Outdent" href='javascript:void(0)' onclick='document.execCommand("outdent", false, null);'><span class='fa fa-outdent'></span></a>
+        <a title="Unordered List" href='javascript:void(0)' onclick='document.execCommand("insertUnorderedList", false, null);'><span class='fa fa-list-ul'></span></a>
+        <a title="Ordered List" href='javascript:void(0)' onclick='document.execCommand("insertOrderedList", false, null);'><span class='fa fa-list-ol'></span></a>
+        <a title="Horizontal Rule" href="javascript:void(0)' onclick='document.execCommand('inserthorizontalrule',false,null);"><span class='fa fa-minus-square-o'></span></a>
+        
+        <select id="elm-heading">
+          <option value="p" selected="selected">P</option>
+          <option value="h1">h1</option>
+          <option value="h2">h2</option>
+          <option value="h3">h3</option>
+          <option value="h4">h4</option>
+          <option value="h5">h5</option>
+          <option value="h6">h6</option>
+          <option value="pre">pre</option>
+          <option value="blockquote">blockquote</option>
+        </select>
+        
+        <a title="SubScript" href='javascript:void(0)' onclick='document.execCommand("subscript", false, null);'><span class='fa fa-subscript'></span></a>
+        <a title="SuperScript" href='javascript:void(0)' onclick='document.execCommand("superscript", false, null);'><span class='fa fa-superscript'></span></a>
+        <a title="Link" href='javascript:void(0)' onclick='var linkURL = prompt("Enter the URL for this link:", "http://"); document.execCommand("CreateLink", false, linkURL);'><span class='fa fa-link'></span></a>
+        <a title="Unlink" href='javascript:void(0)' onclick='document.execCommand("Unlink", false, null);'><span class='fa fa-unlink'></span></a>
+        <a title="Image" href="javascript:void(0)" onclick="var imgSrc = prompt('Enter image location', ''); if(imgSrc != null) {document.execCommand('insertimage', false, imgSrc);}"><span class='fa fa-picture-o'></span></a>
+        <a class="insert-html" title="Custom HTML" href="javascript:void(0)"><span class='fa fa-html5'></span></a>
+      </div>
+      <div id="inactive-menubtns"></div>
+    </div>
+  </div>
+  
+  <!-- Mirror the code -->
+  <div class="hide mirror-code" style="display:none;">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;<span class="mirror-title"></span>&lt;/title&gt;
+&lt;meta charset='utf-8'&gt;
+&lt;meta name='viewport' content='initial-scale=1.0'&gt;
+&lt;meta http-equiv="X-UA-Compatible" content="IE=9" /&gt;
+<span class="mirror-css-link-refs"></span>&lt;style type='text/css'&gt;
+body {
+  margin: 0;
+  padding: 0;
+}
+<span class="mirror-css">No synaptics incorporated yet...</span>
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+<span class="mirror-html"></span>
+&lt;/body&gt;
+&lt;/html&gt;</div>
+
+  <!-- This is the designing area -->
+  <div class="itsthecavnescontainerbro">
+<div id="preview-pane"><iframe id="workflow" style="background-color:#fff;"></iframe></div>
+<div class="canves"></div>
+</div>
+  
+<script src="assets/ui.js"></script>
+</body>
+</html>

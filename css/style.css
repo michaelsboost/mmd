@@ -1,0 +1,140 @@
+@import url("fonts.css");
+
+html, body {
+  padding: 0; margin: 0;
+  background: #161616;
+  font: 300 16px/1.5 'museo-sans', 'Open Sans', sans-serif;
+  color: #000;
+  text-align: center;
+}
+
+p { margin: 14px auto; }
+*, *:hover, *:active, *:focus, *:visited { overflow: none; }
+
+/* Navigation */
+.nav * {
+    text-transform: uppercase;
+    font-size: 30px;
+    margin: 12px auto;
+}
+
+/* Website Heading */
+.heading-name {
+  text-align: center;
+  background-image: url(../bg.jpg);
+  color: rgb(255, 255, 255);
+  font-size: 18px;
+  font-family: arial;
+  padding: 5em 1em 5em;
+  background-attachment: fixed;
+  background-position: 50% 50%;
+}
+
+/* Section Headings */
+.heading-name h1 {
+    font-size: 35px;
+    font-weight: bold;    
+    padding:0 0 .5em 0;
+}
+
+.design-for h1, .features h1, .team h1, .connect a {
+    text-transform: uppercase;
+    font-size: 30px;
+    margin: 12px auto;
+}
+
+/* Design Section */
+.design-for {
+    background-color: #48a6f9;
+    padding: 10px 10%;
+    letter-spacing: 1px;
+}
+
+.design-for h1 {
+    color: #fff;
+    border-bottom: 4px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Features Section */
+.features {
+    padding: 10px 10%;
+    letter-spacing: 1px;
+    background-color: #d13360;
+}
+
+.features h1 {
+    color: #fff;
+    border-bottom: 4px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Team Section */
+.team {
+    padding: 10px 50px 75px 50px;
+    letter-spacing: 1px;
+    color: #fff;
+    font-size: 14px;
+}
+
+.team h1 {
+    color: #f7de71;
+    border-bottom: 4px solid rgba(247, 222, 113, 0.3);
+}
+
+.team a {
+    color: #ccc;
+    text-decoration: underline;
+}
+
+.michael {
+    background: url(../img/michael.png) no-repeat top center;
+}
+
+.name {
+    padding-top: 175px;
+    font-size: 26px;
+    font-weight: 300;
+    line-height: 1.38;
+    color: #fff;
+}
+
+/* Connect Section */
+.connect {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: auto;
+    background: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    font-size: 20px;
+    padding: 10px;
+}
+
+.connect a {
+    color: #fff;
+    font-size: 20px;
+    margin: 15px;
+    opacity: 0.5;
+    -webkit-transition: all 300ms ease-out;
+    -moz-transition: all 300ms ease-out;
+    -ms-transition: all 300ms ease-out;
+    -o-transition: all 300ms ease-out;
+    transition: all 300ms ease-out;
+}
+
+.connect a:hover { opacity: 1; }
+
+.left {
+    float: left;
+    text-align: left!important;
+    width: 110px;
+}
+
+.right {
+    position: absolute; float: right;
+    top: 10px; bottom: 10px; left: 120px; right: 10px;
+    text-align: right!important;
+}
+
+.chrome {
+    display: inline-block;
+    width: 18px;
+}
