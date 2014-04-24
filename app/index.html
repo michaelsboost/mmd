@@ -276,6 +276,7 @@
                 <tr>
                   <td>position:</td>
                   <td><select class="grab-bg-position">
+                    <option value=""></option>
                     <option value="top left">top left</option>
                     <option value="top center">top center</option>
                     <option value="top right">top right</option>
@@ -290,6 +291,7 @@
                 <tr>
                   <td>repeat:</td>
                   <td><select class="grab-bg-repeat">
+                    <option value=""></option>
                     <option value="repeat">repeat</option>
                     <option value="repeat-x">repeat-x</option>
                     <option value="repeat-y">repeat-y</option>
@@ -516,7 +518,7 @@
                     <input class="grab-font-size" id="points-input" value="14" type="range" onchange='points.value=value'>
                   </td>
                   <td>
-                    <output id='points'>14</output>px
+                    <input type="text" id="points" value="14" style="border:0!important; width:30px;" />px
                   </td>
                 </tr>
               </table>
@@ -837,8 +839,8 @@
 &lt;meta http-equiv="X-UA-Compatible" content="IE=9" /&gt;
 <span class="mirror-css-link-refs"></span>&lt;style type='text/css'&gt;
 body {
-  margin: 0;
-  padding: 0;
+  margin: 0px;
+  padding: 0px;
 }
 <span class="mirror-css">No synaptics incorporated yet...</span>
 &lt;/style&gt;
