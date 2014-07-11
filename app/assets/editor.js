@@ -55,7 +55,7 @@ $(document).ready(function() {
     }
     $(".c-css-sheet").html("<style type='text/css'>" + $('.custom-css-sheet').val() + "</style>");
     $('.mirror-css-link-refs').text( $('.dadamcssreflist').val() );
-    $(".mirror-css").text( $(".custom-css-sheet").val() + "\n" + $(".css-sheet").val() + "\n" + $('.dadammediaquerylist').val() );
+    $(".mirror-css").text( $(".custom-css-sheet").val().replace(/<\/?/g,'').replace(/div>/g,'') + "\n" + $(".css-sheet").val().replace(/<\/?/g,'').replace(/div>/g,'') + "\n" + $('.dadammediaquerylist').val().replace(/<\/?/g,'').replace(/div>/g,'') );
     $(".mirror-js").text( $("#js-code").val() );
     $(".mirror-html").text( $(".html-sheet").val() );
     $('#code').val( $('.mirror-code').text() );
@@ -1097,6 +1097,7 @@ $(document).ready(function() {
     $(".dadammediaqueryshtml textarea, .dadammediaqueryshtml a, .dadammediaqueryshtml button").remove();
     $(".dadammediaquerylist").val( $('.dadammediaqueryshtml').html().replace(/<\/?/g,'').replace(/div class="dadammediaqueryshtml hide">/g,'').replace(/div>div class="list-of-media-queries-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/pre>div>/g,'').replace(/ }div>div class="list-of-media-queries-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,' }').replace(/ }/g,'}').replace(/}pre>/g,'}').replace(/@/g,'\n\n@') + "\n" );
     localStorage.setItem('MQuery',$(".list-of-media-queries").html());
+      FinalizePrev();
     
     $(".del-media-query").on('click', function() {
       $(this).parent().remove();
