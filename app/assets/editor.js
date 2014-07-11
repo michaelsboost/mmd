@@ -11,13 +11,39 @@ $(document).ready(function() {
     preview = $(".canves"),
     mS = {}, // mouse start 
     dBox;
-    
+  if ( localStorage.getItem('SiteTitle')) {
+    $(".website-title").val(localStorage.getItem('SiteTitle'));
+  }
+  if ( localStorage.getItem('CSSRefer')) {
+    $(".add-css-refer-val").val(localStorage.getItem('CSSRefer'));
+  }
+  if ( localStorage.getItem('JSCode')) {
+    $("#js-code").val(localStorage.getItem('JSCode'));
+  }
+  if ( localStorage.getItem('CSSCelectorsList')) {
+    $(".list-of-css-selectors").html(localStorage.getItem('CSSCelectorsList')); 
+  }
+  if ( localStorage.getItem('CSSReferencesList')) {
+    $(".list-of-css-references").html(localStorage.getItem('CSSReferencesList')); 
+  }
+  if ( localStorage.getItem('MQuery')) {
+    $(".list-of-media-queries").html(localStorage.getItem('MQuery')); 
+  }
+  if ( localStorage.getItem('CanvesContent')) {
+    $(".canves").html(localStorage.getItem('CanvesContent')); 
+  }
+  
+  if (navigator.vendor != null && navigator.vendor.match(/Apple Computer, Inc./) && navigator.userAgent.match(/iPhone/i) || (navigator.userAgent.match(/'iPad', 'iPhone', 'iPod'/i))) {
+    alert("Sorry iOS is not supported");
+    window.close();
+  }
+  
   // Updates preview
   var FinalizePrev = function() {
     $('.yourcss').html($('.canves').html());
     $('.yourcss').children("*").html("");
     $(".yourcss *").removeAttr('id').removeAttr('contenteditable');
-    $(".css-sheet").val($(".yourcss").html().replace(/<\/?/g,'').replace(/h1 /g,'').replace(/div /g,'').replace(/header /g,'').replace(/footer /g,'').replace(/class="/g,'.').replace(/div/g,'').replace(/span/g,'').replace(/header/g,'').replace(/footer/g,'').replace(/style="/g,'{\n  ').replace(/;/g,';\n ').replace(/"/g,'').replace(/ >>/g,'}').replace(/>>/g,' {}').replace(/ }/g,'}\n').replace(/}./g,'}\n.'));
+    $(".css-sheet").val($(".yourcss").html().replace(/<\/?/g,'').replace(/h1 /g,'').replace(/div /g,'').replace(/header /g,'').replace(/footer /g,'').replace(/class="/g,'.').replace(/div/g,'').replace(/span/g,'').replace(/header/g,'').replace(/footer/g,'').replace(/style="/g,'{\n  ').replace(/;/g,';\n ').replace(/"/g,'').replace(/ >>/g,'}').replace(/>>/g,' {}').replace(/ }/g,'}\n').replace(/}./g,'}\n.').replace(/&quot;\n /g,"'").replace(/&quot;/g,"'"));
     
     $(".yourhtml").html($(".canves").html());
     $(".yourhtml *").removeAttr('style').removeAttr('contenteditable');
@@ -30,11 +56,12 @@ $(document).ready(function() {
     $(".c-css-sheet").html("<style type='text/css'>" + $('.custom-css-sheet').val() + "</style>");
     $('.mirror-css-link-refs').text( $('.dadamcssreflist').val() );
     $(".mirror-css").text( $(".custom-css-sheet").val() + "\n" + $(".css-sheet").val() + "\n" + $('.dadammediaquerylist').val() );
+    $(".mirror-js").text( $("#js-code").val() );
     $(".mirror-html").text( $(".html-sheet").val() );
     $('#code').val( $('.mirror-code').text() );
     editor.setValue( $("#code").val() );
   };
-    
+  
   // Creates Ruler
   function createRuler() {
     var $ruler = $('.ruler');
@@ -58,32 +85,88 @@ $(document).ready(function() {
   $(window).on('load change keyup', function() {
     $('.mirror-title').text( $('.website-title').val() );
   }).on('load', function() {
-    $("textarea").val("");
     $(".toggle-workflow-visibility").prop('checked', false);
+    document.title = $(".website-title").val();
+    
+    // Add & Remove Locally Stored CSS References
+    $(".dadamcssreflist").val("");
+    $(".dadamcssrefhtml").html("").html( $(".list-of-css-references").html() );
+    $(".dadamcssrefhtml textarea, .dadamcssrefhtml a, .dadamcssrefhtml button").remove();
+    $(".dadamcssreflist").val( $('.dadamcssrefhtml').html().replace(/<\/?/g,'').replace(/div class="dadamcssrefhtml hide">/g,'').replace(/div>div class="list-of-css-references-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/pre>div>/g,'').replace(/ }div>div class="list-of-css-references-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/ }/g,'').replace(/pre>/g,'').replace(/div>/g,'').replace(/link href="/g,'<link href="').replace(/css">/g,'css">\n') );
+    $(".add-css-refer-val").val("");
+    $(".del-css-refer").on('click', function() {
+      $(this).parent().remove();
+      $(".dadamcssreflist").val("");
+      $(".dadamcssrefhtml").html("").html( $(".list-of-css-references").html() );
+      $(".dadamcssrefhtml textarea, .dadamcssrefhtml a, .dadamcssrefhtml button").remove();
+      $(".dadamcssreflist").val( $('.dadamcssrefhtml').html().replace(/<\/?/g,'').replace(/div class="dadamcssrefhtml hide">/g,'').replace(/div>div class="list-of-css-references-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/pre>div>/g,'').replace(/ }div>div class="list-of-css-references-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/ }/g,'').replace(/pre>/g,'').replace(/div>/g,'').replace(/link href="/g,'<link href="').replace(/css">/g,'css">\n') );
+      FinalizePrev();
+      localStorage.setItem('CSSReferencesList',$(".list-of-css-references").html());
+    });
+    
+    // Add & Remove Locally Stored Media Queries
+    $(".dadammediaquerylist").val("");
+    $(".dadammediaqueryshtml").html("").html( $(".list-of-media-queries").html() );
+    $(".dadammediaqueryshtml textarea, .dadammediaqueryshtml a, .dadammediaqueryshtml button").remove();
+    $(".dadammediaquerylist").val( $('.dadammediaqueryshtml').html().replace(/<\/?/g,'').replace(/div class="dadammediaqueryshtml hide">/g,'').replace(/div>div class="list-of-media-queries-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/pre>div>/g,'').replace(/ }div>div class="list-of-media-queries-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,' }').replace(/ }/g,'}').replace(/}pre>/g,'}').replace(/@/g,'\n\n@') + "\n" );
+    localStorage.setItem('MQuery',$(".list-of-media-queries").html());
+    $(".del-media-query").on('click', function() {
+      $(this).parent().remove();
+      $(".dadammediaquerylist").val("");
+      $(".dadammediaqueryshtml").html("").html( $(".list-of-media-queries").html() );
+      $(".dadammediaqueryshtml textarea, .dadammediaqueryshtml a, .dadammediaqueryshtml button").remove();
+      $(".dadammediaquerylist").val( $('.dadammediaqueryshtml').html().replace(/<\/?/g,'').replace(/div class="dadammediaqueryshtml hide">/g,'').replace(/div>div class="list-of-media-queries-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/pre>div>/g,'').replace(/ }div>div class="list-of-media-queries-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,' }').replace(/ }/g,'}').replace(/}pre>/g,'}') );
+      localStorage.setItem('MQuery',$(".list-of-media-queries").html());
+      FinalizePrev();
+    });
+    
+    // Add & Remove Locally Stored CSS Styles
+    $(".add-css-selector-val, .custom-css-sheet").val("");
+    $(".c-css-sheet").html("").html( $(".list-of-css-selectors").html() );
+    $(".c-css-sheet textarea, .c-css-sheet a, .c-css-sheet button").remove();
+    $(".custom-css-sheet").val( $('.c-css-sheet').html().replace(/<\/?/g,'').replace(/div class="c-css-sheet hide">/g,'').replace(/div>div class="list-of-css-selectors-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/pre>div>/g,'').replace(/ }div>div class="list-of-css-selectors-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/pre>/g,'').replace(/div>/g,'').replace(/}/g,'\n}') );
+    $(".add-css-refer-val").val("");
+    FinalizePrev();
+    $(".del-global-css-style").on('click', function() {
+      $(this).parent().remove();
+      $(".custom-css-sheet").val("");
+      $(".c-css-sheet").html("").html( $(".list-of-css-selectors").html() );
+      $(".c-css-sheet textarea, .c-css-sheet a, .c-css-sheet button").remove();
+      $(".custom-css-sheet").val( $('.c-css-sheet').html().replace(/<\/?/g,'').replace(/div class="c-css-sheet hide">/g,'').replace(/div>div class="list-of-css-selectors-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/pre>div>/g,'').replace(/ }div>div class="list-of-css-selectors-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/ }/g,'').replace(/pre>/g,'').replace(/div>/g,'').replace(/link href="/g,'<link href="').replace(/css">/g,'css">\n') );
+      FinalizePrev();
+      localStorage.setItem('CSSCelectorsList',$(".list-of-css-selectors").html());
+    });
   }).on('load resize', function() {
     $('.ruler').empty();
     createRuler();
     
-      // Updates preview
-      $('.yourcss').html($('.canves').html());
-      $('.yourcss').children("*").html("");
-      $(".yourcss *").removeAttr('id').removeAttr('contenteditable');
-      $(".css-sheet").val($(".yourcss").html().replace(/<\/?/g,'').replace(/h1 /g,'').replace(/div /g,'').replace(/header /g,'').replace(/footer /g,'').replace(/class="/g,'.').replace(/div/g,'').replace(/header/g,'').replace(/style="/g,'{\n  ').replace(/;/g,';\n ').replace(/"/g,'').replace(/ >>/g,'}').replace(/>>/g,' {}'));
-      
-      $(".yourhtml").html($(".canves").html());
-      $(".yourhtml *").removeAttr('style').removeAttr('contenteditable');
-      $(".html-sheet").val($(".yourhtml").html().replace(/>/g,'>\n    ').replace(/</g,'\n  <'));
-      $('.mirror-title').text( $('.website-title').val() );
-      $(".mirror-css").text( $(".css-sheet").val() + "\n" + $('.dadammediaquerylist').val() );
-      $(".mirror-html").text( $(".html-sheet").val() );
-      $('#code').val( $('.mirror-code').text() );
-      editor.setValue( $("#code").val() );
+    // Updates preview
+    $('.yourcss').html($('.canves').html());
+    $('.yourcss').children("*").html("");
+    $(".yourcss *").removeAttr('id').removeAttr('contenteditable');
+    $(".css-sheet").val($(".yourcss").html().replace(/<\/?/g,'').replace(/h1 /g,'').replace(/div /g,'').replace(/header /g,'').replace(/footer /g,'').replace(/class="/g,'.').replace(/div/g,'').replace(/header/g,'').replace(/style="/g,'{\n  ').replace(/;/g,';\n ').replace(/"/g,'').replace(/ >>/g,'}').replace(/>>/g,' {}'));
+    
+    $(".yourhtml").html($(".canves").html());
+    $(".yourhtml *").removeAttr('style').removeAttr('contenteditable');
+    $(".html-sheet").val($(".yourhtml").html().replace(/>/g,'>\n    ').replace(/</g,'\n  <'));
+    $('.mirror-title').text( $('.website-title').val() );
+    $(".mirror-css").text( $(".css-sheet").val() + "\n" + $('.dadammediaquerylist').val() );
+    $(".mirror-js").text( $("#js-code").val() );
+    $(".mirror-html").text( $(".html-sheet").val() );
+    $('#code').val( $('.mirror-code').text() );
+    editor.setValue( $("#code").val() );
+  }).on('keyup', function() {
+    localStorage.setItem('CSSRefer',$(".add-css-refer-val").val());
+    localStorage.setItem('JSCode',$("#js-code").val());
+    localStorage.setItem('CanvesContent',$(".canves").html());
+    document.title = $(".website-title").val();
+    localStorage.setItem('SiteTitle',$(".website-title").html());
   });
   
   // Select Tool
-  $('.select-tool').click(function() {
-    $(".inspector").trigger('click');
+  $('.select-tool').on('click touchend', function() {
     FinalizePrev();
+    localStorage.setItem('CanvesContent',$(".canves").html());
     $(this).toggleClass('select-active');
     if ($('.select-active').is(':visible')) {
       $('.dialogs').val('select-properties').trigger('change');
@@ -135,6 +218,7 @@ $(document).ready(function() {
             $(".known-class").text($(this).prop('class'));
             $('.canves, .canves *').removeAttr('id');
             $(this).attr('id', 'stylethis').append('<div class="handle NE"></div><div class="handle NN"></div><div class="handle NW"></div><div class="handle WW"></div><div class="handle EE"></div><div class="handle SW"></div><div class="handle SS"></div><div class="handle SE"></div>');
+            $('.insert-your-own-damn-html-ipittydafool').val($(this).html());
             $('.select-properties input[type=text]').val("");
             $('.select-properties input[type=checkbox]').prop('checked', '');
             $('.grabmy-typography a, .grab-txt-align a, .grabmy-position a').css('backgroundColor', '#444');
@@ -144,7 +228,11 @@ $(document).ready(function() {
               'background-color': '#444'
             });
             $('.none').css('border-color', '#444');
+            $('.insert-your-own-damn-html-ipittydafool').removeAttr('disabled');
           }
+        });
+        $('.canves, .canves *').on('mouseup touchend', function(e) {
+          localStorage.setItem('CanvesContent',$(".canves").html());
         });
         
         $(".sel-css").on('keyup change', function() {
@@ -159,7 +247,7 @@ $(document).ready(function() {
             alert("My Mobile Design forbids the use of tag names as class names.");
           }
             
-          if($.inArray($val.toLowerCase(), ["cwidth", "starter-properties", "select-properties", "show", "hide", "ruler-container", "ruler", "add-media-query", "tools", "select-tool", "remove-tool", "new-doc", "open-save-dialog", "preview-workflow", "workflow", "link-to-svgedit", "hide-options", "media-query-slider", "toggle-options", "show-options", "inspection", "inspector", "mirror-code", "canves", "canves-html", "mirror-title", "mirror-css-selectors", "mirror-css", "mirror-html", "section-dropper", "horizontal-bar", "drop", "table-in", "fill", "left", "center", "right", "half", "drop-section", "text-color-picker", "colorwheel", "txt-cpick-hue", "txt-cpick-s", "txt-cpick-l", "txt-cpick-a", "txt-cpick-code-hsl", "txt-cpick-code-rgb", "bg-color-picker", "bg-cpick-hue", "bg-cpick-s", "bg-cpick-l", "bg-cpick-a", "bg-cpick-code-hsl", "bg-cpick-code-rgb", "border-color-picker", "border-cpick-hue", "border-cpick-s", "border-cpick-l", "border-cpick-a", "border-cpick-code-hsl", "border-cpick-code-rgb", " color-picker", " cpick-hue", " cpick-s", " cpick-l", " cpick-a", " cpick-code-hsl", " cpick-code-rgb", "tickLabel", "tickMajor", "tickMinor", "scroll", "solid", "dotted", "dashed", "double", "ridge", "groove", "inset", "outset", "border-active", "drop-active"]) > -1) {
+          if($.inArray($val.toLowerCase(), ["cwidth", "starter-properties", "select-properties", "yourhtml", "yourcss", "yourjs", "html-sheet", "css-sheet", "show", "hide", "ruler-container", "ruler", "add-media-query", "tools", "select-tool", "remove-tool", "new-doc", "open-save-dialog", "preview-workflow", "workflow", "link-to-svgedit", "hide-options", "media-query-slider", "toggle-options", "show-options", "inspection", "inspector", "mirror-code", "canves", "canves-html", "mirror-title", "mirror-css-selectors", "mirror-css", "mirror-html", "section-dropper", "horizontal-bar", "drop", "table-in", "fill", "left", "center", "right", "half", "drop-section", "text-color-picker", "colorwheel", "txt-cpick-hue", "txt-cpick-s", "txt-cpick-l", "txt-cpick-a", "txt-cpick-code-hsl", "txt-cpick-code-rgb", "bg-color-picker", "bg-cpick-hue", "bg-cpick-s", "bg-cpick-l", "bg-cpick-a", "bg-cpick-code-hsl", "bg-cpick-code-rgb", "border-color-picker", "border-cpick-hue", "border-cpick-s", "border-cpick-l", "border-cpick-a", "border-cpick-code-hsl", "border-cpick-code-rgb", " color-picker", " cpick-hue", " cpick-s", " cpick-l", " cpick-a", " cpick-code-hsl", " cpick-code-rgb", "tickLabel", "tickMajor", "tickMinor", "scroll", "solid", "dotted", "dashed", "double", "ridge", "groove", "inset", "outset", "border-active", "drop-active", "debug-indicator", "debug-indicator-on", "debug-indicator-off", "in-drop-button"]) > -1) {
             $(".sel-css").val("box");
             alert("Sorry this class name can not be used.");
           }
@@ -421,17 +509,13 @@ $(document).ready(function() {
             $(".bg-cpick-code-rgb").val( $(".grab-bg-color").css("backgroundColor") );
             $("#stylethis").css('backgroundColor', $(".bg-cpick-code-rgb").val());
             
-            // Alpha Saturation
+            // Alpha Saturation/Lightness/Preview
             $(".bg-cpick-s-bg").css({
               "background": "linear-gradient(to right, #7f7f80 0%," + "hsl(" + $(".bg-cpick-hue").val() + ",50%," + $(".bg-cpick-l").val() + "%)" + " 100%)"
             });
-            
-            // Alpha Lightness
             $(".bg-cpick-l-bg").css({
               "background": "linear-gradient(to right, #000000 0%," + "hsl(" + $(".bg-cpick-hue").val() + "," + $(".bg-cpick-s").val() + "%,50%) 50%,#ffffff 100%)"
             });
-            
-            // Alpha Preview
             $(".bg-cpick-a-bg").css({
               "background": "linear-gradient(to right, rgba(51,51,51,0) 0%," + "hsl(" + $(".bg-cpick-hue").val() + "," + $(".bg-cpick-s").val() + "%," + $(".bg-cpick-l").val() + "%)" + " 100%)"
             });
@@ -446,10 +530,7 @@ $(document).ready(function() {
             
             $("#stylethis").css('backgroundColor', $(this).val());
           });
-          $('.grab-bg-color').on('mouseup touchend', function() {
-            $('.bg-color-picker').toggle();
-          }); $('.bg-color-picker').hide();
-          
+          $('.bg-color-picker').hide();
         });
           
         // Sets Border
@@ -526,17 +607,13 @@ $(document).ready(function() {
             $(".cpick-code-rgb").val( $(".grab-border-color").css("backgroundColor") );
             $("#stylethis").css('border-color', $(".cpick-code-rgb").val());
             
-            // Alpha Saturation
+            // Alpha Saturation/Lightness/Preview
             $(".cpick-s-bg").css({
               "background": "linear-gradient(to right, #7f7f80 0%," + "hsl(" + $(".cpick-hue").val() + "," + $(".cpick-s").val() + "%," + $(".cpick-l").val() + "%)" + " 100%)"
             });
-            
-            // Alpha Lightness
             $(".cpick-l-bg").css({
               "background": "linear-gradient(to right, #000000 0%," + "hsl(" + $(".cpick-hue").val() + "," + $(".cpick-s").val() + "%,50%) 50%,#ffffff 100%)"
             });
-            
-            // Alpha Preview
             $(".cpick-a-bg").css({
               "background": "linear-gradient(to right, rgba(51,51,51,0) 0%," + "hsl(" + $(".cpick-hue").val() + "," + $(".cpick-s").val() + "%," + $(".cpick-l").val() + "%)" + " 100%)"
             });
@@ -550,9 +627,7 @@ $(document).ready(function() {
             
             $("#stylethis").css('border-color', $(this).val());
           });
-          $('.grab-border-color').on('mouseup touchend', function() {
-            $('.border-color-picker').toggle();
-          }); $('.border-color-picker').hide();
+          $('.border-color-picker').hide();
           
           $('.border-size-all').on('change', function() {
             if($('.border-top').is(':checked')) {
@@ -695,17 +770,13 @@ $(document).ready(function() {
             $(".txt-cpick-code-rgb").val( $(".grab-txt-color").css("backgroundColor") );
             $("#stylethis").css('color', $(".txt-cpick-code-rgb").val());
             
-            // Alpha Saturation
+            // Alpha Saturation/Lightness/Preview
             $(".txt-cpick-s-bg").css({
               "background": "linear-gradient(to right, #7f7f80 0%," + "hsl(" + $(".txt-cpick-hue").val() + ",50%," + $(".txt-cpick-l").val() + "%)" + " 100%)"
             });
-            
-            // Alpha Lightness
             $(".txt-cpick-l-bg").css({
               "background": "linear-gradient(to right, #000000 0%," + "hsl(" + $(".txt-cpick-hue").val() + "," + $(".txt-cpick-s").val() + "%,50%) 50%,#ffffff 100%)"
             });
-            
-            // Alpha Preview
             $(".txt-cpick-a-bg").css({
               "background": "linear-gradient(to right, rgba(51,51,51,0) 0%," + "hsl(" + $(".txt-cpick-hue").val() + "," + $(".txt-cpick-s").val() + "%," + $(".txt-cpick-l").val() + "%)" + " 100%)"
             });
@@ -720,9 +791,7 @@ $(document).ready(function() {
             
             $("#stylethis").css('color', $(this).val());
           });
-          $('.grab-txt-color').on('mouseup touchend', function() {
-            $('.text-color-picker').toggle();
-          }); $('.text-color-picker').hide();
+          $('.text-color-picker').hide();
           
           // Set's Font Family, Size, Etc:
           $('.grab-typography a').each(function() {
@@ -769,8 +838,32 @@ $(document).ready(function() {
               'transition': $('.grab-transition').val(),
               'resize': $('.grab-resize').val(),
               'float': $('.grab-float').val(),
-              'z-index': $('.grab-z-index').val()
+              'z-index': $('.grab-z-index').val(),
+              'cursor': $('.grab-cursor').val()
             });
+          });
+        });
+        
+        // Sets Custom Section/HTML
+        $(function() {
+          $('.insert-your-own-damn-html-ipittydafool').on('keyup change', function() {
+            $("#stylethis").html($(this).val());
+            localStorage.setItem('CanvesContent',$(".canves").html());
+          });
+        });
+        
+        // Deselect Element
+        $(function() {
+          $('.removeselectedelm').on('click', function() {
+            $('.canves, .canves *').removeClass('editable');
+            $('.canves, .canves *').removeAttr('id');
+            $('.canves').children().removeAttr('id');
+            $('.canves').find('*').removeAttr('id');
+            if ($(".canves").children("*").html() === "" ) {
+              $(this).remove();
+            }
+            $('div.handle').remove();
+            localStorage.setItem('CanvesContent',$(".canves").html());
           });
         });
       }
@@ -791,6 +884,7 @@ $(document).ready(function() {
       
       code.val(preview.html());
       preview.html(code.val());
+      localStorage.setItem('CanvesContent',$(".canves").html());
       FinalizePrev();
       return false;
     }
@@ -800,10 +894,23 @@ $(document).ready(function() {
       $(".canves *").attr('contenteditable', true);
     }
   });
-
+  
+  // Handles Color Pickers Visibility
+  $('.grab-bg-color').on('mouseup touchend', function() {
+    $('.bg-color-picker').toggle();
+    return false;
+  }); 
+  $('.grab-border-color').on('mouseup touchend', function() {
+    $('.border-color-picker').toggle();
+    return false;
+  });
+  $('.grab-txt-color').on('mouseup touchend', function() {
+    $('.text-color-picker').toggle();
+    return false;
+  });
+  
   // Remove Tool
-  $(".remove-tool").click(function() {
-    $(".inspector").trigger('click');
+  $(".remove-tool").on('click touchend', function() {
     FinalizePrev();
     $(this).toggleClass('remove-active');
     if ($('.remove-active').is(':visible')) {
@@ -819,6 +926,7 @@ $(document).ready(function() {
         $('.canves *').on('mousedown touchstart', function() {
           if(removediv) {
             $(this).remove();
+            localStorage.setItem('CanvesContent',$(".canves").html());
           }
         });
       }
@@ -830,13 +938,13 @@ $(document).ready(function() {
       e.preventDefault();
     } else {
       removediv = false;
+      localStorage.setItem('CanvesContent',$(".canves").html());
       return false;
     }
   });
   
   // Edit Tool
-  $(".edit-tool").click(function() {
-    $(".inspector").trigger('click');
+  $(".edit-tool").on('click touchend', function() {
     FinalizePrev();
     $(this).toggleClass('edit-active');
     if ($('.edit-active').is(':visible')) {
@@ -852,30 +960,38 @@ $(document).ready(function() {
       $('#inactive-menubtns').hide();
       $('#idive select#elm-font-family').on('click change', function(e) {
         document.execCommand('FontName',false,$(this).val());
+        localStorage.setItem('CanvesContent',$(".canves").html());
       });
       $('#idive select#elm-font-size').on('click change', function(e) {
         document.execCommand('FontSize',false,$(this).val());
+        localStorage.setItem('CanvesContent',$(".canves").html());
       });
       $('#idive a#txtcolor').click(function(e) {
         document.execCommand('ForeColor',false,$('#elm-color').val());
+        localStorage.setItem('CanvesContent',$(".canves").html());
       });
       $('#idive a#backcolor').click(function(e) {
         document.execCommand('BackColor',false,$('#elm-bgcolor').val());
+        localStorage.setItem('CanvesContent',$(".canves").html());
       });
       $('#idive select#elm-txt-align').on('change', function(e) {
         document.execCommand($(this).val(),false,null);
+        localStorage.setItem('CanvesContent',$(".canves").html());
       });
       $('#idive select#elm-heading').on('change', function(e) {
         document.execCommand('formatBlock',false,$(this).val());
+        localStorage.setItem('CanvesContent',$(".canves").html());
       });
       $('.insert-html').on('click', function(e) {
         var HTMLCode = prompt('Enter HTML code', ''); if(HTMLCode != null) {$('.editable').focus(); pasteHtmlAtCaret(HTMLCode); }
+        localStorage.setItem('CanvesContent',$(".canves").html());
       });
       
       if(editable) {
         $('.canves *').addClass('editable').on('mousedown touchstart', function() {
           if(editable) {
             $('.editable').attr('contenteditable', true);
+            localStorage.setItem('CanvesContent',$(".canves").html());
           }
         });
       }
@@ -889,15 +1005,16 @@ $(document).ready(function() {
       editable = false;
       $('.canves *').attr('contenteditable', false);
       $('#inactive-menubtns').show();
+      localStorage.setItem('CanvesContent',$(".canves").html());
       return false;
     }
   });
-
+  
   // Custom CSS Sheet
   $('.custom-css-sheet').on('keyup change', function() {
     $(".c-css-sheet").html("<style type='text/css'>" + $(this).val() + "</style>");
   });
-  $(".add-css-selector").on('click', function() {
+  $(".add-css-selector").on('click touchend', function() {
     if ( $(".add-css-selector-val").val() === "" ) {
       alert("Add class denied because value is blank.");
     } else {
@@ -908,6 +1025,7 @@ $(document).ready(function() {
       $(".c-css-sheet textarea, .c-css-sheet a, .c-css-sheet button").remove();
       $(".custom-css-sheet").val( $('.c-css-sheet').html().replace(/<\/?/g,'').replace(/div class="c-css-sheet hide">/g,'').replace(/div>div class="list-of-css-selectors-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/pre>div>/g,'').replace(/ }div>div class="list-of-css-selectors-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/pre>/g,'').replace(/div>/g,'').replace(/}/g,'\n}') );
       $(".add-css-refer-val").val("");
+      localStorage.setItem('CSSCelectorsList',$(".list-of-css-selectors").html());
       FinalizePrev();
     }
     
@@ -917,20 +1035,21 @@ $(document).ready(function() {
       $(".c-css-sheet").html("").html( $(".list-of-css-selectors").html() );
       $(".c-css-sheet textarea, .c-css-sheet a, .c-css-sheet button").remove();
       $(".custom-css-sheet").val( $('.c-css-sheet').html().replace(/<\/?/g,'').replace(/div class="c-css-sheet hide">/g,'').replace(/div>div class="list-of-css-selectors-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/pre>div>/g,'').replace(/ }div>div class="list-of-css-selectors-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/ }/g,'').replace(/pre>/g,'').replace(/div>/g,'').replace(/link href="/g,'<link href="').replace(/css">/g,'css">\n') );
+      localStorage.setItem('CSSCelectorsList',$(".list-of-css-selectors").html());
       FinalizePrev();
     });
   });
   $(".add-css-selector-val").on('keyup change', function() {
     var $val = $(this).val();
       
-    if($.inArray($val.toLowerCase(), ["body", "*", "*:focus", "*:active", "a", "header", "div", "span", "input[type=text]", "input[type=text]:focus", "input[type=text]:active", "textarea", "textarea:focus", "textarea:active"]) > -1) {
+    if($.inArray($val.toLowerCase(), ["body", "*", "*:focus", "*:active", "a", "header", "div", "span", "input[type=text]", "input[type=text]:hover", "input[type=text]:focus", "input[type=text]:active", "button", "button:hover", "button:active", "input[type=button]", "input[type=button]:hover", "input[type=button]:active", "input[type=text]:blur", "textarea", "textarea:hover", "textarea:focus", "textarea:active", "textarea:blur"]) > -1) {
       $(this).val("");
       alert("Access denied!");
     }
   });
   
   // Adds CSS Link References
-  $(".add-css-refer").on('click', function() {
+  $(".add-css-refer").on('click touchend', function() {
     if ( $(".add-css-refer-val").val() === "" ) {
       alert("Add reference denied because value is blank.");
     } else {
@@ -942,6 +1061,7 @@ $(document).ready(function() {
       $(".dadamcssreflist").val( $('.dadamcssrefhtml').html().replace(/<\/?/g,'').replace(/div class="dadamcssrefhtml hide">/g,'').replace(/div>div class="list-of-css-references-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/pre>div>/g,'').replace(/ }div>div class="list-of-css-references-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/ }/g,'').replace(/pre>/g,'').replace(/div>/g,'').replace(/link href="/g,'<link href="').replace(/css">/g,'css">\n') );
       $(".add-css-refer-val").val("");
       FinalizePrev();
+      localStorage.setItem('CSSReferencesList',$(".list-of-css-references").html());
     }
     
     $(".del-css-refer").on('click', function() {
@@ -951,11 +1071,12 @@ $(document).ready(function() {
       $(".dadamcssrefhtml textarea, .dadamcssrefhtml a, .dadamcssrefhtml button").remove();
       $(".dadamcssreflist").val( $('.dadamcssrefhtml').html().replace(/<\/?/g,'').replace(/div class="dadamcssrefhtml hide">/g,'').replace(/div>div class="list-of-css-references-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/pre>div>/g,'').replace(/ }div>div class="list-of-css-references-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/ }/g,'').replace(/pre>/g,'').replace(/div>/g,'').replace(/link href="/g,'<link href="').replace(/css">/g,'css">\n') );
       FinalizePrev();
+      localStorage.setItem('CSSReferencesList',$(".list-of-css-references").html());
     });
   });
   
   // Adds Media Queries
-  $(".add-media-query").on('click', function() {
+  $(".add-media-query").on('click touchend', function() {
     $('.yourcss').html($('.canves').html());
     $('.yourcss').children("*").html("");
     $(".yourcss *").removeAttr('id');
@@ -967,6 +1088,7 @@ $(document).ready(function() {
     $(".dadammediaqueryshtml").html("").html( $(".list-of-media-queries").html() );
     $(".dadammediaqueryshtml textarea, .dadammediaqueryshtml a, .dadammediaqueryshtml button").remove();
     $(".dadammediaquerylist").val( $('.dadammediaqueryshtml').html().replace(/<\/?/g,'').replace(/div class="dadammediaqueryshtml hide">/g,'').replace(/div>div class="list-of-media-queries-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/pre>div>/g,'').replace(/ }div>div class="list-of-media-queries-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,' }').replace(/ }/g,'}').replace(/}pre>/g,'}').replace(/@/g,'\n\n@') + "\n" );
+    localStorage.setItem('MQuery',$(".list-of-media-queries").html());
     
     $(".del-media-query").on('click', function() {
       $(this).parent().remove();
@@ -974,16 +1096,18 @@ $(document).ready(function() {
       $(".dadammediaqueryshtml").html("").html( $(".list-of-media-queries").html() );
       $(".dadammediaqueryshtml textarea, .dadammediaqueryshtml a, .dadammediaqueryshtml button").remove();
       $(".dadammediaquerylist").val( $('.dadammediaqueryshtml').html().replace(/<\/?/g,'').replace(/div class="dadammediaqueryshtml hide">/g,'').replace(/div>div class="list-of-media-queries-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/pre>div>/g,'').replace(/ }div>div class="list-of-media-queries-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,' }').replace(/ }/g,'}').replace(/}pre>/g,'}') );
+      localStorage.setItem('MQuery',$(".list-of-media-queries").html());
       FinalizePrev();
     });
   });
-  $(".list-of-media-queries-container button").on('click', function() {
+  $(".list-of-media-queries-container button").on('click touchend', function() {
     $(".cwidth").val( $(this).text().replace(/px/g,'') ).trigger('change');
   });
   
   // Add Elements
-  $(".add-elm").on('click', function() {
+  $(".add-elm").on('click touchend', function() {
     $(".canves").append('<'+ $(this).text() +' class="box" style="">'+ $(this).text() +'</'+ $(this).text() +'>');
+    localStorage.setItem('CanvesContent',$(".canves").html());
   });
   
   // Set & Adjust Canvas Size
@@ -1040,7 +1164,7 @@ $(document).ready(function() {
       $(".list-of-css-selectors").css( "color", "#999" ).next().show();
     }
     
-    if($.inArray($val.toLowerCase(), ["size", "background", "border", "typography", "advanced"]) > -1) {
+    if($.inArray($val.toLowerCase(), ["position", "size", "background", "border", "typography", "advanced", "custom"]) > -1) {
       $("." + $(".dialogs option:selected").val() + " .drop").css('color', '#666').next().hide();
       $(".grab-"+ $val.toLowerCase()).css( "color", "#999" ).next().show();
     }
@@ -1050,11 +1174,87 @@ $(document).ready(function() {
   $(function() {
     // Hide onload
     $(".select-properties, #preview-pane").hide();
-    $(".canves").html("");
     $(".dadammediaquery, .css-sheet, .html-sheet, .dadammediaquerylist").val("");
 
+    // New and Save Document
+    $('.new-doc').on('click', function() {
+      var x = window.confirm("Are you sure you wish to start a new project?\nAll your changes will not be saved. ")
+      if (x) {
+        $(".website-title").val("New Document");
+        $(".select-properties select").trigger("change").val("");
+        $(".select-properties textarea, .dadamcssreflist, .dadammediaquery, .dadammediaquerylist").val("");
+        $(".list-of-css-references-container, .list-of-css-selectors-container, .list-of-media-queries-container").remove();
+        $(".canves").html("");
+        $('.select-properties').hide();
+        $('.starter-properties').show();
+        if ($('.select-active, .edit-active, .remove-active').is(':visible')) {
+          $('.select-active, .edit-active, .remove-active').trigger('click');
+        }
+        $('.dialogs').val('starter-properties').trigger('change');
+        FinalizePrev();
+        localStorage.setItem('SiteTitle',$(".website-title").html());
+        localStorage.setItem('CSSReferencesList',$(".list-of-css-references").html());
+        localStorage.setItem('MQuery',$(".list-of-media-queries").html());
+        localStorage.setItem('CSSCelectorsList',$(".list-of-css-selectors").html());
+        localStorage.setItem('CanvesContent',$(".canves").html());
+      } else {
+        return false;
+      }
+    });
+    $(".open-save-dialog").on('click', function() {
+      FinalizePrev();
+      localStorage.setItem('CSSReferencesList',$(".list-of-css-references").html());
+      localStorage.setItem('MQuery',$(".list-of-media-queries").html());
+      localStorage.setItem('CSSCelectorsList',$(".list-of-css-selectors").html());
+      localStorage.setItem('CanvesContent',$(".canves").html());
+      var x = window.confirm("Are you sure you wish to save?")
+      if (x)
+        saveTextAsHTML();
+      else
+        return false;
+        
+      return false;
+    });
+    
+    // Enable/Disable JS
+    $('#ljavascript').on('load change', function() {
+      if ( $('#ljavascript').prop('checked') === true ) {
+        $('.js-yes-no').html("\n&lt;script type='text/javascript'&gt;\n<span class='mirror-js'></span>\n&lt;/script&gt;");
+        $('#js-code').removeAttr("disabled");
+        FinalizePrev();
+      }
+      if ( $('#ljavascript').prop('checked') === false ) {
+        $('.js-yes-no').html("");
+        $('#js-code').attr('disabled', true);
+        FinalizePrev();
+      }
+    });
+    
+    // Handles Realtime JS Debugger On Editor
+    $("#jscodeautodebug").on('click touchend', function() {
+      if ( $("#debug-indicator").text() === "on" ) {
+        $("#debug-indicator").removeClass("debug-indicator-on");
+        $("#debug-indicator").addClass("debug-indicator-off");
+        $("#debug-indicator").text("off");
+        FinalizePrev();
+      } else {
+        $("#debug-indicator").removeClass("debug-indicator-off");
+        $("#debug-indicator").addClass("debug-indicator-on");
+        $("#debug-indicator").text("on");
+        FinalizePrev();
+      }
+    });
+    $("#js-code").on('keyup', function() {
+      if ( $("#debug-indicator").text() === "on" ) {
+        // we leave this blank so live debug only works when button says on...
+      } else {
+        FinalizePrev();
+        $(".yourjs").html("<script type='text/javascript'>" + $(".mirror-js").text() + "</script>");
+      }
+    });
+    
     // Toggle Design Visibility
-    $(function(){
+    $(function() {
       if ($(this).prop('checked') === true ) {
         $(".canves").hide();
         $("#preview-pane").show();
@@ -1088,60 +1288,42 @@ $(document).ready(function() {
       });
     });
     
-    // New and Save Document
-    $('.new-doc').on('click', function() {
-      var x = window.confirm("Are you sure you wish to start a new project?\nAll your changes will be removed once MMD restarts. ")
-      if (x)
-        location.reload(true);
-      else
-        return false;
-      
-    });
-    $(".open-save-dialog").on('click', function() {
-      FinalizePrev();
-      var x = window.confirm("Are you sure you wish to save?")
-      if (x)
-        saveTextAsHTML();
-      else
-        return false;
-        
-      return false;
-    });
-    
     // Toggle Options Panel Visibility
-    $(".hide-options").click(function() {
-      $(".show-options").slideDown();
-      $(".disismyfukentoolbuxhhehahooo").animate({
-        right : "-300px"
-      }, 200);
-      $(".itsthecavnescontainerbro").animate({
-        top : "36px"
-      }, 200);
-      $(".cwidth-containment, .itsthecavnescontainerbro, #idive-container, .ruler-container").animate({
-        right : "0px"
-      }, 200);
-      $('.cwidth').attr('max', $(window).width()).val($(window).width());
-      $('.canves, #workflow').css({'width': '100%'});
-      $('.ruler').empty();
-      createRuler(); 
+    $(function() {
+      $(".hide-options").on('click touchend', function() {
+        $(".show-options").slideDown();
+        $(".disismyfukentoolbuxhhehahooo").animate({
+          right : "-300px"
+        }, 200);
+        $(".itsthecavnescontainerbro").animate({
+          top : "36px"
+        }, 200);
+        $(".cwidth-containment, .itsthecavnescontainerbro, #idive-container, .ruler-container").animate({
+          right : "0px"
+        }, 200);
+        $('.cwidth').attr('max', $(window).width()).val($(window).width());
+        $('.canves, #workflow').css({'width': '100%'});
+        $('.ruler').empty();
+        createRuler(); 
+      });
+      $(".show-options").on('click touchend', function () {
+        $(this).slideUp();
+        $(".disismyfukentoolbuxhhehahooo").animate({
+          right : "0px"
+        }, 200);
+        $(".itsthecavnescontainerbro").animate({
+          top : "25px"
+        }, 200);
+        $(".cwidth-containment, .itsthecavnescontainerbro, #idive-container, .ruler-container").animate({
+          right : "300px"
+        }, 200);
+        $('.cwidth').attr('max', $(window).width() - 300).val($(window).width() - 300);
+        $('.canves, #workflow').css({'width': '100%'});
+        $('.ruler').empty();
+        createRuler(); 
+      });
     });
-    $(".show-options").click(function () {
-      $(this).slideUp();
-      $(".disismyfukentoolbuxhhehahooo").animate({
-        right : "0px"
-      }, 200);
-      $(".itsthecavnescontainerbro").animate({
-        top : "25px"
-      }, 200);
-      $(".cwidth-containment, .itsthecavnescontainerbro, #idive-container, .ruler-container").animate({
-        right : "300px"
-      }, 200);
-      $('.cwidth').attr('max', $(window).width() - 300).val($(window).width() - 300);
-      $('.canves, #workflow').css({'width': '100%'});
-      $('.ruler').empty();
-      createRuler(); 
-    });
-    
+
     // Detect Active Tool
     $(".dialogs").on('change', function() {
       var val = $(this).val();
@@ -1153,7 +1335,7 @@ $(document).ready(function() {
     });
     
     // Toggles Property Containment Area
-    $(".drop, .dropp").click(function() {
+    $(".drop, .dropp").on('click touchend', function() {
       $(this).toggleClass('title-active');
       if ($(this).hasClass('title-active')) {
         $(this).css('color', '#666');
@@ -1163,7 +1345,7 @@ $(document).ready(function() {
         $(this).next().show();
        }
     });
-    $('.drop-section a, .dropp-section a').click(function() {
+    $('.drop-section a, .dropp-section a').on('click touchend', function() {
       $(this).toggleClass('active-btn');
     });
   });
