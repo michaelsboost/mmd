@@ -87,6 +87,14 @@ $(document).ready(function() {
   }).on('load', function() {
     $(".toggle-workflow-visibility").prop('checked', false);
     document.title = $(".website-title").val();
+    $('.canves, .canves *').removeClass('editable');
+    $('.canves, .canves *').removeAttr('id');
+    $('.canves').children().removeAttr('id');
+    $('.canves').find('*').removeAttr('id');
+    if ($(".canves").children("*").html() === "" ) {
+      $(this).remove();
+    }
+    $('div.handle').remove();
     
     // Add & Remove Locally Stored CSS References
     $(".dadamcssreflist").val("");
@@ -1348,5 +1356,16 @@ $(document).ready(function() {
     $('.drop-section a, .dropp-section a').on('click touchend', function() {
       $(this).toggleClass('active-btn');
     });
+    
+    // Ask if they want to leave. 
+    var hook = true;
+    window.onbeforeunload = function() {
+      if (hook) {
+        return "Did you save your stuff?"
+      }
+    }
+    function unhook() {
+      hook=false;
+    }
   });
 });
