@@ -1053,7 +1053,7 @@ $(document).ready(function() {
   $(".add-css-selector-val").on('keyup change', function() {
     var $val = $(this).val();
       
-    if($.inArray($val.toLowerCase(), ["body", "*", "*:focus", "*:active", "a", "header", "div", "span", "input[type=text]", "input[type=text]:hover", "input[type=text]:focus", "input[type=text]:active", "button", "button:hover", "button:active", "input[type=button]", "input[type=button]:hover", "input[type=button]:active", "input[type=text]:blur", "textarea", "textarea:hover", "textarea:focus", "textarea:active", "textarea:blur"]) > -1) {
+    if($.inArray($val.toLowerCase(), ["*", "*:focus", "*:active", "a", "header", "div", "span", "input[type=text]", "input[type=text]:hover", "input[type=text]:focus", "input[type=text]:active", "button", "button:hover", "button:active", "input[type=button]", "input[type=button]:hover", "input[type=button]:active", "input[type=text]:blur", "textarea", "textarea:hover", "textarea:focus", "textarea:active", "textarea:blur"]) > -1) {
       $(this).val("");
       alert("Access denied!");
     }
