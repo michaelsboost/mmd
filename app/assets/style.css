@@ -533,7 +533,6 @@ body {
 .itsthecavnescontainerbro {
   position: absolute;
   top:25px; left:0; right: 300px; bottom:25px;
-  background: transparent;
   /* background: #aaa url(img/il-grid-trans.png) top left repeat; */
 }
 
@@ -542,6 +541,7 @@ body {
   top:0; left:0;
   width:100%; height:100%;
   overflow: auto;
+  background: transparent url(img/il-grid-trans.png) top left repeat;
 }
 
 .itsthecavnescontainerbro .canves .noselect {
