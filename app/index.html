@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>My Mobile Design</title>
+<title>Mirrored Mockup Design</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="IE=9" />
@@ -66,13 +66,13 @@
     <div class="inspection">
       <div class="starter-properties show">
         <span class="section-dropper">
-          <header class="drop head-prop" title="head">
-            &nbsp; head<br>
+          <header class="drop title-prop" title="title">
+            &nbsp; title<br>
           </header>
           
           <div class="drop-section">
             <center>
-              <input type="text" class="fill website-title" value="New Document" placeholder="Website title" style="text-align:center;" />
+              <input type="text" class="fill website-title" value="new document" placeholder="Website title" style="text-align:center;" />
             </center>
           </div>
         </span>
@@ -119,11 +119,36 @@
           </header>
           
           <div class="drop-section the-codez-stage">
-            <textarea id="full-site-code" placeholder="Finalize code here."></textarea>
+            <div style="width:90%; margin:5px auto 5px auto;">
+              <header class="dropp" title="&nbsp; javascript">
+                <input type="checkbox" id="ljavascript" name="ljavascript" />
+                <label for="ljavascript">&nbsp; javascript</label><br>
+              </header>
+              
+              <center class="dropp-section" style="border:1px solid #222;">
+<button id="jscodeautodebug" class="in-drop-button">auto debug "<span id="debug-indicator" class="debug-indicator-on">on</span>"</button>
+<textarea id="js-code" style="width:100%; padding:0; margin:0 0 2px 0; border:0; outline:0; resize:vertical; min-height:60px; height:210px;" placeholder="JS/JQuery code here.">$(document).ready(function() {
+  
+});</textarea></center>
+            </div>
+            <div style="width:90%; margin:5px auto 5px auto;">
+              <header class="dropp" title=" full code">
+                <label style="cursor:pointer;">&nbsp; full code</label><br>
+              </header>
+              
+              <div class="dropp-section" style="display:none; border:1px solid #222; padding:0; margin:0;">
+                <textarea id="full-site-code" placeholder="Finalize code here."></textarea>
+              </div>
+              <div class="droppp-section" style="border:1px solid #222; padding:0; margin:0;">
+                <textarea id="codemird" style="width:100%; padding:0; margin:0 0 2px 0; border:0; outline:0; resize:vertical; min-height:60px; height:210px;" placeholder="Your full code is generated here"></textarea>
+              </div>
+            </div>
+            
             <center>
               <div class="yourcss hide"></div>
               <textarea class="css-sheet hide" style="cursor:text!important; width:100%; resize:vertical; border:0; border-radius:0; min-height:200px;" placeholder="Your CSS is added here"></textarea>
               <div class="yourhtml hide"></div>
+              <div class="yourjs hide"></div>
               <textarea class="html-sheet hide" style="cursor:text!important; width:100%; resize:vertical; border:0; border-radius:0; min-height:200px;" placeholder="Your html is generated here"></textarea>
               <textarea id="canves-code" class="hide" style="cursor:text!important; width:100%; resize:vertical; border:0; border-radius:0; min-height:200px;" placeholder="The Canves Code"></textarea>
               <textarea id="projsavecode hide" style="position:absolute; top:-99999999px; left:-99999999px; width:0; height:0; display:none; opacity:0; padding:0; margin:0; resize:none;" disabled="true"></textarea>
@@ -149,6 +174,7 @@
               <option value="Border"></option>
               <option value="Typography"></option>
               <option value="Advanced">Advanced</option>
+              <option value="Custom">Custom</option>
             </datalist>
           </center>
         </span>
@@ -158,6 +184,7 @@
           </header>
           
           <div class="drop-section">
+            <button class="fill removeselectedelm in-drop-button" style="font-family:arial;">Deselect Element</button>
             <table class="fill table-in">
               <tr>
                 <td>
@@ -743,7 +770,42 @@
                   <td>z-index:</td>
                   <td><input class="grab-z-index" type="text"></td>
                 </tr>
+                <tr>
+                  <td>cursor:</td>
+                  <td><input class="grab-cursor" type="text" list="list-my-cursor-properties">
+                  <datalist id="list-my-cursor-properties">
+                    <option value="auto"></option>
+                    <option value="crosshair"></option>
+                    <option value="default"></option>
+                    <option value="pointer"></option>
+                    <option value="move"></option>
+                    <option value="e-resize"></option>
+                    <option value="ne-resize"></option>
+                    <option value="nw-resize"></option>
+                    <option value="n-resize"></option>
+                    <option value="se-resize"></option>
+                    <option value="sw-resize"></option>
+                    <option value="s-resize"></option>
+                    <option value="w-resize"></option>
+                    <option value="text"></option>
+                    <option value="wait"></option>
+                    <option value="help"></option>
+                    <option value="progress"></option>
+                    <option value="inherit"></option>
+                  </datalist></td>
+                </tr>
               </table>
+            </center>
+          </div>
+        </span>
+        <span class="section-dropper">
+          <header class="drop grab-custom" title="&nbsp;&nbsp;custom">
+            <label>&nbsp;&nbsp;custom</label><br>
+          </header>
+          
+          <div class="drop-section grab-elm-custom">
+            <center>
+              <textarea class="fill insert-your-own-damn-html-ipittydafool" placeholder="When an element is selected whatever you type here (html supported) goes in the element." style="padding:0; margin:0; border:0; resize:vertical; height:200px;"></textarea>
             </center>
           </div>
         </span>
@@ -837,13 +899,14 @@
 &lt;meta charset='utf-8'&gt;
 &lt;meta name='viewport' content='initial-scale=1.0'&gt;
 &lt;meta http-equiv="X-UA-Compatible" content="IE=9" /&gt;
+&lt;script type='text/javascript' src='http://code.jquery.com/jquery-1.11.1.min.js'&gt;&lt;/script&gt;
 <span class="mirror-css-link-refs"></span>&lt;style type='text/css'&gt;
 body {
   margin: 0px;
   padding: 0px;
 }
 <span class="mirror-css">No synaptics incorporated yet...</span>
-&lt;/style&gt;
+&lt;/style&gt;<span class="js-yes-no"></span>
 &lt;/head&gt;
 &lt;body&gt;
 <span class="mirror-html"></span>
