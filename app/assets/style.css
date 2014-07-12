@@ -474,6 +474,33 @@ body {
   color:#d66;
 }
 
+.disismyfukentoolbuxhhehahooo .in-drop-button {
+  cursor: pointer;
+  border:0; outline:0;
+  width: 100%; padding: 1em;
+  color: #fff;
+  font-family: tahoma;
+  text-transform: uppercase;
+  text-align: center;
+  background: #393939;
+}
+
+.disismyfukentoolbuxhhehahooo .in-drop-button:hover {
+  background: #444;
+}
+
+.disismyfukentoolbuxhhehahooo .in-drop-button:active {
+  background: #222;
+}
+
+.disismyfukentoolbuxhhehahooo .debug-indicator-on {
+  color: #0cf;
+}
+
+.disismyfukentoolbuxhhehahooo .debug-indicator-off {
+  color: rgb(255, 91, 91);
+}
+
 /* Resize Handlers */
 .drag {
   position: absolute;
@@ -517,10 +544,6 @@ body {
 }
 
 .canves { background-color:#fff; }
-
-.itsthecavnescontainerbro .canves button, .itsthecavnescontainerbro .canves input[type=button] {
-  padding:0; margin:0;
-}
 
 .itsthecavnescontainerbro .canves .noselect {
   -webkit-user-select: none;
