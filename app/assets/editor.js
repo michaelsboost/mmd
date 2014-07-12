@@ -122,7 +122,15 @@ $(document).ready(function() {
     $(".dadammediaqueryshtml").html("").html( $(".list-of-media-queries").html() );
     $(".dadammediaqueryshtml textarea, .dadammediaqueryshtml a, .dadammediaqueryshtml button").remove();
     $(".dadammediaquerylist").val( $('.dadammediaqueryshtml').html().replace(/<\/?/g,'').replace(/div class="dadammediaqueryshtml hide">/g,'').replace(/div>div class="list-of-media-queries-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/pre>div>/g,'').replace(/ }div>div class="list-of-media-queries-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,' }').replace(/ }/g,'}').replace(/}pre>/g,'}').replace(/@/g,'\n\n@') + "\n" );
+    $('.cwidth').on('change', function() {
+      $(".list-of-media-queries-container > button:contains(" + $('.cwidth').val() + "px)").trigger('click');
+    });
+    $(".list-of-media-queries").find("button").on('click', function() {
+      $(".canves").html($(this).parent().next().val());
+      $('.cwidth').val($(this).text().replace(/px/g,'')).trigger('change');
+    });
     $(".del-media-query").on('click', function() {
+      $(this).parent().next().remove();
       $(this).parent().remove();
       $(".dadammediaquerylist").val("");
       $(".dadammediaqueryshtml").html("").html( $(".list-of-media-queries").html() );
@@ -1030,6 +1038,17 @@ $(document).ready(function() {
       alert("Add class denied because value is blank.");
     } else {
       $(".list-of-css-selectors").append("<div class='list-of-css-selectors-container'><a href='javascript:void(0)' class='del-global-css-style'><span class='fa fa-times'></span></a> <button>"+ $(".add-css-selector-val").val() +"</button>"+ "<pre style='text-align:left; padding-top:5px; overflow:auto;'>"+ $(".add-css-selector-val").val() +" {"+ ( $(".grab-pos-val").val() === "" ? "" : "\n  position: " + $(".grab-pos-val").val() + ";" ) + ( $(".grab-postop").val() === "" ? "" : "\n  top: " + $(".grab-postop").val() + ";" ) + ( $(".grab-posleft").val() === "" ? "" : "\n  left: " + $(".grab-posleft").val() + ";" ) + ( $(".grab-posright").val() === "" ? "" : "\n  right: " + $(".grab-posright").val() + ";" ) + ( $(".grab-posbottom").val() === "" ? "" : "\n  bottom: " + $(".grab-posbottom").val() + ";" ) + ( $(".grab-width").val() === "" ? "" : "\n  width: " + $(".grab-width").val() + ";" ) + ( $(".grab-height").val() === "" ? "" : "\n  height: " + $(".grab-height").val() + ";" ) + ( $(".grab-bg-url").val() === "" ? "" : "\n  background-image: url('" + $(".grab-bg-url").val() + "');" ) + ( $(".grab-bg-position").val() === "" ? "" : "\n  background-position: " + $(".grab-bg-position").val() + ";" ) + ( $(".grab-bg-repeat").val() === "" ? "" : "\n  background-repeat: " + $(".grab-bg-repeat").val() + ";" ) + ( $(".grab-bg-attach-val").val() === "" ? "" : "\n  background-attachment: "+ $(".grab-bg-attach-val").val() +";" ) + ( $(".grab-bg-size").val() === "" ? "" : "\n  background-size: "+ $(".grab-bg-size").val() +";" ) + ( $(".bg-cpick-code-rgb").val() === "" ? "" : "\n  background-color: "+ $(".bg-cpick-code-rgb").val() +";" ) + ( $(".grab-users-border-style").val() === "" ? "" : "\n  border-style: "+ $(".grab-users-border-style").val() +";" ) + ( $(".cpick-code-rgb").val() === "" ? "" : "\n  border-color: "+ $(".cpick-code-rgb").val() +";" ) + ( $(".your-border-code").val() === "" ? "" : ""+ $(".your-border-code").val() +"" ) + ( $(".your-border-radius-code").val() === "" ? "" : ""+ $(".your-border-radius-code").val() +"" ) + ( $(".grab-font-family").val() === "" ? "" : "\n  font-family: "+ $(".grab-font-family").val() +";" ) + ( $(".txt-cpick-code-rgb").val() === "" ? "" : "\n  color: "+ $(".txt-cpick-code-rgb").val() +";" ) + ( $("#points").val() === "" ? "" : "\n  font-size: "+ $("#points").val() +"px;" ) + ( $(".grab-font-varient").val() === "" ? "" : "\n  font-varient: "+ $(".grab-font-varient").val() +";" ) + ( $(".grab-font-style").val() === "" ? "" : "\n  font-style: "+ $(".grab-font-style").val() +";" ) + ( $(".grab-font-weight").val() === "" ? "" : "\n  font-weight: "+ $(".grab-font-weight").val() +";" ) + ( $(".grab-line-height").val() === "" ? "" : "\n  line-height: "+ $(".grab-line-height").val() +";" ) + ( $(".grab-letter-spacing").val() === "" ? "" : "\n  letter-spacing: "+ $(".grab-letter-spacing").val() +";" ) + ( $(".grab-word-spacing").val() === "" ? "" : "\n  word-spacing: "+ $(".grab-word-spacing").val() +";" ) + ( $(".grab-text-transform").val() === "" ? "" : "\n  text-transform: "+ $(".grab-text-transform").val() +";" ) + ( $(".grab-text-align").val() === "" ? "" : "\n  text-align: "+ $(".grab-text-align").val() +";" ) + ( $(".grab-word-wrap").val() === "" ? "" : "\n  word-wrap: "+ $(".grab-word-wrap").val() +";" ) + ( $(".grab-white-space").val() === "" ? "" : "\n  white-space: "+ $(".grab-white-space").val() +";" ) + ( $(".grab-display").val() === "" ? "" : "\n  display: "+ $(".grab-display").val() +";" ) + ( $(".grab-padding").val() === "" ? "" : "\n  padding: "+ $(".grab-padding").val() +";" ) + ( $(".grab-margin").val() === "" ? "" : "\n  margin: "+ $(".grab-margin").val() +";" ) + ( $(".grab-overflow").val() === "" ? "" : "\n  overflow: "+ $(".grab-overflow").val() +";" ) + ( $(".grab-opacity").val() === "" ? "" : "\n  opacity: "+ $(".grab-opacity").val() +";" ) + ( $(".grab-outline").val() === "" ? "" : "\n  outline: "+ $(".grab-outline").val() +";" ) + ( $(".grab-transition").val() === "" ? "" : "\n  transition: "+ $(".grab-transition").val() +";" ) + ( $(".grab-resize").val() === "" ? "" : "\n  resize: "+ $(".grab-resize").val() +";" ) + ( $(".grab-float").val() === "" ? "" : "\n  float: "+ $(".grab-float").val() +";" ) + ( $(".grab-z-index").val() === "" ? "" : "\n  z-index: "+ $(".grab-z-index").val() +";" ) + "}</pre>\n</div>");
+      var $cssselbtn = $(".list-of-css-selectors > .list-of-css-selectors-container button:contains(" + $(".add-css-selector-val").val() + ")");
+      
+      if($cssselbtn.length > 1) {
+        var x = window.confirm("Selector already exists. Want to replace it?");
+        if (x) {
+          $cssselbtn.first().parent().remove();
+        } else {
+          $cssselbtn.last().parent().remove();
+          return false;
+        }
+      }
       
       $(".add-css-selector-val, .custom-css-sheet").val("");
       $(".c-css-sheet").html("").html( $(".list-of-css-selectors").html() );
@@ -1093,7 +1112,24 @@ $(document).ready(function() {
     $(".yourcss *").removeAttr('id');
     $(".yourcss *").removeAttr('contenteditable');
     $(".dadammediaquery").val($(".yourcss").html().replace(/<\/?/g,'').replace(/header /g,'').replace(/div /g,'').replace(/span /g,'').replace(/footer /g,'').replace(/class="/g,'.').replace(/header/g,'').replace(/div/g,'').replace(/span/g,'').replace(/footer/g,'').replace(/style="/g,'{\n  ').replace(/;/g,';\n ').replace(/:/g,': ').replace(/:  /g,': ').replace(/"/g,'').replace(/ >>/g,'}').replace(/>>/g,' {}').replace(/}/g,'}\n\n') + $('.custom-css-sheet').val());
-    $(".list-of-media-queries").append("<div class='list-of-media-queries-container'><a href='javascript:void(0)' class='del-media-query'><span class='fa fa-times'></span></a> <button>"+ $(".cwidth").val() +"px</button>"+ "<pre style='text-align:left; padding-top:5px; overflow:auto;'>"+ "@media all and (max-width:"+ $(".cwidth").val() +"px) { \n\n" + $(".dadammediaquery").val() +" }</pre>" +"</div>");
+    $(".list-of-media-queries").append("<div class='list-of-media-queries-container'><a href='javascript:void(0)' class='del-media-query'><span class='fa fa-times'></span></a> <button>"+ $(".cwidth").val() +"px</button>"+ "<pre style='text-align:left; padding-top:5px; overflow:auto;'>"+ "@media all and (max-width:"+ $(".cwidth").val() +"px) { \n\n" + $(".dadammediaquery").val() +" }</pre>" +"</div><textarea class='"+ $(".cwidth").val() +" hide'>"+ $(".canves").html() +"</textarea>");
+    var $button = $(".list-of-media-queries > .list-of-media-queries-container button:contains(" + $('.cwidth').val() + ")");
+    
+    if($button.length > 1) {
+      var x = window.confirm("Query already exists. Want to replace it?");
+      if (x) {
+        $button.first().parent().next().remove();
+        $button.first().parent().remove();
+      } else {
+        $button.last().parent().next().remove();
+        $button.last().parent().remove();
+        return false;
+      }
+    }
+    
+    $('.cwidth').on('change', function() {
+      $(".list-of-media-queries-container > button:contains(" + $('.cwidth').val() + "px)").trigger('click');
+    });
     
     $(".dadammediaquerylist").val("");
     $(".dadammediaqueryshtml").html("").html( $(".list-of-media-queries").html() );
@@ -1102,7 +1138,13 @@ $(document).ready(function() {
     FinalizePrev();
     localStorage.setItem('MQuery',$(".list-of-media-queries").html());
     
+    $(".list-of-media-queries").find("button").click(function() {
+      $(".canves").html($(this).parent().next().val());
+      $('.cwidth').val($(this).text().replace(/px/g,'')).trigger('change');
+    });
+    
     $(".del-media-query").on('click', function() {
+      $(this).parent().next().remove();
       $(this).parent().remove();
       $(".dadammediaquerylist").val("");
       $(".dadammediaqueryshtml").html("").html( $(".list-of-media-queries").html() );
@@ -1248,6 +1290,7 @@ $(document).ready(function() {
           $('.select-active, .edit-active, .remove-active').trigger('click');
         }
         $('.dialogs').val('starter-properties').trigger('change');
+        $(".list-of-media-queries textarea").remove();
         FinalizePrev();
         localStorage.setItem('SiteTitle',$(".website-title").html());
         localStorage.setItem('CSSReferencesList',$(".list-of-css-references").html());
