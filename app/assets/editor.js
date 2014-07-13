@@ -34,7 +34,7 @@ $(document).ready(function() {
   }
   
   if (navigator.vendor != null && navigator.vendor.match(/Apple Computer, Inc./) && navigator.userAgent.match(/iPhone/i) || (navigator.userAgent.match(/'iPad', 'iPhone', 'iPod'/i))) {
-    alert("Sorry iOS is not supported");
+    window.confirm("Sorry iOS is not supported");
     window.close();
   }
   
@@ -62,6 +62,16 @@ $(document).ready(function() {
     editor.setValue( $("#code").val() );
     $('#codemird').val( $('#code').val() );
     editor.setValue( $("#codemird").val() );
+    $(".del-global-css-style").on('click', function() {
+      $(this).parent().remove();
+      $(".custom-css-sheet").val("");
+      $(".c-css-sheet").html("").html( $(".list-of-css-selectors").html() );
+      $(".c-css-sheet textarea, .c-css-sheet a, .c-css-sheet button").remove();
+      $(".custom-css-sheet").val( $('.c-css-sheet').html().replace(/<\/?/g,'').replace(/div class="c-css-sheet hide">/g,'').replace(/div>div class="list-of-css-selectors-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/pre>div>/g,'').replace(/ }div>div class="list-of-css-selectors-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/ }/g,'').replace(/pre>/g,'').replace(/div>/g,'').replace(/link href="/g,'<link href="').replace(/css">/g,'css">\n') );
+      FinalizePrev();
+      localStorage.setItem('CSSCelectorsList',$(".list-of-css-selectors").html());
+      return false;
+    });
   };
   $('#codemird').on('keyup change', function() {
     editor.setValue( $(this).val() );
@@ -124,12 +134,20 @@ $(document).ready(function() {
     $(".dadammediaquerylist").val( $('.dadammediaqueryshtml').html().replace(/<\/?/g,'').replace(/div class="dadammediaqueryshtml hide">/g,'').replace(/div>div class="list-of-media-queries-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/pre>div>/g,'').replace(/ }div>div class="list-of-media-queries-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,' }').replace(/ }/g,'}').replace(/}pre>/g,'}').replace(/@/g,'\n\n@') + "\n" );
     $('.cwidth').on('change', function() {
       $(".list-of-media-queries-container > button:contains(" + $('.cwidth').val() + "px)").trigger('click');
+      return false;
     });
     $(".list-of-media-queries").find("button").on('click', function() {
-      $(".canves").html($(this).parent().next().val());
+      $(".custom-css-sheet").val($(this).parent().next().val());
+      $(".list-of-css-selectors").html($(this).parent().prev().val());
+      $(".c-css-sheet").html("<style type='text/css'>" + $('.custom-css-sheet').val() + "</style>");
+      $(".mirror-css").text( $(".custom-css-sheet").val().replace(/<\/?/g,'').replace(/div>/g,'') + "\n" + $(".css-sheet").val().replace(/<\/?/g,'').replace(/div>/g,'') + "\n" + $('.dadammediaquerylist').val().replace(/<\/?/g,'').replace(/div>/g,'') );
       $('.cwidth').val($(this).text().replace(/px/g,'')).trigger('change');
+      FinalizePrev();
+      localStorage.setItem('MQuery',$(".list-of-media-queries").html());
+      return false;
     });
     $(".del-media-query").on('click', function() {
+      $(this).parent().prev().remove();
       $(this).parent().next().remove();
       $(this).parent().remove();
       $(".dadammediaquerylist").val("");
@@ -1112,23 +1130,28 @@ $(document).ready(function() {
     $(".yourcss *").removeAttr('id');
     $(".yourcss *").removeAttr('contenteditable');
     $(".dadammediaquery").val($(".yourcss").html().replace(/<\/?/g,'').replace(/header /g,'').replace(/div /g,'').replace(/span /g,'').replace(/footer /g,'').replace(/class="/g,'.').replace(/header/g,'').replace(/div/g,'').replace(/span/g,'').replace(/footer/g,'').replace(/style="/g,'{\n  ').replace(/;/g,';\n ').replace(/:/g,': ').replace(/:  /g,': ').replace(/"/g,'').replace(/ >>/g,'}').replace(/>>/g,' {}').replace(/}/g,'}\n\n') + $('.custom-css-sheet').val());
-    $(".list-of-media-queries").append("<div class='list-of-media-queries-container'><a href='javascript:void(0)' class='del-media-query'><span class='fa fa-times'></span></a> <button>"+ $(".cwidth").val() +"px</button>"+ "<pre style='text-align:left; padding-top:5px; overflow:auto;'>"+ "@media all and (max-width:"+ $(".cwidth").val() +"px) { \n\n" + $(".dadammediaquery").val() +" }</pre>" +"</div><textarea class='"+ $(".cwidth").val() +" hide'>"+ $(".canves").html() +"</textarea>");
+    $(".list-of-media-queries").append("<textarea class='"+ $(".cwidth").val() +" hide'></textarea>").find("textarea."+ $(".cwidth").val()).val($(".list-of-css-selectors").html());
+    $(".list-of-media-queries > textarea."+ $(".cwidth").val()).parent().append("<div class='list-of-media-queries-container'><a href='javascript:void(0)' class='del-media-query'><span class='fa fa-times'></span></a> <button>"+ $(".cwidth").val() +"px</button>"+ "<pre style='text-align:left; padding-top:5px; overflow:auto;'>"+ "@media all and (max-width:"+ $(".cwidth").val() +"px) { \n\n" + $(".dadammediaquery").val() +" }</pre>" +"</div>");
+    $(".list-of-media-queries").append("<textarea class='"+ $(".cwidth").val() +"-addedcss hide'></textarea>").find("textarea."+ $(".cwidth").val() +"-addedcss").val($(".custom-css-sheet").val());
     var $button = $(".list-of-media-queries > .list-of-media-queries-container button:contains(" + $('.cwidth').val() + ")");
     
     if($button.length > 1) {
       var x = window.confirm("Query already exists. Want to replace it?");
       if (x) {
-        $button.first().parent().next().remove();
-        $button.first().parent().remove();
-      } else {
+        $button.last().parent().prev().remove();
         $button.last().parent().next().remove();
         $button.last().parent().remove();
+      } else {
+        $button.first().parent().prev().remove();
+        $button.first().parent().next().remove();
+        $button.first().parent().remove();
         return false;
       }
     }
     
     $('.cwidth').on('change', function() {
       $(".list-of-media-queries-container > button:contains(" + $('.cwidth').val() + "px)").trigger('click');
+      return false;
     });
     
     $(".dadammediaquerylist").val("");
@@ -1139,11 +1162,17 @@ $(document).ready(function() {
     localStorage.setItem('MQuery',$(".list-of-media-queries").html());
     
     $(".list-of-media-queries").find("button").click(function() {
-      $(".canves").html($(this).parent().next().val());
+      $(".custom-css-sheet").val($(this).parent().next().val());
+      $(".list-of-css-selectors").html($(this).parent().prev().val());
+      $(".c-css-sheet").html("<style type='text/css'>" + $('.custom-css-sheet').val() + "</style>");
+      $(".mirror-css").text( $(".custom-css-sheet").val().replace(/<\/?/g,'').replace(/div>/g,'') + "\n" + $(".css-sheet").val().replace(/<\/?/g,'').replace(/div>/g,'') + "\n" + $('.dadammediaquerylist').val().replace(/<\/?/g,'').replace(/div>/g,'') );
       $('.cwidth').val($(this).text().replace(/px/g,'')).trigger('change');
+      FinalizePrev();
+      localStorage.setItem('MQuery',$(".list-of-media-queries").html());
+      return false;
     });
-    
     $(".del-media-query").on('click', function() {
+      $(this).parent().prev().remove();
       $(this).parent().next().remove();
       $(this).parent().remove();
       $(".dadammediaquerylist").val("");
