@@ -8,6 +8,7 @@
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600&subset=latin" rel="stylesheet" type="text/css">
 <link href="assets/import.css" rel="stylesheet" type="text/css">
 <script src="assets/jquery.min.js"></script>
+<script src="assets/jquery.hotkeys.js"></script>
 <script src="assets/jquery-ui.min.js"></script>
 <script src="assets/jquery.event.drag-2.2.js"></script>
 <script src="assets/jquery.event.drag.live-2.2.js"></script>
@@ -46,17 +47,18 @@
   <div class="disismyfukentoolbuxhhehahooo">
     <div class="tools">
       <center>
-        <a class="add-media-query" title="Add Media Query" href="javascript:void(0)" style="position:absolute; top:5px; left:0; font-size:15px;"><span class='fa fa-plus'></span></a>
-        <input type="checkbox" class="toggle-workflow-visibility" title="Toggle Design/Preview" style="position:absolute; top:25px; left:2.5px;" />
-        <a class="select-tool" title="Select Tool" href='javascript:void(0);'><span class='fa fa-location-arrow' style="transform: rotate(0deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(180deg) translateX(0px) translateY(0px); -webkit-transform: rotate(0deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(180deg) translateX(0px) translateY(0px); -moz-transform: rotate(0deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(180deg) translateX(0px) translateY(0px); -ms-transform: rotate(0deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(180deg) translateX(0px) translateY(0px); -o-transform: rotate(0deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(180deg) translateX(0px) translateY(0px);"></span></a>
-        <a class="edit-tool" title="Edit Content" href='javascript:void(0);'><span class='fa fa-edit'></span></a>
-        <a class="remove-tool" title="Remove Element" href='javascript:void(0);'><span class='fa fa-times'></span></a>
-        <a class="new-doc" title="New Document" href="javascript:void(0)"><span class='fa fa-file-text'></span></a>
-        <a id="open-save-project" title="Save project as .mmd" href="javascript:void(0)"><span class='fa fa-save'></span></a>
-        <a id="export-your-html" title="Save to disk" href="javascript:void(0)"><span class='fa fa-download'></span></a>
+        <a id="add-media-query" title="Add Media Query [Alt+Q]" href="javascript:void(0)" style="position:absolute; top:5px; left:0; font-size:15px;"><span class='fa fa-plus'></span></a>
+        <input type="checkbox" class="toggle-workflow-visibility" title="Toggle Design/Preview [Alt+P]" style="position:absolute; top:25px; left:2.5px;" />
+        <a class="select-tool" title="Select Tool [Ctrl+1]" href='javascript:void(0);'><span class='fa fa-location-arrow' style="transform: rotate(0deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(180deg) translateX(0px) translateY(0px); -webkit-transform: rotate(0deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(180deg) translateX(0px) translateY(0px); -moz-transform: rotate(0deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(180deg) translateX(0px) translateY(0px); -ms-transform: rotate(0deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(180deg) translateX(0px) translateY(0px); -o-transform: rotate(0deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(180deg) translateX(0px) translateY(0px);"></span></a>
+        <a class="edit-tool" title="Edit Content [Ctrl+2]" href='javascript:void(0);'><span class='fa fa-edit'></span></a>
+        <a class="remove-tool" title="Remove Element [Ctrl+3]" href='javascript:void(0);'><span class='fa fa-times'></span></a>
+        <a id="new-doc" title="New Document [Ctrl+4]" href="javascript:void(0)"><span class='fa fa-file-text'></span></a>
+        <a id="open-save-project" title="Save project as .mmd [Ctrl+5]" href="javascript:void(0)"><span class='fa fa-save'></span></a>
+        <a id="export-your-html" title="Save to disk [Ctrl+6]" href="javascript:void(0)"><span class='fa fa-download'></span></a>
         <a style="display:none;" title="svg-edit" onclick="window.open('http://svg-edit.googlecode.com/svn/branches/2.6/editor/svg-editor.html', 'svg-edit', 'width=660, height=460'); return false;"><img class="link-to-svgedit" src="assets/svgedit.svg"></a>
         <a style="display:none;" title="Dropbox" onclick="window.open('https://www.dropbox.com/chooser', 'Dropbox', 'width=660, height=440'); return false;"><span class='fa fa-dropbox'></span></a>
-        <a class="hide-options" title="Hide Options" href='javascript:void(0);'><span class='fa fa-chevron-right'></span></a>
+        <a class="hide-options" title="Hide Options [Ctrl+7]" href='javascript:void(0);'><span class='fa fa-chevron-right'></span></a>
+        <input id="panel-toggler" class="hide" type="checkbox">
         <select class="dialogs hide">
           <option value="starter-properties">starter-properties</option>
           <option value="select-properties">select-properties</option>
@@ -122,8 +124,8 @@
           <div class="drop-section the-codez-stage">
             <div style="width:90%; margin:5px auto 5px auto;">
               <header class="dropp" title="&nbsp; javascript">
-                <input type="checkbox" id="ljavascript" name="ljavascript" />
-                <label for="ljavascript">&nbsp; javascript</label><br>
+                <input type="checkbox" id="ljavascript" name="ljavascript" title="[Alt+J]" />
+                <label for="ljavascript" title="[Alt+J]">&nbsp; javascript</label><br>
               </header>
               
               <center class="dropp-section" style="border:1px solid #222;">
@@ -166,7 +168,7 @@
       <div class="select-properties show">
         <span class="section-dropper">
           <center>
-            <input type="text" class="search4urdamelms" list="search-properties" placeholder="Search" />
+            <input type="text" class="search4urdamelms" title="Search Options [Insert]" list="search-properties" placeholder="Search" />
             
             <datalist id="search-properties">
               <option value="Save"></option>
@@ -192,9 +194,9 @@
             <center>
               <table class="fill table-in select-options">
                 <tr>
-                  <td><button class="fill duplicateselectedelm in-drop-button">Duplicate</button></td>
-                  <td><button class="fill removeselectedelm in-drop-button">Remove</button></td>
-                  <td><button class="fill deselectselectedelm in-drop-button">Deselect</button></td>
+                  <td><button class="fill duplicateselectedelm in-drop-button" title="[Alt+M]">Duplicate</button></td>
+                  <td><button class="fill removeselectedelm in-drop-button" title="[Del]">Remove</button></td>
+                  <td><button class="fill deselectselectedelm in-drop-button" title="[Esc]">Deselect</button></td>
                 </tr>
               </table>
             </center>
