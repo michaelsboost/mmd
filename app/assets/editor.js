@@ -249,6 +249,81 @@ $(document).ready(function() {
     localStorage.setItem('SiteTitle',$(".website-title").html());
   });
   
+  // Handles Hotkeys
+  $(function() {
+    // Export layout
+    $(document).bind('keydown', 'ctrl+e', function() {
+      $("#export-your-html").trigger('click');
+    });
+    // Shortcut for select tool
+    $(document).bind('keydown', 'ctrl+1', function() {
+      $(".select-tool").trigger('click');
+    });
+    // Shortcut for edit tool
+    $(document).bind('keydown', 'ctrl+2', function() {
+      $(".edit-tool").trigger('click');
+    });
+    // Shortcut for remove tool
+    $(document).bind('keydown', 'ctrl+3', function() {
+      $(".remove-tool").trigger('click');
+    });
+    // Shortcut for new document
+    $(document).bind('keydown', 'ctrl+4', function() {
+      $("#new-doc").trigger('click');
+    });
+    // Shortcut to save project
+    $(document).bind('keydown', 'ctrl+5', function() {
+      $("#open-save-project").trigger('click');
+    });
+    // Shortcut to save as html file
+    $(document).bind('keydown', 'ctrl+6', function() {
+      $("#export-your-html").trigger('click');
+    });
+    
+    // Shortcut to toggle toolbox visibility
+    $(document).bind('keydown', 'ctrl+7', function() {
+      $('#panel-toggler').trigger('click');
+    });
+    // Shortcut to preview project
+    $(document).bind('keydown', 'alt+p', function() {
+      $('.toggle-workflow-visibility').trigger('click');
+    });
+    // Shortcut to add media query
+    $(document).bind('keydown', 'alt+q', function() {
+      $('#add-media-query').trigger('click');
+    });
+    // Shortcut to enable/disable javascript
+    $(document).bind('keydown', 'alt+j', function() {
+      $('#ljavascript').trigger('click');
+    });
+    
+    // Shortcut to search element
+    $(document).bind('keydown', 'insert', function() {
+      if ($('.select-active').is(':visible')) {
+        var $val = $(this).val();
+        $("." + $(".dialogs option:selected").val() + " .drop").css('color', '#666').next().hide();
+        $(".search4urdamelms").focus();
+      } else {
+        $(".select-tool").trigger('click');
+        var $val = $(this).val();
+        $("." + $(".dialogs option:selected").val() + " .drop").css('color', '#666').next().hide();
+        $(".search4urdamelms").focus();
+      }
+    });
+    // Shortcut to duplicate element
+    $(document).bind('keydown', 'alt+m', function() {
+      $(".duplicateselectedelm").trigger('click');
+    });
+    // Shortcut to remove element
+    $(document).bind('keydown', 'del', function() {
+      $(".removeselectedelm").trigger('click');
+    });
+    // Shortcut to deselect element
+    $(document).bind('keydown', 'esc', function() {
+      $(".deselectselectedelm").trigger('click');
+    });
+  });
+  
   // Select Tool
   $('.select-tool').on('click touchend', function() {
     FinalizePrev();
@@ -941,7 +1016,7 @@ $(document).ready(function() {
         
         // Duplicate Remove Deselect options in select ool
         $(function() {
-          $(".duplicateselectedelm").on('mouseup touchend', function() {
+          $(".duplicateselectedelm").on('click touchend', function() {
             $('.canves').append($("#stylethis").clone());
             $('.canves, .canves *').removeClass('editable');
             $('.canves, .canves *').removeAttr('id');
@@ -955,7 +1030,7 @@ $(document).ready(function() {
             $('.select-options').hide();
             MoveSelectedElement();
           });
-          $('.removeselectedelm').on('mouseup touchend', function() {
+          $('.removeselectedelm').on('click touchend', function() {
             $('#stylethis').remove();
             $('.canves, .canves *').removeClass('editable');
             $('.canves, .canves *').removeAttr('id');
@@ -967,7 +1042,7 @@ $(document).ready(function() {
             $('div.handle').remove();
             $('.select-options').hide();
           });
-          $('.deselectselectedelm').on('mouseup touchend', function() {
+          $('.deselectselectedelm').on('click touchend', function() {
             $('.canves, .canves *').removeClass('editable');
             $('.canves, .canves *').removeAttr('id');
             $('.canves').children().removeAttr('id');
@@ -1200,7 +1275,7 @@ $(document).ready(function() {
   });
   
   // Adds Media Queries
-  $(".add-media-query").on('click touchend', function() {
+  $("#add-media-query").on('click touchend', function() {
     $('.yourcss').html($('.canves').html());
     $('.yourcss').children("*").html("");
     $(".yourcss *").removeAttr('id');
@@ -1381,7 +1456,7 @@ $(document).ready(function() {
     $(".dadammediaquery, .css-sheet, .html-sheet, .dadammediaquerylist").val("");
 
     // New and Save Document
-    $('.new-doc').on('click', function() {
+    $('#new-doc').on('click', function() {
       var x = window.confirm("Are you sure you wish to start a new project?\nAll your changes will not be saved. ")
       if (x) {
         $(".website-title").val("new document");
@@ -1551,6 +1626,15 @@ $(document).ready(function() {
     // Toggle Options Panel Visibility
     $(function() {
       $(".hide-options").on('click touchend', function() {
+        $('#panel-toggler').prop('checked', true).trigger('change');
+      });
+      $(".show-options").on('click touchend', function() {
+        $('#panel-toggler').prop('checked', false).trigger('change');
+      });
+    });
+
+    $(function() {
+      if ($('#panel-toggler').prop('checked') === true ) {
         $(".show-options").slideDown();
         $(".disismyfukentoolbuxhhehahooo").animate({
           right : "-300px"
@@ -1565,9 +1649,9 @@ $(document).ready(function() {
         $('.canves, #workflow').css({'width': '100%'});
         $('.ruler').empty();
         createRuler(); 
-      });
-      $(".show-options").on('click touchend', function () {
-        $(this).slideUp();
+      }
+      if ($('#panel-toggler').prop('checked') === false ) {
+        $(".show-options").slideUp();
         $(".disismyfukentoolbuxhhehahooo").animate({
           right : "0px"
         }, 200);
@@ -1581,6 +1665,40 @@ $(document).ready(function() {
         $('.canves, #workflow').css({'width': '100%'});
         $('.ruler').empty();
         createRuler(); 
+      }
+      $('#panel-toggler').on('change', function(){
+        if ($(this).prop('checked') === true ) {
+          $(".show-options").slideDown();
+          $(".disismyfukentoolbuxhhehahooo").animate({
+            right : "-300px"
+          }, 200);
+          $(".itsthecavnescontainerbro").animate({
+            top : "36px"
+          }, 200);
+          $(".cwidth-containment, .itsthecavnescontainerbro, #idive-container, .ruler-container").animate({
+            right : "0px"
+          }, 200);
+          $('.cwidth').attr('max', $(window).width()).val($(window).width());
+          $('.canves, #workflow').css({'width': '100%'});
+          $('.ruler').empty();
+          createRuler(); 
+        }
+        if ($(this).prop('checked') === false ) {
+          $(".show-options").slideUp();
+          $(".disismyfukentoolbuxhhehahooo").animate({
+            right : "0px"
+          }, 200);
+          $(".itsthecavnescontainerbro").animate({
+            top : "25px"
+          }, 200);
+          $(".cwidth-containment, .itsthecavnescontainerbro, #idive-container, .ruler-container").animate({
+            right : "300px"
+          }, 200);
+          $('.cwidth').attr('max', $(window).width() - 300).val($(window).width() - 300);
+          $('.canves, #workflow').css({'width': '100%'});
+          $('.ruler').empty();
+          createRuler(); 
+        }
       });
     });
 
