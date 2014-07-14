@@ -11,6 +11,27 @@ $(document).ready(function() {
     preview = $(".canves"),
     mS = {}, // mouse start 
     dBox;
+  if ( localStorage.getItem('SiteTitle')) {
+    $(".website-title").val(localStorage.getItem('SiteTitle'));
+  }
+  if ( localStorage.getItem('CSSRefer')) {
+    $(".add-css-refer-val").val(localStorage.getItem('CSSRefer'));
+  }
+  if ( localStorage.getItem('JSCode')) {
+    $("#js-code").val(localStorage.getItem('JSCode'));
+  }
+  if ( localStorage.getItem('CSSCelectorsList')) {
+    $(".list-of-css-selectors").html(localStorage.getItem('CSSCelectorsList')); 
+  }
+  if ( localStorage.getItem('CSSReferencesList')) {
+    $(".list-of-css-references").html(localStorage.getItem('CSSReferencesList')); 
+  }
+  if ( localStorage.getItem('MQuery')) {
+    $(".list-of-media-queries").html(localStorage.getItem('MQuery')); 
+  }
+  if ( localStorage.getItem('CanvesContent')) {
+    $(".canves").html(localStorage.getItem('CanvesContent')); 
+  }
   
   // Updates preview
   var FinalizePrev = function() {
@@ -43,6 +64,7 @@ $(document).ready(function() {
       $(".c-css-sheet textarea, .c-css-sheet a, .c-css-sheet button").remove();
       $(".custom-css-sheet").val( $('.c-css-sheet').html().replace(/<\/?/g,'').replace(/div class="c-css-sheet hide">/g,'').replace(/div>div class="list-of-css-selectors-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/pre>div>/g,'').replace(/ }div>div class="list-of-css-selectors-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/ }/g,'').replace(/pre>/g,'').replace(/div>/g,'').replace(/link href="/g,'<link href="').replace(/css">/g,'css">\n') );
       FinalizePrev();
+      localStorage.setItem('CSSCelectorsList',$(".list-of-css-selectors").html());
       return false;
     });
   };
@@ -136,6 +158,7 @@ $(document).ready(function() {
       $(this).remove();
     }
     $('div.handle').remove();
+    $('.select-options').hide();
     
     // Add & Remove Locally Stored CSS References
     $(".dadamcssreflist").val("");
@@ -150,6 +173,7 @@ $(document).ready(function() {
       $(".dadamcssrefhtml textarea, .dadamcssrefhtml a, .dadamcssrefhtml button").remove();
       $(".dadamcssreflist").val( $('.dadamcssrefhtml').html().replace(/<\/?/g,'').replace(/div class="dadamcssrefhtml hide">/g,'').replace(/div>div class="list-of-css-references-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/pre>div>/g,'').replace(/ }div>div class="list-of-css-references-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/ }/g,'').replace(/pre>/g,'').replace(/div>/g,'').replace(/link href="/g,'<link href="').replace(/css">/g,'css">\n') );
       FinalizePrev();
+      localStorage.setItem('CSSReferencesList',$(".list-of-css-references").html());
     });
     
     // Add & Remove Locally Stored Media Queries
@@ -168,6 +192,7 @@ $(document).ready(function() {
       $(".mirror-css").text( $(".custom-css-sheet").val().replace(/<\/?/g,'').replace(/div>/g,'') + "\n" + $(".css-sheet").val().replace(/<\/?/g,'').replace(/div>/g,'') + "\n" + $('.dadammediaquerylist').val().replace(/<\/?/g,'').replace(/div>/g,'') );
       $('.cwidth').val($(this).text().replace(/px/g,'')).trigger('change');
       FinalizePrev();
+      localStorage.setItem('MQuery',$(".list-of-media-queries").html());
       return false;
     });
     $(".del-media-query").on('click', function() {
@@ -179,6 +204,7 @@ $(document).ready(function() {
       $(".dadammediaqueryshtml textarea, .dadammediaqueryshtml a, .dadammediaqueryshtml button").remove();
       $(".dadammediaquerylist").val( $('.dadammediaqueryshtml').html().replace(/<\/?/g,'').replace(/div class="dadammediaqueryshtml hide">/g,'').replace(/div>div class="list-of-media-queries-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/pre>div>/g,'').replace(/ }div>div class="list-of-media-queries-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,' }').replace(/ }/g,'}').replace(/}pre>/g,'}') );
       FinalizePrev();
+      localStorage.setItem('MQuery',$(".list-of-media-queries").html());
     });
     
     // Add & Remove Locally Stored CSS Styles
@@ -194,6 +220,7 @@ $(document).ready(function() {
       $(".c-css-sheet textarea, .c-css-sheet a, .c-css-sheet button").remove();
       $(".custom-css-sheet").val( $('.c-css-sheet').html().replace(/<\/?/g,'').replace(/div class="c-css-sheet hide">/g,'').replace(/div>div class="list-of-css-selectors-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/pre>div>/g,'').replace(/ }div>div class="list-of-css-selectors-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/ }/g,'').replace(/pre>/g,'').replace(/div>/g,'').replace(/link href="/g,'<link href="').replace(/css">/g,'css">\n') );
       FinalizePrev();
+      localStorage.setItem('CSSCelectorsList',$(".list-of-css-selectors").html());
     });
   }).on('load resize', function() {
     $('.ruler').empty();
@@ -215,12 +242,17 @@ $(document).ready(function() {
     $('#code').val( $('.mirror-code').text() );
     editor.setValue( $("#code").val() );
   }).on('keyup', function() {
+    localStorage.setItem('CSSRefer',$(".add-css-refer-val").val());
+    localStorage.setItem('JSCode',$("#js-code").val());
+    localStorage.setItem('CanvesContent',$(".canves").html());
     document.title = $(".website-title").val();
+    localStorage.setItem('SiteTitle',$(".website-title").html());
   });
   
   // Select Tool
   $('.select-tool').on('click touchend', function() {
     FinalizePrev();
+    localStorage.setItem('CanvesContent',$(".canves").html());
     $(this).toggleClass('select-active');
     if ($('.select-active').is(':visible')) {
       $('.dialogs').val('select-properties').trigger('change');
@@ -285,6 +317,9 @@ $(document).ready(function() {
             $('.insert-your-own-damn-html-ipittydafool').removeAttr('disabled');
             $('.select-options').show();
           }
+        });
+        $('.canves, .canves *').on('mouseup touchend', function(e) {
+          localStorage.setItem('CanvesContent',$(".canves").html());
         });
         
         $(".sel-css").on('keyup change', function() {
@@ -896,6 +931,14 @@ $(document).ready(function() {
           });
         });
         
+        // Sets Custom Section/HTML
+        $(function() {
+          $('.insert-your-own-damn-html-ipittydafool').on('keyup change', function() {
+            $("#stylethis").html($(this).val());
+            localStorage.setItem('CanvesContent',$(".canves").html());
+          });
+        });
+        
         // Duplicate Remove Deselect options in select ool
         $(function() {
           $(".duplicateselectedelm").on('mouseup touchend', function() {
@@ -936,13 +979,6 @@ $(document).ready(function() {
             $('.select-options').hide();
           });
         });
-        
-        // Sets Custom Section/HTML
-        $(function() {
-          $('.insert-your-own-damn-html-ipittydafool').on('keyup change', function() {
-            $("#stylethis").html($(this).val());
-          });
-        });
       }
     } else {
       elmstyle = false;
@@ -962,6 +998,7 @@ $(document).ready(function() {
       code.val(preview.html());
       preview.html(code.val());
       FinalizePrev();
+      localStorage.setItem('CanvesContent',$(".canves").html());
       return false;
     }
   });
@@ -1002,6 +1039,7 @@ $(document).ready(function() {
         $('.canves *').on('mousedown touchstart', function() {
           if(removediv) {
             $(this).remove();
+            localStorage.setItem('CanvesContent',$(".canves").html());
           }
         });
       }
@@ -1010,9 +1048,10 @@ $(document).ready(function() {
         $('.select-active, .edit-active').trigger('click');
       }
   
-      return false;
+      e.preventDefault();
     } else {
       removediv = false;
+      localStorage.setItem('CanvesContent',$(".canves").html());
       return false;
     }
   });
@@ -1034,30 +1073,38 @@ $(document).ready(function() {
       $('#inactive-menubtns').hide();
       $('#idive select#elm-font-family').on('click change', function(e) {
         document.execCommand('FontName',false,$(this).val());
+        localStorage.setItem('CanvesContent',$(".canves").html());
       });
       $('#idive select#elm-font-size').on('click change', function(e) {
         document.execCommand('FontSize',false,$(this).val());
+        localStorage.setItem('CanvesContent',$(".canves").html());
       });
       $('#idive a#txtcolor').click(function(e) {
         document.execCommand('ForeColor',false,$('#elm-color').val());
+        localStorage.setItem('CanvesContent',$(".canves").html());
       });
       $('#idive a#backcolor').click(function(e) {
         document.execCommand('BackColor',false,$('#elm-bgcolor').val());
+        localStorage.setItem('CanvesContent',$(".canves").html());
       });
       $('#idive select#elm-txt-align').on('change', function(e) {
         document.execCommand($(this).val(),false,null);
+        localStorage.setItem('CanvesContent',$(".canves").html());
       });
       $('#idive select#elm-heading').on('change', function(e) {
         document.execCommand('formatBlock',false,$(this).val());
+        localStorage.setItem('CanvesContent',$(".canves").html());
       });
       $('.insert-html').on('click', function(e) {
         var HTMLCode = prompt('Enter HTML code', ''); if(HTMLCode != null) {$('.editable').focus(); pasteHtmlAtCaret(HTMLCode); }
+        localStorage.setItem('CanvesContent',$(".canves").html());
       });
       
       if(editable) {
         $('.canves *').addClass('editable').on('mousedown touchstart', function() {
           if(editable) {
             $('.editable').attr('contenteditable', true);
+            localStorage.setItem('CanvesContent',$(".canves").html());
           }
         });
       }
@@ -1071,6 +1118,7 @@ $(document).ready(function() {
       editable = false;
       $('.canves *').attr('contenteditable', false);
       $('#inactive-menubtns').show();
+      localStorage.setItem('CanvesContent',$(".canves").html());
       return false;
     }
   });
@@ -1102,6 +1150,7 @@ $(document).ready(function() {
       $(".custom-css-sheet").val( $('.c-css-sheet').html().replace(/<\/?/g,'').replace(/div class="c-css-sheet hide">/g,'').replace(/div>div class="list-of-css-selectors-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/pre>div>/g,'').replace(/ }div>div class="list-of-css-selectors-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/pre>/g,'').replace(/div>/g,'').replace(/}/g,'\n}') );
       $(".add-css-refer-val").val("");
       FinalizePrev();
+      localStorage.setItem('CSSCelectorsList',$(".list-of-css-selectors").html());
     }
     
     $(".del-global-css-style").on('click', function() {
@@ -1111,6 +1160,7 @@ $(document).ready(function() {
       $(".c-css-sheet textarea, .c-css-sheet a, .c-css-sheet button").remove();
       $(".custom-css-sheet").val( $('.c-css-sheet').html().replace(/<\/?/g,'').replace(/div class="c-css-sheet hide">/g,'').replace(/div>div class="list-of-css-selectors-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/pre>div>/g,'').replace(/ }div>div class="list-of-css-selectors-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/ }/g,'').replace(/pre>/g,'').replace(/div>/g,'').replace(/link href="/g,'<link href="').replace(/css">/g,'css">\n') );
       FinalizePrev();
+      localStorage.setItem('CSSCelectorsList',$(".list-of-css-selectors").html());
     });
   });
   $(".add-css-selector-val").on('keyup change', function() {
@@ -1135,6 +1185,7 @@ $(document).ready(function() {
       $(".dadamcssreflist").val( $('.dadamcssrefhtml').html().replace(/<\/?/g,'').replace(/div class="dadamcssrefhtml hide">/g,'').replace(/div>div class="list-of-css-references-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/pre>div>/g,'').replace(/ }div>div class="list-of-css-references-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/ }/g,'').replace(/pre>/g,'').replace(/div>/g,'').replace(/link href="/g,'<link href="').replace(/css">/g,'css">\n') );
       $(".add-css-refer-val").val("");
       FinalizePrev();
+      localStorage.setItem('CSSReferencesList',$(".list-of-css-references").html());
     }
     
     $(".del-css-refer").on('click', function() {
@@ -1144,6 +1195,7 @@ $(document).ready(function() {
       $(".dadamcssrefhtml textarea, .dadamcssrefhtml a, .dadamcssrefhtml button").remove();
       $(".dadamcssreflist").val( $('.dadamcssrefhtml').html().replace(/<\/?/g,'').replace(/div class="dadamcssrefhtml hide">/g,'').replace(/div>div class="list-of-css-references-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/pre>div>/g,'').replace(/ }div>div class="list-of-css-references-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/ }/g,'').replace(/pre>/g,'').replace(/div>/g,'').replace(/link href="/g,'<link href="').replace(/css">/g,'css">\n') );
       FinalizePrev();
+      localStorage.setItem('CSSReferencesList',$(".list-of-css-references").html());
     });
   });
   
@@ -1183,6 +1235,7 @@ $(document).ready(function() {
     $(".dadammediaqueryshtml textarea, .dadammediaqueryshtml a, .dadammediaqueryshtml button").remove();
     $(".dadammediaquerylist").val( $('.dadammediaqueryshtml').html().replace(/<\/?/g,'').replace(/div class="dadammediaqueryshtml hide">/g,'').replace(/div>div class="list-of-media-queries-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/pre>div>/g,'').replace(/ }div>div class="list-of-media-queries-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,' }').replace(/ }/g,'}').replace(/}pre>/g,'}').replace(/@/g,'\n\n@') + "\n" );
     FinalizePrev();
+    localStorage.setItem('MQuery',$(".list-of-media-queries").html());
     
     $(".list-of-media-queries").find("button").click(function() {
       $(".custom-css-sheet").val($(this).parent().next().val());
@@ -1191,6 +1244,7 @@ $(document).ready(function() {
       $(".mirror-css").text( $(".custom-css-sheet").val().replace(/<\/?/g,'').replace(/div>/g,'') + "\n" + $(".css-sheet").val().replace(/<\/?/g,'').replace(/div>/g,'') + "\n" + $('.dadammediaquerylist').val().replace(/<\/?/g,'').replace(/div>/g,'') );
       $('.cwidth').val($(this).text().replace(/px/g,'')).trigger('change');
       FinalizePrev();
+      localStorage.setItem('MQuery',$(".list-of-media-queries").html());
       return false;
     });
     $(".del-media-query").on('click', function() {
@@ -1202,6 +1256,7 @@ $(document).ready(function() {
       $(".dadammediaqueryshtml textarea, .dadammediaqueryshtml a, .dadammediaqueryshtml button").remove();
       $(".dadammediaquerylist").val( $('.dadammediaqueryshtml').html().replace(/<\/?/g,'').replace(/div class="dadammediaqueryshtml hide">/g,'').replace(/div>div class="list-of-media-queries-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,'').replace(/pre>div>/g,'').replace(/ }div>div class="list-of-media-queries-container"> pre style="text-align:left; padding-top:5px; overflow:auto;">/g,' }').replace(/ }/g,'}').replace(/}pre>/g,'}') );
       FinalizePrev();
+      localStorage.setItem('MQuery',$(".list-of-media-queries").html());
     });
   });
   $(".list-of-media-queries-container button").on('click touchend', function() {
@@ -1211,6 +1266,7 @@ $(document).ready(function() {
   // Add Elements
   $(".add-elm").on('click touchend', function() {
     $(".canves").append('<'+ $(this).text() +' class="box" style="">'+ $(this).text() +'</'+ $(this).text() +'>');
+    localStorage.setItem('CanvesContent',$(".canves").html());
     $('.toggle-workflow-visibility').prop('checked', false);
     
     // Toggle Design Visibility
@@ -1325,13 +1381,43 @@ $(document).ready(function() {
     $(".dadammediaquery, .css-sheet, .html-sheet, .dadammediaquerylist").val("");
 
     // New and Save Document
-    $("#export-your-html").on('click touchend', function() {
-      FinalizePrev();
-      var x = window.confirm("Are you sure you wish to save?")
-      if (x)
-        saveTextAsHTML();
-      else
+    $('.new-doc').on('click', function() {
+      var x = window.confirm("Are you sure you wish to start a new project?\nAll your changes will not be saved. ")
+      if (x) {
+        $(".website-title").val("new document");
+        $(".select-properties select").trigger("change").val("");
+        $(".select-properties textarea, .dadamcssreflist, .dadammediaquery, .dadammediaquerylist").val("");
+        $(".list-of-css-references-container, .list-of-css-selectors-container, .list-of-media-queries-container").remove();
+        $(".canves").html("");
+        $('.select-properties').hide();
+        $('.starter-properties').show();
+        if ($('.select-active, .edit-active, .remove-active').is(':visible')) {
+          $('.select-active, .edit-active, .remove-active').trigger('click');
+        }
+        $('.dialogs').val('starter-properties').trigger('change');
+        $(".list-of-media-queries textarea").remove();
+        FinalizePrev();
+        localStorage.setItem('SiteTitle',$(".website-title").html());
+        localStorage.setItem('CSSReferencesList',$(".list-of-css-references").html());
+        localStorage.setItem('MQuery',$(".list-of-media-queries").html());
+        localStorage.setItem('CSSCelectorsList',$(".list-of-css-selectors").html());
+        localStorage.setItem('CanvesContent',$(".canves").html());
+      } else {
         return false;
+      }
+    });
+    $("#export-your-html").on('click', function() {
+      FinalizePrev();
+      localStorage.setItem('CSSReferencesList',$(".list-of-css-references").html());
+      localStorage.setItem('MQuery',$(".list-of-media-queries").html());
+      localStorage.setItem('CSSCelectorsList',$(".list-of-css-selectors").html());
+      localStorage.setItem('CanvesContent',$(".canves").html());
+      var x = window.confirm("Are you sure you wish to save?")
+      if (x) {
+        saveTextAsHTML();
+      } else {
+        return false;
+      }
         
       return false;
     });
@@ -1528,6 +1614,10 @@ $(document).ready(function() {
     window.onbeforeunload = function() {
       if (hook) {
       FinalizePrev();
+      localStorage.setItem('CSSReferencesList',$(".list-of-css-references").html());
+      localStorage.setItem('MQuery',$(".list-of-media-queries").html());
+      localStorage.setItem('CSSCelectorsList',$(".list-of-css-selectors").html());
+      localStorage.setItem('CanvesContent',$(".canves").html());
         return "Did you save your stuff?"
       }
     }
@@ -1537,4 +1627,8 @@ $(document).ready(function() {
   });
   
   FinalizePrev();
+  localStorage.setItem('CSSReferencesList',$(".list-of-css-references").html());
+  localStorage.setItem('MQuery',$(".list-of-media-queries").html());
+  localStorage.setItem('CSSCelectorsList',$(".list-of-css-selectors").html());
+  localStorage.setItem('CanvesContent',$(".canves").html());
 });
