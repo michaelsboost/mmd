@@ -34,8 +34,7 @@ $(document).ready(function() {
   }
   
   if (navigator.vendor != null && navigator.vendor.match(/Apple Computer, Inc./) && navigator.userAgent.match(/iPhone/i) || (navigator.userAgent.match(/'iPad', 'iPhone', 'iPod'/i))) {
-    window.confirm("Sorry iOS is not supported");
-    window.close();
+    window.location.href = "/app/ios";
   }
   
   // Updates preview
@@ -71,6 +70,59 @@ $(document).ready(function() {
       FinalizePrev();
       localStorage.setItem('CSSCelectorsList',$(".list-of-css-selectors").html());
       return false;
+    });
+  };
+  var MoveSelectedElement = function() {
+    $('.canves *').drag("start",function( ev, dd ){
+      dd.attrc = $( ev.target ).prop("className");
+      dd.attrd = $( ev.target ).prop("id");
+      dd.width = $( this ).width();
+      dd.height = $( this ).height();
+    })
+    .drag(function( ev, dd ){
+      var props = {};
+      if ( dd.attrc.indexOf("E") > -1 ){
+        props.width = Math.max( 32, dd.width + dd.deltaX );
+      }
+      if ( dd.attrc.indexOf("S") > -1 ){
+        props.height = Math.max( 32, dd.height + dd.deltaY );
+      }
+      if ( dd.attrc.indexOf("W") > -1 ){
+        props.width = Math.max( 32, dd.width - dd.deltaX );
+        props.left = dd.originalX + dd.width - props.width;
+      }
+      if ( dd.attrc.indexOf("N") > -1 ){
+        props.height = Math.max( 32, dd.height - dd.deltaY );
+        props.top = dd.originalY + dd.height - props.height;
+      }
+      if ( dd.attrd.indexOf("stylethis") > -1 ){
+        props.top = dd.offsetY;
+        props.left = dd.offsetX;
+      }
+      $('#stylethis').css( props );
+    }, {relative:true});
+    
+    $('.canves *').on('mousedown touchstart', function(e) {
+      if(elmstyle) {
+        // Add stylethis class
+        $('div.handle').remove();
+        $(".sel-css").val("");
+        $(".known-class").text($(this).prop('class'));
+        $('.canves, .canves *').removeAttr('id');
+        $(this).attr('id', 'stylethis').append('<div class="handle NE"></div><div class="handle NN"></div><div class="handle NW"></div><div class="handle WW"></div><div class="handle EE"></div><div class="handle SW"></div><div class="handle SS"></div><div class="handle SE"></div>');
+        $('.insert-your-own-damn-html-ipittydafool').val($(this).html());
+        $('.select-properties input[type=text]').val("");
+        $('.select-properties input[type=checkbox]').prop('checked', '');
+        $('.grabmy-typography a, .grab-txt-align a, .grabmy-position a').css('backgroundColor', '#444');
+        $('.grab-elm-border input[type=text]').prop('disabled', true);
+        $('.borders a').removeClass('border-active').css({
+          'border-color': '#a9a9a9',
+          'background-color': '#444'
+        });
+        $('.none').css('border-color', '#444');
+        $('.insert-your-own-damn-html-ipittydafool').removeAttr('disabled');
+        $('.select-options').show();
+      }
     });
   };
   $('#codemird').on('keyup change', function() {
@@ -110,6 +162,7 @@ $(document).ready(function() {
       $(this).remove();
     }
     $('div.handle').remove();
+    $('.select-options').hide();
     
     // Add & Remove Locally Stored CSS References
     $(".dadamcssreflist").val("");
@@ -266,6 +319,7 @@ $(document).ready(function() {
             });
             $('.none').css('border-color', '#444');
             $('.insert-your-own-damn-html-ipittydafool').removeAttr('disabled');
+            $('.select-options').show();
           }
         });
         $('.canves, .canves *').on('mouseup touchend', function(e) {
@@ -889,9 +943,24 @@ $(document).ready(function() {
           });
         });
         
-        // Deselect Element
+        // Duplicate Remove Deselect options in select ool
         $(function() {
-          $('.removeselectedelm').on('click', function() {
+          $(".duplicateselectedelm").on('mouseup touchend', function() {
+            $('.canves').append($("#stylethis").clone());
+            $('.canves, .canves *').removeClass('editable');
+            $('.canves, .canves *').removeAttr('id');
+            $('.canves').children().removeAttr('id');
+            $('.canves').children('*').removeAttr('id');
+            $('.canves').find('*').removeAttr('id');
+            if ($(".canves").children("*").html() === "" ) {
+              $(this).remove();
+            }
+            $('div.handle').remove();
+            $('.select-options').hide();
+            MoveSelectedElement();
+          });
+          $('.removeselectedelm').on('mouseup touchend', function() {
+            $('#stylethis').remove();
             $('.canves, .canves *').removeClass('editable');
             $('.canves, .canves *').removeAttr('id');
             $('.canves').children().removeAttr('id');
@@ -900,7 +969,18 @@ $(document).ready(function() {
               $(this).remove();
             }
             $('div.handle').remove();
-            localStorage.setItem('CanvesContent',$(".canves").html());
+            $('.select-options').hide();
+          });
+          $('.deselectselectedelm').on('mouseup touchend', function() {
+            $('.canves, .canves *').removeClass('editable');
+            $('.canves, .canves *').removeAttr('id');
+            $('.canves').children().removeAttr('id');
+            $('.canves').find('*').removeAttr('id');
+            if ($(".canves").children("*").html() === "" ) {
+              $(this).remove();
+            }
+            $('div.handle').remove();
+            $('.select-options').hide();
           });
         });
       }
@@ -1330,19 +1410,24 @@ $(document).ready(function() {
         return false;
       }
     });
-    $(".open-save-dialog").on('click', function() {
+    $("#export-your-html").on('click', function() {
       FinalizePrev();
       localStorage.setItem('CSSReferencesList',$(".list-of-css-references").html());
       localStorage.setItem('MQuery',$(".list-of-media-queries").html());
       localStorage.setItem('CSSCelectorsList',$(".list-of-css-selectors").html());
       localStorage.setItem('CanvesContent',$(".canves").html());
       var x = window.confirm("Are you sure you wish to save?")
-      if (x)
+      if (x) {
         saveTextAsHTML();
-      else
+      } else {
         return false;
+      }
         
       return false;
+    });
+    $("#open-save-project").on('click touchend', function() {
+      $("#projsavecode").val("<!DOCTYPE html>\n" + "<html>\n" + $("html").html() + "\n</html>")
+      saveTextAsProject();
     });
     
     // Enable/Disable JS
@@ -1380,6 +1465,47 @@ $(document).ready(function() {
         FinalizePrev();
         $(".yourjs").html("<script type='text/javascript'>" + $(".mirror-js").text() + "</script>");
       }
+    });
+    
+    // Add element options in select tool
+    $(function() {
+      $('.add-custom-ellms a.add-button').on('click touchend', function() {
+        $('.add-custom-ellms a').removeClass('imaddinganelementinmyselection');
+        $(this).toggleClass('imaddinganelementinmyselection');
+        $(".add-button-properz").toggle();
+        if ($(".add-button-properz").css('display') === "none") {
+          $(this).removeClass('imaddinganelementinmyselection');
+        }
+        $(".add-textbox-properz").hide();
+      });
+      $('.add-button-confirm').on('click touchend', function() {
+        var $ctrl = $('<button/>').html($('.newbtntxt').val());
+        var cssClass = $('.newbtnclassname').val();
+        if (cssClass !== "") {
+            $ctrl.addClass(cssClass);
+        }
+        $("#stylethis").append($ctrl);
+      });
+      $('.add-custom-ellms a.add-textbox').on('click touchend', function() {
+        $('.add-custom-ellms a').removeClass('imaddinganelementinmyselection');
+        $(this).toggleClass('imaddinganelementinmyselection');
+        $(".add-textbox-properz").toggle();
+        if ($(".add-textbox-properz").css('display') === "none") {
+          $(this).removeClass('imaddinganelementinmyselection');
+        }
+        $(".add-button-properz").hide();
+      });
+      $('.add-textbox-confirm').on('click touchend', function() {
+        var klass = $('.newtxtclassname').val(),
+            valz  = $('.newtxtval').val(),
+            obj   = {};
+
+        if (klass) obj['class'] = klass;
+        if (valz)  obj['value']  = valz;
+
+        $("#stylethis").append( $('<input/>', obj) );
+      });
+      $(".add-button-properz, .add-textbox-properz").hide();
     });
     
     // Toggle Design Visibility
