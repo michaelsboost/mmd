@@ -52,7 +52,8 @@
         <a class="edit-tool" title="Edit Content" href='javascript:void(0);'><span class='fa fa-edit'></span></a>
         <a class="remove-tool" title="Remove Element" href='javascript:void(0);'><span class='fa fa-times'></span></a>
         <a class="new-doc" title="New Document" href="javascript:void(0)"><span class='fa fa-file-text'></span></a>
-        <a class="open-save-dialog" title="Save to disk" href="javascript:void(0)"><span class='fa fa-download'></span></a>
+        <a id="open-save-project" title="Save project as .mmd" href="javascript:void(0)"><span class='fa fa-save'></span></a>
+        <a id="export-your-html" title="Save to disk" href="javascript:void(0)"><span class='fa fa-download'></span></a>
         <a style="display:none;" title="svg-edit" onclick="window.open('http://svg-edit.googlecode.com/svn/branches/2.6/editor/svg-editor.html', 'svg-edit', 'width=660, height=460'); return false;"><img class="link-to-svgedit" src="assets/svgedit.svg"></a>
         <a style="display:none;" title="Dropbox" onclick="window.open('https://www.dropbox.com/chooser', 'Dropbox', 'width=660, height=440'); return false;"><span class='fa fa-dropbox'></span></a>
         <a class="hide-options" title="Hide Options" href='javascript:void(0);'><span class='fa fa-chevron-right'></span></a>
@@ -126,7 +127,7 @@
               </header>
               
               <center class="dropp-section" style="border:1px solid #222;">
-<button id="jscodeautodebug" class="in-drop-button">auto debug "<span id="debug-indicator" class="debug-indicator-on">on</span>"</button>
+<button id="jscodeautodebug" class="fill in-drop-button">auto debug "<span id="debug-indicator" class="debug-indicator-on">on</span>"</button>
 <textarea id="js-code" style="width:100%; padding:0; margin:0 0 2px 0; border:0; outline:0; resize:vertical; min-height:60px; height:210px;" placeholder="JS/JQuery code here.">$(document).ready(function() {
   
 });</textarea></center>
@@ -156,6 +157,7 @@
               <textarea id="code" class="hide" placeholder="Your full code is generated here"></textarea>
             </center>
             <textarea class="hide" style="cursor:text!important; width:98.7%; resize:vertical; border:0; border-radius:0; min-height:200px;"></textarea>
+            <textarea id="projsavecode" style="display: none; width:100%; padding:0; margin:0 0 2px 0; border:0; outline:0; resize:vertical; min-height:60px; height:210px;" placeholder="Your full code is generated here" disabled="true"></textarea>
           </div>
         </span>
       </div>
@@ -185,7 +187,15 @@
           </header>
           
           <div class="drop-section">
-            <button class="fill removeselectedelm in-drop-button" style="font-family:arial;">Deselect Element</button>
+            <center>
+              <table class="fill table-in select-options">
+                <tr>
+                  <td><button class="fill duplicateselectedelm in-drop-button">Duplicate</button></td>
+                  <td><button class="fill removeselectedelm in-drop-button">Remove</button></td>
+                  <td><button class="fill deselectselectedelm in-drop-button">Deselect</button></td>
+                </tr>
+              </table>
+            </center>
             <table class="fill table-in">
               <tr>
                 <td>
@@ -797,6 +807,52 @@
                 </tr>
               </table>
             </center>
+          </div>
+        </span>
+        <span class="section-dropper">
+          <header class="drop grab-elements" title="&nbsp;&nbsp;elements">
+            <label>&nbsp;&nbsp;elements</label><br>
+          </header>
+
+          <div class="drop-section">
+            <center>
+              <div class="add-custom-ellms horizontal-bar" style="padding-top:15px;">
+                <a title="button" class="add-button" href='javascript:void(0);'>button</a>
+                <a title="textbox" class="add-textbox" href='javascript:void(0);'>textbox</a>
+              </div>
+            </center>
+            
+            <table class="fill table-in add-button-properz">
+              <tr>
+                <td>class:</td>
+                <td><input type="text" class="newbtnclassname"></td>
+              </tr>
+              <tr>
+                <td>text:</td>
+                <td><input type="text" class="newbtntxt"></td>
+              </tr>
+            </table>
+            <table class="fill table-in add-button-properz">
+              <tr>
+                <td><button class="add-button-confirm fill in-drop-button">Add</button></td>
+              </tr>
+            </table>
+            
+            <table class="fill table-in add-textbox-properz">
+              <tr>
+                <td>class:</td>
+                <td><input type="text" class="newtxtclassname"></td>
+              </tr>
+              <tr>
+                <td>value:</td>
+                <td><input type="text" class="newtxtval"></td>
+              </tr>
+            </table>
+            <table class="fill table-in add-textbox-properz">
+              <tr>
+                <td><button class="add-textbox-confirm fill in-drop-button">Add</button></td>
+              </tr>
+            </table>
           </div>
         </span>
         <span class="section-dropper">
