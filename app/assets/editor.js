@@ -1774,6 +1774,8 @@ $(document).ready(function() {
     var hook = true;
     window.onbeforeunload = function() {
       if (hook) {
+      $(".b4-gs-initiation").val($(".b4-gs-initiation").html(""));
+      $(".before-gs-initiation-preview").html("<style type='text/css'>\n" + $(".b4-gs-initiation").val() + "</style>");
       FinalizePrev();
       localStorage.setItem('CSSReferencesList',$(".list-of-css-references").html());
       localStorage.setItem('MQuery',$(".list-of-media-queries").html());
