@@ -1498,6 +1498,8 @@ $(document).ready(function() {
         $(".select-properties textarea, .dadamcssreflist, .dadammediaquery, .dadammediaquerylist").val("");
         $(".list-of-css-references-container, .list-of-css-selectors-container, .list-of-media-queries-container").remove();
         $(".canves").html("");
+        $(".b4-gs-initiation").val($(".b4-gs-initiation").html(""));
+        $(".before-gs-initiation-preview").html("<style type='text/css'>\n" + $(".b4-gs-initiation").val() + "</style>");
         $('.select-properties').hide();
         $('.starter-properties').show();
         if ($('.select-active, .edit-active, .remove-active').is(':visible')) {
