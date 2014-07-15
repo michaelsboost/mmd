@@ -53,11 +53,10 @@
         <a class="edit-tool" title="Edit Content [Ctrl+2]" href='javascript:void(0);'><span class='fa fa-edit'></span></a>
         <a class="remove-tool" title="Remove Element [Ctrl+3]" href='javascript:void(0);'><span class='fa fa-times'></span></a>
         <a id="new-doc" title="New Document [Ctrl+4]" href="javascript:void(0)"><span class='fa fa-file-text'></span></a>
-        <a id="open-save-project" title="Save project as .mmd [Ctrl+5]" href="javascript:void(0)"><span class='fa fa-save'></span></a>
-        <a id="export-your-html" title="Save to disk [Ctrl+6]" href="javascript:void(0)"><span class='fa fa-download'></span></a>
+        <a id="export-your-html" title="Save to disk [Ctrl+E]" href="javascript:void(0)"><span class='fa fa-download'></span></a>
         <a style="display:none;" title="svg-edit" onclick="window.open('http://svg-edit.googlecode.com/svn/branches/2.6/editor/svg-editor.html', 'svg-edit', 'width=660, height=460'); return false;"><img class="link-to-svgedit" src="assets/svgedit.svg"></a>
         <a style="display:none;" title="Dropbox" onclick="window.open('https://www.dropbox.com/chooser', 'Dropbox', 'width=660, height=440'); return false;"><span class='fa fa-dropbox'></span></a>
-        <a class="hide-options" title="Hide Options [Ctrl+7]" href='javascript:void(0);'><span class='fa fa-chevron-right'></span></a>
+        <a class="hide-options" title="Hide Options [Ctrl+5]" href='javascript:void(0);'><span class='fa fa-chevron-right'></span></a>
         <input id="panel-toggler" class="hide" type="checkbox">
         <select class="dialogs hide">
           <option value="starter-properties">starter-properties</option>
@@ -153,6 +152,8 @@
               <textarea class="custom-css-sheet hide" style="cursor:text!important; width:100%; resize:vertical; border:0; border-radius:0; min-height:200px;" placeholder="Your Custom CSS is added here"></textarea>
               <textarea class="dadammediaquery hide" style="min-width:100%; height:200px; padding:0; margin:0; border-radius:0; border:0; resize:vertical;"></textarea>
               <textarea class="dadammediaquerylist hide" style="min-width:100%; height:200px; padding:0; margin:0; border-radius:0; border:0; resize:vertical;"></textarea>
+              <textarea class="b4-gs-initiation hide" style="min-width:100%; height:200px; padding:0; margin:0; border-radius:0; border:0; resize:vertical;"></textarea>
+              <div class="before-gs-initiation-preview hide"></div>
               <div class="yourhtml hide"></div>
               <div class="yourjs hide"></div>
               <textarea class="html-sheet hide" style="cursor:text!important; width:100%; resize:vertical; border:0; border-radius:0; min-height:200px;" placeholder="Your html is generated here"></textarea>
@@ -169,7 +170,6 @@
         <span class="section-dropper">
           <center>
             <input type="text" class="search4urdamelms" title="Search Options [Insert]" list="search-properties" placeholder="Search" />
-            
             <datalist id="search-properties">
               <option value="Save"></option>
               <option value="All"></option>
@@ -669,6 +669,18 @@
                   </datalist></td>
                 </tr>
                 <tr>
+                  <td>textDecoration:</td>
+                  <td><input class="grab-text-decoration" type="text" list="list-my-text-decoration-properties">
+                  <datalist id="list-my-text-decoration-properties">
+                    <option value="none"></option>
+                    <option value="underline"></option>
+                    <option value="overline"></option>
+                    <option value="line-through"></option>
+                    <option value="blink"></option>
+                    <option value="inherit"></option>
+                  </datalist></td>
+                </tr>
+                <tr>
                   <td>textAlign:</td>
                   <td><input class="grab-text-align" type="text" list="list-my-text-align-properties">
                   <datalist id="list-my-text-align-properties">
@@ -807,6 +819,27 @@
                     <option value="help"></option>
                     <option value="progress"></option>
                     <option value="inherit"></option>
+                  </datalist></td>
+                </tr>
+                <tr>
+                  <td>list-style:</td>
+                  <td><input class="grab-list-style" type="text" list="list-my-list-style-properties">
+                  <datalist id="list-my-list-style-properties">
+                    <option value="disc"></option>
+                    <option value="circle"></option>
+                    <option value="square"></option>
+                    <option value="decimal"></option>
+                    <option value="decimal-leading-zero"></option>
+                    <option value="lower-roman"></option>
+                    <option value="upper-roman"></option>
+                    <option value="lower-greek"></option>
+                    <option value="lower-latin"></option>
+                    <option value="upper-latin"></option>
+                    <option value="armenian"></option>
+                    <option value="georgian"></option>
+                    <option value="lower-alpha"></option>
+                    <option value="upper-alpha"></option>
+                    <option value="none"></option>
                   </datalist></td>
                 </tr>
               </table>
