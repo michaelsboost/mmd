@@ -88,12 +88,10 @@ body {
 }
 .disismyfukentoolbuxhhehahooo .tools a:hover { color: #fff; }
 .disismyfukentoolbuxhhehahooo .tools a:active { color: #333; }
-
 .disismyfukentoolbuxhhehahooo .link-to-svgedit {
   width:25px; height:25px;
   opacity: 0.75;
 }
-
 .disismyfukentoolbuxhhehahooo .link-to-svgedit:hover {
   opacity: 1;
 }
@@ -116,7 +114,6 @@ body {
   top:49px; left:0; right:0; bottom:0;
   overflow: auto;
 }
-
 .disismyfukentoolbuxhhehahooo .inspector {
   border-width: 0px 1px 0 0;
   border-color: transparent #333 transparent transparent;
@@ -140,7 +137,6 @@ body {
   font: 14px times;
   text-transform: uppercase;
 }
-
 .disismyfukentoolbuxhhehahooo .drop-section, .disismyfukentoolbuxhhehahooo .section-display {
   padding: 5px;
   font: 14px arial;
@@ -157,7 +153,6 @@ body {
   -webkit-font-smoothing: antialiased;
   color: #ced;
 }
-
 .disismyfukentoolbuxhhehahooo input[type=text]:focus, .disismyfukentoolbuxhhehahooo .drop-section input[type=text]:focus {
   color: #ccc;
   background: #222;
@@ -183,6 +178,9 @@ body {
   text-align: center;
 }
 
+.disismyfukentoolbuxhhehahooo .starter-properties, .disismyfukentoolbuxhhehahooo .select-properties {
+  text-align: left;
+}
 .disismyfukentoolbuxhhehahooo .starter-properties a, .disismyfukentoolbuxhhehahooo .select-properties a {
   padding: 5px 10px; outline:none;
   color: #a9a9a9;
@@ -220,20 +218,16 @@ body {
   background: linear-gradient(to right,  #ff0000 0%,#ffff00 18%,#00ff00 35%,#00ffff 50%,#0000ff 65%,#ff00ff 82%,#ff0004 100%); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff0000', endColorstr='#ff0004',GradientType=1 ); /* IE6-9 */
 }
-
 .disismyfukentoolbuxhhehahooo .bg-color-picker span, .disismyfukentoolbuxhhehahooo .border-color-picker span, .disismyfukentoolbuxhhehahooo .text-color-picker span {
   padding:5px 0;
 }
-
 .disismyfukentoolbuxhhehahooo .bg-color-picker input[type=range], .disismyfukentoolbuxhhehahooo .border-color-picker input[type=range], .disismyfukentoolbuxhhehahooo .text-color-picker input[type=range] {
   position:relative; top:5px; margin:0;
 }
-
 .disismyfukentoolbuxhhehahooo .active-btn {
   color: #666;
   background-color: #1f1f21;
 }
-
 .disismyfukentoolbuxhhehahooo .horizontal-bar {
   display: inline-block;
   position: relative;
@@ -244,9 +238,14 @@ body {
   overflow-y: hidden;
   white-space: nowrap;
 }
-
 .disismyfukentoolbuxhhehahooo .table-in input[type=text] {
   width: 100%;
+}
+.disismyfukentoolbuxhhehahooo select, .#idive select {
+  padding:0;
+}
+.disismyfukentoolbuxhhehahooo .imaddinganelementinmyselection {
+  color: rgb(255, 255, 183)!important;
 }
 
 /* Ruler & Slider */
@@ -304,23 +303,17 @@ body {
   text-align:center;
   line-height: 25px;
 }
-
 .cwidth-containment {
   position: absolute;
   top:0; left:0; right:300px;
   z-index:2;
 }
-
 .cwidth {
   position: absolute;
   top: -10px; left:0;
   padding:0; margin:0;
   width: 100%;
   background: transparent;
-}
-
-.disismyfukentoolbuxhhehahooo select, .#idive select {
-  padding:0;
 }
 
 /* WYSIWYG Content Editor */
@@ -347,7 +340,6 @@ body {
 .disismyfukentoolbuxhhehahooo .elms-4-stage button, .disismyfukentoolbuxhhehahooo .elms-4-stage input[type=button] {
   padding:0; margin:0;
 }
-
 .disismyfukentoolbuxhhehahooo .elms-4-stage center * {
   display:block;
   width: 95%;
@@ -477,26 +469,22 @@ body {
 .disismyfukentoolbuxhhehahooo .in-drop-button {
   cursor: pointer;
   border:0; outline:0;
-  width: 100%; padding: 1em;
+  padding: 1em;
   color: #fff;
-  font-family: tahoma;
+  font-family: arial;
   text-transform: uppercase;
   text-align: center;
   background: #393939;
 }
-
 .disismyfukentoolbuxhhehahooo .in-drop-button:hover {
   background: #444;
 }
-
 .disismyfukentoolbuxhhehahooo .in-drop-button:active {
   background: #222;
 }
-
 .disismyfukentoolbuxhhehahooo .debug-indicator-on {
   color: #0cf;
 }
-
 .disismyfukentoolbuxhhehahooo .debug-indicator-off {
   color: rgb(255, 91, 91);
 }
@@ -510,14 +498,12 @@ body {
   top: 120px;
   cursor: move;
 }
-
 .handle {
   position: absolute;
   height: 10px; width: 10px;
   border: 1px solid #89B;
   background: #9AC; 
 }
-
 .NW, .NN, .NE { top: -4px; }
 .NE, .EE, .SE { right: -4px; }
 .SW, .SS, .SE { bottom: -4px; }
@@ -535,7 +521,6 @@ body {
   top:25px; left:0; right: 300px; bottom:25px;
   /* background: #aaa url(img/il-grid-trans.png) top left repeat; */
 }
-
 .itsthecavnescontainerbro .canves {
   position: absolute;
   top:0; left:0;
@@ -543,7 +528,6 @@ body {
   overflow: auto;
   background: transparent url(img/il-grid-trans.png) top left repeat;
 }
-
 .itsthecavnescontainerbro .canves .noselect {
   -webkit-user-select: none;
    -khtml-user-select: none;
@@ -552,11 +536,9 @@ body {
        -o-user-select: none;
           user-select: none;
 }
-
 .itsthecavnescontainerbro .canves .sort-placer {
   border:2px solid orange;
 }
-
 .itsthecavnescontainerbro #preview-pane iframe {
   position: absolute;
   top:0; left:0;
