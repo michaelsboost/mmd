@@ -318,6 +318,13 @@ $(document).ready(function() {
     $(document).bind('keydown', 'esc', function() {
       $(".deselectselectedelm").trigger('click');
     });
+    // Shortcut to clear canvas
+    $(document).bind('keydown', 'alt+c', function() {
+      $(".clear-canves").trigger('click');
+      if ($('.select-active, .edit-active, .remove-active').is(':visible')) {
+        $('.select-active, .edit-active, .remove-active').trigger('click');
+      }
+    });
   });
   
   // Select Tool
@@ -1465,6 +1472,15 @@ $(document).ready(function() {
       $("." + $(".dialogs option:selected").val() + " .drop").css('color', '#666').next().hide();
       $(".grab-"+ $val.toLowerCase()).css( "color", "#999" ).next().show();
     }
+    
+    if($.inArray($val.toLowerCase(), ["clear canvas"]) > -1) {
+      if ($(".canves").html() === "")
+        alert("Your canvas is already cleared.");
+      else
+        $(".canves").html("");
+        return false;
+    }
+    
   });
   
   // Misc
@@ -1593,6 +1609,13 @@ $(document).ready(function() {
         if (valz)  obj['value']  = valz;
 
         $("#stylethis").append( $('<input/>', obj) );
+      });
+      $('.clear-canves').on('click touchend', function() {
+        if ($(".canves").html() === "")
+          alert("Your canvas is already cleared.");
+        else
+          $(".canves").html("");
+          return false;
       });
       $(".add-button-properz, .add-textbox-properz").hide();
     });
