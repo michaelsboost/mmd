@@ -121,6 +121,111 @@ $(document).ready(function() {
       }
     });
   };
+  function GrabElmStyles() {
+    // First we must detect our selection
+    $('.find-elm-name').text(this.nodeName.toLowerCase());
+    $('.findclassname').val($(this).attr('class'));
+    $('.grab-postop').val($(this).css('top'));
+    $('.grab-posleft').val($(this).css('left'));
+    $('.grab-posbottom').val($(this).css('bottom'));
+    $('.grab-posright').val($(this).css('right'));
+    $('.grab-width').val($(this).css('width'));
+    $('.grab-height').val($(this).css('height'));
+    $('.grab-bg-url').val($(this).css('background-image'));
+    $('.grab-bg-position').val($(this).css('background-position'));
+    $('.grab-bg-repeat').val($(this).css('background-repeat'));
+    $('.grab-bg-size').val($(this).css('background-size'));
+    $('.bg-cpick-code-rgb').val($(this).css('background-color'));
+    $('.grab-bg-color').css({
+      'background': $(this).css('background-color'),
+      'border-color': $(this).css('background-color')
+    });
+    
+    $('.cpick-code-rgb').val($(this).css('borderColor'));
+    $('.grab-border-color').css({
+      'background': $(this).css('borderColor'),
+      'border-color': $(this).css('borderColor')
+    });
+    
+    $('.border-size-all').val($(this).css('borderWidth').replace(/px/g,""));
+    $('.show-border-size').val($(this).css('borderWidth'));
+    $('.border-radius-all').val($(this).css('borderRadius').replace(/px/g,""));
+    $('.show-border-radius').val($(this).css('borderRadius'));
+    
+    $('.txt-cpick-code-rgb').val($(this).css('color'));
+    $('.grab-txt-color').css({
+      'background': $(this).css('color'),
+      'border-color': $(this).css('color')
+    });
+    
+    $('#points-input').val($(this).css('font-size').replace(/px/g,""));
+    $('#points').val($(this).css('font-size').replace(/px/g,""));
+    $('.grab-font-family').val($(this).css('font-family').toLowerCase());
+    $('.grab-font-varient').val($(this).css('font-varient'));
+    $('.grab-font-style').val($(this).css('font-style'));
+    $('.grab-font-weight').val($(this).css('font-weight'));
+    $('.grab-line-height').val($(this).css('line-height'));
+    $('.grab-letter-spacing').val($(this).css('letter-spacing'));
+    $('.grab-word-spacing').val($(this).css('word-spacing'));
+    $('.grab-text-transform').val($(this).css('text-transform'));
+    $('.grab-text-decoration').val($(this).css('text-decoration'));
+    $('.grab-text-align').val($(this).css('text-align'));
+    $('.grab-word-wrap').val($(this).css('word-wrap'));
+    $('.grab-white-space').val($(this).css('white-space'));
+    $('.grab-display').val($(this).css('display'));
+    $('.grab-padding').val($(this).css('padding'));
+    $('.grab-margin').val($(this).css('margin'));
+    $('.grab-overflow').val($(this).css('overflow'));
+    $('.grab-opacity').val($(this).css('opacity'));
+    $('.grab-outline').val($(this).css('outline'));
+    $('.grab-resize').val($(this).css('resize'));
+    $('.grab-float').val($(this).css('float'));
+    $('.grab-z-index').val($(this).css('zIndex'));
+    $('.grab-cursor').val($(this).css('cursor'));
+    $('.grab-list-style').val($(this).css('list-style'));
+    $('.grab-content').val($(this).css('content'));
+    $('.grab-vertical-align').val($(this).css('vertical-align'));
+    $('.grab-transition').val($(this).css('transition'));
+    $('.grab-transform').val($(this).css('transform'));
+    $('.grab-filter').val($(this).css('filter'));
+    $('.select-properties input[type=checkbox]').prop('checked', 'checked');
+    
+    
+    // Show position & size changes onmove
+    if(movediv) {
+      $(this).on('mousedown touchstart', function() {
+        $(this).on('mousemove touchmove', function() {
+          if(movediv) {
+            $('.grab-postop').val($(this).css('top'));
+            $('.grab-posleft').val($(this).css('left'));
+            $('.grab-posbottom').val($(this).css('bottom'));
+            $('.grab-posright').val($(this).css('right'));
+            $('.grab-width').val($(this).css('width'));
+            $('.grab-height').val($(this).css('height'));
+          }
+        });
+      });
+    }
+    
+    // Detect FontFamily
+    var fontFamily = $(this).css('font-family').toLowerCase().replace(/ /g, '-');
+    $('.grab-' + fontFamily).trigger('click');
+    $('.setmy-typography a').css('backgroundColor', '#444');
+    $('.grab-' + fontFamily).css('backgroundColor', '#1c1c1c');
+    
+    // Detect Text Align
+    var txtAlign = $(this).css('text-align').toLowerCase().replace(/ /g, '-');
+    $('.grab-align-' + txtAlign).trigger('click');
+    $('.grab-txt-align a').css('backgroundColor', '#444');
+    $('.grab-align-' + txtAlign).css('backgroundColor', '#1c1c1c');
+    
+    // Detect BorderStyle
+    var borderStyle = $(this).css('border-style').toLowerCase().replace(/ /g, '-');
+    $('.set-' + borderStyle).trigger('click');
+    $('.set-borders a').css('backgroundColor', '#444');
+    $('.set-' + borderStyle).css('backgroundColor', '#1c1c1c');
+  };
+
   $('#codemird').on('keyup change', function() {
     editor.setValue( $(this).val() );
   });
@@ -306,20 +411,32 @@ $(document).ready(function() {
         $(".search4urdamelms").focus();
       }
     });
-    // Shortcut to duplicate element
+    // Shortcut to duplicate element (select)
     $(document).bind('keydown', 'alt+m', function() {
       $(".duplicateselectedelm").trigger('click');
     });
-    // Shortcut to remove element
+    // Shortcut to remove element (select)
     $(document).bind('keydown', 'del', function() {
       $(".removeselectedelm").trigger('click');
     });
-    // Shortcut to deselect element
+    // Shortcut to deselect element (select)
     $(document).bind('keydown', 'esc', function() {
       $(".deselectselectedelm").trigger('click');
+      if ( $(".toggle-workflow-visibility").prop('checked') === true ) {
+        $(".toggle-workflow-visibility").prop('checked', false);
+        $(".canves").show();
+        $("#preview-pane").hide();
+      }
+      if ( $(".edit-active").is(':visible') === true ) {
+        $('.canves, .canves *').blur();
+      }
+    });
+    // Shortcut to clear inputs
+    $(document).bind('keydown', 'alt+c', function() {
+      $("#clearinputs").trigger('click');
     });
     // Shortcut to clear canvas
-    $(document).bind('keydown', 'alt+c', function() {
+    $(document).bind('keydown', 'alt+x', function() {
       $(".clear-canves").trigger('click');
       if ($('.select-active, .edit-active, .remove-active').is(':visible')) {
         $('.select-active, .edit-active, .remove-active').trigger('click');
@@ -334,6 +451,9 @@ $(document).ready(function() {
     $(this).toggleClass('select-active');
     if ($('.select-active').is(':visible')) {
       $('.dialogs').val('select-properties').trigger('change');
+      $(".toggle-workflow-visibility").prop('checked', false);
+      $(".canves").show();
+      $("#preview-pane").hide();
       elmstyle = 1;
       drawable = false;
       editable = false,
@@ -383,8 +503,6 @@ $(document).ready(function() {
             $('.canves, .canves *').removeAttr('id');
             $(this).attr('id', 'stylethis').append('<div class="handle NE"></div><div class="handle NN"></div><div class="handle NW"></div><div class="handle WW"></div><div class="handle EE"></div><div class="handle SW"></div><div class="handle SS"></div><div class="handle SE"></div>');
             $('.insert-your-own-damn-html-ipittydafool').val($(this).html());
-            $('.select-properties input[type=text]').val("");
-            $('.select-properties input[type=checkbox]').prop('checked', '');
             $('.grabmy-typography a, .grab-txt-align a, .grabmy-position a').css('backgroundColor', '#444');
             $('.grab-elm-border input[type=text]').prop('disabled', true);
             $('.borders a').removeClass('border-active').css({
@@ -410,7 +528,7 @@ $(document).ready(function() {
             $(".sel-css").val("box");
             $(".known-class").text( $(this).val() );
             $('#stylethis').prop('class', $(this).val());
-            alert("My Mobile Design forbids the use of tag names as class names.");
+            alert("You can not use this tag as a selector.");
           }
             
           if($.inArray($val.toLowerCase(), ["cwidth", "starter-properties", "select-properties", "yourhtml", "yourcss", "yourjs", "html-sheet", "css-sheet", "show", "hide", "ruler-container", "ruler", "add-media-query", "tools", "select-tool", "remove-tool", "new-doc", "open-save-dialog", "preview-workflow", "workflow", "link-to-svgedit", "hide-options", "media-query-slider", "toggle-options", "show-options", "inspection", "inspector", "mirror-code", "canves", "canves-html", "mirror-title", "mirror-css-selectors", "mirror-css", "mirror-html", "section-dropper", "horizontal-bar", "drop", "table-in", "fill", "left", "center", "right", "half", "drop-section", "text-color-picker", "colorwheel", "txt-cpick-hue", "txt-cpick-s", "txt-cpick-l", "txt-cpick-a", "txt-cpick-code-hsl", "txt-cpick-code-rgb", "bg-color-picker", "bg-cpick-hue", "bg-cpick-s", "bg-cpick-l", "bg-cpick-a", "bg-cpick-code-hsl", "bg-cpick-code-rgb", "border-color-picker", "border-cpick-hue", "border-cpick-s", "border-cpick-l", "border-cpick-a", "border-cpick-code-hsl", "border-cpick-code-rgb", " color-picker", " cpick-hue", " cpick-s", " cpick-l", " cpick-a", " cpick-code-hsl", " cpick-code-rgb", "tickLabel", "tickMajor", "tickMinor", "scroll", "solid", "dotted", "dashed", "double", "ridge", "groove", "inset", "outset", "border-active", "drop-active", "debug-indicator", "debug-indicator-on", "debug-indicator-off", "in-drop-button"]) > -1) {
@@ -419,24 +537,49 @@ $(document).ready(function() {
           }
 
         });
+        $("#porp").on('click', function() {
+          if ($(this).html() === "px") {
+            $(this).html("%");
+          } else {
+            $(this).html("px");
+          }
+        });
+        $("#clearinputs").on('click', function() {
+          $('.sel-css').prop('disabled', false);
+          $('.select-properties input[type=checkbox]').prop('checked', false);
+          $('.select-properties input[type=text], .select-properties select, .your-border-code, .your-border-radius-code').val("");
+          $(".b4-gs-initiation").val($(".b4-gs-initiation").html(""));
+          $(".before-gs-initiation-preview").html("<style type='text/css'>\n" + $(".b4-gs-initiation").val() + "</style>");
+          
+          // Detect Position
+          $('.grab-elm-pos a').css('backgroundColor', '#444');
+          $('.setmy-typography a').css('backgroundColor', '#444');
+          $('.grab-txt-align a').css('backgroundColor', '#444');
+          
+          $('.borders a').removeClass('border-active').css({
+            'border-color': '#a9a9a9',
+            'background-color': '#444'
+          }); $('.none').css('border-color', '#444').css('border-color', '#444');
+        });
         
         // Enable design preview of css selectors without addition
         $(function() {
           $('.select-properties input[type=checkbox], .select-properties input[type=text], .select-properties option').on('click change keyup', function() {
-            $(".b4-gs-initiation").val($(".add-css-selector-val").val() +" {"+ ( $(".grab-pos-val").val() === "" ? "" : "\n  position: " + $(".grab-pos-val").val() + ";" ) + ( $(".grab-postop").val() === "" ? "" : "\n  top: " + $(".grab-postop").val() + ";" ) + ( $(".grab-posleft").val() === "" ? "" : "\n  left: " + $(".grab-posleft").val() + ";" ) + ( $(".grab-posright").val() === "" ? "" : "\n  right: " + $(".grab-posright").val() + ";" ) + ( $(".grab-posbottom").val() === "" ? "" : "\n  bottom: " + $(".grab-posbottom").val() + ";" ) + ( $(".grab-width").val() === "" ? "" : "\n  width: " + $(".grab-width").val() + ";" ) + ( $(".grab-height").val() === "" ? "" : "\n  height: " + $(".grab-height").val() + ";" ) + ( $(".grab-bg-url").val() === "" ? "" : "\n  background-image: url('" + $(".grab-bg-url").val() + "');" ) + ( $(".grab-bg-position").val() === "" ? "" : "\n  background-position: " + $(".grab-bg-position").val() + ";" ) + ( $(".grab-bg-repeat").val() === "" ? "" : "\n  background-repeat: " + $(".grab-bg-repeat").val() + ";" ) + ( $(".grab-bg-attach-val").val() === "" ? "" : "\n  background-attachment: "+ $(".grab-bg-attach-val").val() +";" ) + ( $(".grab-bg-size").val() === "" ? "" : "\n  background-size: "+ $(".grab-bg-size").val() +";" ) + ( $(".bg-cpick-code-rgb").val() === "" ? "" : "\n  background-color: "+ $(".bg-cpick-code-rgb").val() +";" ) + ( $(".grab-users-border-style").val() === "" ? "" : "\n  border-style: "+ $(".grab-users-border-style").val() +";" ) + ( $(".cpick-code-rgb").val() === "" ? "" : "\n  border-color: "+ $(".cpick-code-rgb").val() +";" ) + ( $(".your-border-code").val() === "" ? "" : ""+ $(".your-border-code").val() +"" ) + ( $(".your-border-radius-code").val() === "" ? "" : ""+ $(".your-border-radius-code").val() +"" ) + ( $(".grab-font-family").val() === "" ? "" : "\n  font-family: "+ $(".grab-font-family").val() +";" ) + ( $(".txt-cpick-code-rgb").val() === "" ? "" : "\n  color: "+ $(".txt-cpick-code-rgb").val() +";" ) + ( $("#points").val() === "" ? "" : "\n  font-size: "+ $("#points").val() +"px;" ) + ( $(".grab-font-varient").val() === "" ? "" : "\n  font-varient: "+ $(".grab-font-varient").val() +";" ) + ( $(".grab-font-style").val() === "" ? "" : "\n  font-style: "+ $(".grab-font-style").val() +";" ) + ( $(".grab-font-weight").val() === "" ? "" : "\n  font-weight: "+ $(".grab-font-weight").val() +";" ) + ( $(".grab-line-height").val() === "" ? "" : "\n  line-height: "+ $(".grab-line-height").val() +";" ) + ( $(".grab-letter-spacing").val() === "" ? "" : "\n  letter-spacing: "+ $(".grab-letter-spacing").val() +";" ) + ( $(".grab-word-spacing").val() === "" ? "" : "\n  word-spacing: "+ $(".grab-word-spacing").val() +";" ) + ( $(".grab-text-transform").val() === "" ? "" : "\n  text-transform: "+ $(".grab-text-transform").val() +";" ) + ( $(".grab-text-decoration").val() === "" ? "" : "\n  text-decoration: "+ $(".grab-text-decoration").val() +";" ) + ( $(".grab-text-align").val() === "" ? "" : "\n  text-align: "+ $(".grab-text-align").val() +";" ) + ( $(".grab-word-wrap").val() === "" ? "" : "\n  word-wrap: "+ $(".grab-word-wrap").val() +";" ) + ( $(".grab-white-space").val() === "" ? "" : "\n  white-space: "+ $(".grab-white-space").val() +";" ) + ( $(".grab-display").val() === "" ? "" : "\n  display: "+ $(".grab-display").val() +";" ) + ( $(".grab-padding").val() === "" ? "" : "\n  padding: "+ $(".grab-padding").val() +";" ) + ( $(".grab-margin").val() === "" ? "" : "\n  margin: "+ $(".grab-margin").val() +";" ) + ( $(".grab-overflow").val() === "" ? "" : "\n  overflow: "+ $(".grab-overflow").val() +";" ) + ( $(".grab-opacity").val() === "" ? "" : "\n  opacity: "+ $(".grab-opacity").val() +";" ) + ( $(".grab-outline").val() === "" ? "" : "\n  outline: "+ $(".grab-outline").val() +";" ) + ( $(".grab-transition").val() === "" ? "" : "\n  transition: "+ $(".grab-transition").val() +";" ) + ( $(".grab-resize").val() === "" ? "" : "\n  resize: "+ $(".grab-resize").val() +";" ) + ( $(".grab-float").val() === "" ? "" : "\n  float: "+ $(".grab-float").val() +";" ) + ( $(".grab-z-index").val() === "" ? "" : "\n  z-index: "+ $(".grab-z-index").val() +";" ) + ( $(".grab-cursor").val() === "" ? "" : "\n  cursor: "+ $(".grab-cursor").val() +";" ) + ( $(".grab-list-style").val() === "" ? "" : "\n  list-style: "+ $(".grab-list-style").val() +";" ) + "\n}");
+            $(".b4-gs-initiation").val($(".add-css-selector-val").val() +" {"+ ( $(".grab-pos-val").val() === "" ? "" : "\n  position: " + $(".grab-pos-val").val() + ";" ) + ( $(".grab-postop").val() === "" ? "" : "\n  top: " + $(".grab-postop").val() + ";" ) + ( $(".grab-posleft").val() === "" ? "" : "\n  left: " + $(".grab-posleft").val() + ";" ) + ( $(".grab-posright").val() === "" ? "" : "\n  right: " + $(".grab-posright").val() + ";" ) + ( $(".grab-posbottom").val() === "" ? "" : "\n  bottom: " + $(".grab-posbottom").val() + ";" ) + ( $(".grab-width").val() === "" ? "" : "\n  width: " + $(".grab-width").val() + ";" ) + ( $(".grab-height").val() === "" ? "" : "\n  height: " + $(".grab-height").val() + ";" ) + ( $(".grab-bg-url").val() === "" ? "" : "\n  background-image: url('" + $(".grab-bg-url").val() + "');" ) + ( $(".grab-bg-position").val() === "" ? "" : "\n  background-position: " + $(".grab-bg-position").val() + ";" ) + ( $(".grab-bg-repeat").val() === "" ? "" : "\n  background-repeat: " + $(".grab-bg-repeat").val() + ";" ) + ( $(".grab-bg-attach-val").val() === "" ? "" : "\n  background-attachment: "+ $(".grab-bg-attach-val").val() +";" ) + ( $(".grab-bg-size").val() === "" ? "" : "\n  background-size: "+ $(".grab-bg-size").val() +";" ) + ( $(".bg-cpick-code-rgb").val() === "" ? "" : "\n  background-color: "+ $(".bg-cpick-code-rgb").val() +";" ) + ( $(".grab-users-border-style").val() === "" ? "" : "\n  border-style: "+ $(".grab-users-border-style").val() +";" ) + ( $(".cpick-code-rgb").val() === "" ? "" : "\n  border-color: "+ $(".cpick-code-rgb").val() +";" ) + ( $(".your-border-code").val() === "" ? "" : ""+ $(".your-border-code").val() +"" ) + ( $(".your-border-radius-code").val() === "" ? "" : ""+ $(".your-border-radius-code").val() +"" ) + ( $(".grab-font-family").val() === "" ? "" : "\n  font-family: "+ $(".grab-font-family").val() +";" ) + ( $(".txt-cpick-code-rgb").val() === "" ? "" : "\n  color: "+ $(".txt-cpick-code-rgb").val() +";" ) + ( $("#points").val() === "" ? "" : "\n  font-size: "+ $("#points").val() +"px;" ) + ( $(".grab-font-varient").val() === "" ? "" : "\n  font-varient: "+ $(".grab-font-varient").val() +";" ) + ( $(".grab-font-style").val() === "" ? "" : "\n  font-style: "+ $(".grab-font-style").val() +";" ) + ( $(".grab-font-weight").val() === "" ? "" : "\n  font-weight: "+ $(".grab-font-weight").val() +";" ) + ( $(".grab-line-height").val() === "" ? "" : "\n  line-height: "+ $(".grab-line-height").val() +";" ) + ( $(".grab-letter-spacing").val() === "" ? "" : "\n  letter-spacing: "+ $(".grab-letter-spacing").val() +";" ) + ( $(".grab-word-spacing").val() === "" ? "" : "\n  word-spacing: "+ $(".grab-word-spacing").val() +";" ) + ( $(".grab-text-transform").val() === "" ? "" : "\n  text-transform: "+ $(".grab-text-transform").val() +";" ) + ( $(".grab-text-decoration").val() === "" ? "" : "\n  text-decoration: "+ $(".grab-text-decoration").val() +";" ) + ( $(".grab-text-align").val() === "" ? "" : "\n  text-align: "+ $(".grab-text-align").val() +";" ) + ( $(".grab-word-wrap").val() === "" ? "" : "\n  word-wrap: "+ $(".grab-word-wrap").val() +";" ) + ( $(".grab-white-space").val() === "" ? "" : "\n  white-space: "+ $(".grab-white-space").val() +";" ) + ( $(".grab-text-shadow").val() === "" ? "" : "\n  text-shadow: "+ $(".grab-text-shadow").val() +";" ) + ( $(".grab-display").val() === "" ? "" : "\n  display: "+ $(".grab-display").val() +";" ) + ( $(".grab-padding").val() === "" ? "" : "\n  padding: "+ $(".grab-padding").val() +";" ) + ( $(".grab-margin").val() === "" ? "" : "\n  margin: "+ $(".grab-margin").val() +";" ) + ( $(".grab-overflow").val() === "" ? "" : "\n  overflow: "+ $(".grab-overflow").val() +";" ) + ( $(".grab-opacity").val() === "" ? "" : "\n  opacity: "+ $(".grab-opacity").val() +";" ) + ( $(".grab-outline").val() === "" ? "" : "\n  outline: "+ $(".grab-outline").val() +";" ) + ( $(".grab-resize").val() === "" ? "" : "\n  resize: "+ $(".grab-resize").val() +";" ) + ( $(".grab-float").val() === "" ? "" : "\n  float: "+ $(".grab-float").val() +";" ) + ( $(".grab-z-index").val() === "" ? "" : "\n  z-index: "+ $(".grab-z-index").val() +";" ) + ( $(".grab-cursor").val() === "" ? "" : "\n  cursor: "+ $(".grab-cursor").val() +";" ) + ( $(".grab-list-style").val() === "" ? "" : "\n  list-style: "+ $(".grab-list-style").val() +";" ) + ( $(".grab-content-prop").val() === "" ? "" : "\n  content: "+ $(".grab-content-prop").val() +";" ) + ( $(".grab-vertical-align").val() === "" ? "" : "\n  vertical-align: "+ $(".grab-vertical-align").val() +";" ) + ( $(".grab-transition").val() === "" ? "" : "\n  transition: "+ $(".grab-transition").val() +";" ) + ( $(".grab-transform").val() === "" ? "" : "\n  transform: "+ $(".grab-transform").val() +";" ) + ( $(".grab-filter").val() === "" ? "" : "\n  filter: "+ $(".grab-filter").val() +";" ) + ( $(".grab-box-shadow").val() === "" ? "" : "\n  box-shadow: "+ $(".grab-box-shadow").val() +";" ) + "\n}");
             $(".before-gs-initiation-preview").html("<style type='text/css'>\n" + $(".b4-gs-initiation").val() + "</style>");
           });
           $('.select-properties a').on('click mouseup touchend', function() {
-            $(".b4-gs-initiation").val($(".add-css-selector-val").val() +" {"+ ( $(".grab-pos-val").val() === "" ? "" : "\n  position: " + $(".grab-pos-val").val() + ";" ) + ( $(".grab-postop").val() === "" ? "" : "\n  top: " + $(".grab-postop").val() + ";" ) + ( $(".grab-posleft").val() === "" ? "" : "\n  left: " + $(".grab-posleft").val() + ";" ) + ( $(".grab-posright").val() === "" ? "" : "\n  right: " + $(".grab-posright").val() + ";" ) + ( $(".grab-posbottom").val() === "" ? "" : "\n  bottom: " + $(".grab-posbottom").val() + ";" ) + ( $(".grab-width").val() === "" ? "" : "\n  width: " + $(".grab-width").val() + ";" ) + ( $(".grab-height").val() === "" ? "" : "\n  height: " + $(".grab-height").val() + ";" ) + ( $(".grab-bg-url").val() === "" ? "" : "\n  background-image: url('" + $(".grab-bg-url").val() + "');" ) + ( $(".grab-bg-position").val() === "" ? "" : "\n  background-position: " + $(".grab-bg-position").val() + ";" ) + ( $(".grab-bg-repeat").val() === "" ? "" : "\n  background-repeat: " + $(".grab-bg-repeat").val() + ";" ) + ( $(".grab-bg-attach-val").val() === "" ? "" : "\n  background-attachment: "+ $(".grab-bg-attach-val").val() +";" ) + ( $(".grab-bg-size").val() === "" ? "" : "\n  background-size: "+ $(".grab-bg-size").val() +";" ) + ( $(".bg-cpick-code-rgb").val() === "" ? "" : "\n  background-color: "+ $(".bg-cpick-code-rgb").val() +";" ) + ( $(".grab-users-border-style").val() === "" ? "" : "\n  border-style: "+ $(".grab-users-border-style").val() +";" ) + ( $(".cpick-code-rgb").val() === "" ? "" : "\n  border-color: "+ $(".cpick-code-rgb").val() +";" ) + ( $(".your-border-code").val() === "" ? "" : ""+ $(".your-border-code").val() +"" ) + ( $(".your-border-radius-code").val() === "" ? "" : ""+ $(".your-border-radius-code").val() +"" ) + ( $(".grab-font-family").val() === "" ? "" : "\n  font-family: "+ $(".grab-font-family").val() +";" ) + ( $(".txt-cpick-code-rgb").val() === "" ? "" : "\n  color: "+ $(".txt-cpick-code-rgb").val() +";" ) + ( $("#points").val() === "" ? "" : "\n  font-size: "+ $("#points").val() +"px;" ) + ( $(".grab-font-varient").val() === "" ? "" : "\n  font-varient: "+ $(".grab-font-varient").val() +";" ) + ( $(".grab-font-style").val() === "" ? "" : "\n  font-style: "+ $(".grab-font-style").val() +";" ) + ( $(".grab-font-weight").val() === "" ? "" : "\n  font-weight: "+ $(".grab-font-weight").val() +";" ) + ( $(".grab-line-height").val() === "" ? "" : "\n  line-height: "+ $(".grab-line-height").val() +";" ) + ( $(".grab-letter-spacing").val() === "" ? "" : "\n  letter-spacing: "+ $(".grab-letter-spacing").val() +";" ) + ( $(".grab-word-spacing").val() === "" ? "" : "\n  word-spacing: "+ $(".grab-word-spacing").val() +";" ) + ( $(".grab-text-transform").val() === "" ? "" : "\n  text-transform: "+ $(".grab-text-transform").val() +";" ) + ( $(".grab-text-decoration").val() === "" ? "" : "\n  text-decoration: "+ $(".grab-text-decoration").val() +";" ) + ( $(".grab-text-align").val() === "" ? "" : "\n  text-align: "+ $(".grab-text-align").val() +";" ) + ( $(".grab-word-wrap").val() === "" ? "" : "\n  word-wrap: "+ $(".grab-word-wrap").val() +";" ) + ( $(".grab-white-space").val() === "" ? "" : "\n  white-space: "+ $(".grab-white-space").val() +";" ) + ( $(".grab-display").val() === "" ? "" : "\n  display: "+ $(".grab-display").val() +";" ) + ( $(".grab-padding").val() === "" ? "" : "\n  padding: "+ $(".grab-padding").val() +";" ) + ( $(".grab-margin").val() === "" ? "" : "\n  margin: "+ $(".grab-margin").val() +";" ) + ( $(".grab-overflow").val() === "" ? "" : "\n  overflow: "+ $(".grab-overflow").val() +";" ) + ( $(".grab-opacity").val() === "" ? "" : "\n  opacity: "+ $(".grab-opacity").val() +";" ) + ( $(".grab-outline").val() === "" ? "" : "\n  outline: "+ $(".grab-outline").val() +";" ) + ( $(".grab-transition").val() === "" ? "" : "\n  transition: "+ $(".grab-transition").val() +";" ) + ( $(".grab-resize").val() === "" ? "" : "\n  resize: "+ $(".grab-resize").val() +";" ) + ( $(".grab-float").val() === "" ? "" : "\n  float: "+ $(".grab-float").val() +";" ) + ( $(".grab-z-index").val() === "" ? "" : "\n  z-index: "+ $(".grab-z-index").val() +";" ) + ( $(".grab-cursor").val() === "" ? "" : "\n  cursor: "+ $(".grab-cursor").val() +";" ) + ( $(".grab-list-style").val() === "" ? "" : "\n  list-style: "+ $(".grab-list-style").val() +";" ) + "\n}");
+            $(".b4-gs-initiation").val($(".add-css-selector-val").val() +" {"+ ( $(".grab-pos-val").val() === "" ? "" : "\n  position: " + $(".grab-pos-val").val() + ";" ) + ( $(".grab-postop").val() === "" ? "" : "\n  top: " + $(".grab-postop").val() + ";" ) + ( $(".grab-posleft").val() === "" ? "" : "\n  left: " + $(".grab-posleft").val() + ";" ) + ( $(".grab-posright").val() === "" ? "" : "\n  right: " + $(".grab-posright").val() + ";" ) + ( $(".grab-posbottom").val() === "" ? "" : "\n  bottom: " + $(".grab-posbottom").val() + ";" ) + ( $(".grab-width").val() === "" ? "" : "\n  width: " + $(".grab-width").val() + ";" ) + ( $(".grab-height").val() === "" ? "" : "\n  height: " + $(".grab-height").val() + ";" ) + ( $(".grab-bg-url").val() === "" ? "" : "\n  background-image: url('" + $(".grab-bg-url").val() + "');" ) + ( $(".grab-bg-position").val() === "" ? "" : "\n  background-position: " + $(".grab-bg-position").val() + ";" ) + ( $(".grab-bg-repeat").val() === "" ? "" : "\n  background-repeat: " + $(".grab-bg-repeat").val() + ";" ) + ( $(".grab-bg-attach-val").val() === "" ? "" : "\n  background-attachment: "+ $(".grab-bg-attach-val").val() +";" ) + ( $(".grab-bg-size").val() === "" ? "" : "\n  background-size: "+ $(".grab-bg-size").val() +";" ) + ( $(".bg-cpick-code-rgb").val() === "" ? "" : "\n  background-color: "+ $(".bg-cpick-code-rgb").val() +";" ) + ( $(".grab-users-border-style").val() === "" ? "" : "\n  border-style: "+ $(".grab-users-border-style").val() +";" ) + ( $(".cpick-code-rgb").val() === "" ? "" : "\n  border-color: "+ $(".cpick-code-rgb").val() +";" ) + ( $(".your-border-code").val() === "" ? "" : ""+ $(".your-border-code").val() +"" ) + ( $(".your-border-radius-code").val() === "" ? "" : ""+ $(".your-border-radius-code").val() +"" ) + ( $(".grab-font-family").val() === "" ? "" : "\n  font-family: "+ $(".grab-font-family").val() +";" ) + ( $(".txt-cpick-code-rgb").val() === "" ? "" : "\n  color: "+ $(".txt-cpick-code-rgb").val() +";" ) + ( $("#points").val() === "" ? "" : "\n  font-size: "+ $("#points").val() +"px;" ) + ( $(".grab-font-varient").val() === "" ? "" : "\n  font-varient: "+ $(".grab-font-varient").val() +";" ) + ( $(".grab-font-style").val() === "" ? "" : "\n  font-style: "+ $(".grab-font-style").val() +";" ) + ( $(".grab-font-weight").val() === "" ? "" : "\n  font-weight: "+ $(".grab-font-weight").val() +";" ) + ( $(".grab-line-height").val() === "" ? "" : "\n  line-height: "+ $(".grab-line-height").val() +";" ) + ( $(".grab-letter-spacing").val() === "" ? "" : "\n  letter-spacing: "+ $(".grab-letter-spacing").val() +";" ) + ( $(".grab-word-spacing").val() === "" ? "" : "\n  word-spacing: "+ $(".grab-word-spacing").val() +";" ) + ( $(".grab-text-transform").val() === "" ? "" : "\n  text-transform: "+ $(".grab-text-transform").val() +";" ) + ( $(".grab-text-decoration").val() === "" ? "" : "\n  text-decoration: "+ $(".grab-text-decoration").val() +";" ) + ( $(".grab-text-align").val() === "" ? "" : "\n  text-align: "+ $(".grab-text-align").val() +";" ) + ( $(".grab-word-wrap").val() === "" ? "" : "\n  word-wrap: "+ $(".grab-word-wrap").val() +";" ) + ( $(".grab-white-space").val() === "" ? "" : "\n  white-space: "+ $(".grab-white-space").val() +";" ) + ( $(".grab-text-shadow").val() === "" ? "" : "\n  text-shadow: "+ $(".grab-text-shadow").val() +";" ) + ( $(".grab-display").val() === "" ? "" : "\n  display: "+ $(".grab-display").val() +";" ) + ( $(".grab-padding").val() === "" ? "" : "\n  padding: "+ $(".grab-padding").val() +";" ) + ( $(".grab-margin").val() === "" ? "" : "\n  margin: "+ $(".grab-margin").val() +";" ) + ( $(".grab-overflow").val() === "" ? "" : "\n  overflow: "+ $(".grab-overflow").val() +";" ) + ( $(".grab-opacity").val() === "" ? "" : "\n  opacity: "+ $(".grab-opacity").val() +";" ) + ( $(".grab-outline").val() === "" ? "" : "\n  outline: "+ $(".grab-outline").val() +";" ) + ( $(".grab-resize").val() === "" ? "" : "\n  resize: "+ $(".grab-resize").val() +";" ) + ( $(".grab-float").val() === "" ? "" : "\n  float: "+ $(".grab-float").val() +";" ) + ( $(".grab-z-index").val() === "" ? "" : "\n  z-index: "+ $(".grab-z-index").val() +";" ) + ( $(".grab-cursor").val() === "" ? "" : "\n  cursor: "+ $(".grab-cursor").val() +";" ) + ( $(".grab-list-style").val() === "" ? "" : "\n  list-style: "+ $(".grab-list-style").val() +";" ) + ( $(".grab-content-prop").val() === "" ? "" : "\n  content: "+ $(".grab-content-prop").val() +";" ) + ( $(".grab-vertical-align").val() === "" ? "" : "\n  vertical-align: "+ $(".grab-vertical-align").val() +";" ) + ( $(".grab-transition").val() === "" ? "" : "\n  transition: "+ $(".grab-transition").val() +";" ) + ( $(".grab-transform").val() === "" ? "" : "\n  transform: "+ $(".grab-transform").val() +";" ) + ( $(".grab-filter").val() === "" ? "" : "\n  filter: "+ $(".grab-filter").val() +";" ) + ( $(".grab-box-shadow").val() === "" ? "" : "\n  box-shadow: "+ $(".grab-box-shadow").val() +";" ) + "\n}");
             $(".before-gs-initiation-preview").html("<style type='text/css'>\n" + $(".b4-gs-initiation").val() + "</style>");
           });
         });
         
         $('.search4urdamelms, .sel-css').prop('disabled', false);
-        $('.select-properties input[type=checkbox]').prop('checked', false);
+        $('.select-properties').find("#lpos, #lsize, #lbg, #lborder, #ltypography, #ladvanced").attr('checked', false);
         $('.select-properties input[type=text], .your-border-code, .your-border-radius-code').val("");
         $(".b4-gs-initiation").val($(".b4-gs-initiation").html(""));
         $(".before-gs-initiation-preview").html("<style type='text/css'>\n" + $(".b4-gs-initiation").val() + "</style>");
+        $('.select-options').hide();
         
         $('.borders a').removeClass('border-active').css({
           'border-color': '#a9a9a9',
@@ -927,6 +1070,12 @@ $(document).ready(function() {
             $("#ltypography").prop('checked', true);
             $('.grab-elm-typography input[type=text]').prop('disabled', false);
           });
+          $('.grab-font-family').on('keyup change', function() {
+            $("#stylethis").css({
+              'font-family': $(this).val()
+            });
+            $('.grab-typography a').css('backgroundColor', '#444');
+          });
           // Text Color Picker - Setup Hue Saturation Value & Alpha
           $(".txt-cpick-hue, .txt-cpick-s, .txt-cpick-l, .txt-cpick-a").on('change', function() {
             $(".txt-cpick-code-hsl").trigger('change');
@@ -981,28 +1130,87 @@ $(document).ready(function() {
           $('.grab-typography a').each(function() {
             $(this).css('font-family', $(this).text());
           });
-        });
-        
-        // Sets Font Family, Size, Etc:
-        $('.grab-elm-typography input[type=text], .grab-elm-typography input[type=range]').on('keyup change', function() {
-          $("#stylethis").css({
-            'font-varient': $('.grab-font-varient').val(),
-            'font-style': $('.grab-font-style').val(),
-            'font-family': $('.grab-font-family').val(),
-            'font-weight': $('.grab-font-weight').val(),
-            'font-size': $('#points').val() + "px",
-            'line-height': $('.grab-line-height').val(),
-            'letter-spacing': $('.grab-letter-spacing').val(),
-            'word-spacing': $('.grab-word-spacing').val(),
-            'text-transform': $('.grab-text-transform').val(),
-            'text-decoration': $('.grab-text-decoration').val(),
-            'text-align': $('.grab-text-align').val(),
-            'word-wrap': $('.grab-word-wrap').val(),
-            'white-space': $('.grab-white-space').val()
+          
+          // Sets Font Family, Size, Etc:
+          $(function() {
+            $('.grab-elm-typography input[type=text], .grab-elm-typography input[type=range]').on('keyup change', function() {
+              if ( $(".grab-text-align").val() === "" ) {
+                $('.grab-txt-align a').css('backgroundColor', '#444');
+              }
+            });
+            
+            // Sets Font Family, Size, Etc:
+            $('.grab-font-family').on('keyup change', function() {
+              $("#stylethis").css({
+                'font-family': $(this).val()
+              });
+            });
+            $('.grab-font-size, #points').on('keyup change', function() {
+              $("#stylethis").css({
+                'font-size': $('#points').val() + "px"
+              });
+            });
+            $('.grab-font-varient').on('keyup change', function() {
+              $("#stylethis").css({
+                'font-varient': $(this).val()
+              });
+            });
+            $('.grab-font-style').on('keyup change', function() {
+              $("#stylethis").css({
+                'font-style': $(this).val()
+              });
+            });
+            $('.grab-font-weight').on('keyup change', function() {
+              $("#stylethis").css({
+                'font-weight': $(this).val()
+              });
+            });
+            $('.grab-line-height').on('keyup change', function() {
+              $("#stylethis").css({
+                'line-height': $(this).val()
+              });
+            });
+            $('.grab-letter-spacing').on('keyup change', function() {
+              $("#stylethis").css({
+                'letter-spacing': $(this).val()
+              });
+            });
+            $('.grab-word-spacing').on('keyup change', function() {
+              $("#stylethis").css({
+                'word-spacing': $(this).val()
+              });
+            });
+            $('.grab-text-transform').on('keyup change', function() {
+              $("#stylethis").css({
+                'text-transform': $(this).val()
+              });
+            });
+            $('.grab-text-decoration').on('keyup change', function() {
+              $("#stylethis").css({
+                'text-decoration': $(this).val()
+              });
+            });
+            $('.grab-text-align').on('keyup change', function() {
+              $("#stylethis").css({
+                'text-align': $(this).val(),
+              });
+            });
+            $('.grab-word-wrap').on('keyup change', function() {
+              $("#stylethis").css({
+                'word-wrap': $(this).val(),
+              });
+            });
+            $('.grab-white-space').on('keyup change', function() {
+              $("#stylethis").css({
+                'white-space': $(this).val()
+              });
+            });
+            $('.grab-text-shadow').on('keyup change', function() {
+              $("#stylethis").css({
+                'text-shadow': $(this).val()
+              });
+            });
           });
-          if ( $(".grab-text-align").val() === "" ) {
-            $('.grab-txt-align a').css('backgroundColor', '#444');
-          }
         });
         
         // Sets Advanced Section
@@ -1013,20 +1221,79 @@ $(document).ready(function() {
           if ( $('#ladvanced').prop('checked') === false ) {
             $('.grab-elm-advanced-opt input[type=text]').prop('disabled', true);
           }
-          $('.grab-elm-advanced-opt input[type=text]').on('keyup change', function() {
+          $('.grab-display').on('keyup change', function() {
             $("#stylethis").css({
-              'display': $('.grab-display').val(),
-              'padding': $('.grab-padding').val(),
-              'margin': $('.grab-margin').val(),
-              'overflow': $('.grab-overflow').val(),
-              'opacity': $('.grab-opacity').val(),
-              'outline': $('.grab-outline').val(),
-              'transition': $('.grab-transition').val(),
-              'resize': $('.grab-resize').val(),
-              'float': $('.grab-float').val(),
-              'z-index': $('.grab-z-index').val(),
-              'cursor': $('.grab-cursor').val(),
-              'list-style': $('.grab-list-style').val()
+              'display': $(this).val()
+            });
+          });
+          $('.grab-padding').on('keyup change', function() {
+            $("#stylethis").css({
+              'padding': $(this).val()
+            });
+          });
+          $('.grab-margin').on('keyup change', function() {
+            $("#stylethis").css({
+              'margin': $(this).val()
+            });
+          });
+          $('.grab-overflow').on('keyup change', function() {
+            $("#stylethis").css({
+              'overflow': $(this).val()
+            });
+          });
+          $('.grab-opacity').on('keyup change', function() {
+            $("#stylethis").css({
+              'opacity': $(this).val()
+            });
+          });
+          $('.grab-outline').on('keyup change', function() {
+            $("#stylethis").css({
+              'outline': $(this).val()
+            });
+          });
+          $('.grab-resize').on('keyup change', function() {
+            $("#stylethis").css({
+              'resize': $(this).val()
+            });
+          });
+          $('.grab-float').on('keyup change', function() {
+            $("#stylethis").css({
+              'float': $(this).val()
+            });
+          });
+          $('.grab-z-index').on('keyup change', function() {
+            $("#stylethis").css({
+              'z-index': $(this).val()
+            });
+          });
+          $('.grab-cursor').on('keyup change', function() {
+            $("#stylethis").css({
+              'cursor': $(this).val()
+            });
+          });
+          $('.grab-list-style').on('keyup change', function() {
+            $("#stylethis").css({
+              'list-style': $(this).val()
+            });
+          });
+          $('.grab-transition').on('keyup change', function() {
+            $("#stylethis").css({
+              'transition': $(this).val()
+            });
+          });
+          $('.grab-transform').on('keyup change', function() {
+            $("#stylethis").css({
+              'transform': $(this).val()
+            });
+          });
+          $('.grab-filter').on('keyup change', function() {
+            $("#stylethis").css({
+              'filter': $(this).val()
+            });
+          });
+          $('.grab-box-shadow').on('keyup change', function() {
+            $("#stylethis").css({
+              'box-shadow': $(this).val()
             });
           });
         });
@@ -1232,7 +1499,7 @@ $(document).ready(function() {
     if ( $(".add-css-selector-val").val() === "" ) {
       alert("Add class denied because value is blank.");
     } else {
-      $(".list-of-css-selectors").append("<div class='list-of-css-selectors-container'><a href='javascript:void(0)' class='del-global-css-style'><span class='fa fa-times'></span></a> <button>"+ $(".add-css-selector-val").val() +"</button>"+ "<pre style='text-align:left; padding-top:5px; overflow:auto;'>"+ $(".add-css-selector-val").val() +" {"+ ( $(".grab-pos-val").val() === "" ? "" : "\n  position: " + $(".grab-pos-val").val() + ";" ) + ( $(".grab-postop").val() === "" ? "" : "\n  top: " + $(".grab-postop").val() + ";" ) + ( $(".grab-posleft").val() === "" ? "" : "\n  left: " + $(".grab-posleft").val() + ";" ) + ( $(".grab-posright").val() === "" ? "" : "\n  right: " + $(".grab-posright").val() + ";" ) + ( $(".grab-posbottom").val() === "" ? "" : "\n  bottom: " + $(".grab-posbottom").val() + ";" ) + ( $(".grab-width").val() === "" ? "" : "\n  width: " + $(".grab-width").val() + ";" ) + ( $(".grab-height").val() === "" ? "" : "\n  height: " + $(".grab-height").val() + ";" ) + ( $(".grab-bg-url").val() === "" ? "" : "\n  background-image: url('" + $(".grab-bg-url").val() + "');" ) + ( $(".grab-bg-position").val() === "" ? "" : "\n  background-position: " + $(".grab-bg-position").val() + ";" ) + ( $(".grab-bg-repeat").val() === "" ? "" : "\n  background-repeat: " + $(".grab-bg-repeat").val() + ";" ) + ( $(".grab-bg-attach-val").val() === "" ? "" : "\n  background-attachment: "+ $(".grab-bg-attach-val").val() +";" ) + ( $(".grab-bg-size").val() === "" ? "" : "\n  background-size: "+ $(".grab-bg-size").val() +";" ) + ( $(".bg-cpick-code-rgb").val() === "" ? "" : "\n  background-color: "+ $(".bg-cpick-code-rgb").val() +";" ) + ( $(".grab-users-border-style").val() === "" ? "" : "\n  border-style: "+ $(".grab-users-border-style").val() +";" ) + ( $(".cpick-code-rgb").val() === "" ? "" : "\n  border-color: "+ $(".cpick-code-rgb").val() +";" ) + ( $(".your-border-code").val() === "" ? "" : ""+ $(".your-border-code").val() +"" ) + ( $(".your-border-radius-code").val() === "" ? "" : ""+ $(".your-border-radius-code").val() +"" ) + ( $(".grab-font-family").val() === "" ? "" : "\n  font-family: "+ $(".grab-font-family").val() +";" ) + ( $(".txt-cpick-code-rgb").val() === "" ? "" : "\n  color: "+ $(".txt-cpick-code-rgb").val() +";" ) + ( $("#points").val() === "" ? "" : "\n  font-size: "+ $("#points").val() +"px;" ) + ( $(".grab-font-varient").val() === "" ? "" : "\n  font-varient: "+ $(".grab-font-varient").val() +";" ) + ( $(".grab-font-style").val() === "" ? "" : "\n  font-style: "+ $(".grab-font-style").val() +";" ) + ( $(".grab-font-weight").val() === "" ? "" : "\n  font-weight: "+ $(".grab-font-weight").val() +";" ) + ( $(".grab-line-height").val() === "" ? "" : "\n  line-height: "+ $(".grab-line-height").val() +";" ) + ( $(".grab-letter-spacing").val() === "" ? "" : "\n  letter-spacing: "+ $(".grab-letter-spacing").val() +";" ) + ( $(".grab-word-spacing").val() === "" ? "" : "\n  word-spacing: "+ $(".grab-word-spacing").val() +";" ) + ( $(".grab-text-transform").val() === "" ? "" : "\n  text-transform: "+ $(".grab-text-transform").val() +";" ) + ( $(".grab-text-decoration").val() === "" ? "" : "\n  text-decoration: "+ $(".grab-text-decoration").val() +";" ) + ( $(".grab-text-align").val() === "" ? "" : "\n  text-align: "+ $(".grab-text-align").val() +";" ) + ( $(".grab-word-wrap").val() === "" ? "" : "\n  word-wrap: "+ $(".grab-word-wrap").val() +";" ) + ( $(".grab-white-space").val() === "" ? "" : "\n  white-space: "+ $(".grab-white-space").val() +";" ) + ( $(".grab-display").val() === "" ? "" : "\n  display: "+ $(".grab-display").val() +";" ) + ( $(".grab-padding").val() === "" ? "" : "\n  padding: "+ $(".grab-padding").val() +";" ) + ( $(".grab-margin").val() === "" ? "" : "\n  margin: "+ $(".grab-margin").val() +";" ) + ( $(".grab-overflow").val() === "" ? "" : "\n  overflow: "+ $(".grab-overflow").val() +";" ) + ( $(".grab-opacity").val() === "" ? "" : "\n  opacity: "+ $(".grab-opacity").val() +";" ) + ( $(".grab-outline").val() === "" ? "" : "\n  outline: "+ $(".grab-outline").val() +";" ) + ( $(".grab-transition").val() === "" ? "" : "\n  transition: "+ $(".grab-transition").val() +";" ) + ( $(".grab-resize").val() === "" ? "" : "\n  resize: "+ $(".grab-resize").val() +";" ) + ( $(".grab-float").val() === "" ? "" : "\n  float: "+ $(".grab-float").val() +";" ) + ( $(".grab-z-index").val() === "" ? "" : "\n  z-index: "+ $(".grab-z-index").val() +";" ) + ( $(".grab-cursor").val() === "" ? "" : "\n  cursor: "+ $(".grab-cursor").val() +";" ) + ( $(".grab-list-style").val() === "" ? "" : "\n  list-style: "+ $(".grab-list-style").val() +";" ) + ( $(".grab-content-prop").val() === "" ? "" : "\n  content: "+ $(".grab-content-prop").val() +";" ) + ( $(".grab-vertical-align").val() === "" ? "" : "\n  vertical-align: "+ $(".grab-vertical-align").val() +";" ) + "}</pre>\n</div>");
+      $(".list-of-css-selectors").append("<div class='list-of-css-selectors-container'><a href='javascript:void(0)' class='del-global-css-style'><span class='fa fa-times'></span></a> <button>"+ $(".add-css-selector-val").val() +"</button>"+ "<pre style='text-align:left; padding-top:5px; overflow:auto;'>"+ $(".add-css-selector-val").val() +" {"+ ( $(".grab-pos-val").val() === "" ? "" : "\n  position: " + $(".grab-pos-val").val() + ";" ) + ( $(".grab-postop").val() === "" ? "" : "\n  top: " + $(".grab-postop").val() + ";" ) + ( $(".grab-posleft").val() === "" ? "" : "\n  left: " + $(".grab-posleft").val() + ";" ) + ( $(".grab-posright").val() === "" ? "" : "\n  right: " + $(".grab-posright").val() + ";" ) + ( $(".grab-posbottom").val() === "" ? "" : "\n  bottom: " + $(".grab-posbottom").val() + ";" ) + ( $(".grab-width").val() === "" ? "" : "\n  width: " + $(".grab-width").val() + ";" ) + ( $(".grab-height").val() === "" ? "" : "\n  height: " + $(".grab-height").val() + ";" ) + ( $(".grab-bg-url").val() === "" ? "" : "\n  background-image: url('" + $(".grab-bg-url").val() + "');" ) + ( $(".grab-bg-position").val() === "" ? "" : "\n  background-position: " + $(".grab-bg-position").val() + ";" ) + ( $(".grab-bg-repeat").val() === "" ? "" : "\n  background-repeat: " + $(".grab-bg-repeat").val() + ";" ) + ( $(".grab-bg-attach-val").val() === "" ? "" : "\n  background-attachment: "+ $(".grab-bg-attach-val").val() +";" ) + ( $(".grab-bg-size").val() === "" ? "" : "\n  background-size: "+ $(".grab-bg-size").val() +";" ) + ( $(".bg-cpick-code-rgb").val() === "" ? "" : "\n  background-color: "+ $(".bg-cpick-code-rgb").val() +";" ) + ( $(".grab-users-border-style").val() === "" ? "" : "\n  border-style: "+ $(".grab-users-border-style").val() +";" ) + ( $(".cpick-code-rgb").val() === "" ? "" : "\n  border-color: "+ $(".cpick-code-rgb").val() +";" ) + ( $(".your-border-code").val() === "" ? "" : ""+ $(".your-border-code").val() +"" ) + ( $(".your-border-radius-code").val() === "" ? "" : ""+ $(".your-border-radius-code").val() +"" ) + ( $(".grab-font-family").val() === "" ? "" : "\n  font-family: "+ $(".grab-font-family").val() +";" ) + ( $(".txt-cpick-code-rgb").val() === "" ? "" : "\n  color: "+ $(".txt-cpick-code-rgb").val() +";" ) + ( $("#points").val() === "" ? "" : "\n  font-size: "+ $("#points").val() +"px;" ) + ( $(".grab-font-varient").val() === "" ? "" : "\n  font-varient: "+ $(".grab-font-varient").val() +";" ) + ( $(".grab-font-style").val() === "" ? "" : "\n  font-style: "+ $(".grab-font-style").val() +";" ) + ( $(".grab-font-weight").val() === "" ? "" : "\n  font-weight: "+ $(".grab-font-weight").val() +";" ) + ( $(".grab-line-height").val() === "" ? "" : "\n  line-height: "+ $(".grab-line-height").val() +";" ) + ( $(".grab-letter-spacing").val() === "" ? "" : "\n  letter-spacing: "+ $(".grab-letter-spacing").val() +";" ) + ( $(".grab-word-spacing").val() === "" ? "" : "\n  word-spacing: "+ $(".grab-word-spacing").val() +";" ) + ( $(".grab-text-transform").val() === "" ? "" : "\n  text-transform: "+ $(".grab-text-transform").val() +";" ) + ( $(".grab-text-decoration").val() === "" ? "" : "\n  text-decoration: "+ $(".grab-text-decoration").val() +";" ) + ( $(".grab-text-align").val() === "" ? "" : "\n  text-align: "+ $(".grab-text-align").val() +";" ) + ( $(".grab-word-wrap").val() === "" ? "" : "\n  word-wrap: "+ $(".grab-word-wrap").val() +";" ) + ( $(".grab-white-space").val() === "" ? "" : "\n  white-space: "+ $(".grab-white-space").val() +";" ) + ( $(".grab-text-shadow").val() === "" ? "" : "\n  text-shadow: "+ $(".grab-text-shadow").val() +";" ) + ( $(".grab-display").val() === "" ? "" : "\n  display: "+ $(".grab-display").val() +";" ) + ( $(".grab-padding").val() === "" ? "" : "\n  padding: "+ $(".grab-padding").val() +";" ) + ( $(".grab-margin").val() === "" ? "" : "\n  margin: "+ $(".grab-margin").val() +";" ) + ( $(".grab-overflow").val() === "" ? "" : "\n  overflow: "+ $(".grab-overflow").val() +";" ) + ( $(".grab-opacity").val() === "" ? "" : "\n  opacity: "+ $(".grab-opacity").val() +";" ) + ( $(".grab-outline").val() === "" ? "" : "\n  outline: "+ $(".grab-outline").val() +";" ) + ( $(".grab-resize").val() === "" ? "" : "\n  resize: "+ $(".grab-resize").val() +";" ) + ( $(".grab-float").val() === "" ? "" : "\n  float: "+ $(".grab-float").val() +";" ) + ( $(".grab-z-index").val() === "" ? "" : "\n  z-index: "+ $(".grab-z-index").val() +";" ) + ( $(".grab-cursor").val() === "" ? "" : "\n  cursor: "+ $(".grab-cursor").val() +";" ) + ( $(".grab-list-style").val() === "" ? "" : "\n  list-style: "+ $(".grab-list-style").val() +";" ) + ( $(".grab-content-prop").val() === "" ? "" : "\n  content: "+ $(".grab-content-prop").val() +";" ) + ( $(".grab-vertical-align").val() === "" ? "" : "\n  vertical-align: "+ $(".grab-vertical-align").val() +";" ) + ( $(".grab-transition").val() === "" ? "" : "\n  transition: "+ $(".grab-transition").val() +";" ) + ( $(".grab-transform").val() === "" ? "" : "\n  transform: "+ $(".grab-transform").val() +";" ) + ( $(".grab-filter").val() === "" ? "" : "\n  filter: "+ $(".grab-filter").val() +";" ) + ( $(".grab-box-shadow").val() === "" ? "" : "\n  box-shadow: "+ $(".grab-box-shadow").val() +";" ) + "}</pre>\n</div>");
       var $cssselbtn = $(".list-of-css-selectors > .list-of-css-selectors-container button:contains(" + $(".add-css-selector-val").val() + ")");
       if($cssselbtn.length > 1) {
         var x = window.confirm("Selector already exists. Want to replace it?");
@@ -1368,50 +1635,9 @@ $(document).ready(function() {
     $(".canves").append('<'+ $(this).text() +' class="box" style="">'+ $(this).text() +'</'+ $(this).text() +'>');
     localStorage.setItem('CanvesContent',$(".canves").html());
     $('.toggle-workflow-visibility').prop('checked', false);
-    
-    // Toggle Design Visibility
-    $(function() {
-      if ($('.toggle-workflow-visibility').prop('checked') === true ) {
-        $(".canves").hide();
-        $("#preview-pane").show();
-        $('.select-properties').hide();
-        $('.starter-properties').show();
-      
-        if ($('.select-active, .edit-active, .remove-active').is(':visible')) {
-          $('.select-active, .edit-active, .remove-active').trigger('click');
-        }
-        
-        FinalizePrev();
-      }
-      if ($('.toggle-workflow-visibility').prop('checked') === false ) {
-        $(".canves").show();
-        $("#preview-pane").hide();
-        $('.select-properties').hide();
-        $('.starter-properties').show();
-        FinalizePrev();
-      }
-      $('.toggle-workflow-visibility').on('change', function(){
-        if ($(this).prop('checked') === true ) {
-          $(".canves").hide();
-          $("#preview-pane").show();
-          $('.select-properties').hide();
-          $('.starter-properties').show();
-        
-          if ($('.select-active, .edit-active, .remove-active').is(':visible')) {
-            $('.select-active, .edit-active, .remove-active').trigger('click');
-          }
-          
-          FinalizePrev();
-        }
-        if ($(this).prop('checked') === false ) {
-          $(".canves").show();
-          $("#preview-pane").hide();
-          $('.select-properties').hide();
-          $('.starter-properties').show();
-          FinalizePrev();
-        }
-      });
-    });
+    $(".canves").show();
+    $("#preview-pane").hide();
+    FinalizePrev();
   });
   
   // Set & Adjust Canvas Size
@@ -1457,6 +1683,19 @@ $(document).ready(function() {
       $("." + $(".dialogs option:selected").val() + " .drop").css('color', '#666').next().hide();
     }
     
+    if($.inArray($val.toLowerCase(), ["clear inputs"]) > -1) {
+      $('.sel-css').prop('disabled', false);
+      $('.select-properties input[type=checkbox]').prop('checked', false);
+      $('.select-properties input[type=text], .select-properties select, .your-border-code, .your-border-radius-code').val("");
+      $(".b4-gs-initiation").val($(".b4-gs-initiation").html(""));
+      $(".before-gs-initiation-preview").html("<style type='text/css'>\n" + $(".b4-gs-initiation").val() + "</style>");
+      
+      $('.borders a').removeClass('border-active').css({
+        'border-color': '#a9a9a9',
+        'background-color': '#444'
+      }); $('.none').css('border-color', '#444').css('border-color', '#444');
+    }
+    
     if($.inArray($val.toLowerCase(), ["tool options"]) > -1) {
       $("." + $(".dialogs option:selected").val() + " .drop").css('color', '#666').next().hide();
       $(".grab-"+ $val.toLowerCase().replace(/ /g, "-")).css( "color", "#999" ).next().show();
@@ -1468,7 +1707,7 @@ $(document).ready(function() {
       $(".list-of-css-selectors").css( "color", "#999" ).next().show();
     }
     
-    if($.inArray($val.toLowerCase(), ["position", "size", "background", "border", "typography", "advanced", "custom"]) > -1) {
+    if($.inArray($val.toLowerCase(), ["position", "size", "background", "border", "typography", "advanced", "elements", "custom"]) > -1) {
       $("." + $(".dialogs option:selected").val() + " .drop").css('color', '#666').next().hide();
       $(".grab-"+ $val.toLowerCase()).css( "color", "#999" ).next().show();
     }
@@ -1502,6 +1741,7 @@ $(document).ready(function() {
         $(".before-gs-initiation-preview").html("<style type='text/css'>\n" + $(".b4-gs-initiation").val() + "</style>");
         $('.select-properties').hide();
         $('.starter-properties').show();
+        $(".c-css-sheet").html("<style type='text/css'>" + $('.custom-css-sheet').val() + "</style>");
         if ($('.select-active, .edit-active, .remove-active').is(':visible')) {
           $('.select-active, .edit-active, .remove-active').trigger('click');
         }
@@ -1613,11 +1853,14 @@ $(document).ready(function() {
         $("#stylethis").append( $('<input/>', obj) );
       });
       $('.clear-canves').on('click touchend', function() {
-        if ($(".canves").html() === "")
-          alert("Your canvas is already cleared.");
-        else
-          $(".canves").html("");
-          return false;
+        var x = window.confirm("Are you sure you want to clear all elements from your canvas? This can not be undone.")
+        if (x) {
+          if ($(".canves").html() === "")
+            alert("Your canvas is already cleared.");
+          else
+            $(".canves").html("");
+            return false;
+        }
       });
       $(".add-button-properz, .add-textbox-properz").hide();
     });
@@ -1781,7 +2024,7 @@ $(document).ready(function() {
       localStorage.setItem('MQuery',$(".list-of-media-queries").html());
       localStorage.setItem('CSSCelectorsList',$(".list-of-css-selectors").html());
       localStorage.setItem('CanvesContent',$(".canves").html());
-        return "Did you save your stuff?"
+        return "All your stuff may not be saved. Are you sure you want to leave?"
       }
     }
     function unhook() {
