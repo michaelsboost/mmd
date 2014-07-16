@@ -152,8 +152,8 @@
               <textarea class="custom-css-sheet hide" style="cursor:text!important; width:100%; resize:vertical; border:0; border-radius:0; min-height:200px;" placeholder="Your Custom CSS is added here"></textarea>
               <textarea class="dadammediaquery hide" style="min-width:100%; height:200px; padding:0; margin:0; border-radius:0; border:0; resize:vertical;"></textarea>
               <textarea class="dadammediaquerylist hide" style="min-width:100%; height:200px; padding:0; margin:0; border-radius:0; border:0; resize:vertical;"></textarea>
-              <textarea class="b4-gs-initiation hide" style="min-width:100%; height:200px; padding:0; margin:0; border-radius:0; border:0; resize:vertical;"></textarea>
               <div class="before-gs-initiation-preview hide"></div>
+              <textarea class="b4-gs-initiation hide" style="min-width:100%; height:200px; padding:0; margin:0; border-radius:0; border:0; resize:vertical;"></textarea>
               <div class="yourhtml hide"></div>
               <div class="yourjs hide"></div>
               <textarea class="html-sheet hide" style="cursor:text!important; width:100%; resize:vertical; border:0; border-radius:0; min-height:200px;" placeholder="Your html is generated here"></textarea>
@@ -174,15 +174,17 @@
               <option value="Save"></option>
               <option value="All"></option>
               <option value="None"></option>
+              <option value="Clear Inputs"></option>
               <option value="Global Styles"></option>
               <option value="Tool Options"></option>
               <option value="Size"></option>
               <option value="Background"></option>
               <option value="Border"></option>
               <option value="Typography"></option>
-              <option value="Advanced">Advanced</option>
-              <option value="Custom">Custom</option>
-              <option value="Clear Canvas">Clear Canvas</option>
+              <option value="Advanced"></option>
+              <option value="Elements"></option>
+              <option value="Custom"></option>
+              <option value="Clear Canvas"></option>
             </datalist>
           </center>
         </span>
@@ -218,6 +220,25 @@
                 </td>
                 <td>
                   <input class="sel-css" style="font-size:16px;" type="text" placeholder="Element's CSS Class" />
+                </td>
+              </tr>
+            </table>
+            <table class="fill table-in" style="padding: 5px 0;">
+              <tr>
+                <td>
+                  <center>
+                    <a id="clearinputs" href="javascript:void(0)">Clear Inputs</a>
+                  </center>
+                </td>
+              </tr>
+            </table>
+            <table class="fill table-in" style="display:none;">
+              <tr>
+                <td>
+                  <label for="findstyles">Detect styles</label>
+                </td>
+                <td>
+                  <input id="findstyles" name="findstyles" type="checkbox" checked="true">
                 </td>
               </tr>
             </table>
@@ -586,7 +607,6 @@
                 <a class="grab-verdana" href="javascript:void(0)">verdana</a>
               </div>
               
-              <input class="grab-font-family hide" type="text" value="" placeholder="font-family" />
               <table class="fill table-in">
                 <tr>
                   <td>fontFamily:</td>
@@ -711,6 +731,10 @@
                     <option value="pre-line"></option>
                   </datalist></td>
                 </tr>
+                <tr>
+                  <td>TextShadow:</td>
+                  <td><input class="grab-text-shadow" type="text"></td>
+                </tr>
               </table>
             </center>
           </div>
@@ -774,10 +798,6 @@
                 <tr>
                   <td>outline:</td>
                   <td><input class="grab-outline" type="text"></td>
-                </tr>
-                <tr>
-                  <td>transition:</td>
-                  <td><input class="grab-transition" type="text"></td>
                 </tr>
                 <tr>
                   <td>resize:</td>
@@ -857,7 +877,7 @@
                   </datalist></td>
                 </tr>
                 <tr>
-                  <td>vertical-align:</td>
+                  <td>vAlign:</td>
                   <td><input class="grab-vertical-align" type="text" list="list-my-vertical-align-properties">
                   <datalist id="list-my-vertical-align-properties">
                     <option value="baseline"></option>
@@ -872,6 +892,22 @@
                     <option value="length"></option>
                     <option value="inherit"></option>
                   </datalist></td>
+                </tr>
+                <tr>
+                  <td>transition:</td>
+                  <td><input class="grab-transition" type="text"></td>
+                </tr>
+                <tr>
+                  <td>transform:</td>
+                  <td><input class="grab-transform" type="text"></td>
+                </tr>
+                <tr>
+                  <td>filter:</td>
+                  <td><input class="grab-filter" type="text"></td>
+                </tr>
+                <tr>
+                  <td>BoxShadow:</td>
+                  <td><input class="grab-box-shadow" type="text"></td>
                 </tr>
               </table>
             </center>
