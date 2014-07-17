@@ -546,3 +546,43 @@ body {
   float: left;
   border:0;
 }
+
+#custom-menu  {
+  display: none;
+  z-index:1000;
+  position: absolute;
+  background-color: rgb(229, 229, 229);
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(114, 114, 114);
+  font-family: helvetica;
+  padding: 0px 0.25em 0px 1.5em;
+  width: 12em;
+  font-size: 12px;
+  overflow: hidden;
+  white-space:nowrap;
+  list-style: none;
+  margin: 0;
+}
+#custom-menu button {
+  display: block;
+  padding: 5px;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  width: 100%;
+  text-align: left;
+  color: #333;
+}
+#custom-menu button:hover {
+  background-color: #DDD;
+  cursor: pointer;
+  color: #000;
+}
+#custom-menu button > span {
+  display: inline;
+  position: absolute;
+  right: 5px;
+  text-align: right;
+  color: rgb(102, 102, 102);
+}
