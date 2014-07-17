@@ -442,6 +442,12 @@ $(document).ready(function() {
         $('.select-active, .edit-active, .remove-active').trigger('click');
       }
     });
+    // Shortcut to close custom contextmenu
+    $(document).bind('keydown', 'space', function() {
+      if ($('#custom-menu').is(':visible')) {
+        $('#custom-menu').hide(100);
+      }
+    });
   });
   
   // Select Tool
@@ -450,6 +456,7 @@ $(document).ready(function() {
     localStorage.setItem('CanvesContent',$(".canves").html());
     $(this).toggleClass('select-active');
     if ($('.select-active').is(':visible')) {
+      $("#tm").prop('checked', false).trigger('click');
       $('.dialogs').val('select-properties').trigger('change');
       $(".toggle-workflow-visibility").prop('checked', false);
       $(".canves").show();
@@ -465,55 +472,8 @@ $(document).ready(function() {
       }
       
       if(elmstyle) {
-        $('.canves *').drag("start",function( ev, dd ){
-          dd.attrc = $( ev.target ).prop("className");
-          dd.attrd = $( ev.target ).prop("id");
-          dd.width = $( this ).width();
-          dd.height = $( this ).height();
-        })
-        .drag(function( ev, dd ){
-          var props = {};
-          if ( dd.attrc.indexOf("E") > -1 ){
-            props.width = Math.max( 32, dd.width + dd.deltaX );
-          }
-          if ( dd.attrc.indexOf("S") > -1 ){
-            props.height = Math.max( 32, dd.height + dd.deltaY );
-          }
-          if ( dd.attrc.indexOf("W") > -1 ){
-            props.width = Math.max( 32, dd.width - dd.deltaX );
-            props.left = dd.originalX + dd.width - props.width;
-          }
-          if ( dd.attrc.indexOf("N") > -1 ){
-            props.height = Math.max( 32, dd.height - dd.deltaY );
-            props.top = dd.originalY + dd.height - props.height;
-          }
-          if ( dd.attrd.indexOf("stylethis") > -1 ){
-            props.top = dd.offsetY;
-            props.left = dd.offsetX;
-          }
-          $('#stylethis').css( props );
-        }, {relative:true});
-        
-        $('.canves *').on('mousedown touchstart', function(e) {
-          if(elmstyle) {
-            // Add stylethis class
-            $('div.handle').remove();
-            $(".sel-css").val("");
-            $(".known-class").text($(this).prop('class'));
-            $('.canves, .canves *').removeAttr('id');
-            $(this).attr('id', 'stylethis').append('<div class="handle NE"></div><div class="handle NN"></div><div class="handle NW"></div><div class="handle WW"></div><div class="handle EE"></div><div class="handle SW"></div><div class="handle SS"></div><div class="handle SE"></div>');
-            $('.insert-your-own-damn-html-ipittydafool').val($(this).html());
-            $('.grabmy-typography a, .grab-txt-align a, .grabmy-position a').css('backgroundColor', '#444');
-            $('.grab-elm-border input[type=text]').prop('disabled', true);
-            $('.borders a').removeClass('border-active').css({
-              'border-color': '#a9a9a9',
-              'background-color': '#444'
-            });
-            $('.none').css('border-color', '#444');
-            $('.insert-your-own-damn-html-ipittydafool').removeAttr('disabled');
-            $('.select-options').show();
-          }
-        });
+        MoveSelectedElement();
+
         $('.canves, .canves *').on('mouseup touchend', function(e) {
           localStorage.setItem('CanvesContent',$(".canves").html());
         });
@@ -1349,6 +1309,7 @@ $(document).ready(function() {
       }
     } else {
       elmstyle = false;
+      $("#tm").prop('checked', true).trigger('click');
       $('.select-properties').hide();
       $('.starter-properties').show();
       $('.canves, .canves *').removeClass('editable');
@@ -1363,6 +1324,7 @@ $(document).ready(function() {
       }
       $(".b4-gs-initiation").val($(".b4-gs-initiation").html(""));
       $(".before-gs-initiation-preview").html("<style type='text/css'>\n" + $(".b4-gs-initiation").val() + "</style>");
+      $("#custom-menu").hide(100);
       code.val(preview.html());
       preview.html(code.val());
       FinalizePrev();
@@ -1373,6 +1335,114 @@ $(document).ready(function() {
   $(".canves").on('mousedown touchstart', function(e) {
     if(editable) {
       $(".canves *").attr('contenteditable', true);
+    }
+  });
+
+  // Handle custom right click mennu
+  if ( $("#tm").prop('checked') === true ) {
+    // Trigger action when the contexmenu is about to be shown
+    $(document).bind("contextmenu", function (event) {
+      // Avoid the real one
+      event.preventDefault();
+      $("#custom-menu").hide(100);
+      // Show contextmenu
+      if ($("#showcustom-menu").show() === true) {
+        $("#custom-menu").hide(100).
+        // In the right position (the mouse)
+        css({
+          top: event.pageY + "px",
+          left: event.pageX + "px"
+        });
+      } else {
+        $("#custom-menu").show(100).
+        // In the right position (the mouse)
+        css({
+          top: event.pageY + "px",
+          left: event.pageX + "px"
+        });
+      }
+    });
+
+    // If the document is clicked somewhere
+    $(document).on('mousedown', function() {
+      if ($("#custom-menu").click()) {
+        // Do nothing
+      } else {
+        $("#custom-menu").hide(100);
+      }
+    });
+
+    // Menu's button actions
+    $("#custom-menu > button#duplicate").click(function() {
+      $(".duplicateselectedelm").trigger('click');
+      $("#custom-menu").hide(100);
+    });
+    $("#custom-menu > button#remove").click(function() {
+      $('.removeselectedelm').trigger('click');
+      $("#custom-menu").hide(100);
+    });
+    $("#custom-menu > button#deselect").click(function() {
+      $('.deselectselectedelm').trigger('click');
+      $("#custom-menu").hide(100);
+    });
+    $("#custom-menu > button#close").click(function() {
+      $("#custom-menu").hide(100);
+    });
+  } else {
+    $(document).unbind("contextmenu");
+  }
+  $("#tm").on('change', function() {
+    if ( $(this).prop('checked') === true ) {
+      // Trigger action when the contexmenu is about to be shown
+      $(document).bind("contextmenu", function (event) {
+        // Avoid the real one
+        event.preventDefault();
+        $("#custom-menu").hide(100);
+        // Show contextmenu
+        if ($("#custom-menu").show() === true) {
+          $("#custom-menu").hide(100).
+          // In the right position (the mouse)
+          css({
+            top: event.pageY + "px",
+            left: event.pageX + "px"
+          });
+        } else {
+          $("#custom-menu").show(100).
+          // In the right position (the mouse)
+          css({
+            top: event.pageY + "px",
+            left: event.pageX + "px"
+          });
+        }
+      });
+
+      // If the document is clicked somewhere
+      $(document).on('mousedown', function() {
+        if ($("#custom-menu").click()) {
+          // Do nothing
+        } else {
+          $("#custom-menu").hide(100);
+        }
+      });
+
+      // Menu's button actions
+      $("#custom-menu > button#duplicate").click(function() {
+        $(".duplicateselectedelm").trigger('click');
+        $("#custom-menu").hide(100);
+      });
+      $("#custom-menu > button#remove").click(function() {
+        $('.removeselectedelm').trigger('click');
+        $("#custom-menu").hide(100);
+      });
+      $("#custom-menu > button#deselect").click(function() {
+        $('.deselectselectedelm').trigger('click');
+        $("#custom-menu").hide(100);
+      });
+      $("#custom-menu > button#close").click(function() {
+        $("#custom-menu").hide(100);
+      });
+    } else {
+      $(document).unbind("contextmenu");
     }
   });
   
