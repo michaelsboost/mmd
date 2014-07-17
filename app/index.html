@@ -56,8 +56,9 @@
         <a id="export-your-html" title="Save to disk [Ctrl+E]" href="javascript:void(0)"><span class='fa fa-download'></span></a>
         <a style="display:none;" title="svg-edit" onclick="window.open('http://svg-edit.googlecode.com/svn/branches/2.6/editor/svg-editor.html', 'svg-edit', 'width=660, height=460'); return false;"><img class="link-to-svgedit" src="assets/svgedit.svg"></a>
         <a style="display:none;" title="Dropbox" onclick="window.open('https://www.dropbox.com/chooser', 'Dropbox', 'width=660, height=440'); return false;"><span class='fa fa-dropbox'></span></a>
-        <a class="hide-options" title="Hide Options [Ctrl+5]" href='javascript:void(0);'><span class='fa fa-chevron-right'></span></a>
+        <a class="hide-options" title="Hide Options [Ctrl+6]" href='javascript:void(0);'><span class='fa fa-chevron-right'></span></a>
         <input id="panel-toggler" class="hide" type="checkbox">
+        <input id="tm" class="hide" type="checkbox">
         <select class="dialogs hide">
           <option value="starter-properties">starter-properties</option>
           <option value="select-properties">select-properties</option>
@@ -1076,6 +1077,14 @@
 <div id="preview-pane"><iframe id="workflow" style="background-color:#fff;"></iframe></div>
 <div class="canves"></div>
 </div>
+
+  <!-- Right click menu for select tool -->
+  <div id='custom-menu'>
+    <button id="duplicate">Duplicate <span>Alm+M</span></button>
+    <button id="remove">Remove <span>Del</span></button>
+    <button id="deselect">Deselect <span>Esc</span></button>
+    <button id="close">Close <span>Space</span></button>
+  </div>
   
 <script src="assets/ui.js"></script>
 </body>
