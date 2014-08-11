@@ -1,0 +1,632 @@
+#toolbox {
+  background-color: #ddd;
+  color: #333;
+  font: 12px 'museo-sans', 'Open Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-align: left;
+}
+#toolbox *, #toolbox *:active, #toolbox *:focus {
+  outline: 0;
+}
+
+/* Tool Icons */
+#toolbox > div#tools {
+  font: 15px Arial;
+  padding: 10px 0;
+  background: #eee;
+  text-align: center;
+}
+#toolbox > div#tools a {
+  cursor: pointer;
+  margin: 0 5px;
+  color: #333;
+  font-size: 25px;
+  font-family: Arial;
+  font-weight: bold;
+  text-decoration: none;
+  outline: none;
+}
+#toolbox > div#tools a:hover {
+  color: #999;
+}
+#toolbox > div#tools a:active {
+  color: #666;
+}
+#toolbox > div#tools .link-to-svgedit {
+  width: 25px;
+  height: 25px;
+  opacity: .75;
+}
+#toolbox > div#tools .link-to-svgedit:hover {
+  opacity: 1;
+}
+#toolbox .myfukentoolisactivebiotch {
+  color: #00F!important;
+}
+
+/* Popup Menu */
+#menu {
+  font-family: arial;
+  z-index: 9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;
+  width: 150px;
+  background-color: #efefef;
+  overflow: hidden;
+  border: 1px solid #999!important;
+}
+#menu a {
+  display: block;
+  cursor: pointer;
+  color: #666!important;
+  text-decoration: none;
+  padding: 1em!important;
+  border-top: 1px solid #999!important;
+  border-bottom: 1px solid #9ac!important;
+  background-color: #efefef!important;
+  transition: all 100ms ease-in-out;
+  font: 12px arial!important;
+  width: 100%;
+  margin: 0!important;
+}
+#menu a:hover {
+  color: #333!important;
+  background-color: #f9f9f9!important;
+}
+#menu a:active {
+  background-color: #c9c9c9!important;
+}
+
+/* Styles our elements in properties */
+#toolbox > div#select-properties {
+  padding: 1em 1em;
+}
+#starter-properties header {
+  padding: 0 5px;
+  margin: 0!important;
+  border: 1px solid #151515;
+  background: #333;
+  color: #999;
+  font: 14px times;
+  text-transform: uppercase;
+}
+#starter-properties div#drop {
+  border: 0!important;
+  padding: .5em .5em 0 .5em!important;
+}
+#starter-properties > div#drop > #innerheaderdrop {
+  width: 90%;
+  padding: 5px;
+  margin: 0 auto 5px auto;
+} 
+#starter-properties > div#drop > #innerdrop {
+  border: 1px solid #222;
+} 
+#toolbox header {
+  padding: 0 5px;
+  margin: 2px 0 0 0;
+  border: 1px solid #bbe;
+  background: #cce;
+  color: #666;
+  font: 14px times;
+  text-transform: uppercase;
+}
+#toolbox header.activedrop {
+  color: #999;
+}
+#toolbox a {
+  border-style: none;
+  border-top-width: 0;
+  border-left-width: 0;
+  border-bottom-width: 0;
+  border-right-width: 0;
+  font-family: sans;
+  color: #000;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 0;
+  margin: 0 .5em;
+  text-decoration: none;
+  background: transparent;
+}
+#toolbox a:hover {
+  color: #999;
+}
+#toolbox a.imanactiveachornowyay {
+  color: #0c0!important;
+  border-bottom: 1px solid #0c0!important;
+}
+#toolbox button {
+  padding: 5px 0;
+  margin: 0;
+  width: 85%;
+  font: 12px arial;
+  color: #6DD;
+  text-align: left;
+  background-color: #222;
+  border: 0;
+  outline: 0;
+}
+#toolbox input[type=text]:not(.keepscolorbuubleabove), 
+#toolbox input[type=number]:not(.keepscolorbuubleabove) {
+  background-color: #fff;
+  border-style: solid;
+  border-color: #ddd;
+  border-top-width: 1px;
+  border-left-width: 1px;
+  border-bottom-width: 1px;
+  border-right-width: 1px;
+  font-family: helvetica;
+  color: #000;
+  width: 100%;
+}
+#toolbox .ooobubblez input[type=number], 
+#toolbox .ooobubblez input[type=text],
+#toolbox .ooobubblez select {
+  background: #fff;
+  color: #000;
+  border: 1px solid #ada9a5;
+  border-radius: 5px;
+  box-shadow: inset 0 0 1px #ada9a5;
+}
+#toolbox .ooobubblez input[type=number] {
+  padding: 5px;
+  width: 50px;
+}
+#toolbox .ooobubblez input[type=text] {
+  padding: 5px;
+}
+#toolbox .ooobubblez select,
+#toolbox .ooobubblez select option {
+  padding: 1px;
+}
+#toolbox table {
+  width: 100%;
+  padding: 0 .5em;
+}
+#toolbox div#drop {
+  font-family: helvetica;
+  border-left: 1px solid #aaa;
+  border-right: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
+  margin: 0 0 5px 0;
+}
+#toolbox #yourselector {
+  border: 0;
+}
+#toolbox hr {
+  opacity: .75;
+}
+#toolbox textarea {
+  padding: 0;
+  border: 0;
+  width: 100%;
+  height: 150px;
+  resize: vertical;
+}
+#toolbox #drop a, #toolbox #to-global-css a {
+  border-style: none;
+  border-top-width: 0;
+  border-left-width: 0;
+  border-bottom-width: 0;
+  border-right-width: 0;
+  font-family: sans;
+  color: #333;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 0;
+}
+#toolbox #drop a:hover, #toolbox #to-global-css a:hover {
+  color: #999;
+}
+#toolbox #drop button, #toolbox #to-global-css button {
+  position: relative;
+  top: -3px;
+  padding: 5px 0;
+  margin: 0;
+  width: 80%;
+  font: 12px arial;
+  color: #fff;
+  text-align: left;
+  background-color: #666;
+  border: 0;
+  outline: 0;
+}
+#toolbox #posvalz {
+  padding: .5em 0;
+}
+#toolbox #posvalz, #toolbox #posvalz input[type=text], #posvalz input[type=number] {
+  text-align: center;
+  min-width: 70px;
+}
+#toolbox .thetransparenttextbox {
+  border: 0!important;
+  background-color: transparent!important;
+}
+#toolbox .rotatediz90cwdegnow {
+  transform: rotate(90deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(0deg) translateX(0px) translateY(0px);
+  -webkit-transform: rotate(90deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(0deg) translateX(0px) translateY(0px);
+  -moz-transform: rotate(90deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(0deg) translateX(0px) translateY(0px);
+  -ms-transform: rotate(90deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(0deg) translateX(0px) translateY(0px);
+  -o-transform: rotate(90deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(0deg) translateX(0px) translateY(0px);
+}
+#toolbox .rotatediz90ccwdegnow {
+  transform: rotate(-90deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(0deg) translateX(0px) translateY(0px);
+  -webkit-transform: rotate(-90deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(0deg) translateX(0px) translateY(0px);
+  -moz-transform: rotate(-90deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(0deg) translateX(0px) translateY(0px);
+  -ms-transform: rotate(-90deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(0deg) translateX(0px) translateY(0px);
+  -o-transform: rotate(-90deg) translate(0px) skew(0deg) scale(1) rotateX(0deg) rotateY(0deg) translateX(0px) translateY(0px);
+}
+#toolbox .rotatediz90cwdegnow input[type=text], #toolbox .rotatediz90cwdegnow input[type=number], #toolbox .rotatediz90ccwdegnow input[type=text], #toolbox .rotatediz90ccwdegnow input[type=number] {
+  margin-bottom: 3px;
+}
+#myopacis50 {
+  margin: 5px 10px;
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  opacity: .5;
+  filter: alpha(opacity=50);
+}
+#toolbox .fill {
+
+}
+#toolbox #points {
+  border: 0!important;
+  width: 40px!important;
+}
+#toolbox .add-the-css-references button {
+  font-size: 16px!important;
+  padding: .25em .25em 0 .25em!important;
+  color: #666!important;
+  background-color: transparent!important;
+}
+#toolbox .add-the-css-references button:hover {
+  color: #06F!important;
+}
+#toolbox .add-the-css-references button:active {
+  color: #222!important;
+}
+.centerdiznow {
+  text-align: center;
+}
+#toolbox .in-drop-button {
+  width: 100%!important;
+  margin-top: 2px!important;
+  padding: 1em!important;
+  color: #000!important;
+  font-family: arial!important;
+  text-transform: uppercase!important;
+  text-align: center!important;
+  background-color: #bbb!important;
+}
+#toolbox .in-drop-button:hover {
+  background-color: #ccc!important;
+}
+#toolbox .in-drop-button:active {
+  background-color: #aaa!important;
+}
+#toolbox .dadebugindicatoron {
+  color: #00F!important;
+}
+#toolbox .dadebugindicatoroff {
+  color: #999!important;
+}
+#toolbox #js-code, #toolbox #codemird, #toolbox #insert-your-own-html {
+  width: 100%;
+  padding: 0;
+  margin: 0 0 2px 0;
+  border: 0;
+  outline: 0;
+  min-height: 60px;
+  height: 210px;
+  resize: vertical;
+}
+#toolbox #add-custom-ellms {
+  padding: 1em 0;
+}
+#toolbox #add-custom-ellms a {
+  padding: 5px 10px!important;
+  font: 14px arial!important;
+  font-weight: none!important;
+  background: #eee;
+  color: #666;
+}
+#select-properties .thisisanactivebutton {
+  color: #000!important;
+}
+#toolbox #bloc { 
+  width: 150px;
+  height: 46px;
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+#toolbox #bloc select {
+  border: 0!important;
+  padding: 0;
+  margin: 0;
+  overflow: hidden!important;
+  color: #333;
+  background: transparent;
+}
+#toolbox #bloc select option {
+  display: inline-block;
+  padding: 5px;
+  margin: 0 5px;
+  font: 13px Arial, sans-serif;
+}
+#websitebrowser a {
+  font-size: 14px!important;
+}
+#websitebrowser a:hover {
+  color: #eee!important;
+}
+#websitebrowser a:active {
+  color: #000!important;
+}
+#toolbox .grab-default-typography a {
+  padding: 5px 10px!important;
+  margin: 0 2px;
+  background: #eee;
+  text-decoration: none;
+  font-size: 12px!important;
+  font-weight: normal!important;
+}
+#toolbox .grab-default-typography a.activeanchor {
+  color: #06f!important;
+  border-bottom: 1px solid #06f!important;
+}
+#width-identifier, #height-identifier {
+  font-size: 12px!important;
+}
+
+/* Edit Modual Styles */
+#edit-mode #drop a {
+  padding: 5px 10px!important;
+  margin: 0 2px;
+  background: #eee;
+  text-decoration: none;
+  font-size: 12px!important;
+  font-weight: normal!important;
+}
+#edit-mode #drop a:hover {
+  color: #999;
+}
+#edit-mode #add-editable-font-color {
+  color: #0c0!important;
+  font-weight: bold!important;
+  font-family: arial black!important;
+}
+
+/* Color Picker */
+#toolbox #grab-border-color, #toolbox #grab-editable-txt-color {
+  cursor: pointer;
+  border-color: #000;
+  border-width: 2px;
+  padding: 5px 10px;
+  border-style: solid;
+  background: #000;
+  margin: 0;
+}
+#toolbox #colorwheel {
+  background: -moz-linear-gradient(left,  #ff0000 0%, #ffff00 18%, #00ff00 35%, #00ffff 50%, #0000ff 65%, #ff00ff 82%, #ff0004 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ff0000), color-stop(18%,#ffff00), color-stop(35%,#00ff00), color-stop(50%,#00ffff), color-stop(65%,#0000ff), color-stop(82%,#ff00ff), color-stop(100%,#ff0004)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(left,  #ff0000 0%,#ffff00 18%,#00ff00 35%,#00ffff 50%,#0000ff 65%,#ff00ff 82%,#ff0004 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(left,  #ff0000 0%,#ffff00 18%,#00ff00 35%,#00ffff 50%,#0000ff 65%,#ff00ff 82%,#ff0004 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(left,  #ff0000 0%,#ffff00 18%,#00ff00 35%,#00ffff 50%,#0000ff 65%,#ff00ff 82%,#ff0004 100%); /* IE10+ */
+  background: linear-gradient(to right,  #ff0000 0%,#ffff00 18%,#00ff00 35%,#00ffff 50%,#0000ff 65%,#ff00ff 82%,#ff0004 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff0000', endColorstr='#ff0004',GradientType=1 ); /* IE6-9 */
+}
+#toolbox #bg-color-picker span, #toolbox #border-color-picker span, #toolbox #editable-text-color-picker span {
+  display: block;
+  width: 100%;
+}
+#toolbox #bg-color-picker input[type=range], #toolbox #border-color-picker input[type=range], #toolbox #editable-text-color-picker input[type=range] {
+  position: relative;
+  top: 3px;
+  left: -4px;
+  margin: 0;
+  width: 100%;
+}
+
+/* Elements For Stage */
+#toolbox .elms-4-stage button {
+  width: 100%!important;
+  font: 300 16px/1.5 'museo-sans', 'Open Sans', sans-serif!important;
+  color: #fff!important;
+  text-align: center!important;
+  text-transform: capitalize!important;
+  background: #555!important;
+}
+#toolbox .elms-4-stage button:nth-child(1) {
+  background: #66d!important;
+}
+#toolbox .elms-4-stage button:nth-child(2) {
+  background: #6dd!important;
+}
+#toolbox .elms-4-stage button:nth-child(3) {
+  background: #6d6!important;
+}
+#toolbox .elms-4-stage button:nth-child(5) {
+  background: #cc6!important;
+}
+#toolbox .elms-4-stage button:nth-child(4) {
+  background: #d66!important;
+}
+
+/* Ruler & Slider */
+#ruler-container {
+  border-bottom: 1px solid #000;
+  background: #fed;
+}
+#ruler {
+  color: #333;
+  font-family: source code pro, "Arial Narrow", "Helvetica Neue", Helvetica, Arial, Veranda, sans-serif;
+  font-size: 12px;
+  line-height: 14px;
+}
+#ruler > div {
+  background: #333;
+}
+#ruler .tickLabel {
+  text-indent: 1px;
+  line-height: 20px;
+}
+
+/* Resize Constructs */
+#media-query-slider {
+  padding: 5px 15px;
+  font: 14px arial;
+  border-radius: 100em;
+  color: #fff;
+  background: #278ab4;
+  text-align: center;
+  line-height: 25px;
+}
+#cwidth {
+  background: transparent;
+}
+.handle {
+  height: 10px; width: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.75);
+  background: rgba(255, 255, 255, 0.5); 
+}
+
+/* Bubble */
+.ooobubblez {
+  position: relative;
+  padding: 10px;
+  background: rgb(220, 255, 255);
+  border-color: rgb(220, 255, 255);
+  border-radius: 1em;
+}
+.ooobubblez:after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  right: 10px;
+  border-top: 10px solid blue;
+  border-top-color: inherit; 
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent; 
+}
+.ooobubblez a {
+  padding: 5px 10px!important;
+  margin: 0 2px!important;
+  color: #a9a9a9;
+  background-color: rgb(0, 125, 193);
+  text-decoration: none;
+  font-size: 12px!important;
+  font-weight: normal!important;
+}
+.ooobubblez a.activeanchor {
+  color: #fff!important;
+}
+
+/* Color Pickers */
+.ooobubblez .colorwheel {
+  background: -moz-linear-gradient(left,  #ff0000 0%, #ffff00 18%, #00ff00 35%, #00ffff 50%, #0000ff 65%, #ff00ff 82%, #ff0004 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ff0000), color-stop(18%,#ffff00), color-stop(35%,#00ff00), color-stop(50%,#00ffff), color-stop(65%,#0000ff), color-stop(82%,#ff00ff), color-stop(100%,#ff0004)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(left,  #ff0000 0%,#ffff00 18%,#00ff00 35%,#00ffff 50%,#0000ff 65%,#ff00ff 82%,#ff0004 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(left,  #ff0000 0%,#ffff00 18%,#00ff00 35%,#00ffff 50%,#0000ff 65%,#ff00ff 82%,#ff0004 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(left,  #ff0000 0%,#ffff00 18%,#00ff00 35%,#00ffff 50%,#0000ff 65%,#ff00ff 82%,#ff0004 100%); /* IE10+ */
+  background: linear-gradient(to right,  #ff0000 0%,#ffff00 18%,#00ff00 35%,#00ffff 50%,#0000ff 65%,#ff00ff 82%,#ff0004 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff0000', endColorstr='#ff0004',GradientType=1 ); /* IE6-9 */
+}
+.ooobubblez .cpick div {
+  display: block;
+  padding: 2px 0;
+}
+.ooobubblez .cpick input[type=range] {
+  margin: 0;
+  padding: 1px;
+  border: 0;
+  width: 100%;
+  position: relative;
+  top: 2px;
+  left: -1px;
+}
+.ooobubblez table, .ooobubblez table tr, .ooobubblez table td {
+  margin: 0;
+  padding: 0!important;
+  width: 100%;
+}
+.ooobubblez .cpick input[type=text] {
+  margin: 0;
+  padding: 5px 0;
+}
+
+/* Styles Textbox Placeholders in Toolbox  */
+#toolbox ::-webkit-input-placeholder { /* WebKit browsers */
+    color: #666;
+}
+#toolbox :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #666;
+}
+#toolbox ::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #666;
+}
+#toolbox :-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: #666;
+}
+
+.canves {
+  background-image: url('img/il-grid-trans.png');
+  background-position: top left;
+  background-repeat: repeat;
+  background-attachment: scroll;
+}
+
+/* Right Click Menu For Editable Elements */
+#custom-menu  {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.8);
+  font-family: helvetica;
+  padding: 0px 0.25em 0px 1.5em;
+  width: 12em;
+  font-size: 12px;
+  margin: 0;
+}
+#custom-menu button {
+  display: block;
+  padding: 5px;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  width: 100%;
+  text-align: left;
+  color: #333;
+  font-family: helvetica;
+}
+#custom-menu button:hover {
+  background-color: #fff;
+  cursor: pointer;
+  color: #000;
+}
+#custom-menu button > span {
+  display: inline;
+  position: absolute;
+  right: 5px;
+  text-align: right;
+  color: rgb(102, 102, 102);
+}
+
+/* MMD Instructions Dialog */
+#mmd-instruction-dialog-bg {
+  background: rgba(150, 150, 150, 0.5);
+  color: #000;
+}
+#mmd-instruction-dialog {
+  background: rgba(255, 255, 255, 0.85);
+  color: #000;
+  font: 14px 'museo-sans', 'Open Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+#mmd-instruction-dialog pre {
+  color: #666;
+}
+
+@media all and (max-width:800px) {
+  .rotatediz90cwdegnow, .rotatediz90ccwdegnow {
+    width: 148px;
+  }
+}
