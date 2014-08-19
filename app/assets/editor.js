@@ -27,6 +27,9 @@ $(document).ready(function() {
   if ( localStorage.getItem('MQuery')) {
     $("#hold-media-queries").html(localStorage.getItem('MQuery')); 
   }
+  if ( localStorage.getItem('MQueryHTMLVALS')) {
+    $("#hold-media-queries textarea").val(localStorage.getItem('MQueryHTMLVALS')); 
+  }
   if ( localStorage.getItem('CanvesContent')) {
     $(".canves").html(localStorage.getItem('CanvesContent')); 
   }
@@ -364,6 +367,7 @@ $(document).ready(function() {
         });
         localStorage.setItem('CanvesContent', $(".canves").html());
       }
+      localStorage.setItem('CanvesContent', $(".canves").html());
     } else {
       if ( $(".inputs-your-css-selector").val() === "undefined" ) {
         $(".add-css-selector-val").val("");
@@ -375,6 +379,7 @@ $(document).ready(function() {
       }
       
       $("#apply-test-code").html("<style type='text/css'>"+ $("#grabelmvalz .testsyourglobalcss:first-of-type").val() +"</style>");
+      localStorage.setItem('CanvesContent', $(".canves").html());
     }
   };
   var GrabStyles = function() {
@@ -455,6 +460,7 @@ $(document).ready(function() {
     $('#drop .adds-your-transition').val($("#stylethis").css('transition'));
     $('#drop .adds-your-transform').val($("#stylethis").css('transform'));
     $('#drop .adds-your-filter').val($("#stylethis").css('filter'));
+    localStorage.setItem('CanvesContent', $(".canves").html());
   }
   function DuplicateSelectedElm() {
     $(".canves").append($("#stylethis").clone());
@@ -665,6 +671,7 @@ $(document).ready(function() {
   };
   var GrabsQueryOnclick = function() {
     $(".listing-of-your-media-queries-container button").on('click touchend', function() {
+      $("#to-global-css").html("").append($(this).parent().prev().val()).trigger('change');
       $("#yourselector .testsyourglobalcss:first-of-type").val($(this).parent().next().val());
       $("#cwidth").val( $(this).text().replace(/px/g,'') ).trigger('change');
       FinalizePrev();
@@ -673,12 +680,20 @@ $(document).ready(function() {
       localStorage.setItem('CSSSelectors', $("#fullrencode").val());
       GrabsAddedSelectors();
       RemovesAddedSelectors();
+      $("#fullrencode").val(function() {
+        return $.map($("#to-global-css textarea"), function (el) {
+          return el.value;
+        }).join('\n');
+      });
+      $("#apply-full-code").html("<style type='text/css'>"+ $("#fullrencode").val() +"</style>");
     });
   };
   var DelQueryOnclick = function() {
     $(".listing-of-your-media-queries-container a").on('click', function() {
+      $(this).parent().prev().remove();
       $(this).parent().next().remove();
       $(this).parent().remove();
+      
       FinalizePrev();
       localStorage.setItem('MQuery', $("#hold-media-queries").html());
       localStorage.setItem('CSSReferencesList', $(".list-of-css-references").html());
@@ -1888,7 +1903,9 @@ $(document).ready(function() {
     
     // Append the styles
     $(function() {
-      $("#hold-media-queries").append("<div class='listing-of-your-media-queries-container'><a href='javascript:void(0)'><span class='fa fa-times'></span></a><button>"+ $("#cwidth").val() +"px</button></div>").append("<textarea class='"+ $("#cwidth").val() +"-addedcss yournewlyaddedmediaquery'>"+ "@media all and (max-width:"+ $("#cwidth").val() +"px) {\n" + $("#fullrencode").val() +"}\n</textarea>");
+      $("#hold-media-queries").append($("<textarea>")
+                     .val($("#to-global-css").html())
+  ).append("<div class='listing-of-your-media-queries-container'><a href='javascript:void(0)'><span class='fa fa-times'></span></a><button>"+ $("#cwidth").val() +"px</button></div>").append("<textarea class='"+ $("#cwidth").val() +"-addedcss yournewlyaddedmediaquery'>"+ "@media all and (max-width:"+ $("#cwidth").val() +"px) {\n" + $("#fullrencode").val() +"}\n</textarea>");
     });
     
     var $button = $("#hold-media-queries > .listing-of-your-media-queries-container button:contains(" + $("#cwidth").val() + ")");
@@ -1911,11 +1928,16 @@ $(document).ready(function() {
     
     FinalizePrev();
     localStorage.setItem('MQuery', $("#hold-media-queries").html());
+    localStorage.setItem('MQueryHTMLVALS', $("#hold-media-queries textarea").val());
     localStorage.setItem('CSSSelectorsHTML', $("#to-global-css").html());
     localStorage.setItem('CSSSelectors', $("#fullrencode").val());
     
-    // Delete a media query
+    // Grab/Delete Media Queries
+    GrabsQueryOnclick();
     DelQueryOnclick();
+    // Handles Global Styles
+    GrabsAddedSelectors();
+    RemovesAddedSelectors();
   });
   
   // Handles New and Save Documents
@@ -1925,6 +1947,7 @@ $(document).ready(function() {
     if (x) {
       ClearInputs();
       $("#apply-test-code, #apply-full-code, #to-global-css, .dadamcssreflist, .dadamcssrefhtml, .list-of-css-references, .canves").html("");
+      $("#hold-media-queries").html('<div class="dadammediaqueryshtml hide"></div>');
       $(".testsyourglobalcss, #fullrencode, #resolutionoptimzer").val("");
       $(".thisisyourdocumenttitle").val("new document");
       $("#ljavascript").prop('checked', false).trigger('change');
