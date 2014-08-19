@@ -1908,14 +1908,21 @@ $(document).ready(function() {
     FinalizePrev();
     
     // Append the styles
-    $(function() {
+    if ($("#select-tool.myfukentoolisactivebiotch").is(':visible')) {
       $("#hold-media-queries").append($("<textarea class='canvesquery'>")
-                                .val($(".canves").html())
+                                .val($(".canves").children().removeAttr("id").parent().html())
+                              ).append($("<textarea class='globalcssquery'>")
+                                .val($("#to-global-css").html())
+                              )
+      .append("<div class='listing-of-your-media-queries-container'><a href='javascript:void(0)'><span class='fa fa-times'></span></a><button>"+ $("#cwidth").val() +"px</button></div>").append("<textarea class='"+ $("#cwidth").val() +"-addedcss yournewlyaddedmediaquery'>"+ "@media all and (max-width:"+ $("#cwidth").val() +"px) {\n" + $("#style-sheet").val().replace(/id=stylethis /g,'') + "\n\n" + $("#fullrencode").val() +"}\n</textarea>");
+    } else {
+      $("#hold-media-queries").append($("<textarea class='canvesquery'>")
+                                .val($(".canves").children().removeAttr("id").parent().html())
                               ).append($("<textarea class='globalcssquery'>")
                                 .val($("#to-global-css").html())
                               )
       .append("<div class='listing-of-your-media-queries-container'><a href='javascript:void(0)'><span class='fa fa-times'></span></a><button>"+ $("#cwidth").val() +"px</button></div>").append("<textarea class='"+ $("#cwidth").val() +"-addedcss yournewlyaddedmediaquery'>"+ "@media all and (max-width:"+ $("#cwidth").val() +"px) {\n" + $("#style-sheet").val() + "\n\n" + $("#fullrencode").val() +"}\n</textarea>");
-    });
+    }
     
     var $button = $("#hold-media-queries > .listing-of-your-media-queries-container button:contains(" + $("#cwidth").val() + ")");
     if($button.length > 1) {
@@ -1948,6 +1955,9 @@ $(document).ready(function() {
     // Handles Global Styles
     GrabsAddedSelectors();
     RemovesAddedSelectors();
+    if ($("#select-tool.myfukentoolisactivebiotch").is(':visible')) {
+      $("#select-tool.myfukentoolisactivebiotch").trigger("click");
+    }
   });
   
   // Handles New and Save Documents
