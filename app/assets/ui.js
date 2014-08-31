@@ -121,3 +121,21 @@ function saveTextAsHTML() {
 function destroyClickedElement(event) {
 	document.body.removeChild(event.target);
 }
+
+(function() {
+    function scrollMenu(e) {
+		e = window.event || e;
+		var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+		document.getElementById('gentags').scrollLeft -= (delta*40); // Multiplied by 40
+		e.preventDefault();
+	}
+	if (document.getElementById('gentags').addEventListener) {
+		// IE9, Chrome, Safari, Opera
+		document.getElementById('gentags').addEventListener("mousewheel", scrollMenu, false);
+		// Firefox
+		document.getElementById('gentags').addEventListener("DOMMouseScroll", scrollMenu, false);
+	} else {
+		// IE 6/7/8
+		document.getElementById('gentags').attachEvent("onmousewheel", scrollMenu);
+	}
+})();

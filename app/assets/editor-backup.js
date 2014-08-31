@@ -2,11 +2,8 @@
 $(document).ready(function() {
   // Defines our variables
   var elmstyle = false,
-      drawable = false,
-      drawing  = false,
-      mS = {},
-      dBox,
-      editableElm;
+    counter = 1,
+    editableElm;
   
   // Setup LocalStorage
   if ( localStorage.getItem('SiteTitle')) {
@@ -51,9 +48,6 @@ $(document).ready(function() {
   if ( localStorage.getItem('ThemeText')) {
     $('#toggle-themes').html(localStorage.getItem('ThemeText')); 
   }
-  if ( localStorage.getItem('Notepad')) {
-    $('#notepad').val(localStorage.getItem('Notepad')); 
-  }
   
   // Define Global Functions
   var FinalizePrev = function() {
@@ -97,6 +91,7 @@ $(document).ready(function() {
     editor.setValue( $("#code").val() );
     format();
     $(".canves").html( $("#orightml").html() );
+    localStorage.setItem('CanvesContent', $(".canves").html());
   };
   var MoveSelectedElement = function() {
     if ($("#select-tool.myfukentoolisactivebiotch").is(':visible')) {
@@ -107,7 +102,7 @@ $(document).ready(function() {
           $("#sel-css").val("");
           $("#known-class").text($(this).prop('class'));
           $(".canves, .canves *").removeAttr('id');
-          $(this).attr('id', 'stylethis').append('<div class="handle NE"></div><div class="handle NN"></div><div class="handle NW"></div><div class="handle WW"></div><div class="handle EE"></div><div class="handle SW"></div><div class="handle SS"></div><div class="handle SE"></div>');
+          $(this).attr('id', 'stylethis').append('<div class="handle rotatableY"></div><div class="handle rotatableX"></div><div class="handle NE"></div><div class="handle NN"></div><div class="handle NW"></div><div class="handle WW"></div><div class="handle EE"></div><div class="handle SW"></div><div class="handle SS"></div><div class="handle SE"></div>');
           $("#insert-your-own-html").val($(this).html());
           $("#select-elm-options").show();
 
@@ -116,7 +111,21 @@ $(document).ready(function() {
           
           // Grab position & width before an easy flow
           GrabStyles();
+
+          if ( $("#width-identifier").text() === "%" ) {
+            var width = ( 100 * parseFloat($('#stylethis').width()) / parseFloat($('#stylethis').parent().width()) );
+            $(".adds-your-width").val(width);
+          } else if ( $("#width-identifier").text() === "px" ) {
+            $('.adds-your-width').val($("#stylethis").css('width').replace(/px/g,''));
+          }
           
+          if ( $("#height-identifier").text() === "%" ) {
+            var width = ( 100 * parseFloat($('#stylethis').css('height')) / parseFloat($('#stylethis').parent().css('height')) );
+            $(".adds-your-height").val(width);
+          } else if ( $("#height-identifier").text() === "px" ) {
+            $('.adds-your-height').val($("#stylethis").css('height').replace(/px/g,''));
+          }
+
           if ($(".inputs-your-css-selector").val() === "") {
             
           } else {
@@ -152,6 +161,12 @@ $(document).ready(function() {
           props.top = dd.offsetY;
           props.left = dd.offsetX;
         }
+        if ( dd.attrc.indexOf("rotatableY") > -1 ){
+          props.transform = 'rotateY(' + Math.max( 32, dd.width - dd.deltaX ) + 'deg)';
+        }
+        if ( dd.attrc.indexOf("rotatableX") > -1 ){
+          props.transform = 'rotateX(' + Math.max( 32, dd.height - dd.deltaY ) + 'deg)';
+        }
         $('#stylethis').css( props );
         GrabStyles();
         $("#stylethis").css({
@@ -161,11 +176,41 @@ $(document).ready(function() {
           "height": $("#drop .adds-your-height").val() + $("#height-identifier").text()
         });
         localStorage.setItem('CanvesContent', $(".canves").html());
-      }, {relative:true}).on('dblclick', function() {
+      }, {relative:true}).on('mouseup touchend', function() {
+        if(elmstyle) {
+          $("#stylethis").css({
+            "width": $("#drop .adds-your-width").val() + $("#width-identifier").text(),
+            "height": $("#drop .adds-your-height").val() + $("#height-identifier").text()
+          });
+          localStorage.setItem('CanvesContent', $(".canves").html());
+          GrabStyles();
+        }
+      }).on('dblclick', function() {
         EditableStylez();
         return false;
       });
     }
+  };
+  var StyleElm = function() {
+    $(".canves *").on('mousedown touchstart', function() {
+      if(elmstyle) {
+        // Add stylethis class
+        $("#sel-css").val("");
+        $("#known-class").text($(this).prop('class'));
+        $(".canves, .canves *").removeAttr('id');
+        $(this).attr('id', 'stylethis');
+        $("#insert-your-own-html").val($(this).html());
+        $(".inputs-your-css-selector").val("." + $(this).prop('class'));
+        $("#select-elm-options").show();
+        PrevStyles();
+        
+        // Grab elements already added styles
+        $(".list-of-your-global-css-selectors-container button:contains(" + $(".inputs-your-css-selector").val() + ")").trigger("click");
+      }
+    }).on('dblclick', function() {
+      EditableStylez();
+      return false;
+    });
   };
   var EditableStylez = function() {
     $(".canves *").prop('contenteditable', true);
@@ -178,23 +223,19 @@ $(document).ready(function() {
     $("#current-canvas").val($(".canves").html());
     $(".canves").html($("#current-canvas").val());
     $("#show-editable-elms-code").val($("#stylethis").html());
-    $('[contenteditable]').on('focus',function() {
+    $('[contenteditable]').on('focus',function(){
       editableElm = this;
-    }).on('keyup',function() {
-      localStorage.setItem('CanvesContent', $(".canves").html());
     });
     $(".canves *").on('focus keyup', function() {
       $("#show-editable-elms-code").val($(this).html());
     });
     $("#show-editable-elms-code").on('keyup change', function() {
       $(editableElm).html($(this).val());
-      localStorage.setItem('CanvesContent',$(".canves").html());
       FinalizePrev();
     });
     $(".canves").find("#stylethis").trigger('focus');
     $(".canves *").removeAttr("id");
     if( $("#edit-mode").is(":visible") ) {
-      drawable = false,
       $("#exit-edit-mode, #undo, #redo").show();
     } else {
       $("#exit-edit-mode, #undo, #redo").hide();
@@ -266,69 +307,83 @@ $(document).ready(function() {
         $("#stylethis").css({
           "position": ""
         });
+        localStorage.setItem('CanvesContent', $(".canves").html());
       } else {
         $("#stylethis").css({
           "position": $("#drop .adds-your-position").val()
         });
+        localStorage.setItem('CanvesContent', $(".canves").html());
       }
       if ($("#drop .adds-your-background-image:first-of-type").val() === "") {
         $("#stylethis").css({
           "background-image": ""
         });
+        localStorage.setItem('CanvesContent', $(".canves").html());
       } else {
         $("#stylethis").css({
           "background-image": "url('" + $("#drop .adds-your-background-image").val() + "')"
         });
+        localStorage.setItem('CanvesContent', $(".canves").html());
       }
       if ($("#drop .adds-your-width:first-of-type").val() === "") {
         $("#stylethis").css({
           "width": ""
         });
+        localStorage.setItem('CanvesContent', $(".canves").html());
       }
       if ($("#drop .adds-your-height:first-of-type").val() === "") {
         $("#stylethis").css({
           "height": ""
         });
+        localStorage.setItem('CanvesContent', $(".canves").html());
       }
       if (($("#drop .adds-your-margin-final:first-of-type").val() === "") && ($("#drop .adds-your-margin-final-ints:first-of-type").val() === "") && ($("#drop .adds-your-margin:first-of-type").val() === "") && ($("#drop .adds-your-margin-top:first-of-type").val() === "") && ($("#drop .adds-your-margin-right:first-of-type").val() === "") && ($("#drop .adds-your-margin-bottom:first-of-type").val() === "") && ($("#drop .adds-your-margin-left:first-of-type").val() === "")) {
         $("#stylethis").css({
           "margin": ""
         });
+        localStorage.setItem('CanvesContent', $(".canves").html());
       }
       if (($("#drop .adds-your-margin-final:first-of-type").val() === "undefined") && ($("#drop .adds-your-margin-final-ints:first-of-type").val() === "undefined") && ($("#drop .adds-your-margin:first-of-type").val() === "undefined") && ($("#drop .adds-your-margin-top:first-of-type").val() === "undefined") && ($("#drop .adds-your-margin-right:first-of-type").val() === "undefined") && ($("#drop .adds-your-margin-bottom:first-of-type").val() === "undefined") && ($("#drop .adds-your-margin-left:first-of-type").val() === "undefined")) {
         $("#stylethis").css({
           "margin": ""
         });
+        localStorage.setItem('CanvesContent', $(".canves").html());
       }
       if (($("#drop .adds-your-padding:first-of-type").val() === "") && ($("#drop .adds-your-padding-top:first-of-type").val() === "") && ($("#drop .adds-your-padding-right:first-of-type").val() === "") && ($("#drop .adds-your-padding-bottom:first-of-type").val() === "") && ($("#drop .adds-your-padding-left:first-of-type").val() === "")) {
         $("#stylethis").css({
           "padding": ""
         });
+        localStorage.setItem('CanvesContent', $(".canves").html());
       }
       if (($("#drop .adds-your-border-radius-top-left:first-of-type").val() === "") && ($("#drop .adds-your-border-radius-top-right:first-of-type").val() === "") && ($("#drop .adds-your-border-radius-bottom-left:first-of-type").val() === "") && ($("#drop .adds-your-border-radius-bottom-right:first-of-type").val() === "")) {
         $("#stylethis").css({
           "border-radius": ""
         });
+        localStorage.setItem('CanvesContent', $(".canves").html());
       }
       if ($("#drop .adds-your-font-size:first-of-type").val() === "") {
         $("#stylethis").css({
           "font-size": ""
         });
+        localStorage.setItem('CanvesContent', $(".canves").html());
       }
       if ($("#drop .adds-your-line-height:first-of-type").val() === "") {
         $("#stylethis").css({
           "line-height": ""
         });
+        localStorage.setItem('CanvesContent', $(".canves").html());
       }
       if ($("#drop .adds-your-letter-spacing:first-of-type").val() === "") {
         $("#stylethis").css({
           "letter-spacing": ""
         });
+        localStorage.setItem('CanvesContent', $(".canves").html());
       }
       if ($("#drop .adds-your-word-spacing:first-of-type").val() === "") {
         $("#stylethis").css({
           "word-spacing": ""
         });
+        localStorage.setItem('CanvesContent', $(".canves").html());
       }
       localStorage.setItem('CanvesContent', $(".canves").html());
     } else {
@@ -365,6 +420,64 @@ $(document).ready(function() {
     $('#drop .adds-your-position').val($("#stylethis").css('position').replace(/placer/g,''));
     $("#drop a").removeClass("imanactiveachornowyay");
     $('#drop a[title='+ $('#drop .adds-your-position').val() +']').addClass("imanactiveachornowyay");
+    $('#drop .adds-your-padding').val($("#stylethis").css('padding').replace(/px/g,''));
+    $('#drop .adds-your-padding-top').val($("#stylethis").css('padding-top').replace(/px/g,''));
+    $('#drop .adds-your-padding-right').val($("#stylethis").css('padding-right').replace(/px/g,''));
+    $('#drop .adds-your-padding-bottom').val($("#stylethis").css('padding-bottom').replace(/px/g,''));
+    $('#drop .adds-your-padding-left').val($("#stylethis").css('padding-left').replace(/px/g,''));
+    $('#drop .adds-your-margin').val($("#stylethis").css('margin').replace(/px/g,''));
+    $('#drop .adds-your-margin-top').val($("#stylethis").css('margin-top').replace(/px/g,''));
+    $('#drop .adds-your-margin-right').val($("#stylethis").css('margin-right').replace(/px/g,''));
+    $('#drop .adds-your-margin-bottom').val($("#stylethis").css('margin-bottom').replace(/px/g,''));
+    $('#drop .adds-your-margin-left').val($("#stylethis").css('margin-left').replace(/px/g,''));
+    $('#drop .adds-your-background-image').val($("#stylethis").css('background-image'));
+    $('#drop .adds-your-background-position').val($("#stylethis").css('background-position'));
+    $('#drop .adds-your-background-repeat').val($("#stylethis").css('background-repeat'));
+    $('#drop .adds-your-background-attachment').val($("#stylethis").css('background-attachment'));
+    $('#drop .adds-your-background-size').val($("#stylethis").css('background-size'));
+    $('#drop .adds-your-background-color').val($("#stylethis").css('background-color'));
+    $('#drop .adds-your-box-shadow').val($("#stylethis").css('box-shadow'));
+    $('#drop .adds-your-border-top').val($("#stylethis").css('border-top'));
+    $('#drop .adds-your-border-left').val($("#stylethis").css('border-left'));
+    $('#drop .adds-your-border-bottom').val($("#stylethis").css('border-bottom'));
+    $('#drop .adds-your-border-right').val($("#stylethis").css('border-right'));
+    $('#drop .adds-your-border-radius').val($("#stylethis").css('border-radius').replace(/px/g,''));
+    $('#drop .adds-your-border-radius-top-left').val($("#stylethis").css('border-top-left-radius').replace(/px/g,''));
+    $('#drop .adds-your-border-radius-top-right').val($("#stylethis").css('border-top-right-radius').replace(/px/g,''));
+    $('#drop .adds-your-border-radius-bottom-left').val($("#stylethis").css('border-bottom-left-radius').replace(/px/g,''));
+    $('#drop .adds-your-border-radius-bottom-right').val($("#stylethis").css('border-bottom-right-radius').replace(/px/g,''));
+    $('#drop .adds-your-font-size').val($("#stylethis").css('font-size').replace(/px/g,''));
+    $('#drop .adds-your-font-color').val($("#stylethis").css('color'));
+    $('#drop .adds-your-font-family').val($("#stylethis").css('font-family'));
+    $('#drop a[title='+ $('#drop .adds-your-font-family').val() +']').addClass("imanactiveachornowyay");
+    $('#drop .adds-your-font-varient').val($("#stylethis").css('font-varient'));
+    $('#drop .adds-your-font-style').val($("#stylethis").css('font-style'));
+    $('#drop .adds-your-font-weight').val($("#stylethis").css('font-weight'));
+    $('#drop .adds-your-line-height').val($("#stylethis").css('line-height').replace(/px/g,''));
+    $('#drop .adds-your-letter-spacing').val($("#stylethis").css('letter-spacing'));
+    $('#drop .adds-your-word-spacing').val($("#stylethis").css('word-spacing').replace(/px/g,''));
+    $('#drop .adds-your-text-transform').val($("#stylethis").css('text-transform'));
+    $('#drop .adds-your-text-decoration').val($("#stylethis").css('text-decoration'));
+    $('#drop .adds-your-text-align').val($("#stylethis").css('text-align'));
+    $('#drop a[title='+ $('#drop .adds-your-text-align').val() +']').addClass("imanactiveachornowyay");
+    $('#drop .adds-your-word-wrap').val($("#stylethis").css('word-wrap'));
+    $('#drop .adds-your-white-space').val($("#stylethis").css('white-space'));
+    $('#drop .adds-your-text-shadow').val($("#stylethis").css('text-shadow'));
+    $('#drop .adds-your-display').val($("#stylethis").css('display'));
+    $('#drop .adds-your-overflow-x').val($("#stylethis").css('overflow-x'));
+    $('#drop .adds-your-overflow-y').val($("#stylethis").css('overflow-y'));
+    $('#drop .adds-your-opacity').val($("#stylethis").css('opacity'));
+    $('#drop .adds-your-outline').val($("#stylethis").css('outline'));
+    $('#drop .adds-your-resize').val($("#stylethis").css('resize'));
+    $('#drop .adds-your-float').val($("#stylethis").css('float'));
+    $('#drop .adds-your-z-index').val($("#stylethis").css('z-index'));
+    $('#drop .adds-your-cursor').val($("#stylethis").css('cursor'));
+    $('#drop .adds-your-list-style').val($("#stylethis").css('list-style'));
+    $('#drop .adds-your-content').val($("#stylethis").css('content'));
+    $('#drop .adds-your-vertical-align').val($("#stylethis").css('vertical-align'));
+    $('#drop .adds-your-transition').val($("#stylethis").css('transition'));
+    $('#drop .adds-your-transform').val($("#stylethis").css('transform'));
+    $('#drop .adds-your-filter').val($("#stylethis").css('filter'));
     localStorage.setItem('CanvesContent', $(".canves").html());
   }
   function DuplicateSelectedElm() {
@@ -386,9 +499,9 @@ $(document).ready(function() {
     $('#select-elm-options').hide();
     $('#insert-your-own-html').val("");
     $("#known-class").text("");
+    localStorage.setItem('CanvesContent',$(".canves").html());
     $("#select-properties #drop").find("a").removeClass("imanactiveachornowyay");
     $("#select-properties #drop").find("input[type=text], input[type=number], select, textarea").val("");
-    localStorage.setItem('CanvesContent',$(".canves").html());
   }
   function DeselectSelectedElm() {
     $("div.handle").remove();
@@ -693,42 +806,16 @@ $(document).ready(function() {
       brbrintsresult.val(brtl + "px " + brtr + "px " + brbr + "px " + brbl + "px");
     }
   };
-  function CheckDrawOptions() {
-    if ($("#div").is(":checked")) {
-      $(".draw-opt-props div").hide();
-    } else if ($("#h1").is(":checked")) {
-      $(".draw-opt-props div").hide();
-    }
-  }
-  var BoxOptions =  function() {
-    if ($("#div").is(":checked")) {
-        dBox = $("<" + $('.draw-elements input[type=radio]:checked').val() + " class='box' style='' />");
-    }
-    else if ($("#h1").is(":checked")) {
-        dBox = $("<" + $('.draw-elements input[type=radio]:checked').val() + " class='box' style=''/>")
-                 .html("Hello world");
-    }
-  };
-  var RefreshCanvas = function() {
-    $("#code").val($(".canves").html());
-    $(".canves").html($("#code").val());
-  };
-  var BackupCanvas = function() {
-    $("#orightml").html( $(".canves").html() );
-    $(".canves").html( $("#orightml").html() );
-  };
   
   // Mirror code
   $(window).on('load', function() {
-    document.title = $(".thisisyourdocumenttitle").val();
-    localStorage.setItem('SiteTitle', $(".thisisyourdocumenttitle").val());
-    
     $("div.handle").remove();
     $("#sel-css, #browseweb").val("");
     $("#clearinputs").trigger("click");
     $("#toggle-workflow-visibility, #ljavascript").prop('checked', false);
     $("#ljavascript").trigger('change');
-    $('.canves *').removeAttr('id').prop('contenteditable', false).removeAttr('contenteditable');
+    $('.canves, .canves *').removeAttr('id');
+    $(".canves *").prop('contenteditable', false).removeAttr('contenteditable');
     $("#grabelmvalz .testsyourglobalcss:first-of-type, #setup-elm-parent").val("");
     $("#apply-active-css").html("<style type='text/css'>"+ $("#grabelmvalz .testsyourglobalcss:first-of-type").val() +"</style>");
     PrevStyles();
@@ -793,48 +880,32 @@ $(document).ready(function() {
       $('#js-yes-no, #yourjs').html("");
       $('#js-code').attr('disabled', true);
     }
-    
-    // Handle Design/Preview Onload
-    if ($('#toggle-workflow-visibility').prop('checked') === true ) {
-      $("#preview-pane, #starter-properties").show();
-      $(".canves, #select-properties").hide();
-
-      if ($('.myfukentoolisactivebiotch').is(':visible')) {
-        $('.myfukentoolisactivebiotch').trigger('click');
-      }
-      
-      FinalizePrev();
-    }
-    if ($('#toggle-workflow-visibility').prop('checked') === false ) {
-      $(".canves, #starter-properties").show();
-      $("#preview-pane, #select-properties").hide();
-      FinalizePrev();
-    }
   }).on('load resize', function() {
     $('#ruler').empty();
     createRuler();
     
     // Set & Adjust Canvas Size
-    $('#cwidth').attr('max', $('#itsthecavnescontainerbro').width()).val($('#itsthecavnescontainerbro').width());
-    $('#cwidth').on('mousedown touchstart', function(e) {
-      $('body').append('<span id="media-query-slider"></span>');
-      $('#media-query-slider').show();
-      $('#cwidth').on('mouseup touchend', function(e) {
-        $('#media-query-slider').hide().removeAttr("style");
+    $(function() {
+      $('#cwidth').attr('max', $('#itsthecavnescontainerbro').width()).val($('#itsthecavnescontainerbro').width());
+      $('#cwidth').on('mousedown touchstart', function(e) {
+        $('#media-query-slider').show();
+        $('#cwidth').on('mouseup touchend', function(e) {
+          $('#media-query-slider').hide();
+        });
       });
-    });
-    $("#cwidth").on('change', function() {
-      $(".canves, #workflow").css({
-        'width' : $("#cwidth").val() + 'px'
+      
+      $("#cwidth").on('change', function() {
+        $(".canves, #workflow").css({
+          'width' : $("#cwidth").val() + 'px'
+        });
+        $("#resolutionoptimzer").val($(this).val() + "px");
       });
-      $("#resolutionoptimzer").val($(this).val() + "px");
-    });
-    $(document).on('mousemove touchmove change', function(e) {
-      if ($('#media-query-slider').is(":visible")) {
+      
+      $(document).on('mousemove touchmove change', function(e) {
         $('#media-query-slider').text( $('#cwidth').val() + "px" ).css({
           left: e.pageX - $('#media-query-slider').width() / 1.25 + "px"
         });
-      }
+      });
     });
     
     // Handles Res Optimizers Value
@@ -851,9 +922,9 @@ $(document).ready(function() {
     shortcut.add("Ctrl+1", function() {
       $("#select-tool").trigger('click');
     });
-    // Shortcut for draw tool
+    // Shortcut for instructions
     shortcut.add("Ctrl+2", function() {
-      $("#draw-tool").trigger('click');
+      $("#css-tips").trigger('click');
     });
     // Shortcut for new document
     shortcut.add("Ctrl+N", function() {
@@ -1013,15 +1084,14 @@ $(document).ready(function() {
   
   // Handles Select Tool, Global Styles, & Editable Operations
   $("#select-tool").on('click', function() {
-    $("#draw-tool").removeClass("myfukentoolisactivebiotch");
     $(this).toggleClass("myfukentoolisactivebiotch");
     if ($("#select-tool.myfukentoolisactivebiotch").is(':visible')) {
+      $("#starter-properties").hide();
+      $("#select-properties").show();
       $("#toggle-workflow-visibility").prop('checked', false);
       $(".canves").addClass("designer").show();
-      $("#starter-properties, #draw-properties, #preview-pane").hide();
-      $("#select-properties").show();
+      $("#preview-pane").hide();
       elmstyle = 1;
-      drawable = false;
       
       if(elmstyle) {
         MoveSelectedElement();
@@ -1036,14 +1106,10 @@ $(document).ready(function() {
       elmstyle = false;
       $(document).unbind("contextmenu");
       $("div.handle").remove();
+      $("#starter-properties, #select-mode").show();
       $("#select-properties, #edit-mode").hide();
-      if (($("#select-properties").is(":hidden")) && ($("#draw-properties").is(":hidden"))) {
-        $("#starter-properties, #select-mode").show();
-      }
-      $("#select-mode #drop").find("input[type=text], input[type=number], select").val("").trigger('change');
-      $("#select-mode #drop").find("a").removeClass("imanactiveachornowyay");
-      $("#sel-css").val("");
-      $("#known-class").text("");
+      $("#select-mode #drop").find("input[type=text], input[type=number], select").val("");
+      $("#select-move #drop").find("a").removeClass("imanactiveachornowyay");
       $(".canves *").prop('contenteditable', false).removeAttr('contenteditable').removeAttr("id");
       $(".canves").removeClass("designer");
       // Deactivates interactive design and right click menu when tool closes
@@ -1051,6 +1117,7 @@ $(document).ready(function() {
       $(".imcontainingcanves").html($("#current-canvas").val());
 
       $('#select-elm-options').hide();
+      $("#known-class").text("");
       FinalizePrev();
       if( $("#edit-mode").is(":visible") ) {
         $("#exit-edit-mode, #undo, #redo").show();
@@ -1198,7 +1265,6 @@ $(document).ready(function() {
             }
             $("#stylethis").append($ctrl);
             $('#insert-your-own-html').val($("#stylethis").html());
-            localStorage.setItem('CanvesContent', $(".canves").html());
           }
         } else {
           alert("Operation cancelled: No current element selected!");
@@ -1218,7 +1284,6 @@ $(document).ready(function() {
 
             $("#stylethis").append( $('<input/>', obj) );
             $('#insert-your-own-html').val($("#stylethis").html());
-            localStorage.setItem('CanvesContent', $(".canves").html());
           } else {
             alert("Operation cancelled: No input[type] defined!");
           }
@@ -1235,7 +1300,6 @@ $(document).ready(function() {
             $("#insert-your-own-html").val($("#setup-elm-parent").val()).trigger("change");
             $("#setup-elm-parent").val("");
             $("#stylethis").append('<div class="handle NE"></div><div class="handle NN"></div><div class="handle NW"></div><div class="handle WW"></div><div class="handle EE"></div><div class="handle SW"></div><div class="handle SS"></div><div class="handle SE"></div>');
-            localStorage.setItem('CanvesContent', $(".canves").html());
           }
         } else {
          alert("Parent Child Operation cancelled: No element is selected!");
@@ -1250,12 +1314,10 @@ $(document).ready(function() {
                 $("#setup-elm-child").val("<div>\n" + $("#insert-your-own-html").val() + "\n</div>");
                 $("#insert-your-own-html").val($("#setup-elm-child").val()).trigger("change");
                 $("#setup-elm-child").val("");
-                localStorage.setItem('CanvesContent', $(".canves").html());
               } else {
                 $("#setup-elm-child").val('<div class="'+ $(".newchildclassname").val() +'">\n' + $("#insert-your-own-html").val() + '\n</div>');
                 $("#insert-your-own-html").val($("#setup-elm-child").val()).trigger('change');
                 $("#setup-elm-child").val("");
-                localStorage.setItem('CanvesContent', $(".canves").html());
               }
             } else {
               return false;
@@ -1266,13 +1328,11 @@ $(document).ready(function() {
               $("#insert-your-own-html").val($("#setup-elm-child").val()).trigger("change");
               $("#setup-elm-child").val("");
               $("#stylethis").append('<div class="handle NE"></div><div class="handle NN"></div><div class="handle NW"></div><div class="handle WW"></div><div class="handle EE"></div><div class="handle SW"></div><div class="handle SS"></div><div class="handle SE"></div>');
-              localStorage.setItem('CanvesContent', $(".canves").html());
             } else {
               $("#setup-elm-child").val('<div class="'+ $(".newchildclassname").val() +'">\n' + $("#insert-your-own-html").val() + '\n</div>');
               $("#insert-your-own-html").val($("#setup-elm-child").val()).trigger('change');
               $("#setup-elm-child").val("");
               $("#stylethis").append('<div class="handle NE"></div><div class="handle NN"></div><div class="handle NW"></div><div class="handle WW"></div><div class="handle EE"></div><div class="handle SW"></div><div class="handle SS"></div><div class="handle SE"></div>');
-              localStorage.setItem('CanvesContent', $(".canves").html());
             }
           }
         } else {
@@ -1283,7 +1343,6 @@ $(document).ready(function() {
       // Update inner html from custom textarea
       $('#insert-your-own-html').on('keyup change', function() {
         $("#stylethis").html($(this).val());
-        localStorage.setItem('CanvesContent', $(".canves").html());
       });
       
       // Handles Global Styles Preview
@@ -1341,7 +1400,7 @@ $(document).ready(function() {
       $(".ancordaposvalz a").on('click', function() {
         $("#posvalz a").removeClass("imanactiveachornowyay");
         $(this).addClass("imanactiveachornowyay");
-        $("#drop .adds-your-position").val($(this).prop('title')).change();
+        $("#drop .adds-your-position").val($(this).prop('title'));
         if ($(this).prop("title") === "placer") {
           $("#posvalz a").removeClass("imanactiveachornowyay");
         }
@@ -1349,13 +1408,13 @@ $(document).ready(function() {
         $("#stylethis").css({
           "position": $("#drop .adds-your-position-top").val()
         });
+        localStorage.setItem('CanvesContent', $(".canves").html());
         if ( $(this).val() === "placer" ) {
           $("#stylethis").css({
             "position": ""
           });
           localStorage.setItem('CanvesContent', $(".canves").html());
         }
-        localStorage.setItem('CanvesContent', $(".canves").html());
       });
       $("#posvalz .adds-your-position").on('change', function() {
         if ( $(this).val() === "" ) {
@@ -1544,15 +1603,16 @@ $(document).ready(function() {
           "white-space": $("#drop .adds-your-white-space").val(),
           "text-shadow": $("#drop .adds-your-text-shadow").val()
         });
+        localStorage.setItem('CanvesContent', $(".canves").html());
         $("#grab-txt-align a").removeClass("imanactiveachornowyay");
         var txtalign = this.value;
         $("#grab-txt-align a").filter(function() {
            return this.title === txtalign; /* return ones that match text-align */
         }).prop('title', txtalign).addClass("imanactiveachornowyay");
+        
         if ($(this).val() === "") {
           $("#grab-txt-align a").removeClass("imanactiveachornowyay");
         }
-        localStorage.setItem('CanvesContent', $(".canves").html());
       });
       $("#drop .adds-your-font-family").on('keyup change', function() {
         $("#stylethis").css({
@@ -1571,6 +1631,7 @@ $(document).ready(function() {
           "white-space": $("#drop .adds-your-white-space").val(),
           "text-shadow": $("#drop .adds-your-text-shadow").val()
         });
+        localStorage.setItem('CanvesContent', $(".canves").html());
         $(".grab-default-typography a").removeClass("imanactiveachornowyay");
         var font = this.value;
         $(".grab-default-typography a").filter(function() {
@@ -1581,7 +1642,6 @@ $(document).ready(function() {
         if ($(this).val() === "") {
           $(".grab-default-typography a").removeClass("imanactiveachornowyay");
         }
-        localStorage.setItem('CanvesContent', $(".canves").html());
       });
     });
     
@@ -1620,7 +1680,6 @@ $(document).ready(function() {
       MoveSelectedElement();
       PrevStyles();
       createCustomMenu();
-      localStorage.setItem('CanvesContent', $(".canves").html());
     });
     
     // Handles Heading
@@ -1653,6 +1712,12 @@ $(document).ready(function() {
         }
         localStorage.setItem('CanvesContent', $(".canves").html());
       });
+      $('#add-editable-font-color').on('click', function() {
+        var color = $("#editable-txt-cpick-code-hsl").val();
+        document.execCommand('ForeColor',false,color);
+        $("#show-editable-elms-code").val($(editableElm).html());
+        localStorage.setItem('CanvesContent', $(".canves").html());
+      });
       
       // Setup Code
       $("#editable-text-color-picker input[type=range]").on('change keyup', function() {
@@ -1674,10 +1739,6 @@ $(document).ready(function() {
         
         var hex = rgb2hex( $("#grab-editable-txt-color").css('background-color') );
         $("#editable-txt-cpick-code-hsl").val(hex);
-        var color = $("#editable-txt-cpick-code-hsl").val();
-        document.execCommand('ForeColor',false,color);
-        $("#show-editable-elms-code").val($(editableElm).html());
-        localStorage.setItem('CanvesContent', $(".canves").html());
       });
       $("#editable-txt-cpick-code-hsl").on('change keyup', function() {
         // Initiates preview
@@ -1700,90 +1761,24 @@ $(document).ready(function() {
       $("#grab-editable-txt-color").on('click', function() {
         $("#editable-text-color-picker").toggle();
       });
+      $("#editable-text-color-picker").hide();
       
       // Handles font size
       $('#editable-font-size').on('change', function() {
         document.execCommand('FontSize', false, $(this).val());
-        $("#editable-font-size-output").text($("#editable-font-size").val());
         $("#show-editable-elms-code").val($(editableElm).html());
         localStorage.setItem('CanvesContent', $(".canves").html());
       });
     });
   });
-  
-  // Handles Draw Tool
-  $("#draw-tool").on('click', function() {
-    $("#select-tool").removeClass("myfukentoolisactivebiotch");
-    $(this).toggleClass("myfukentoolisactivebiotch");
-    RefreshCanvas();
-    if ($("#draw-tool.myfukentoolisactivebiotch").is(":visible")) {
-      elmstyle = false;
-      drawable = 1;
-      $("#draw-properties").show();
-      $("#select-properties, #starter-properties").hide();
-      
-      // Remove all ids from previously selected elements
-      $(".canves *").removeAttr('id').removeAttr('contenteditable');
-      $(".handle").remove();
-      
-      // Handles Draw Options
-      $(".draw-elements input[type=radio]").on('change', function() {
-        CheckDrawOptions();
-      });
-      $(".draw-opt-props > div input").on('change', function() {
-        BoxOptions();
-      });
-    }
-    else {
-      drawable = false;
-      $("#draw-properties").hide();
-      if (($("#select-properties").is(":hidden")) && ($("#draw-properties").is(":hidden"))) {
-        $("#starter-properties").show();
-      }
-    }
-  });
-  
-  // Handles Drawable Elements
-  $(".canves").on('mousedown touchstart', function(e) {
-    if ($("#draw-tool.myfukentoolisactivebiotch").is(':visible')) {
-      if(drawable) {
-        drawing = true;
-        mS.x = e.pageX;
-        mS.y = e.pageY - 24;
-        BoxOptions();
-        $(this).append(dBox);
-        
-        // Do not select text when drawing
-        return false;
-      }
-    }
-  });
-  $(document).on('mousemove touchmove', function(e) {
-    if ($("#draw-tool.myfukentoolisactivebiotch").is(':visible')) {
-      if(drawing && drawable){
-        var mPos = {x:e.pageX, y:e.pageY - 24};
-        var css = {};
-          css.position   = 'absolute';
-          css.left       = (mPos.x > mS.x) ? mS.x : mPos.x;
-          css.top        = (mPos.y > mS.y) ? mS.y : mPos.y;
-          css.width      = Math.abs(mPos.x - mS.x);
-          css.height     = Math.abs(mPos.y - mS.y);
-          css.border = '1px dotted rgb(0, 34, 102)';
-          dBox.css(css);
-        
-        // Do not select text when drawing
-        return false;
-      }
-    }
-  }).on('mouseup touchend', function(e) {
-    drawing  = false;
-    localStorage.setItem('CanvesContent', $(".canves").html());
-  });
-  
-  $("#open-menu").on('click', function() {
-    $("#menu").show();
+  $("#open-menu").on('click', function(e) {
+    $("#menu").css({
+      'position': 'absolute',
+      'top': e.pageY,
+      'right': "25px"
+    }).show();
     
-    $("#tools, #tools a:not(#open-menu), #starter-properties, #select-properties, #ruler-container, #cwidth-containment, #itsthecavnescontainerbro, .canves, .canves *").on('mousedown touchstart', function() {
+    $("#tools, #tools a:not(#open-menu), #starter-properties, #select-properties").on('mousedown touchstart', function() {
       if ( $("#menu").is(":visible") ) {
         $("#menu").hide();
       }
@@ -2058,7 +2053,6 @@ $(document).ready(function() {
     $(".thisisyourdocumenttitle").on('keyup', function() {
       document.title = $(this).val();
       $('#mirror-title').text( $(this).val() );
-      localStorage.setItem('SiteTitle', $(this).val());
     });
 
     // Resolution Optimizer
@@ -2089,6 +2083,15 @@ $(document).ready(function() {
           $("#workflow").prop('src', "http://" + $(this).val());
         }
       });
+    });
+    
+    // Add Elements to Design Area
+    $(".elms-4-stage").find(".add-elm").on('click', function() {
+      $(".canves").append('<'+ $(this).text() +' class="box'+ counter++ +'" style="">'+ $(this).text() +'</'+ $(this).text() +'>');
+      $('#toggle-workflow-visibility').prop('checked', false);
+      $(".canves").show();
+      $("#preview-pane").hide();
+      FinalizePrev();
     });
     
     // Adds CSS Link References
@@ -2819,9 +2822,6 @@ $(document).ready(function() {
         return false;
       }
     });
-    $("#notepad").on('keyup', function() {
-      localStorage.setItem('Notepad', $("#notepad").val());
-    });
     
     // Handles Dropdowns
     $("#toolbox header").on('click', function(e) {
@@ -2829,12 +2829,11 @@ $(document).ready(function() {
         $(this).toggleClass("activedrop").next().toggle();
       }
     });
-
   });
   
   // Toggle Design & Option Panel Visibility
-  $('#toggle-workflow-visibility').on('change', function(){
-    if ($(this).prop('checked') === true ) {
+  $(function() {
+    if ($('#toggle-workflow-visibility').prop('checked') === true ) {
       $("#preview-pane, #starter-properties").show();
       $(".canves, #select-properties").hide();
     
@@ -2844,12 +2843,29 @@ $(document).ready(function() {
       
       FinalizePrev();
     }
-    if ($(this).prop('checked') === false ) {
+    if ($('#toggle-workflow-visibility').prop('checked') === false ) {
       $(".canves, #starter-properties").show();
       $("#preview-pane, #select-properties").hide();
-      
       FinalizePrev();
     }
+    $('#toggle-workflow-visibility').on('change', function(){
+      if ($(this).prop('checked') === true ) {
+        $("#preview-pane, #starter-properties").show();
+        $(".canves, #select-properties").hide();
+      
+        if ($('.myfukentoolisactivebiotch').is(':visible')) {
+          $('.myfukentoolisactivebiotch').trigger('click');
+        }
+        
+        FinalizePrev();
+      }
+      if ($(this).prop('checked') === false ) {
+        $(".canves, #starter-properties").show();
+        $("#preview-pane, #select-properties").hide();
+        
+        FinalizePrev();
+      }
+    });
   });
   
   // Handles Color Pickers
@@ -3516,9 +3532,9 @@ $(document).ready(function() {
   $("#search-app").on('keyup change', function() {
     var $val = $(this).val();
     
-    if ($val.toLowerCase() === "all") {
+    if ($.inArray($val.toLowerCase(), ["all"]) > -1) {
       $("#select-mode header").removeClass('activedrop').next().show();
-    } else if ($val.toLowerCase() === "none") {
+    } else if ($.inArray($val.toLowerCase(), ["none"]) > -1) {
       $("#select-mode header").removeClass('activedrop').addClass('activedrop').next().hide();
       
     } else if ($.inArray($val.toLowerCase(), ["position", "background", "border", "typography", "advanced", "elements", "custom"]) > -1) {
@@ -3529,59 +3545,42 @@ $(document).ready(function() {
       $("#select-mode header:contains(position:)").next().show();
       $("#posvalz").parent().prev().removeClass('activedrop');
       $("#posvalz *").find(".adds-your-position-"+ $val.toLowerCase() +"").focus();
-      $(this).val("");
+      $("#search-app").val("");
     } else if ($.inArray($val.toLowerCase(), ["width", "height"]) > -1) {
       $("#select-mode header").removeClass('activedrop').addClass('activedrop').next().hide();
       $("#select-mode header:contains(position:)").next().show();
       $("#posvalz").parent().prev().removeClass('activedrop');
       $("#posvalz *").find(".adds-your-"+ $val.toLowerCase() +"").focus();
-      $(this).val("");
+      $("#search-app").val("");
     } else if ($.inArray($val.toLowerCase(), ["padding-all", "padding-top", "padding-left", "padding-bottom", "padding-right", "margin-all", "margin-top", "margin-left", "margin-bottom", "margin-right"]) > -1) {
       $("#select-mode header").removeClass('activedrop').addClass('activedrop').next().hide();
       $("#select-mode header:contains(position:)").next().show();
       $("#posvalz").parent().prev().removeClass('activedrop');
       $("#posvalz *").find(".adds-your-"+ $val.toLowerCase().replace(/-all/g,'') +"").focus();
-      $(this).val("");
+      $("#search-app").val("");
     } else if ($.inArray($val.toLowerCase(), ["background-image", "background-position", "background-repeat", "background-attachment", "background-size", "background-color", "box-shadow"]) > -1) {
       $("#select-mode header").removeClass('activedrop').addClass('activedrop').next().hide();
       $("#select-mode header:contains(background:)").next().show();
       $("#bgvalz").parent().prev().removeClass('activedrop');
       $("#bgvalz").find(".adds-your-"+ $val.toLowerCase() +"").focus();
-      $(this).val("");
+      $("#search-app").val("");
     } else if ($.inArray($val.toLowerCase(), ["font-size", "color", "font-family", "font-varient", "font-style", "font-weight", "line-height", "letter-spacing", "word-spacing", "text-transform", "text-decoration", "text-align", "word-wrap", "white-space", "text-shadow"]) > -1) {
       $("#select-mode header").removeClass('activedrop').addClass('activedrop').next().hide();
       $("#select-mode header:contains(typography:)").next().show();
       $("#typographyvalz1").parent().prev().removeClass('activedrop');
       $("#typographyvalz1, #typographyvalz2").find(".adds-your-"+ $val.toLowerCase().replace(/color/g,'font-color') +"").focus();
-      $(this).val("");
+      $("#search-app").val("");
     } else if ($.inArray($val.toLowerCase(), ["display", "overflow-x", "overflow-y", "opacity", "outline", "resize", "float", "z-index", "cursor", "list-style", "content", "vertical-align", "transition", "transform", "resize"]) > -1) {
       $("#select-mode header").removeClass('activedrop').addClass('activedrop').next().hide();
       $("#select-mode header:contains(advanced:)").next().show();
       $("#advancedvalz").parent().prev().removeClass('activedrop');
       $("#advancedvalz").find(".adds-your-"+ $val.toLowerCase().replace(/content/g,'content-prop') +"").focus();
-      $(this).val("");
+      $("#search-app").val("");
     } else if ($.inArray($val.toLowerCase(), ["button", "textbox", "parent", "child"]) > -1) {
       $("#add-button, #add-textbox, #add-child, #add-parent, #clear-canves").removeClass('thisisanactivebutton');
       $(".add-button-properz, .add-textbox-properz, .add-parent-properz, .add-child-properz, .clear-canves-properz").hide();
       $("#select-mode header:contains(elements:)").removeClass('activedrop').next().show();
       $("#add-" + $val).trigger("click");
-      if ($this === "child") {
-        $(".add-child-confirm").trigger("click");
-      }
-    } else if ($val.toLowerCase() === "clear") {
-      $("#add-button, #add-textbox, #add-child, #add-parent, #clear-canves").removeClass('thisisanactivebutton');
-      $(".add-button-properz, .add-textbox-properz, .add-parent-properz, .add-child-properz, .clear-canves-properz").hide();
-      $("#select-mode header:contains(elements:)").removeClass('activedrop').next().show();
-      $("#clear-canves").trigger("click");
-    } else if ($val.toLowerCase() === "clear css") {
-      $(this).val("");
-      $(".imaclearallyourcss").trigger("click");
-    } else if ($val.toLowerCase() === "clear element") {
-      $(this).val("");
-      $(".imaclearyourselectedelm").trigger("click");
-    } else if ($val.toLowerCase() === "clear canvas") {
-      $(this).val("");
-      $(".imaclearyourcanvas").trigger("click");
     }
   });
   $("#search-mmd").on('click', function() {
@@ -3592,7 +3591,7 @@ $(document).ready(function() {
       $("#search-app").val("none").trigger('change').val("").focus();
     }
   });
-  CheckDrawOptions();
+  $("#select-properties, #select-elm-options, #edit-mode, .add-button-properz, .add-textbox-properz, .add-parent-properz, .add-child-properz, .clear-canves-properz, #undo, #redo, #exit-edit-mode, #menu").hide();
   $('#ruler').empty();
   createRuler();
 });
