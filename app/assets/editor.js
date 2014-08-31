@@ -1035,6 +1035,9 @@ $(document).ready(function() {
         }
       }
     } else {
+      if ($("#stylethis").is(":visible")) {
+        $(".deselectselectedelm").trigger("click");
+      }
       elmstyle = false;
       $(document).unbind("contextmenu");
       $("div.handle").remove();
