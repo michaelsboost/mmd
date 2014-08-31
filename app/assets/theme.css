@@ -14,13 +14,13 @@
 }
 
 /* Tool Icons */
-#toolbox > div#tools {
+#toolbox > #tools {
   font: 15px Arial;
   padding: 10px 0;
   background: #111;
   text-align: center;
 }
-#toolbox > div#tools a {
+#toolbox > #tools a {
   cursor: pointer;
   margin: 0 5px;
   color: #ddd;
@@ -30,18 +30,18 @@
   text-decoration: none;
   outline: none;
 }
-#toolbox > div#tools a:hover {
+#toolbox > #tools a:hover {
   color: #fff;
 }
-#toolbox > div#tools a:active {
+#toolbox > #tools a:active {
   color: #999;
 }
-#toolbox > div#tools .link-to-svgedit {
+#toolbox > #tools .link-to-svgedit {
   width: 25px;
   height: 25px;
   opacity: .75;
 }
-#toolbox > div#tools .link-to-svgedit:hover {
+#toolbox > #tools .link-to-svgedit:hover {
   opacity: 1;
 }
 #toolbox .myfukentoolisactivebiotch {
@@ -80,7 +80,7 @@
 }
 
 /* Styles our elements in properties */
-#toolbox > div#select-properties {
+#toolbox > #select-properties, #toolbox > #draw-properties {
   padding: 1em 1em;
 }
 #select-properties .thisisanactivebutton {
@@ -95,16 +95,16 @@
   font: 14px times;
   text-transform: uppercase;
 }
-#starter-properties div#drop {
+#starter-properties #drop {
   border: 0!important;
   padding: .5em .5em 0 .5em!important;
 }
-#starter-properties > div#drop > #innerheaderdrop {
+#starter-properties > #drop > #innerheaderdrop {
   width: 90%;
   padding: 5px;
   margin: 0 auto 5px auto;
 } 
-#starter-properties > div#drop > #innerdrop {
+#starter-properties > #drop > #innerdrop {
   border: 1px solid #222;
 } 
 #toolbox header {
@@ -191,12 +191,13 @@
   width: 100%;
   padding: 0 .5em;
 }
-#toolbox div#drop {
+#toolbox #drop {
   font-family: helvetica;
   border-left: 1px solid #151515;
   border-right: 1px solid #151515;
   border-bottom: 1px solid #151515;
   margin: 0 0 5px 0;
+  padding: 10px;
 }
 #toolbox #yourselector {
   border: 0;
@@ -205,11 +206,12 @@
   opacity: .75;
 }
 #toolbox textarea {
-  padding: 0;
+  padding: 0!important;
   border: 0;
   width: 100%;
   height: 150px;
   resize: vertical;
+  color: #000;
 }
 #toolbox #drop a, #toolbox #to-global-css a {
   border-style: none;
@@ -229,7 +231,7 @@
 #toolbox #drop button, #toolbox #to-global-css button {
   position: relative;
   top: -3px;
-  padding: 5px 0;
+  padding: 5px;
   margin: 0;
   width: 80%;
   font: 12px arial;
@@ -238,6 +240,10 @@
   background-color: #222;
   border: 0;
   outline: 0;
+}
+#toolbox #drop select {
+  font-family: sans;
+  color: #000;
 }
 #toolbox #posvalz {
   padding: .5em 0;
@@ -274,23 +280,20 @@
   opacity: .5;
   filter: alpha(opacity=50);
 }
-#toolbox .fill {
-
-}
 #toolbox #points {
   border: 0!important;
   width: 40px!important;
 }
-#toolbox .add-the-css-references button {
+#toolbox .add-the-css-references button, #toolbox .add-the-js-sources button {
   font-size: 16px!important;
   padding: .25em .25em 0 .25em!important;
   color: #ccc!important;
   background-color: transparent!important;
 }
-#toolbox .add-the-css-references button:hover {
+#toolbox .add-the-css-references button:hover, #toolbox .add-the-js-sources button:hover {
   color: #6DD!important;
 }
-#toolbox .add-the-css-references button:active {
+#toolbox .add-the-css-references button:active, #toolbox .add-the-js-sources button:active {
   color: #222!important;
 }
 .centerdiznow {
@@ -334,7 +337,6 @@
 #toolbox #add-custom-ellms a {
   padding: 5px 10px!important;
   font: 14px arial!important;
-  font-weight: none!important;
   background: #444;
 }
 #toolbox #bloc { 
@@ -366,7 +368,7 @@
 #websitebrowser a:active {
   color: #111!important;
 }
-#toolbox .grab-default-typography a {
+#toolbox .grab-default-typography a, #toolbox .timetoeasilyaddyourcharacters a {
   padding: 5px 10px!important;
   margin: 0 2px;
   color: #a9a9a9;
@@ -382,6 +384,17 @@
 #width-identifier, #height-identifier {
   font-size: 12px!important;
 }
+#starter-properties .notepad {
+  height: 200px;
+  color: #000;
+	tab-size: 2;
+	font-family: monospace;
+	line-height: 1;
+	min-height: 1.4em;
+	line-height: 1.4em;
+	font-size: .95em;
+  background-color: rgb(255, 241, 137);
+}
 
 /* Edit Modual Styles */
 #edit-mode #drop a {
@@ -392,10 +405,6 @@
   text-decoration: none;
   font-size: 12px !important;
   font-weight: normal !important;
-}
-#edit-mode #add-editable-font-color {
-  color: rgb(137, 255, 139)!important;
-  font-weight: bold!important;
 }
 
 /* Color Picker */
@@ -427,31 +436,6 @@
   left: -4px;
   margin: 0;
   width: 100%;
-}
-
-/* Elements For Stage */
-#toolbox .elms-4-stage button {
-  width: 100%!important;
-  font: 300 16px/1.5 'museo-sans', 'Open Sans', sans-serif!important;
-  color: #fff!important;
-  text-align: center!important;
-  text-transform: capitalize!important;
-  background: #555!important;
-}
-#toolbox .elms-4-stage button:nth-child(1) {
-  background: #66d!important;
-}
-#toolbox .elms-4-stage button:nth-child(2) {
-  background: #6dd!important;
-}
-#toolbox .elms-4-stage button:nth-child(3) {
-  background: #6d6!important;
-}
-#toolbox .elms-4-stage button:nth-child(5) {
-  background: #cc6!important;
-}
-#toolbox .elms-4-stage button:nth-child(4) {
-  background: #d66!important;
 }
 
 /* Ruler & Slider */
@@ -491,7 +475,10 @@
   border: 1px solid rgba(255, 255, 255, 0.75);
   background: rgba(0, 0, 0, 0.5); 
 }
-
+.rotatable {
+  background: rgba(0, 0, 0, 0.5); 
+  border-radius: 25em;
+}
 /* Bubble */
 .ooobubblez {
   position: relative;

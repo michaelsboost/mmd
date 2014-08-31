@@ -16,14 +16,14 @@ body {
   overflow: auto;
   z-index: 1;
 }
-#toolbox > div#tools {
+#toolbox > #tools {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: auto;
 }
-#toolbox > div#starter-properties, #toolbox > div#select-properties {
+#starter-properties, #select-properties, #draw-properties {
   position: absolute;
   top: 50px;
   left: 0;
@@ -38,17 +38,44 @@ body {
   cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
+  border-radius: 0;
+  background-color: transparent;
 }
 #toolbox table {
   padding: 0;
 }
+#toolbox tr, #toolbox td {
+  padding: 2px;
+}
 #toolbox table tr td:nth-child(1) {
   padding: 0 .5em 0 0;
 }
-#toolbox pre {
-  display: none;
-}
-#mirror-code, #toolbox #to-global-css input[type=text], #toolbox #to-global-css textarea, #toolbox #to-global-css select, #hold-media-queries textarea {
+#toolbox pre, 
+#select-properties, 
+#select-elm-options, 
+#edit-mode, 
+.add-button-properz, 
+.add-textbox-properz, 
+.add-parent-properz, 
+.add-child-properz, 
+.clear-canves-properz, 
+#undo, 
+#redo, 
+#exit-edit-mode, 
+#draw-properties, 
+#mirror-code, 
+#to-global-css input[type=text], 
+#to-global-css textarea, 
+#to-global-css select, 
+#hold-media-queries textarea, 
+#toolbox .hideallyourjstextareas textarea,
+#toolbox .hide, 
+.ooobubblez, 
+#media-query-slider, 
+#custom-menu, 
+#mmd-instruction-dialog-bg,
+#mmd-instruction-dialog,
+#menu {
   display: none;
 }
 #toolbox .horizontal-bar {
@@ -60,9 +87,6 @@ body {
   overflow-y: hidden;
   white-space: nowrap;
 }
-#toolbox .hide, .ooobubblez, #media-query-slider, #custom-menu {
-  display: none;
-}
 #toolbox .in-drop-button {
   cursor: pointer!important;
 }
@@ -70,7 +94,6 @@ body {
   background-color: #fff;
 }
 #mmd-instruction-dialog-bg {
-  display: none;
   position: absolute;
   top: 0;
   left: 0;
@@ -79,7 +102,6 @@ body {
   z-index: 99999999999999999999999999999999999999999999999999999999999999999999999999999999999999;
 }
 #mmd-instruction-dialog {
-  display: none;
   position: absolute;
   top: 5%;
   left: 5%;
@@ -90,14 +112,11 @@ body {
   z-index: 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;
 }
 
-/* Elements For Stage */
-#toolbox .elms-4-stage button {
-  padding: 0;
-  margin: 0;
-}
-#toolbox .elms-4-stage button {
-  display: block;
-  cursor: pointer;
+/* Popup Menu */
+#menu {
+  position: absolute;
+  top: 24px;
+  right: 25px;
 }
 
 /* Ruler & Slider */
@@ -174,6 +193,12 @@ body {
 }
 .handle {
   position: absolute;
+}
+.rotatable {
+  cursor: move;
+  left: 50%;
+  top: -30px;
+  margin-left: -4px;
 }
 .NW, .NN, .NE {
   top: -4px;
@@ -287,7 +312,6 @@ body {
 
 /* Right Click Menu For Editable Elements */
 #custom-menu  {
-  display: none;
   z-index: 1000;
   position: absolute;
   overflow: hidden;
