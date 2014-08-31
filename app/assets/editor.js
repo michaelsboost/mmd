@@ -818,7 +818,9 @@ $(document).ready(function() {
     $('#cwidth').attr('max', $('#itsthecavnescontainerbro').width()).val($('#itsthecavnescontainerbro').width());
     $('#cwidth').on('mousedown touchstart', function(e) {
       $('body').append('<span id="media-query-slider"></span>');
-      $('#media-query-slider').show();
+      $('#media-query-slider').show().text( $('#cwidth').val() + "px" ).css({
+        left: e.pageX - $('#media-query-slider').width() / 1.25 + "px"
+      });
       $('#cwidth').on('mouseup touchend', function(e) {
         $('#media-query-slider').hide().removeAttr("style");
       });
