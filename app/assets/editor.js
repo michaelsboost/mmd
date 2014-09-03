@@ -2532,20 +2532,32 @@ $(document).ready(function() {
         $("#yourjs").html("<script type='text/javascript'>" + $("#js-code").val() + "</script>");
       }
     });
-    $("#js-code").on('keyup', function() {
+    $("#js-code").on('keyup change', function() {
       if ( $("#debug-indicator").text() === "off" ) {
         // we leave this blank so live debug only works when button says on...
         $("#js-yes-no").html('\n' + $("#allyourjssources").val() + '\n&lt;script type="text/javascript"&gt;\n' + $("#js-code").val() + '\n&lt;/script&gt;');
         FinalizePrev();
         localStorage.setItem('JSCode', $("#js-code").val());
       } else {
-        $("#js-yes-no").html('\n' + $("#allyourjssources").val() + '\n&lt;script type="text/javascript"&gt;\n' + $("#js-code").val() + '\n&lt;/script&gt;');
-        $("#yourjs").html("<script type='text/javascript'>" + $("#js-code").val() + "</script>");
-        FinalizePrev();
-        localStorage.setItem('JSCode', $("#js-code").val());
+        if ( $("#ljavascript").prop('checked') === true ) {
+          if ( $("#debug-indicator").text() === "off" ) {
+            // we leave this blank so live debug only works when button says on...
+            $("#js-yes-no").html('\n' + $("#allyourjssources").val() + '\n&lt;script type="text/javascript"&gt;\n' + $("#js-code").val() + '\n&lt;/script&gt;');
+            FinalizePrev();
+          } else {
+            $("#js-yes-no").html('\n' + $("#allyourjssources").val() + '\n&lt;script type="text/javascript"&gt;\n' + $("#js-code").val() + '\n&lt;/script&gt;');
+            $("#yourjs").html("<script type='text/javascript'>" + $("#js-code").val() + "</script>");
+            FinalizePrev();
+          }
+          $("#js-code").removeAttr("disabled");
+          FinalizePrev();
+        }
+        if ( $('#ljavascript').prop('checked') === false ) {
+          $('#js-yes-no, #yourjs').html("");
+          $('#js-code').attr('disabled', true);
+          FinalizePrev();
+        }
       }
-    }).on('change', function() {
-      localStorage.setItem('JSCode', $("#js-code").val());
     });
     // Handles Characters Click To Go To Text Editor
     $(function() {

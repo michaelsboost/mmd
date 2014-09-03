@@ -1,90 +1,105 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>MMD: Mirrored Mockup Design</title>
-<meta charset='utf-8'>
-<meta name="Description" content="Easily design websites on the go. No coding necessary!">
-<meta name="Keywords" content="mobile, app, website, site, design, portable, mirrored, mirroring, mock-up, mockup, designer">
-<meta name="viewport" content="initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="IE=9" />
-<link rel="icon" type="image/vnd.microsoft.icon" href="favicon.ico">
-<link rel="SHORTCUT ICON" href="favicon.ico">
-<link rel="stylesheet" href="css/normalize.css">
-<link rel="stylesheet" href="css/style.css">
-<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600&subset=latin" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="css/lightbox.css" media="screen" />
-<script src="js/modernizr.custom.js"></script>
-<script src="js/jquery-1.10.2.min.js"></script>
-<script src="js/lightbox-2.6.min.js"></script>
-</head>
-<body>
-  <header class="heading-name">
-    <h1>Mirrored Mockup Design</h1>
-    Interactive web design for phones, tablets, and desktops.
-  </header>
-  
-  <div class="design-for">    
-    <h1>designing the modern web!</h1>
-    
-    There's many great tools out there for web design like <a href="http://html.adobe.com/edge/animate/" target="_blank">Adobe Edge Animate</a>, <a href="https://www.google.com/webdesigner/" target="_blank">Google Web Designer</a>, and <a href="http://www.freenew.net/android/adobe-proto/10004112.htm" target="_blank">Adobe Proto</a> (Except discontinued for android), but these tools are only good for those users who are running Windows, Mac OS X, or the iOS platforms. I however couldn't find a decent website designer for Linux or Android so I decided to make my own for <a href="http://sourceforge.net/projects/mmd/files/mmd-linux.tar.gz/download" target="_blank">Linux</a>, <a href="https://play.google.com/store/apps/details?id=com.michael.mmdesign" target="_blank">Android</a>, and <a href="app/">Online</a> as a fun experiment.
-    
-    <p>You can try the minimalistic version on <a href="http://codepen.io/mikethedj4/pen/gCsih" target="_blank">Codepen</a></p>
-    
-    <h1>Design Preview</h1>
-    <a href="app/"><img src="img/mmd.png"></a>
-  </div>
-  
-  <div class="features">
-    <h1>Features</h1>
-    
-    <ul>
-      <li><a href="http://en.wikipedia.org/wiki/Wysiwyg" target="_blank">WYSIWYG</a> Styled Editing</li>
-      <li>Responsive & Interactive Design</li>
-      <li>Available For: <a href="http://sourceforge.net/projects/mmd/files/mmd-linux.tar.gz/download" target="_blank">Linux</a>/<a href="https://play.google.com/store/apps/details?id=com.michael.mmdesign" target="_blank">Android</a>/<a href="app/">Online</a></li>
-      <li>MMD encourages class based syntax's</li>
-      <li>Pseudo class selectors via Global Styles</li>
-      <li>Integrated Media Queries for Responsive Design.</li>
-    </ul>
-    
-    <br /><br />
-  </div>
-  
-  <div class="team">
-    <h1>the creator</h1>
-    
-    <div class="michael">
-      <div class="name">Michael Schwartz</div>
-      <a href="http://twitter.com/mikethedj4">@mikethedj4</a>
+  <head>
+    <title>Mirrored Mockup Design</title>
+    <meta charset="utf-8">
+    <meta name="Description" content="Easily design websites on the go. No coding necessary!">
+    <meta name="Keywords" content="mobile, app, website, site, design, portable, mirrored, mirroring, mock-up, mockup, designer">
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <link rel="icon" type="image/vnd.microsoft.icon" href="favicon.ico">
+    <link rel="SHORTCUT ICON" href="favicon.ico">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Orienta:regular">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Questrial:regular">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oleo+Script+Swash+Caps:regular,700">
+    <link rel="stylesheet" href="css/style.css">
+    <script type='text/javascript' src='js/jquery-1.10.2.min.js'>
+    </script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        var i = 0;
+        
+        function changeList() {
+	        $(".features ul li:gt(0)").hide();
+            var list = $('.features ul li');
+            list.eq(i).fadeIn(1000).delay(3000).fadeOut(1000, function() {
+              i++;
+              if(i % list.length == 0) {
+                i = 0;
+              }
+              changeList();
+            });
+        }
+        changeList();
+      });
+    </script>
+  </head>
+  <body>
+    <div class="box"></div>
+    <div class="bg download" align="center">
+      <a href="http://sourceforge.net/projects/mmd/files/mmd-linux.tar.gz/download" target="_blank">
+        <img src="img/linux.svg">
+      </a>
+      <a href="https://play.google.com/store/apps/details?id=com.michael.mmdesign" target="_blank">
+        <img src="img/android.svg">
+      </a>
+      <a href="https://chrome.google.com/webstore/detail/ekndodkbcpninebdijaaambkbdglbalh/" target="_blank">
+        <img src="img/chrome.svg">
+      </a>
+      <a href="http://mmd.sourceforge.net/app/" target="_blank">
+        <img src="img/globe.svg">
+      </a>
     </div>
-    
-    <br />
-    <p>
-      <a class="donate" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=BSYGA2RB5ZJCC" target="_blank">Donate</a>
-    </p>
-  </div>
-  
-  <div class="connect">
-    <div class="left">
-      <a href="https://www.facebook.com/pages/Mirrored-Mockup-Design/1428613460707260" class="entypo-facebook" title="Facebook" target="_blank">&nbsp;</a>
-      <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=BSYGA2RB5ZJCC" class="entypo-paypal" title="Donate" target="_blank">&nbsp;</a>
+    <a href="app/" class="run" target="_blank">
+      Launch
+    </a>
+    <div class="features" align="center">
+      <ul>
+        <li>
+          <b>
+            Responsive
+          </b>
+          &nbsp;Set queries and optimize your site for all devices.
+          <br>
+        </li>
+        <li>
+          <b>
+            Typography
+          </b>
+          &nbsp;Pull in web fonts or use integrated system fonts.
+          <br>
+        </li>
+        <li>
+          <b>
+            Global Styles
+          </b>
+          &nbsp;Style multiple elements and use pseudo selectors.
+          <br>
+        </li>
+        <li>
+          <b>
+            Positioning
+          </b>
+          &nbsp;Utilize position properties for dynamic layouts.
+        </li>
+      </ul>
     </div>
-    
-    <div class="right">
-      <a href="https://chrome.google.com/webstore/detail/ekndodkbcpninebdijaaambkbdglbalh/" target="_blank"><img class="chrome" src="img/chrome-bnw.svg"></a> <a href="https://github.com/mikethedj4/mmd" class="entypo-github" title="Fork me on Github" target="_blank"></a>
+    <div class="author">
+      <p>
+        Project Developer<br />
+        <a href="http://twitter.com/mikethedj4">@mikethedj4</a>
+      </p>
     </div>
-  </div>
-    
-<script type="text/javascript">
-  $(function() {
-    $(window).on('load resize', function() {
-      if ($(window).width() < 600) {
-        $('.design-for h1:first-child').html("design the web!");
-      }
-      else {
-        $('.design-for h1:first-child').html("designing the modern web!");
-      };
-    });
-  });
-</script>
-</body>
+    <div class="connect">
+      <div class="left">
+        <a href="https://www.facebook.com/pages/Mirrored-Mockup-Design/1428613460707260" class="entypo-facebook" title="Facebook" target="_blank">&nbsp;</a>
+        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=BSYGA2RB5ZJCC" class="entypo-paypal" title="Donate" target="_blank">&nbsp;</a>
+      </div>
+      <div class="right">
+        <a href="https://chrome.google.com/webstore/detail/ekndodkbcpninebdijaaambkbdglbalh/" target="_blank"><img class="chrome" src="img/chrome-bnw.svg"></a>
+        <a href="https://github.com/mikethedj4/mmd" class="entypo-github" title="Fork me on Github" target="_blank"></a>
+      </div>
+    </div>
+  </body>
 </html>

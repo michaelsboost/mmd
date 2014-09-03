@@ -1,169 +1,164 @@
 @import url("fonts.css");
 
-html, body {
-  padding: 0; margin: 0;
-  background: #161616;
-  font: 300 16px/1.5 'museo-sans', 'Open Sans', sans-serif;
-  color: #000;
-  text-align: center;
-}
-
-p { margin: 14px auto; }
-*, *:hover, *:active, *:focus, *:visited { outline:0; overflow: none; }
-
-/* Navigation */
-.nav * {
-    text-transform: uppercase;
-    font-size: 30px;
-    margin: 12px auto;
-}
-
-/* Website Heading */
-.heading-name {
-  text-align: center;
-  background-image: url(../bg.jpg);
-  color: rgb(255, 255, 255);
-  font-size: 18px;
+.bg {
+  background-image: url(http://i58.tinypic.com/i3djxf.png);
+  background-size: 100% auto;
+  background-position: top center;
+  background-repeat: no-repeat;
+  margin-top: 40px;
+  padding-top: 300px;
+  padding-bottom: 15px;
+  background-color: rgb(76, 157, 255);
+  font-size: 21px;
   font-family: arial;
-  padding: 5em 1em 5em;
-  background-attachment: fixed;
-  background-position: 50% 50%;
 }
-
-/* Section Headings */
-.heading-name h1 {
-    font-size: 35px;
-    font-weight: bold;    
-    padding:0 0 .5em 0;
+.run {
+  position: absolute;
+  left: 90px;
+  top: 20px;
+  right: 90px;
+  padding: 10px 10px;
+  text-align: center;
+  background-color: rgba(200, 200, 255, .8);
+  color: rgb(0, 8, 122);
+  font-family: "Oleo Script Swash Caps", latin;
 }
-
-.design-for h1, .features h1, .team h1, .connect a {
-    text-transform: uppercase;
-    font-size: 30px;
-    margin: 12px auto;
+.run:hover {
+  background-color: rgb(210, 210, 255);
+  color: rgb(0, 32, 122);
 }
-
-/* Design Section */
-.design-for {
-    background-color: #48a6f9;
-    padding: 10px 10%;
-    letter-spacing: 1px;
-}
-
-.design-for h1 {
-    color: #fff;
-    border-bottom: 4px solid rgba(255, 255, 255, 0.5);
-}
-
-/* Features Section */
 .features {
-    padding: 10px 10%;
-    letter-spacing: 1px;
-    background-color: #d13360;
+  text-align: center;
+  background-color: rgb(42, 45, 34);
+  color: rgb(255, 200, 255);
+  padding-top: 10px;
+  padding-left: 0;
+  padding-right: 0;
+  padding-bottom: 40px;
+  font-family: 'Questrial', latin;
 }
-
-.features h1 {
-    color: #fff;
-    border-bottom: 4px solid rgba(255, 255, 255, 0.5);
+.author {
+  background-image: url(http://i60.tinypic.com/2eulsbb.jpg);
+  background-size: 100% auto;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-color: rgb(22, 22, 22);
+  padding-top: 250px;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  line-height: 30px;
 }
-
-/* Team Section */
-.team {
-    padding: 10px 10% 75px 10%;
-    letter-spacing: 1px;
-    color: #fff;
-    font-size: 14px;
-}
-
-.team h1 {
-    color: #f7de71;
-    border-bottom: 4px solid rgba(247, 222, 113, 0.3);
-}
-
-.team a {
-    color: #ccc;
-    text-decoration: underline;
-}
-
-.michael {
-    background: url(../img/michael.png) no-repeat top center;
-}
-
-.name {
-    padding-top: 175px;
-    font-size: 26px;
-    font-weight: 300;
-    line-height: 1.38;
-    color: #fff;
-}
-
-.donate {
-  padding: 1em 5em;
-  font-size: 1.5em;
-  font-family: palatino;
-  color: rgba(247, 222, 113, 0.75)!important;
-  background: rgba(74, 67, 37, 0.75);
-  box-shadow: inset 0px 0px 16px rgba(0,0,0,0.7), 0px 0px 60px #38321f;
-  border-radius: 10px;
-  text-decoration: none!important;
-  text-shadow:
-    0px -1px 0px rgba(0,0,0,0.7),
-    0px 1px 0px rgba(247,222,113,0.3);
-}
-
-.donate:hover {
-  color: rgb(247, 222, 113)!important;
-  background: rgb(74, 67, 37);
-  box-shadow: inset 0px 0px 16px rgba(0,0,0,0.7), 0px 0px 60px rgb(74, 67, 37);
-  text-shadow:
-    0px -1px 0px rgba(0,0,0,0.7),
-    0px 1px 0px rgba(247,222,113,0.3);
-}
-
-.donate:active {
-  color: rgba(247, 222, 113, 0.5)!important;
-  background: rgba(74, 67, 37, 0.5);
-  box-shadow: inset 0px 0px 16px rgba(0,0,0,0.7), 0px 0px 60px #1c1a11;
-}
-
-/* Connect Section */
 .connect {
-    position: fixed;
-    bottom: 0; left: 0; right: 0;
-    height: auto;
-    background: rgba(0, 0, 0, 0.75);
-    color: #fff;
-    font-size: 20px;
-    padding: 10px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.75);
+  color: rgb(255, 255, 255);
+  font-size: 20px;
+  padding: 10px;
 }
-
+body {
+  margin: 0;
+  background-color: hsl(233, 100%, 42%);
+  font-size: 16px;
+  font-family: arial;
+}
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.features b, .features strong {
+  margin: 20px 0;
+  font-size: 28px;
+  display: block;
+  font-family: "Orienta", latin;
+  color: rgb(255, 170, 255);
+}
+.download img {
+  width: 100px;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+a, a:hover, a:active, a:focus {
+  outline: 0;
+}
+a {
+  -webkit-transition: all 300ms ease-out;
+     -moz-transition: all 300ms ease-out;
+      -ms-transition: all 300ms ease-out;
+       -o-transition: all 300ms ease-out;
+          transition: all 300ms ease-out;
+}
+.author p {
+  padding-top: 30px;
+  padding-left: 0;
+  padding-right: 0;
+  padding-bottom: 50px;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+.author a {
+  color: rgb(255, 153, 153);
+  font-weight: bold;
+  text-decoration: underline;
+}
+.author a:hover {
+  color: rgb(255, 255, 255);
+}
 .connect a {
-    color: #fff;
-    font-size: 20px;
-    margin: 15px;
-    opacity: 0.5;
-    -webkit-transition: all 300ms ease-out;
-    -moz-transition: all 300ms ease-out;
-    -ms-transition: all 300ms ease-out;
-    -o-transition: all 300ms ease-out;
-    transition: all 300ms ease-out;
+  color: rgb(255, 255, 255);
+  font-size: 20px;
+  margin: 15px;
+  opacity: 0.5;
 }
-
-.connect a:hover { opacity: 1; }
-
+.connect a:hover {
+  opacity: 1;
+}
 .left {
-    float: left;
-    text-align: left!important;
-    width: 110px;
+  float: left;
+  text-align: left;
+  width: 110px;
 }
-
 .right {
-    position: absolute; float: right;
-    top: 10px; bottom: 10px; left: 120px; right: 10px;
-    text-align: right!important;
+  position: absolute;
+  float: right;
+  top: 10px;
+  bottom: 10px;
+  left: 120px;
+  right: 10px;
+  text-align: right;
+}
+.chrome {
+  display: inline-block;
+  width: 18px;
 }
 
-.chrome {
-    display: inline-block;
-    width: 18px;
+@media all and (max-width:800px) {
+  .bg {
+    background-size: auto 500px;
+  }
+  .download img {
+    width: 12%;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+}
+@media all and (max-width:600px) {
+  .author {
+    background-image: url(http://mmd.sourceforge.net/src/michael.png);
+    background-size: 250px 304px;
+    background-position: center center;
+    padding-top: 250px;
+    padding-bottom: 40px;
+    margin-bottom: 0;
+  }
+  .author p {
+    background-color: transparent;
+  }
+  .author a {
+    color: rgb(200, 200, 200);
+    font-weight: bold;
+    text-decoration: underline;
+  }
 }
