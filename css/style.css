@@ -1,7 +1,7 @@
 @import url("fonts.css");
 
 .bg {
-  background-image: url(http://i58.tinypic.com/i3djxf.png);
+  background-image: url(../img/bg.jpg);
   background-size: 100% auto;
   background-position: top center;
   background-repeat: no-repeat;
@@ -38,7 +38,7 @@
   font-family: 'Questrial', latin;
 }
 .author {
-  background-image: url(http://i60.tinypic.com/2eulsbb.jpg);
+  background-image: url(../img/michael.jpg);
   background-size: 100% auto;
   background-position: center center;
   background-repeat: no-repeat;
@@ -146,7 +146,7 @@ a {
 }
 @media all and (max-width:600px) {
   .author {
-    background-image: url(http://mmd.sourceforge.net/src/michael.png);
+    background-image: url(../img/michael.png);
     background-size: 250px 304px;
     background-position: center center;
     padding-top: 250px;
