@@ -6,5 +6,4 @@ You can give it a try at <a href="http://mmd.sourceforge.net/app/">http://mmd.so
 
 License: <a href="http://opensource.org/licenses/MIT">MIT</a>
 
-If MMD was at all helpful for you. Would you consider donating to the project?  
-https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=BSYGA2RB5ZJCC
+If MMD was at all helpful for you. You can show your appreciation by [Donating via SquareCash](https://cash.me/$michaelsboost) and/or [PayPal](https://www.paypal.me/mikethedj4)
